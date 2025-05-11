@@ -11,3 +11,6 @@ offset_right = 1079.0
 offset_bottom = 1094.0
 texture = ExtResource("1_ysqh3")
 expand_mode = 2
+
+[node name="Walls" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(198, 847, 240, 518, 252, 148, 939, 165, 946, 654, 1005, 913, 1035, 1103, 1177, 1099, 1158, -76, -36, -82, -8, 1062, 166, 1064, 170.013, 1036.92, 177.588, 985.785, 198, 848, 198, 846)

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bhsgmj2terok8"]
+
+[node name="Pupil" type="CharacterBody2D"]

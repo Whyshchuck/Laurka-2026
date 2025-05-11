@@ -14,3 +14,42 @@ expand_mode = 2
 
 [node name="Walls" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(198, 847, 240, 518, 252, 148, 939, 165, 946, 654, 1005, 913, 1035, 1103, 1177, 1099, 1158, -76, -36, -82, -8, 1062, 166, 1064, 170.013, 1036.92, 177.588, 985.785, 198, 848, 198, 846)
+
+[node name="Desk1" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(659, 367, 662, 426, 314, 428, 298, 349)
+
+[node name="Desk10" type="CollisionPolygon2D" parent="."]
+position = Vector2(11, -113)
+polygon = PackedVector2Array(659, 367, 664, 422, 306, 415, 298, 349)
+
+[node name="Desk2" type="CollisionPolygon2D" parent="."]
+position = Vector2(-3, 161)
+polygon = PackedVector2Array(663, 375, 674, 449, 314, 428, 298, 349)
+
+[node name="Desk3" type="CollisionPolygon2D" parent="."]
+position = Vector2(-1, 332)
+polygon = PackedVector2Array(729, 371, 729, 447, 314, 428, 298, 349)
+
+[node name="Desk4" type="CollisionPolygon2D" parent="."]
+position = Vector2(461, -124)
+polygon = PackedVector2Array(473, 357, 479, 418, 309, 416, 298, 349)
+
+[node name="Desk5" type="CollisionPolygon2D" parent="."]
+position = Vector2(479, 15)
+polygon = PackedVector2Array(458, 347, 453, 418, 309, 416, 298, 349)
+
+[node name="Desk6" type="CollisionPolygon2D" parent="."]
+position = Vector2(497, 187)
+polygon = PackedVector2Array(473, 357, 464, 420, 294, 431, 298, 349)
+
+[node name="Desk7" type="CollisionPolygon2D" parent="."]
+position = Vector2(507, 366)
+polygon = PackedVector2Array(473, 357, 467, 426, 300, 413, 298, 349)
+
+[node name="Desk8" type="CollisionPolygon2D" parent="."]
+position = Vector2(-65, 501)
+polygon = PackedVector2Array(812, 402, 791, 515, 276, 445, 298, 349)
+
+[node name="Desk9" type="CollisionPolygon2D" parent="."]
+position = Vector2(537, 553)
+polygon = PackedVector2Array(418, 343, 386, 537, 268, 543, 298, 349)

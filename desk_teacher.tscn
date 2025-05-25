@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4003w83to05o"]
+
+[ext_resource type="Texture2D" uid="uid://bj4fg4ffmlmri" path="res://sprites/6.png" id="1_x7rhp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
+size = Vector2(98, 198.5)
+
+[node name="DeskLeft" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -98.0
+offset_top = -156.0
+offset_right = 242.0
+offset_bottom = 355.0
+texture = ExtResource("1_x7rhp")
+expand_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(48, 100.75)
+shape = SubResource("RectangleShape2D_48h1r")

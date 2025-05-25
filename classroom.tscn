@@ -1,55 +1,86 @@
-[gd_scene load_steps=2 format=3 uid="uid://cimihk86uivh"]
+[gd_scene load_steps=9 format=3 uid="uid://cimihk86uivh"]
 
-[ext_resource type="Texture2D" uid="uid://1tguhby0dysx" path="res://sprites/sketch_background.jpg" id="1_ysqh3"]
+[ext_resource type="Texture2D" uid="uid://cj4prb8kklx2l" path="res://sprites/klasa_2.png" id="1_ysqh3"]
+[ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
+[ext_resource type="PackedScene" uid="uid://cbkj76tp5u72n" path="res://desk_center.tscn" id="3_dju2y"]
+[ext_resource type="PackedScene" uid="uid://b4003w83to05o" path="res://desk_teacher.tscn" id="4_5aa18"]
+[ext_resource type="PackedScene" uid="uid://h8ofrdf1a5ix" path="res://desk_right.tscn" id="5_6e7js"]
+[ext_resource type="PackedScene" uid="uid://bhsgmj2terok8" path="res://pupil.tscn" id="6_6e7js"]
+[ext_resource type="Texture2D" uid="uid://b06unagkm4w78" path="res://sprites/Łucja.png" id="7_0hcv4"]
+[ext_resource type="Texture2D" uid="uid://ctv4u6w85a5sp" path="res://sprites/Hania.png" id="8_37esg"]
 
 [node name="Classroom" type="Node2D"]
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -22.0
-offset_top = -80.0
-offset_right = 1079.0
-offset_bottom = 1094.0
+offset_left = -7.0
+offset_top = -54.0
+offset_right = 1080.0
+offset_bottom = 1410.0
 texture = ExtResource("1_ysqh3")
-expand_mode = 2
+expand_mode = 5
 
 [node name="Walls" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(198, 847, 240, 518, 252, 148, 939, 165, 946, 654, 1005, 913, 1035, 1103, 1177, 1099, 1158, -76, -36, -82, -8, 1062, 166, 1064, 170.013, 1036.92, 177.588, 985.785, 198, 848, 198, 846)
+position = Vector2(1481, 292)
+polygon = PackedVector2Array(-1381, -92, -543, -83, -537, 1131, -384, 1127, -389, -354, -1500, -351, -1505, 1133, -1381, 1126)
 
-[node name="Desk1" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(659, 367, 662, 426, 314, 428, 298, 349)
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(537, 496)
 
-[node name="Desk10" type="CollisionPolygon2D" parent="."]
-position = Vector2(11, -113)
-polygon = PackedVector2Array(659, 367, 664, 422, 306, 415, 298, 349)
+[node name="DeskLeft" parent="." instance=ExtResource("2_pq1j3")]
+position = Vector2(74, 446)
 
-[node name="Desk2" type="CollisionPolygon2D" parent="."]
-position = Vector2(-3, 161)
-polygon = PackedVector2Array(663, 375, 674, 449, 314, 428, 298, 349)
+[node name="DeskCenter1" parent="." instance=ExtResource("3_dju2y")]
+position = Vector2(334, 280)
 
-[node name="Desk3" type="CollisionPolygon2D" parent="."]
-position = Vector2(-1, 332)
-polygon = PackedVector2Array(729, 371, 729, 447, 314, 428, 298, 349)
+[node name="DeskCenter2" parent="." instance=ExtResource("3_dju2y")]
+position = Vector2(338, 445)
 
-[node name="Desk4" type="CollisionPolygon2D" parent="."]
-position = Vector2(461, -124)
-polygon = PackedVector2Array(473, 357, 479, 418, 309, 416, 298, 349)
+[node name="DeskCenter3" parent="." instance=ExtResource("3_dju2y")]
+position = Vector2(338, 634)
 
-[node name="Desk5" type="CollisionPolygon2D" parent="."]
-position = Vector2(479, 15)
-polygon = PackedVector2Array(458, 347, 453, 418, 309, 416, 298, 349)
+[node name="DeskCenter4" parent="." instance=ExtResource("3_dju2y")]
+position = Vector2(340, 802)
 
-[node name="Desk6" type="CollisionPolygon2D" parent="."]
-position = Vector2(497, 187)
-polygon = PackedVector2Array(473, 357, 464, 420, 294, 431, 298, 349)
+[node name="DeskCenter5" parent="." instance=ExtResource("3_dju2y")]
+position = Vector2(340, 966)
 
-[node name="Desk7" type="CollisionPolygon2D" parent="."]
-position = Vector2(507, 366)
-polygon = PackedVector2Array(473, 357, 467, 426, 300, 413, 298, 349)
+[node name="DeskLeft3" parent="." instance=ExtResource("2_pq1j3")]
+position = Vector2(74, 637)
 
-[node name="Desk8" type="CollisionPolygon2D" parent="."]
-position = Vector2(-65, 501)
-polygon = PackedVector2Array(812, 402, 791, 515, 276, 445, 298, 349)
+[node name="DeskLeft4" parent="." instance=ExtResource("2_pq1j3")]
+position = Vector2(75, 803)
 
-[node name="Desk9" type="CollisionPolygon2D" parent="."]
-position = Vector2(537, 553)
-polygon = PackedVector2Array(418, 343, 386, 537, 268, 543, 298, 349)
+[node name="DeskLeft2" parent="." instance=ExtResource("4_5aa18")]
+position = Vector2(775, 965)
+
+[node name="DeskRight" parent="." instance=ExtResource("5_6e7js")]
+position = Vector2(781, 284)
+
+[node name="DeskRight2" parent="." instance=ExtResource("5_6e7js")]
+position = Vector2(781, 445)
+
+[node name="DeskRight3" parent="." instance=ExtResource("5_6e7js")]
+position = Vector2(781, 632)
+
+[node name="DeskRight4" parent="." instance=ExtResource("5_6e7js")]
+position = Vector2(782, 808)
+
+[node name="Łucja" parent="." instance=ExtResource("6_6e7js")]
+
+[node name="TextureRect" type="TextureRect" parent="Łucja"]
+offset_left = 236.0
+offset_top = 492.0
+offset_right = 523.0
+offset_bottom = 898.0
+texture = ExtResource("7_0hcv4")
+expand_mode = 1
+
+[node name="Hania" parent="." instance=ExtResource("6_6e7js")]
+
+[node name="TextureRect" type="TextureRect" parent="Hania"]
+offset_left = 405.0
+offset_top = 494.0
+offset_right = 698.0
+offset_bottom = 909.0
+texture = ExtResource("8_37esg")
+expand_mode = 1

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbkj76tp5u72n"]
+
+[ext_resource type="Texture2D" uid="uid://cyvdax5lv11va" path="res://sprites/ławka_podwójna.png" id="1_tkcen"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
+size = Vector2(366, 98.5)
+
+[node name="DeskLeft" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 367.0
+offset_bottom = 101.0
+texture = ExtResource("1_tkcen")
+expand_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(182, 50.75)
+shape = SubResource("RectangleShape2D_48h1r")

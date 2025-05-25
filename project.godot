@@ -24,7 +24,6 @@ window/size/initial_position_type=0
 window/size/borderless=true
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
-window/stretch/scale_mode="integer"
 
 [rendering]
 

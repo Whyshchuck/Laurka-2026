@@ -1,3 +1,15 @@
-[gd_scene format=3 uid="uid://bhsgmj2terok8"]
+[gd_scene load_steps=2 format=3 uid="uid://bhsgmj2terok8"]
+
+[ext_resource type="Script" uid="uid://bejta12oyawod" path="res://pupil.gd" id="1_c32rf"]
 
 [node name="Pupil" type="CharacterBody2D"]
+script = ExtResource("1_c32rf")
+
+[node name="Button" type="Button" parent="."]
+offset_top = 2.0
+offset_right = 25.0
+offset_bottom = 25.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cimihk86uivh"]
+[gd_scene load_steps=10 format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Texture2D" uid="uid://cj4prb8kklx2l" path="res://sprites/klasa_2.png" id="1_ysqh3"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bhsgmj2terok8" path="res://pupil.tscn" id="6_6e7js"]
 [ext_resource type="Texture2D" uid="uid://b06unagkm4w78" path="res://sprites/Łucja.png" id="7_0hcv4"]
 [ext_resource type="Texture2D" uid="uid://ctv4u6w85a5sp" path="res://sprites/Hania.png" id="8_37esg"]
+[ext_resource type="Texture2D" uid="uid://cipd822tql7qn" path="res://sprites/wojtek.png" id="9_0hcv4"]
 
 [node name="Classroom" type="Node2D"]
 
@@ -66,21 +67,34 @@ position = Vector2(781, 632)
 position = Vector2(782, 808)
 
 [node name="Łucja" parent="." instance=ExtResource("6_6e7js")]
+position = Vector2(370, 770)
 
 [node name="TextureRect" type="TextureRect" parent="Łucja"]
-offset_left = 236.0
-offset_top = 492.0
-offset_right = 523.0
-offset_bottom = 898.0
+offset_left = -154.0
+offset_top = -284.0
+offset_right = 133.0
+offset_bottom = 122.0
 texture = ExtResource("7_0hcv4")
 expand_mode = 1
 
 [node name="Hania" parent="." instance=ExtResource("6_6e7js")]
+position = Vector2(457, 773)
 
 [node name="TextureRect" type="TextureRect" parent="Hania"]
-offset_left = 405.0
-offset_top = 494.0
-offset_right = 698.0
-offset_bottom = 909.0
+offset_left = -101.0
+offset_top = -287.0
+offset_right = 192.0
+offset_bottom = 128.0
 texture = ExtResource("8_37esg")
+expand_mode = 1
+
+[node name="Wojtek" parent="." instance=ExtResource("6_6e7js")]
+position = Vector2(565, 764)
+
+[node name="TextureRect" type="TextureRect" parent="Wojtek"]
+offset_left = -114.0
+offset_top = -258.0
+offset_right = 158.0
+offset_bottom = 103.0
+texture = ExtResource("9_0hcv4")
 expand_mode = 1

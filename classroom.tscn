@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cimihk86uivh"]
+[gd_scene load_steps=24 format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="Texture2D" uid="uid://cj4prb8kklx2l" path="res://sprites/klasa_2.png" id="1_ysqh3"]
@@ -17,7 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://ch1ohoyoqnp22" path="res://sprites/milosz.png" id="10_v6oqn"]
 [ext_resource type="Texture2D" uid="uid://c6oxme0eso18l" path="res://sprites/michał.png" id="11_1h0yc"]
 [ext_resource type="Texture2D" uid="uid://jdcq128bhfit" path="res://sprites/piotrek.png" id="12_ct2yb"]
+[ext_resource type="Texture2D" uid="uid://bfclmxorj1r60" path="res://sprites/wiktor.png" id="13_b5xur"]
 [ext_resource type="Texture2D" uid="uid://b6qhjwauxbwgv" path="res://sprites/jasiek.png" id="14_1h0yc"]
+[ext_resource type="Texture2D" uid="uid://d2nbo8v6niqf" path="res://sprites/kazik_r.png" id="14_lqrni"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hcv4"]
 size = Vector2(17, 13)
@@ -235,6 +237,50 @@ metadata/_edit_use_anchors_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Piotrek"]
 
+[node name="Wiktor" parent="Pupils" instance=ExtResource("6_6e7js")]
+y_sort_enabled = true
+position = Vector2(577, 786)
+collision_layer = 1
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Wiktor"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_37esg")
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Wiktor"]
+offset_left = -68.0
+offset_top = -210.0
+offset_right = 225.0
+offset_bottom = 205.0
+scale = Vector2(0.503659, 0.543203)
+texture = ExtResource("13_b5xur")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Wiktor"]
+
+[node name="KazikR" parent="Pupils" instance=ExtResource("6_6e7js")]
+y_sort_enabled = true
+position = Vector2(663, 780)
+collision_layer = 1
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/KazikR"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_37esg")
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/KazikR"]
+offset_left = -68.0
+offset_top = -210.0
+offset_right = 225.0
+offset_bottom = 205.0
+scale = Vector2(0.503659, 0.543203)
+texture = ExtResource("14_lqrni")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/KazikR"]
+
 [node name="Miłosz" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(665, 955)
 collision_layer = 1
@@ -258,7 +304,7 @@ metadata/_edit_use_anchors_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Miłosz"]
 
 [node name="Jasiek" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(665, 955)
+position = Vector2(395, 942)
 collision_layer = 1
 collision_mask = 2
 
@@ -267,10 +313,10 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_37esg")
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Jasiek"]
-offset_left = -328.0
-offset_top = -226.0
-offset_right = -35.0
-offset_bottom = 189.0
+offset_left = -70.0
+offset_top = -224.0
+offset_right = 223.0
+offset_bottom = 191.0
 rotation = 0.000479039
 scale = Vector2(0.457519, 0.584619)
 texture = ExtResource("14_1h0yc")

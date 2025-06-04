@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b06unagkm4w78"
-path="res://.godot/imported/Łucja.png-6a9a0bf687a663171fa9fc68e962f1ca.ctex"
+uid="uid://c3dl22g3yqo4n"
+path="res://.godot/imported/lawka_pojedyncza.png-eca8a1b1dbd9476afca0ccfa778df696.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Łucja.png"
-dest_files=["res://.godot/imported/Łucja.png-6a9a0bf687a663171fa9fc68e962f1ca.ctex"]
+source_file="res://sprites/lawka_pojedyncza.png"
+dest_files=["res://.godot/imported/lawka_pojedyncza.png-eca8a1b1dbd9476afca0ccfa778df696.ctex"]
 
 [params]
 

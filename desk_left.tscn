@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dukp8h5el2gf1"]
 
-[ext_resource type="Texture2D" uid="uid://c3dl22g3yqo4n" path="res://sprites/ławka_pojedyncza.png" id="1_mjx4i"]
+[ext_resource type="Texture2D" uid="uid://c3dl22g3yqo4n" path="res://sprites/lawka_pojedyncza.png" id="1_mjx4i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
 size = Vector2(188, 95.5)

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b4003w83to05o" path="res://desk_teacher.tscn" id="4_5aa18"]
 [ext_resource type="PackedScene" uid="uid://h8ofrdf1a5ix" path="res://desk_right.tscn" id="5_6e7js"]
 [ext_resource type="PackedScene" uid="uid://bhsgmj2terok8" path="res://pupil.tscn" id="6_6e7js"]
-[ext_resource type="Texture2D" uid="uid://b06unagkm4w78" path="res://sprites/Łucja.png" id="7_0hcv4"]
+[ext_resource type="Texture2D" uid="uid://b06unagkm4w78" path="res://sprites/lucja.png" id="7_0hcv4"]
 [ext_resource type="Texture2D" uid="uid://ctv4u6w85a5sp" path="res://sprites/Hania.png" id="8_37esg"]
 [ext_resource type="Texture2D" uid="uid://cipd822tql7qn" path="res://sprites/wojtek.png" id="9_0hcv4"]
 

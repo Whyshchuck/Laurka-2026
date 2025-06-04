@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbkj76tp5u72n"]
 
-[ext_resource type="Texture2D" uid="uid://cyvdax5lv11va" path="res://sprites/ławka_podwójna.png" id="1_tkcen"]
+[ext_resource type="Texture2D" uid="uid://cyvdax5lv11va" path="res://sprites/lawka_podwójna.png" id="1_tkcen"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
 size = Vector2(366, 98.5)

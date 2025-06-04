@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3dl22g3yqo4n"
-path="res://.godot/imported/ławka_pojedyncza.png-73733c45ade3e08ea91ed02c19e51e29.ctex"
+uid="uid://cyvdax5lv11va"
+path="res://.godot/imported/lawka_podwójna.png-c92bb6dd13c9324ea4835e4057dc5328.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ławka_pojedyncza.png"
-dest_files=["res://.godot/imported/ławka_pojedyncza.png-73733c45ade3e08ea91ed02c19e51e29.ctex"]
+source_file="res://sprites/lawka_podwójna.png"
+dest_files=["res://.godot/imported/lawka_podwójna.png-c92bb6dd13c9324ea4835e4057dc5328.ctex"]
 
 [params]
 

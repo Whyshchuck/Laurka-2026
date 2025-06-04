@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cimihk86uivh"]
 
-[ext_resource type="Script" uid="uid://rv3ou8s7myf3" path="res://classroom.gd" id="1_37esg"]
+[ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="Texture2D" uid="uid://cj4prb8kklx2l" path="res://sprites/klasa_2.png" id="1_ysqh3"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
 [ext_resource type="PackedScene" uid="uid://cbkj76tp5u72n" path="res://desk_center.tscn" id="3_dju2y"]
@@ -12,10 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://cipd822tql7qn" path="res://sprites/wojtek.png" id="9_0hcv4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hcv4"]
-size = Vector2(36, 166)
+size = Vector2(17, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37esg"]
-size = Vector2(51, 186)
+size = Vector2(10.375, 10)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0hcv4"]
 vertices = PackedVector2Array(714, 554.25, 770, 552, 927.648, 552, 927.156, 623.5, 770, 623.5, 714, 743.25, 770, 739, 926.383, 739, 925.969, 799.5, 771, 799.5, 716, 792.75, 925.18, 915, 922.063, 1373.93, 882, 1175, 882, 956.5, 764, 956.5, 764, 1175, 716, 1075.25, 716, 956.75, 771, 915, 116.969, 1369.06, 330, 1075.25, 115.813, 910, 272, 910, 330, 956.75, 716, 911.25, 714, 624.75, 714, 435.75, 770, 436.5, 770, 275.5, 770, 391, 710, 389.25, 710, 270.75, 330, 792.75, 328, 743.25, 328, 554.25, 328, 624.75, 928.742, 391, 928.438, 436.5, 328, 435.75, 324, 389.25, 114.023, 213.031, 929.93, 215.961, 929.531, 275.5, 324, 270.75, 271, 437.5, 114.602, 437.5, 271, 553, 271, 628.5, 115.078, 628.5, 114.898, 553, 115.5, 794.5, 115.383, 744, 271, 744, 272, 794.5, 330, 911.25)
@@ -48,7 +48,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Łucja"]
-position = Vector2(10, -76)
+position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_0hcv4")
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Łucja"]
@@ -68,7 +68,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Hania"]
-position = Vector2(16, -83)
+position = Vector2(3.1875, 5)
 shape = SubResource("RectangleShape2D_37esg")
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Hania"]
@@ -83,19 +83,19 @@ metadata/_edit_use_anchors_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Hania"]
 
 [node name="Wojtek" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(146, 293)
+position = Vector2(161, 296)
 collision_layer = 1
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Wojtek"]
-position = Vector2(38, -71)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_37esg")
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Wojtek"]
-offset_left = -101.0
-offset_top = -287.0
-offset_right = 192.0
-offset_bottom = 128.0
+offset_left = -132.0
+offset_top = -309.0
+offset_right = 161.0
+offset_bottom = 106.0
 texture = ExtResource("9_0hcv4")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true

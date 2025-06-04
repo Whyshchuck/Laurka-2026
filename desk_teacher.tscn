@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
 size = Vector2(98, 198.5)
 
-[node name="DeskLeft" type="Node2D"]
+[node name="DeskLeft" type="StaticBody2D"]
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -98.0

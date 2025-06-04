@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cimihk86uivh"]
+[gd_scene load_steps=14 format=3 uid="uid://cimihk86uivh"]
 
+[ext_resource type="Script" uid="uid://rv3ou8s7myf3" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="Texture2D" uid="uid://cj4prb8kklx2l" path="res://sprites/klasa_2.png" id="1_ysqh3"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
 [ext_resource type="PackedScene" uid="uid://cbkj76tp5u72n" path="res://desk_center.tscn" id="3_dju2y"]
@@ -10,7 +11,23 @@
 [ext_resource type="Texture2D" uid="uid://ctv4u6w85a5sp" path="res://sprites/Hania.png" id="8_37esg"]
 [ext_resource type="Texture2D" uid="uid://cipd822tql7qn" path="res://sprites/wojtek.png" id="9_0hcv4"]
 
-[node name="Classroom" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hcv4"]
+size = Vector2(36, 166)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37esg"]
+size = Vector2(51, 186)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_0hcv4"]
+vertices = PackedVector2Array(714, 554.25, 770, 552, 927.648, 552, 927.156, 623.5, 770, 623.5, 714, 743.25, 770, 739, 926.383, 739, 925.969, 799.5, 771, 799.5, 716, 792.75, 925.18, 915, 922.063, 1373.93, 882, 1175, 882, 956.5, 764, 956.5, 764, 1175, 716, 1075.25, 716, 956.75, 771, 915, 116.969, 1369.06, 330, 1075.25, 115.813, 910, 272, 910, 330, 956.75, 716, 911.25, 714, 624.75, 714, 435.75, 770, 436.5, 770, 275.5, 770, 391, 710, 389.25, 710, 270.75, 330, 792.75, 328, 743.25, 328, 554.25, 328, 624.75, 928.742, 391, 928.438, 436.5, 328, 435.75, 324, 389.25, 114.023, 213.031, 929.93, 215.961, 929.531, 275.5, 324, 270.75, 271, 437.5, 114.602, 437.5, 271, 553, 271, 628.5, 115.078, 628.5, 114.898, 553, 115.5, 794.5, 115.383, 744, 271, 744, 272, 794.5, 330, 911.25)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8, 9, 10), PackedInt32Array(11, 12, 13, 14), PackedInt32Array(15, 16, 17, 18), PackedInt32Array(19, 11, 14, 15), PackedInt32Array(13, 12, 20, 16), PackedInt32Array(17, 16, 20, 21), PackedInt32Array(21, 20, 22, 23, 24), PackedInt32Array(25, 9, 19, 15, 18), PackedInt32Array(6, 5, 26, 4), PackedInt32Array(9, 25, 10), PackedInt32Array(1, 0, 27, 28), PackedInt32Array(29, 30, 27, 31, 32), PackedInt32Array(5, 10, 33, 34), PackedInt32Array(35, 0, 4, 26, 36), PackedInt32Array(30, 37, 38, 28, 27), PackedInt32Array(31, 27, 39, 40), PackedInt32Array(41, 42, 43, 29, 32), PackedInt32Array(41, 32, 44), PackedInt32Array(45, 46, 41, 44, 40), PackedInt32Array(45, 40, 39, 35, 47), PackedInt32Array(48, 49, 50, 47, 35, 36), PackedInt32Array(51, 52, 53, 54), PackedInt32Array(53, 48, 36, 34, 54), PackedInt32Array(54, 34, 33, 55, 23), PackedInt32Array(24, 23, 55), PackedInt32Array(24, 55, 25, 18)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(104, 203, 107, 1379, 932, 1384, 940, 206)])
+
+[node name="Classroom" type="StaticBody2D"]
+script = ExtResource("1_37esg")
+
+[node name="Walls" type="CollisionPolygon2D" parent="."]
+position = Vector2(1481, 292)
+polygon = PackedVector2Array(-1381, -92, -543, -83, -541, 1054, -549, 1125, -384, 1127, -389, -354, -1500, -351, -1505, 1133, -548, 1126, -548, 1099, -1375, 1106)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -7.0
@@ -20,81 +37,110 @@ offset_bottom = 1410.0
 texture = ExtResource("1_ysqh3")
 expand_mode = 5
 
-[node name="Walls" type="CollisionPolygon2D" parent="."]
-position = Vector2(1481, 292)
-polygon = PackedVector2Array(-1381, -92, -543, -83, -537, 1131, -384, 1127, -389, -354, -1500, -351, -1505, 1133, -1381, 1126)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(537, 496)
 
-[node name="DeskLeft" parent="." instance=ExtResource("2_pq1j3")]
-position = Vector2(74, 446)
+[node name="Pupils" type="Node" parent="."]
 
-[node name="DeskCenter1" parent="." instance=ExtResource("3_dju2y")]
-position = Vector2(334, 280)
-
-[node name="DeskCenter2" parent="." instance=ExtResource("3_dju2y")]
-position = Vector2(338, 445)
-
-[node name="DeskCenter3" parent="." instance=ExtResource("3_dju2y")]
-position = Vector2(338, 634)
-
-[node name="DeskCenter4" parent="." instance=ExtResource("3_dju2y")]
-position = Vector2(340, 802)
-
-[node name="DeskCenter5" parent="." instance=ExtResource("3_dju2y")]
-position = Vector2(340, 966)
-
-[node name="DeskLeft3" parent="." instance=ExtResource("2_pq1j3")]
-position = Vector2(74, 637)
-
-[node name="DeskLeft4" parent="." instance=ExtResource("2_pq1j3")]
-position = Vector2(75, 803)
-
-[node name="DeskLeft2" parent="." instance=ExtResource("4_5aa18")]
-position = Vector2(775, 965)
-
-[node name="DeskRight" parent="." instance=ExtResource("5_6e7js")]
-position = Vector2(781, 284)
-
-[node name="DeskRight2" parent="." instance=ExtResource("5_6e7js")]
-position = Vector2(781, 445)
-
-[node name="DeskRight3" parent="." instance=ExtResource("5_6e7js")]
-position = Vector2(781, 632)
-
-[node name="DeskRight4" parent="." instance=ExtResource("5_6e7js")]
-position = Vector2(782, 808)
-
-[node name="Łucja" parent="." instance=ExtResource("6_6e7js")]
+[node name="Łucja" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(370, 770)
+collision_layer = 1
+collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Łucja"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Łucja"]
+position = Vector2(10, -76)
+shape = SubResource("RectangleShape2D_0hcv4")
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Łucja"]
 offset_left = -154.0
 offset_top = -284.0
 offset_right = 133.0
 offset_bottom = 122.0
 texture = ExtResource("7_0hcv4")
 expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Hania" parent="." instance=ExtResource("6_6e7js")]
-position = Vector2(457, 773)
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Łucja"]
 
-[node name="TextureRect" type="TextureRect" parent="Hania"]
+[node name="Hania" parent="Pupils" instance=ExtResource("6_6e7js")]
+position = Vector2(606, 932)
+collision_layer = 1
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Hania"]
+position = Vector2(16, -83)
+shape = SubResource("RectangleShape2D_37esg")
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Hania"]
 offset_left = -101.0
 offset_top = -287.0
 offset_right = 192.0
 offset_bottom = 128.0
 texture = ExtResource("8_37esg")
 expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Wojtek" parent="." instance=ExtResource("6_6e7js")]
-position = Vector2(565, 764)
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Hania"]
 
-[node name="TextureRect" type="TextureRect" parent="Wojtek"]
-offset_left = -114.0
-offset_top = -258.0
-offset_right = 158.0
-offset_bottom = 103.0
+[node name="Wojtek" parent="Pupils" instance=ExtResource("6_6e7js")]
+position = Vector2(146, 293)
+collision_layer = 1
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Wojtek"]
+position = Vector2(38, -71)
+shape = SubResource("RectangleShape2D_37esg")
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Wojtek"]
+offset_left = -101.0
+offset_top = -287.0
+offset_right = 192.0
+offset_bottom = 128.0
 texture = ExtResource("9_0hcv4")
 expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Wojtek"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_0hcv4")
+
+[node name="DeskLeft" parent="NavigationRegion2D" instance=ExtResource("2_pq1j3")]
+position = Vector2(74, 446)
+
+[node name="DeskCenter1" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
+position = Vector2(334, 280)
+
+[node name="DeskCenter2" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
+position = Vector2(338, 445)
+
+[node name="DeskCenter3" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
+position = Vector2(338, 634)
+
+[node name="DeskCenter4" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
+position = Vector2(340, 802)
+
+[node name="DeskCenter5" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
+position = Vector2(340, 966)
+
+[node name="DeskLeft3" parent="NavigationRegion2D" instance=ExtResource("2_pq1j3")]
+position = Vector2(74, 637)
+
+[node name="DeskLeft4" parent="NavigationRegion2D" instance=ExtResource("2_pq1j3")]
+position = Vector2(75, 803)
+
+[node name="DeskLeft2" parent="NavigationRegion2D" instance=ExtResource("4_5aa18")]
+position = Vector2(775, 965)
+collision_layer = 2
+
+[node name="DeskRight" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
+position = Vector2(781, 284)
+
+[node name="DeskRight2" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
+position = Vector2(781, 445)
+
+[node name="DeskRight3" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
+position = Vector2(781, 632)
+
+[node name="DeskRight4" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
+position = Vector2(782, 808)

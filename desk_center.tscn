@@ -5,7 +5,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
 size = Vector2(366, 98.5)
 
-[node name="DeskLeft" type="Node2D"]
+[node name="DeskLeft" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 3
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 367.0
@@ -14,5 +16,5 @@ texture = ExtResource("1_tkcen")
 expand_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(182, 50.75)
+position = Vector2(183, 50)
 shape = SubResource("RectangleShape2D_48h1r")

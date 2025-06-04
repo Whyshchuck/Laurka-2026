@@ -50,8 +50,8 @@ func move_along_agent(delta):
 	move_and_slide()
 
 func pick_new_target():
-	var area_min = Vector2(50, 50)
-	var area_max = Vector2(750, 550)
+	var area_min = Vector2(130, 219)
+	var area_max = Vector2(909, 1302)
 
 	for _i in range(20):
 		var random_point = Vector2(

@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://cimihk86uivh"]
 
-[ext_resource type="Script" path="res://classroom.gd" id="1_37esg"]
+[ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="Texture2D" uid="uid://cj4prb8kklx2l" path="res://sprites/klasa_2.png" id="1_ysqh3"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
 [ext_resource type="PackedScene" uid="uid://cbkj76tp5u72n" path="res://desk_center.tscn" id="3_dju2y"]
@@ -67,7 +67,7 @@ metadata/_edit_use_anchors_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Łucja"]
 
 [node name="Hania" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(606, 932)
+position = Vector2(878, 781)
 collision_layer = 1
 collision_mask = 2
 
@@ -87,7 +87,7 @@ metadata/_edit_use_anchors_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Hania"]
 
 [node name="Wojtek" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(161, 296)
+position = Vector2(477, 960)
 collision_layer = 1
 collision_mask = 2
 
@@ -107,7 +107,7 @@ metadata/_edit_use_anchors_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Wojtek"]
 
 [node name="Oliwka" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(425, 418)
+position = Vector2(570, 599)
 collision_layer = 1
 collision_mask = 2
 
@@ -147,7 +147,7 @@ metadata/_edit_use_anchors_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Antek"]
 
 [node name="Krystian" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(229, 596)
+position = Vector2(376, 608)
 collision_layer = 1
 collision_mask = 2
 
@@ -188,7 +188,7 @@ metadata/_edit_use_anchors_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Amelka"]
 
 [node name="Miłosz" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(460, 606)
+position = Vector2(665, 955)
 collision_layer = 1
 collision_mask = 2
 

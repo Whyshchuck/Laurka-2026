@@ -3,13 +3,15 @@
 [ext_resource type="Script" uid="uid://bejta12oyawod" path="res://pupil.gd" id="1_c32rf"]
 
 [node name="Pupil" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_layer = 255
 collision_mask = 255
 script = ExtResource("1_c32rf")
 
 [node name="Button" type="Button" parent="."]
-offset_top = -56.0
+self_modulate = Color(1, 1, 1, 0)
 offset_right = 26.0
-offset_bottom = 10.0
+offset_bottom = 66.0
+scale = Vector2(1.14648, -1.19425)
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

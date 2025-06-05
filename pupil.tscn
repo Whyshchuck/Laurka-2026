@@ -1,15 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhsgmj2terok8"]
+[gd_scene load_steps=3 format=3 uid="uid://bhsgmj2terok8"]
 
 [ext_resource type="Script" uid="uid://bejta12oyawod" path="res://pupil.gd" id="1_c32rf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c32rf"]
+size = Vector2(17, 13)
 
 [node name="Pupil" type="CharacterBody2D"]
 collision_layer = 255
 collision_mask = 255
 script = ExtResource("1_c32rf")
 
-[node name="Button" type="Button" parent="."]
-offset_top = -56.0
-offset_right = 26.0
-offset_bottom = 10.0
+[node name="PupilCollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_c32rf")
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

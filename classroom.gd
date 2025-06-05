@@ -2,11 +2,9 @@ extends Node2D
 
 @export var interval_seconds: float = 1.0
 var timer := 0.0
-var rng := RandomNumberGenerator.new()
 var pupils_node: Node = null
 
 func _ready():
-	rng.randomize()
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
 
 func _process(delta):
@@ -21,10 +19,9 @@ func activate_random_pupil():
 
 	var available_pupils := []
 	for pupil in pupils_node.get_children():
-		# Check that pupil is CharacterBody2D and not locked or returning
-		if pupil is CharacterBody2D and not pupil.locked and not pupil.returning_to_start:
+		if pupil is CharacterBody2D and pupil.is_available():
 			available_pupils.append(pupil)
 
 	if available_pupils.size() > 0:
-		var chosen = available_pupils[rng.randi_range(0, available_pupils.size() - 1)]
+		var chosen = available_pupils.pick_random()
 		chosen.pick_new_target()

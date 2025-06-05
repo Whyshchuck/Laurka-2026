@@ -156,6 +156,7 @@ expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(2, 0)
 navigation_polygon = SubResource("NavigationPolygon_0hcv4")
 

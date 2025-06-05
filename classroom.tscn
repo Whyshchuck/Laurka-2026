@@ -1,6 +1,7 @@
 [gd_scene load_steps=24 format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
+[ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="Texture2D" uid="uid://cj4prb8kklx2l" path="res://sprites/klasa_2.png" id="1_ysqh3"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
 [ext_resource type="PackedScene" uid="uid://cbkj76tp5u72n" path="res://desk_center.tscn" id="3_dju2y"]
@@ -57,10 +58,6 @@ position = Vector2(370, 770)
 collision_layer = 1
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Łucja"]
-position = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_0hcv4")
-
 [node name="TextureRect" type="TextureRect" parent="Pupils/Łucja"]
 offset_left = -154.0
 offset_top = -284.0
@@ -70,16 +67,10 @@ texture = ExtResource("7_0hcv4")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Łucja"]
-
 [node name="Hania" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(878, 781)
 collision_layer = 1
 collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Hania"]
-position = Vector2(3.1875, 5)
-shape = SubResource("RectangleShape2D_37esg")
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Hania"]
 offset_left = -101.0
@@ -90,16 +81,10 @@ texture = ExtResource("8_37esg")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Hania"]
-
 [node name="Wojtek" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(477, 960)
 collision_layer = 1
 collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Wojtek"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_37esg")
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Wojtek"]
 y_sort_enabled = true
@@ -111,16 +96,10 @@ texture = ExtResource("9_0hcv4")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Wojtek"]
-
 [node name="Oliwka" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(570, 599)
 collision_layer = 1
 collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Oliwka"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_37esg")
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Oliwka"]
 offset_left = -132.0
@@ -131,16 +110,10 @@ texture = ExtResource("7_nfkg8")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Oliwka"]
-
 [node name="Antek" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(625, 422)
 collision_layer = 1
 collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Antek"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_37esg")
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Antek"]
 offset_left = -41.0
@@ -152,16 +125,10 @@ texture = ExtResource("8_v6oqn")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Antek"]
-
 [node name="Krystian" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(376, 608)
 collision_layer = 1
 collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Krystian"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_37esg")
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Krystian"]
 offset_left = -118.0
@@ -172,16 +139,10 @@ texture = ExtResource("8_ccl3g")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Krystian"]
-
 [node name="Amelka" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(632, 599)
 collision_layer = 1
 collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Amelka"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_37esg")
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Amelka"]
 offset_left = -72.9999
@@ -286,10 +247,6 @@ position = Vector2(665, 955)
 collision_layer = 1
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pupils/Miłosz"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_37esg")
-
 [node name="TextureRect" type="TextureRect" parent="Pupils/Miłosz"]
 offset_left = -88.0
 offset_top = -249.0
@@ -326,6 +283,8 @@ metadata/_edit_use_anchors_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Pupils/Jasiek"]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(2, 0)
 navigation_polygon = SubResource("NavigationPolygon_0hcv4")
 
 [node name="DeskLeft" parent="NavigationRegion2D" instance=ExtResource("2_pq1j3")]

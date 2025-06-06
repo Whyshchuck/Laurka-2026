@@ -41,7 +41,8 @@ func _physics_process(delta):
 
 	if agent.is_navigation_finished():
 		pick_new_target()
-
+	if Global.current_mode == Global.GameMode.EASY:
+		return
 	move_along_agent(delta)
 
 func move_along_agent(_delta):

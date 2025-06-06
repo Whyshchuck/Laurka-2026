@@ -14,12 +14,16 @@ func _unhandled_input(event):
 
 
 func _process(delta):
+	
+	if Global.current_mode == Global.GameMode.EASY:
+		return
 	timer += delta
 	if timer >= interval_seconds:
 		timer = 0
 		activate_random_pupil()
 
 func activate_random_pupil():
+	
 	if not pupils_node:
 		return
 

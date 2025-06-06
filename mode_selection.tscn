@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://o2ecxyvfexx"]
+
+[ext_resource type="Script" uid="uid://bbhmvlntrs6sj" path="res://mode_selection.gd" id="1_a3mlw"]
+
+[node name="ModeSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_a3mlw")
+
+[node name="EasyModeButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 318.0
+offset_top = 413.0
+offset_right = 495.0
+offset_bottom = 497.0
+text = "Anioły"
+
+[node name="HardModeButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 606.0
+offset_top = 419.0
+offset_right = 761.0
+offset_bottom = 501.0
+text = "Demony"

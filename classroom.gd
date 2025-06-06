@@ -6,6 +6,12 @@ var pupils_node: Node = null
 
 func _ready():
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
+	print("Current mode: ", Global.get_current_mode_name())
+	
+func _unhandled_input(event):
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		get_tree().change_scene_to_file("res://mode_selection.tscn")
+
 
 func _process(delta):
 	timer += delta

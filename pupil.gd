@@ -17,13 +17,20 @@ func _ready():
 	pick_new_target()
 
 func _input(event):
+	
 	if locked or returning_to_start:
 		return
 	if event is InputEventMouseButton and event.pressed:
+		
 		var mouse_pos: Vector2 = get_global_mouse_position()
-		var rect: Rect2 = get_node("TextureRect").get_global_rect()
+		var rect: Rect2 = $TextureRect.get_global_rect()
 		if rect.has_point(mouse_pos):
-			return_to_start()
+			if Global.current_mode == Global.GameMode.EASY:
+				if $AudioStreamPlayer:
+					$AudioStreamPlayer.play()
+			
+			if Global.current_mode == Global.GameMode.HARD:
+				return_to_start()
 
 func _physics_process(delta):
 	if locked:

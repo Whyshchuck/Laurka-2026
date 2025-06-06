@@ -23,14 +23,9 @@ func _ready():
 
 	pick_new_target()
 
-<<<<<<< HEAD
-func _input(event):
-	
-	if locked or returning_to_start:
-=======
+
 func _unhandled_input(event: InputEvent) -> void:
 	if character_state in [CharacterState.LOCKED, CharacterState.RETURNING]:
->>>>>>> 212f4ae4cdeb8f4a969d5842442f7e955974666c
 		return
 		
 	if event is InputEventMouseButton and event.pressed:

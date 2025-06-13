@@ -1,15 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbkj76tp5u72n"]
+[gd_scene load_steps=4 format=3 uid="uid://cbkj76tp5u72n"]
 
 [ext_resource type="Texture2D" uid="uid://cyvdax5lv11va" path="res://sprites/lawka_podwójna.png" id="1_tkcen"]
+[ext_resource type="Texture2D" uid="uid://dgpa0rlgdov47" path="res://sprites/lawka_c.png" id="2_tp4ju"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
 size = Vector2(366, 98.5)
 
 [node name="DeskLeft" type="StaticBody2D"]
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 3
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 offset_right = 367.0
 offset_bottom = 101.0
 texture = ExtResource("1_tkcen")
@@ -18,3 +21,19 @@ expand_mode = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(183, 50)
 shape = SubResource("RectangleShape2D_48h1r")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -36.0
+offset_top = -55.0
+offset_right = 320.0
+offset_bottom = 185.0
+scale = Vector2(0.662677, 0.687075)
+texture = ExtResource("2_tp4ju")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = 147.0
+offset_top = -53.0
+offset_right = 503.0
+offset_bottom = 187.0
+scale = Vector2(0.662677, 0.687075)
+texture = ExtResource("2_tp4ju")

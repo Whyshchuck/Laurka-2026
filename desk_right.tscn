@@ -1,17 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://h8ofrdf1a5ix"]
+[gd_scene load_steps=4 format=3 uid="uid://h8ofrdf1a5ix"]
 
 [ext_resource type="Texture2D" uid="uid://c3dl22g3yqo4n" path="res://sprites/lawka_pojedyncza.png" id="1_mpnmh"]
+[ext_resource type="Texture2D" uid="uid://c40h0ow7eiwx1" path="res://sprites/lawka_r.png" id="2_fnnci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
 size = Vector2(188, 95.5)
 
 [node name="DeskLeft2" type="StaticBody2D"]
+position = Vector2(319, 280)
 collision_layer = 2
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 offset_right = 187.0
 offset_bottom = 96.0
 texture = ExtResource("1_mpnmh")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -29.0
+offset_top = -51.0
+offset_right = 158.0
+offset_bottom = 45.0
+scale = Vector2(1.23387, 1.57287)
+texture = ExtResource("2_fnnci")
 expand_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

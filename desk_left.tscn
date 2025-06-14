@@ -18,6 +18,7 @@ texture = ExtResource("1_mjx4i")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="."]
+z_as_relative = false
 offset_left = -13.0
 offset_top = -63.0
 offset_right = 174.0

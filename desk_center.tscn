@@ -7,7 +7,6 @@
 size = Vector2(366, 98.5)
 
 [node name="DeskLeft" type="StaticBody2D"]
-y_sort_enabled = true
 collision_layer = 2
 collision_mask = 3
 

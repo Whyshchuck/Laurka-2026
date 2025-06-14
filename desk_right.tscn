@@ -18,6 +18,8 @@ texture = ExtResource("1_mpnmh")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 offset_left = -29.0
 offset_top = -51.0
 offset_right = 158.0

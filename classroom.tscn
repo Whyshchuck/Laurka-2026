@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cimihk86uivh"]
+[gd_scene load_steps=40 format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="Texture2D" uid="uid://cj4prb8kklx2l" path="res://sprites/klasa_2.png" id="1_ysqh3"]
@@ -21,14 +21,23 @@
 [ext_resource type="Texture2D" uid="uid://c6oxme0eso18l" path="res://sprites/michał.png" id="11_1h0yc"]
 [ext_resource type="Texture2D" uid="uid://dmj8ih70o5g31" path="res://sprites/nati.png" id="11_770w0"]
 [ext_resource type="AudioStream" uid="uid://bk55lxaown8rf" path="res://audio/amelka.mp3" id="11_lqrni"]
+[ext_resource type="Texture2D" uid="uid://dt7xr3jwogddx" path="res://sprites/krzysiek.png" id="11_qiocc"]
 [ext_resource type="Texture2D" uid="uid://jdcq128bhfit" path="res://sprites/piotrek.png" id="12_ct2yb"]
 [ext_resource type="AudioStream" uid="uid://bbbgp5v3ekqg4" path="res://audio/nati.mp3" id="12_r71ne"]
 [ext_resource type="Texture2D" uid="uid://bfclmxorj1r60" path="res://sprites/wiktor.png" id="13_b5xur"]
 [ext_resource type="Texture2D" uid="uid://b6qhjwauxbwgv" path="res://sprites/jasiek.png" id="14_1h0yc"]
 [ext_resource type="Texture2D" uid="uid://d2nbo8v6niqf" path="res://sprites/kazik_r.png" id="14_lqrni"]
+[ext_resource type="Texture2D" uid="uid://h88w5cr84mrc" path="res://sprites/michal_a.png" id="18_fslkb"]
+[ext_resource type="Texture2D" uid="uid://brqahxg1fatkj" path="res://sprites/maja.png" id="19_7pr0m"]
+[ext_resource type="Texture2D" uid="uid://bs5b6hc0gnehr" path="res://sprites/julek.png" id="20_iyqoq"]
 [ext_resource type="AudioStream" uid="uid://bxjrqikdfk26b" path="res://audio/wiktor.mp3" id="20_wnmoq"]
+[ext_resource type="AudioStream" uid="uid://bhb67wkibgbfl" path="res://audio/julek.mp3" id="22_fl1xt"]
 [ext_resource type="AudioStream" uid="uid://varwfidqqmo6" path="res://audio/milosz.mp3" id="23_1j5ya"]
 [ext_resource type="AudioStream" uid="uid://bgicqsihgsp4g" path="res://audio/jasiek.mp3" id="25_fslkb"]
+[ext_resource type="Texture2D" uid="uid://djlsdcustbcvq" path="res://sprites/anabiya.png" id="25_qiocc"]
+[ext_resource type="Texture2D" uid="uid://r05drsc7qs08" path="res://sprites/kuba.png" id="26_7pr0m"]
+[ext_resource type="Texture2D" uid="uid://bnia17wrcd3gf" path="res://sprites/abrish.png" id="26_fl1xt"]
+[ext_resource type="Texture2D" uid="uid://bf34h0x46b278" path="res://sprites/szymon.png" id="27_onxaf"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0hcv4"]
 vertices = PackedVector2Array(714, 554.25, 770, 552, 927.648, 552, 927.156, 623.5, 770, 623.5, 714, 743.25, 770, 739, 926.383, 739, 925.969, 799.5, 771, 799.5, 716, 792.75, 925.18, 915, 922.063, 1373.93, 882, 1175, 882, 956.5, 764, 956.5, 764, 1175, 716, 1075.25, 716, 956.75, 771, 915, 116.969, 1369.06, 330, 1075.25, 115.813, 910, 272, 910, 330, 956.75, 716, 911.25, 714, 624.75, 714, 435.75, 770, 436.5, 770, 275.5, 770, 391, 710, 389.25, 710, 270.75, 330, 792.75, 328, 743.25, 328, 554.25, 328, 624.75, 928.742, 391, 928.438, 436.5, 328, 435.75, 324, 389.25, 114.023, 213.031, 929.93, 215.961, 929.531, 275.5, 324, 270.75, 271, 437.5, 114.602, 437.5, 271, 553, 271, 628.5, 115.078, 628.5, 114.898, 553, 115.5, 794.5, 115.383, 744, 271, 744, 272, 794.5, 330, 911.25)
@@ -60,16 +69,16 @@ z_as_relative = false
 y_sort_enabled = true
 
 [node name="Łucja" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(360, 740)
+position = Vector2(388, 775)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Łucja"]
 z_as_relative = false
-offset_left = -59.0
-offset_top = -206.0
-offset_right = 228.0
-offset_bottom = 200.0
+offset_left = -88.0
+offset_top = -210.0
+offset_right = 199.0
+offset_bottom = 196.0
 scale = Vector2(0.563777, 0.598144)
 texture = ExtResource("7_0hcv4")
 expand_mode = 1
@@ -82,6 +91,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Hania"]
+z_as_relative = false
 offset_left = -87.0
 offset_top = -248.0
 offset_right = 206.0
@@ -100,6 +110,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Wojtek"]
+z_as_relative = false
 offset_left = -66.0
 offset_top = -246.0
 offset_right = 227.0
@@ -116,6 +127,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Oliwka"]
+z_as_relative = false
 offset_left = -133.569
 offset_top = -411.129
 offset_right = 159.431
@@ -125,7 +137,7 @@ expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Antek" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(388, 581)
+position = Vector2(388, 604)
 collision_layer = 1
 collision_mask = 2
 
@@ -142,6 +154,26 @@ expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Antek"]
+stream = ExtResource("10_w47uv")
+
+[node name="Krzysiek" parent="Pupils" instance=ExtResource("6_6e7js")]
+position = Vector2(182, 803)
+collision_layer = 1
+collision_mask = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Krzysiek"]
+z_as_relative = false
+y_sort_enabled = true
+offset_left = -41.0
+offset_top = -196.0
+offset_right = 252.0
+offset_bottom = 219.0
+scale = Vector2(0.353529, 0.492316)
+texture = ExtResource("11_qiocc")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Krzysiek"]
 stream = ExtResource("10_w47uv")
 
 [node name="Nati" parent="Pupils" instance=ExtResource("6_6e7js")]
@@ -170,6 +202,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Krystian"]
+z_as_relative = false
 offset_left = -54.0
 offset_top = -191.0
 offset_right = 239.0
@@ -188,6 +221,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Amelka"]
+z_as_relative = false
 offset_left = -72.9999
 offset_top = -209.0
 offset_right = 220.0
@@ -206,6 +240,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Michał"]
+z_as_relative = false
 offset_left = -68.0
 offset_top = -210.0
 offset_right = 225.0
@@ -215,12 +250,64 @@ texture = ExtResource("11_1h0yc")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="MichałA" parent="Pupils" instance=ExtResource("6_6e7js")]
+position = Vector2(565, 609)
+collision_layer = 1
+collision_mask = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/MichałA"]
+z_as_relative = false
+offset_left = -68.0
+offset_top = -210.0
+offset_right = 225.0
+offset_bottom = 205.0
+scale = Vector2(0.503659, 0.543203)
+texture = ExtResource("18_fslkb")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Maja" parent="Pupils" instance=ExtResource("6_6e7js")]
+position = Vector2(910, 422)
+collision_layer = 1
+collision_mask = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Maja"]
+z_as_relative = false
+offset_left = -82.9999
+offset_top = -190.0
+offset_right = 210.0
+offset_bottom = 225.0
+scale = Vector2(0.503659, 0.543203)
+texture = ExtResource("19_7pr0m")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Julek" parent="Pupils" instance=ExtResource("6_6e7js")]
+position = Vector2(384, 939)
+collision_layer = 1
+collision_mask = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Julek"]
+z_as_relative = false
+offset_left = -72.9999
+offset_top = -216.0
+offset_right = 220.0
+offset_bottom = 199.0
+scale = Vector2(0.503659, 0.543203)
+texture = ExtResource("20_iyqoq")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Julek"]
+stream = ExtResource("22_fl1xt")
+
 [node name="Piotrek" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(485, 782)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Piotrek"]
+z_as_relative = false
 offset_left = -68.0
 offset_top = -210.0
 offset_right = 225.0
@@ -239,6 +326,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Wiktor"]
+z_as_relative = false
 offset_left = -68.0
 offset_top = -210.0
 offset_right = 225.0
@@ -257,6 +345,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/KazikR"]
+z_as_relative = false
 offset_left = -68.0
 offset_top = -210.0
 offset_right = 225.0
@@ -266,12 +355,77 @@ texture = ExtResource("14_lqrni")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="Anabiya" parent="Pupils" instance=ExtResource("6_6e7js")]
+position = Vector2(856, 614)
+collision_layer = 1
+collision_mask = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Anabiya"]
+z_as_relative = false
+offset_left = -68.0
+offset_top = -210.0
+offset_right = 225.0
+offset_bottom = 205.0
+scale = Vector2(0.643457, 0.618631)
+texture = ExtResource("25_qiocc")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Kuba" parent="Pupils" instance=ExtResource("6_6e7js")]
+position = Vector2(813, 430)
+collision_layer = 1
+collision_mask = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Kuba"]
+z_as_relative = false
+offset_left = -61.0
+offset_top = -194.0
+offset_right = 232.0
+offset_bottom = 221.0
+scale = Vector2(0.459859, 0.539443)
+texture = ExtResource("26_7pr0m")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Abrish" parent="Pupils" instance=ExtResource("6_6e7js")]
+position = Vector2(211, 614)
+collision_layer = 1
+collision_mask = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Abrish"]
+z_as_relative = false
+offset_left = -55.0
+offset_top = -215.0
+offset_right = 238.0
+offset_bottom = 200.0
+scale = Vector2(0.34551, 0.543203)
+texture = ExtResource("26_fl1xt")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Szymon" parent="Pupils" instance=ExtResource("6_6e7js")]
+position = Vector2(583, 940)
+collision_layer = 1
+collision_mask = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pupils/Szymon"]
+z_as_relative = false
+offset_left = -64.0
+offset_top = -240.0
+offset_right = 229.0
+offset_bottom = 175.0
+scale = Vector2(0.499164, 0.684693)
+texture = ExtResource("27_onxaf")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="Miłosz" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(665, 955)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Miłosz"]
+z_as_relative = false
 offset_left = -88.0
 offset_top = -249.0
 offset_right = 205.0
@@ -286,11 +440,12 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("23_1j5ya")
 
 [node name="Jasiek" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(395, 942)
+position = Vector2(211, 430)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Jasiek"]
+z_as_relative = false
 offset_left = -70.0
 offset_top = -224.0
 offset_right = 223.0
@@ -304,55 +459,55 @@ metadata/_edit_use_anchors_ = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Jasiek"]
 stream = ExtResource("25_fslkb")
 
+[node name="DeskCenter3" parent="Pupils" instance=ExtResource("3_dju2y")]
+z_as_relative = false
+position = Vector2(335, 689)
+
+[node name="DeskCenter2" parent="Pupils" instance=ExtResource("3_dju2y")]
+z_as_relative = false
+position = Vector2(338, 503)
+
+[node name="DeskCenter1" parent="Pupils" instance=ExtResource("3_dju2y")]
+z_as_relative = false
+position = Vector2(334, 338)
+
+[node name="DeskCenter4" parent="Pupils" instance=ExtResource("3_dju2y")]
+z_as_relative = false
+position = Vector2(339, 861)
+
+[node name="DeskCenter5" parent="Pupils" instance=ExtResource("3_dju2y")]
+z_as_relative = false
+position = Vector2(340, 1023)
+
+[node name="DeskLeft" parent="Pupils" instance=ExtResource("2_pq1j3")]
+z_as_relative = false
+position = Vector2(69, 489)
+
+[node name="DeskLeft3" parent="Pupils" instance=ExtResource("2_pq1j3")]
+position = Vector2(69, 679)
+
+[node name="DeskLeft4" parent="Pupils" instance=ExtResource("2_pq1j3")]
+position = Vector2(74, 849)
+
+[node name="DeskLeft2" parent="Pupils" instance=ExtResource("4_5aa18")]
+position = Vector2(777, 965)
+collision_layer = 2
+
+[node name="DeskRight" parent="Pupils" instance=ExtResource("5_6e7js")]
+position = Vector2(782, 335)
+
+[node name="DeskRight2" parent="Pupils" instance=ExtResource("5_6e7js")]
+position = Vector2(782, 499)
+
+[node name="DeskRight3" parent="Pupils" instance=ExtResource("5_6e7js")]
+position = Vector2(781, 685)
+
+[node name="DeskRight4" parent="Pupils" instance=ExtResource("5_6e7js")]
+z_as_relative = false
+position = Vector2(782, 858)
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 unique_name_in_owner = true
 y_sort_enabled = true
 position = Vector2(2, 0)
 navigation_polygon = SubResource("NavigationPolygon_0hcv4")
-
-[node name="DeskLeft" parent="NavigationRegion2D" instance=ExtResource("2_pq1j3")]
-z_as_relative = false
-position = Vector2(74, 446)
-
-[node name="DeskCenter1" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(334, 280)
-
-[node name="DeskCenter2" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(338, 445)
-
-[node name="DeskCenter3" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(338, 634)
-
-[node name="DeskCenter4" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(340, 802)
-
-[node name="DeskCenter5" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(340, 966)
-
-[node name="DeskLeft3" parent="NavigationRegion2D" instance=ExtResource("2_pq1j3")]
-position = Vector2(74, 637)
-
-[node name="DeskLeft4" parent="NavigationRegion2D" instance=ExtResource("2_pq1j3")]
-position = Vector2(75, 803)
-
-[node name="DeskLeft2" parent="NavigationRegion2D" instance=ExtResource("4_5aa18")]
-position = Vector2(775, 965)
-collision_layer = 2
-
-[node name="DeskRight" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
-position = Vector2(781, 284)
-
-[node name="DeskRight2" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
-position = Vector2(781, 445)
-
-[node name="DeskRight3" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
-position = Vector2(781, 632)
-
-[node name="DeskRight4" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
-z_as_relative = false
-position = Vector2(782, 808)

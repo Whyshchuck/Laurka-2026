@@ -19,14 +19,14 @@ expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 z_as_relative = false
-offset_left = -13.0
-offset_top = -63.0
-offset_right = 174.0
-offset_bottom = 33.0
+offset_left = -14.0
+offset_top = -105.0
+offset_right = 173.0
+offset_bottom = -9.0
 scale = Vector2(1.26446, 1.67213)
 texture = ExtResource("2_48h1r")
 expand_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(93, 49.25)
+position = Vector2(123, 3)
 shape = SubResource("RectangleShape2D_48h1r")

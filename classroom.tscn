@@ -1,8 +1,8 @@
 [gd_scene load_steps=40 format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
-[ext_resource type="Texture2D" uid="uid://cj4prb8kklx2l" path="res://sprites/klasa_2.png" id="1_ysqh3"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
+[ext_resource type="Texture2D" uid="uid://dn6vyvvih7u2x" path="res://sprites/klasa_2_mini.png" id="2_qiocc"]
 [ext_resource type="PackedScene" uid="uid://cbkj76tp5u72n" path="res://desk_center.tscn" id="3_dju2y"]
 [ext_resource type="PackedScene" uid="uid://b4003w83to05o" path="res://desk_teacher.tscn" id="4_5aa18"]
 [ext_resource type="PackedScene" uid="uid://h8ofrdf1a5ix" path="res://desk_right.tscn" id="5_6e7js"]
@@ -58,11 +58,11 @@ offset_left = -7.0
 offset_top = -54.0
 offset_right = 1080.0
 offset_bottom = 1410.0
-texture = ExtResource("1_ysqh3")
-expand_mode = 5
+texture = ExtResource("2_qiocc")
+expand_mode = 4
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(537, 496)
+position = Vector2(534, 576)
 
 [node name="Pupils" type="Node2D" parent="."]
 z_as_relative = false

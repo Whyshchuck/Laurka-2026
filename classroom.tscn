@@ -157,7 +157,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("10_w47uv")
 
 [node name="Krzysiek" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(182, 803)
+position = Vector2(182, 786)
 collision_layer = 1
 collision_mask = 2
 

@@ -1,8 +1,9 @@
 extends Node2D
 
-@export var interval_seconds: float = 1.0
+@export var interval_seconds: float = 5.0
 var timer := 0.0
 var pupils_node: Node = null
+
 
 func _ready():
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
@@ -17,9 +18,9 @@ func _process(delta):
 	
 	if Global.current_mode == Global.GameMode.EASY:
 		return
+		
 	timer += delta
 	if timer >= interval_seconds:
-		timer = 0
 		activate_random_pupil()
 
 func activate_random_pupil():

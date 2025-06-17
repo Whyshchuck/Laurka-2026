@@ -21,9 +21,6 @@ func _ready():
 	var nav_region: NavigationRegion2D = get_node("/root/Classroom/NavigationRegion2D")
 	nav_map_rid = nav_region.get_navigation_map()
 
-	pick_new_target()
-
-
 func _unhandled_input(event: InputEvent) -> void:
 	if character_state in [CharacterState.LOCKED, CharacterState.RETURNING]:
 		return
@@ -41,6 +38,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				return_to_start()
 
 func _physics_process(delta):
+	if character_state == CharacterState.STOPPED:
+		return
+	
 	z_index = 10+self.position.y
 	if character_state == CharacterState.LOCKED:
 		direction = Vector2.ZERO

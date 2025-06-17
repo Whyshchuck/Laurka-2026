@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dukp8h5el2gf1"]
+[gd_scene load_steps=5 format=3 uid="uid://dukp8h5el2gf1"]
 
 [ext_resource type="Texture2D" uid="uid://c3dl22g3yqo4n" path="res://sprites/lawka_pojedyncza.png" id="1_mjx4i"]
 [ext_resource type="Texture2D" uid="uid://c21wxfvet3kve" path="res://sprites/lawka_l.png" id="2_48h1r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
-size = Vector2(188, 95.5)
+size = Vector2(188, 70.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2p41d"]
+size = Vector2(126.937, 67.75)
 
 [node name="DeskLeft" type="StaticBody2D"]
 collision_layer = 2
@@ -28,5 +31,20 @@ texture = ExtResource("2_48h1r")
 expand_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(123, 3)
+position = Vector2(123, 15.375)
 shape = SubResource("RectangleShape2D_48h1r")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(209, -31)
+scale = Vector2(0.0908363, 0.395082)
+shape = SubResource("RectangleShape2D_2p41d")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(39.4384, -30)
+scale = Vector2(0.182163, 0.395082)
+shape = SubResource("RectangleShape2D_2p41d")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(132, -32)
+scale = Vector2(0.339343, 0.382746)
+shape = SubResource("RectangleShape2D_2p41d")

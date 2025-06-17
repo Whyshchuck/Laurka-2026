@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg7xnstlx2ge1"]
+
+[ext_resource type="Script" uid="uid://clykdq173tdkn" path="res://countdown.gd" id="1_ep8tu"]
+
+[node name="Countdown" type="Node2D"]
+script = ExtResource("1_ep8tu")
+
+[node name="CountdownTimer" type="Timer" parent="."]
+
+[node name="CountdownLabel" type="Label" parent="."]
+modulate = Color(0.67275, 0.0153984, 0.272909, 1)
+top_level = true
+z_index = 4096
+offset_left = -1.0
+offset_top = 6.0
+offset_right = 68.0
+offset_bottom = 53.0
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1

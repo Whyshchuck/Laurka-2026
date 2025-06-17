@@ -41,7 +41,7 @@ func _physics_process(delta):
 	if character_state == CharacterState.STOPPED:
 		return
 	
-	z_index = 10+self.position.y
+	#z_index = 10+self.position.y
 	if character_state == CharacterState.LOCKED:
 		direction = Vector2.ZERO
 		global_position = start_position

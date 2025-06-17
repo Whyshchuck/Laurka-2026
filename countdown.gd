@@ -3,7 +3,7 @@ extends Node2D
 @onready var label = $CountdownLabel
 @onready var timer = $CountdownTimer
 
-var current_count = 5
+@export var current_count: int = 5
 var zoom_duration = 0.8
 
 func _ready():
@@ -22,6 +22,10 @@ func _on_Timer_timeout():
 	if current_count == 0:
 		timer.stop()
 		label.hide()
+		var parent = get_parent()
+		# Call a function defined in the parent's script
+		if parent.has_method("activate_pupils"):
+			parent.activate_pupils()
 	else:
 		label.text = str(current_count)
 		label.scale = Vector2(1, 1)

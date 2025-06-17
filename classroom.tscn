@@ -72,7 +72,7 @@ offset_left = -7.0
 offset_top = -54.0
 offset_right = 1080.0
 offset_bottom = 1410.0
-scale = Vector2(0.996595, 0.836688)
+scale = Vector2(0.993284, 0.831165)
 texture = ExtResource("3_i34hi")
 expand_mode = 4
 
@@ -474,97 +474,77 @@ metadata/_edit_use_anchors_ = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Jasiek"]
 stream = ExtResource("25_fslkb")
 
+[node name="DeskCenter3" parent="Pupils" instance=ExtResource("3_dju2y")]
+z_as_relative = false
+position = Vector2(335, 689)
+
+[node name="DeskCenter2" parent="Pupils" instance=ExtResource("3_dju2y")]
+z_as_relative = false
+position = Vector2(338, 503)
+
+[node name="DeskCenter1" parent="Pupils" instance=ExtResource("3_dju2y")]
+z_as_relative = false
+position = Vector2(334, 338)
+
+[node name="DeskCenter4" parent="Pupils" instance=ExtResource("3_dju2y")]
+z_as_relative = false
+position = Vector2(339, 861)
+
+[node name="DeskCenter5" parent="Pupils" instance=ExtResource("3_dju2y")]
+z_as_relative = false
+position = Vector2(340, 1023)
+
+[node name="DeskLeft" parent="Pupils" instance=ExtResource("2_pq1j3")]
+z_as_relative = false
+position = Vector2(69, 489)
+
+[node name="DeskLeft3" parent="Pupils" instance=ExtResource("2_pq1j3")]
+position = Vector2(69, 679)
+
+[node name="DeskLeft4" parent="Pupils" instance=ExtResource("2_pq1j3")]
+position = Vector2(74, 849)
+
+[node name="DeskLeft2" parent="Pupils" instance=ExtResource("4_5aa18")]
+position = Vector2(777, 965)
+collision_layer = 2
+
+[node name="DeskRight" parent="Pupils" instance=ExtResource("5_6e7js")]
+position = Vector2(782, 335)
+
+[node name="DeskRight2" parent="Pupils" instance=ExtResource("5_6e7js")]
+position = Vector2(782, 499)
+
+[node name="DeskRight3" parent="Pupils" instance=ExtResource("5_6e7js")]
+position = Vector2(781, 685)
+
+[node name="DeskRight4" parent="Pupils" instance=ExtResource("5_6e7js")]
+z_as_relative = false
+position = Vector2(782, 858)
+
+[node name="ChairRight1" parent="Pupils" instance=ExtResource("39_fl1xt")]
+position = Vector2(777, 589)
+
+[node name="ChairRight2" parent="Pupils" instance=ExtResource("39_fl1xt")]
+position = Vector2(777, 762)
+
+[node name="ChairRight3" parent="Pupils" instance=ExtResource("39_fl1xt")]
+position = Vector2(776, 239)
+
+[node name="ChairRight4" parent="Pupils" instance=ExtResource("39_fl1xt")]
+position = Vector2(772, 398)
+
+[node name="ChairLeft1" parent="Pupils" instance=ExtResource("40_onxaf")]
+position = Vector2(94, 754)
+
+[node name="ChairLeft2" parent="Pupils" instance=ExtResource("40_onxaf")]
+position = Vector2(89, 586)
+
+[node name="ChairLeft3" parent="Pupils" instance=ExtResource("40_onxaf")]
+position = Vector2(81, 398)
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 unique_name_in_owner = true
 y_sort_enabled = true
 position = Vector2(2, 0)
 scale = Vector2(1.00378, 0.843547)
 navigation_polygon = SubResource("NavigationPolygon_0hcv4")
-
-[node name="DeskCenter3" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(331.747, 816.789)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskCenter2" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(334.736, 596.292)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskCenter1" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(330.751, 400.689)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskCenter4" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(335.732, 1020.69)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskCenter5" parent="NavigationRegion2D" instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(336.728, 1212.74)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskLeft" parent="NavigationRegion2D" instance=ExtResource("2_pq1j3")]
-z_as_relative = false
-position = Vector2(66.7479, 579.695)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskLeft3" parent="NavigationRegion2D" instance=ExtResource("2_pq1j3")]
-position = Vector2(66.7479, 804.935)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskLeft4" parent="NavigationRegion2D" instance=ExtResource("2_pq1j3")]
-position = Vector2(71.7291, 1006.46)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskLeft2" parent="NavigationRegion2D" instance=ExtResource("4_5aa18")]
-position = Vector2(772.084, 1143.98)
-scale = Vector2(0.996238, 1.18547)
-collision_layer = 2
-
-[node name="DeskRight" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
-position = Vector2(777.066, 397.133)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskRight2" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
-position = Vector2(777.066, 591.55)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskRight3" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
-position = Vector2(776.069, 812.047)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="DeskRight4" parent="NavigationRegion2D" instance=ExtResource("5_6e7js")]
-z_as_relative = false
-position = Vector2(777.066, 1017.13)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="ChairRight1" parent="NavigationRegion2D" instance=ExtResource("39_fl1xt")]
-position = Vector2(772.084, 698.242)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="ChairRight2" parent="NavigationRegion2D" instance=ExtResource("39_fl1xt")]
-position = Vector2(772.084, 903.329)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="ChairRight3" parent="NavigationRegion2D" instance=ExtResource("39_fl1xt")]
-position = Vector2(771.088, 283.327)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="ChairRight4" parent="NavigationRegion2D" instance=ExtResource("39_fl1xt")]
-position = Vector2(767.103, 471.817)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="ChairLeft1" parent="NavigationRegion2D" instance=ExtResource("40_onxaf")]
-position = Vector2(91.6539, 893.845)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="ChairLeft2" parent="NavigationRegion2D" instance=ExtResource("40_onxaf")]
-position = Vector2(86.6727, 694.686)
-scale = Vector2(0.996238, 1.18547)
-
-[node name="ChairLeft3" parent="NavigationRegion2D" instance=ExtResource("40_onxaf")]
-position = Vector2(78.7028, 471.817)
-scale = Vector2(0.996238, 1.18547)

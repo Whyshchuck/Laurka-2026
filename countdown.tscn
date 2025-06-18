@@ -4,7 +4,6 @@
 
 [node name="Countdown" type="Node2D"]
 script = ExtResource("1_ep8tu")
-current_count = 7
 
 [node name="CountdownTimer" type="Timer" parent="."]
 

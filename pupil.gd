@@ -15,11 +15,17 @@ var direction := Vector2.ZERO
 var start_position := Vector2.ZERO
 var nav_map_rid: RID
 @onready var agent := $NavigationAgent2D
+@onready var respawn_timer : Timer= $RespawnTimer
+@onready var texture_rect : TextureRect = $TextureRect
+
+var normal_colour := Color(1, 1, 1, 1)
+var respawning_colour := Color(1, 0.3, 0.3, 1)
 
 func _ready():
 	start_position = global_position
 	var nav_region: NavigationRegion2D = get_node("/root/Classroom/NavigationRegion2D")
 	nav_map_rid = nav_region.get_navigation_map()
+	respawn_timer.timeout.connect(_on_respawn_timer_timeout)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if character_state in [CharacterState.LOCKED, CharacterState.RETURNING]:
@@ -52,6 +58,7 @@ func _physics_process(delta):
 		if global_position.distance_to(start_position) < 5:
 			character_state = CharacterState.LOCKED
 			direction = Vector2.ZERO
+			respawn_timer.start()
 		return
 
 	if agent.is_navigation_finished():
@@ -77,3 +84,14 @@ func return_to_start():
 func is_available() -> bool:
 	"""Check that pupil is not locked or returning"""
 	return character_state == CharacterState.STOPPED
+
+func _on_respawn_timer_timeout():
+	if character_state == CharacterState.LOCKED:
+		blink()
+		await get_tree().create_timer(1.0).timeout  # Wait for blink to finish
+		pick_new_target()
+
+func blink():
+	var tween := create_tween()
+	tween.tween_property(texture_rect, "modulate", respawning_colour, 0.3)
+	tween.tween_property(texture_rect, "modulate", normal_colour, 0.3)

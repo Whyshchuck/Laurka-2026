@@ -32,7 +32,7 @@ func _on_Timer_timeout():
 		label.modulate.a = 1.0
 		center_label()
 		animate_number()
-	print(current_count)
+	
 func animate_number():
 	var tween = create_tween()
 	tween.tween_property(label, "scale", Vector2(20, 20), zoom_duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
@@ -40,4 +40,3 @@ func animate_number():
 
 func center_label():
 	label.position = get_viewport_rect().size / 2
-	print(label.position)

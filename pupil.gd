@@ -85,6 +85,10 @@ func is_available() -> bool:
 	"""Check that pupil is not locked or returning"""
 	return character_state == CharacterState.STOPPED
 
+func is_moving() -> bool:
+	"""Check that pupil is not locked or returning"""
+	return character_state == CharacterState.MOVING
+
 func _on_respawn_timer_timeout():
 	if character_state == CharacterState.LOCKED:
 		blink()

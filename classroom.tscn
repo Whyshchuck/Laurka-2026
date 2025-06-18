@@ -570,12 +570,25 @@ position = Vector2(497, 414)
 [node name="ChairCenter9" parent="Pupils" instance=ExtResource("42_t5pko")]
 position = Vector2(313, 243)
 
-[node name="ChairCenter10" parent="Pupils" instance=ExtResource("42_t5pko")]
-position = Vector2(496, 245)
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 unique_name_in_owner = true
 y_sort_enabled = true
 position = Vector2(2, 0)
 scale = Vector2(1.00378, 0.843547)
 navigation_polygon = SubResource("NavigationPolygon_0hcv4")
+
+[node name="StatusTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="ChairCenter10" parent="StatusTimer" instance=ExtResource("42_t5pko")]
+position = Vector2(496, 245)
+
+[node name="MovingPupilsCounter" type="Label" parent="."]
+z_index = 500
+offset_left = 900.0
+offset_top = 61.0
+offset_right = 901.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0.996078, 1)
+theme_override_font_sizes/font_size = 30

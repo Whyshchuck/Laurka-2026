@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4003w83to05o"]
+[gd_scene load_steps=4 format=3 uid="uid://b4003w83to05o"]
 
 [ext_resource type="Texture2D" uid="uid://bj4fg4ffmlmri" path="res://sprites/6.png" id="1_x7rhp"]
+[ext_resource type="Texture2D" uid="uid://lilt5ea7uhpx" path="res://sprites/szafka p kamili.png" id="2_dixed"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
 size = Vector2(98, 198.5)
@@ -18,3 +19,16 @@ expand_mode = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(48, 100.75)
 shape = SubResource("RectangleShape2D_48h1r")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-34, 165)
+scale = Vector2(0.610919, -0.349356)
+shape = SubResource("RectangleShape2D_48h1r")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -70.0
+offset_top = 120.0
+offset_right = 454.0
+offset_bottom = 641.0
+scale = Vector2(0.148883, 0.172932)
+texture = ExtResource("2_dixed")

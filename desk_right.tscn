@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c40h0ow7eiwx1" path="res://sprites/lawka_r.png" id="2_fnnci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
-size = Vector2(188, 95.5)
+size = Vector2(188, 67.75)
 
 [node name="DeskLeft2" type="StaticBody2D"]
 position = Vector2(319, 280)
@@ -29,5 +29,20 @@ texture = ExtResource("2_fnnci")
 expand_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(92, 2)
+position = Vector2(93, 15.875)
+shape = SubResource("RectangleShape2D_48h1r")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(6.00001, -27)
+scale = Vector2(0.0908363, 0.395082)
+shape = SubResource("RectangleShape2D_48h1r")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(170, -26)
+scale = Vector2(0.182163, 0.395082)
+shape = SubResource("RectangleShape2D_48h1r")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(86, -29)
+scale = Vector2(0.339343, 0.382746)
 shape = SubResource("RectangleShape2D_48h1r")

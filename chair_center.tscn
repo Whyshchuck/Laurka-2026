@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfccb6pthyp8h"]
+
+[ext_resource type="Texture2D" uid="uid://c3dl22g3yqo4n" path="res://sprites/lawka_pojedyncza.png" id="1_y4udp"]
+[ext_resource type="Texture2D" uid="uid://ccto738ig3ica" path="res://sprites/krzesło_c.png" id="2_y4udp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_48h1r"]
+size = Vector2(152.219, 67.75)
+
+[node name="DeskLeft2" type="StaticBody2D"]
+position = Vector2(319, 280)
+collision_layer = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+offset_right = 187.0
+offset_bottom = 96.0
+texture = ExtResource("1_y4udp")
+expand_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+offset_left = 9.0
+offset_top = -80.0
+offset_right = 196.0
+offset_bottom = 16.0
+scale = Vector2(0.53525, 1.15839)
+texture = ExtResource("2_y4udp")
+expand_mode = 1
+
+[node name="TextureRect7" type="TextureRect" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+offset_left = 102.0
+offset_top = -80.0
+offset_right = 289.0
+offset_bottom = 16.0
+scale = Vector2(0.53525, 1.15839)
+texture = ExtResource("2_y4udp")
+expand_mode = 1
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(60.5, 10)
+scale = Vector2(0.37446, 0.570829)
+shape = SubResource("RectangleShape2D_48h1r")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(155, 9)
+scale = Vector2(0.334881, 0.585454)
+shape = SubResource("RectangleShape2D_48h1r")

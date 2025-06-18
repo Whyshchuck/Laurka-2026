@@ -13,17 +13,6 @@ size = Vector2(126.937, 67.75)
 collision_layer = 2
 collision_mask = 3
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-offset_right = 367.0
-offset_bottom = 101.0
-texture = ExtResource("1_tkcen")
-expand_mode = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(185, 8.125)
-shape = SubResource("RectangleShape2D_48h1r")
-
 [node name="TextureRect2" type="TextureRect" parent="."]
 offset_left = -37.0
 offset_top = -116.0
@@ -39,6 +28,19 @@ offset_right = 502.0
 offset_bottom = 127.0
 scale = Vector2(0.662677, 0.687075)
 texture = ExtResource("2_tp4ju")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(185, 8.125)
+shape = SubResource("RectangleShape2D_48h1r")
+
+[node name="TextureRect" type="TextureRect" parent="CollisionShape2D"]
+visible = false
+offset_left = -185.0
+offset_top = -8.125
+offset_right = 182.0
+offset_bottom = 92.875
+texture = ExtResource("1_tkcen")
+expand_mode = 1
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(183.562, -37)

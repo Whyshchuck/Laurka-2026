@@ -22,3 +22,6 @@ offset_top = 419.0
 offset_right = 761.0
 offset_bottom = 501.0
 text = "Demony"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(558, 452)

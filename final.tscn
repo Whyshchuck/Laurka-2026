@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckm3cywirkd4i"]
+
+[ext_resource type="Script" uid="uid://dxdwcilhbbhxh" path="res://final.gd" id="1_h0aww"]
+
+[node name="Final" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_h0aww")
+
+[node name="RestartButton" type="Button" parent="."]
+offset_left = 336.0
+offset_top = 510.0
+offset_right = 784.0
+offset_bottom = 594.0
+text = "Zagraj ponownie"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(558, 452)

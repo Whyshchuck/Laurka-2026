@@ -12,8 +12,8 @@ enum CharacterState {
 
 const COLOUR_NORMAL := Color(1, 1, 1, 1)
 const COLOUR_RESPAWN := Color(1, 0.3, 0.3, 1)
-const COLOUR_YELLOW := Color(0.822, 0.556, 0.313)
-const COLOUR_BLUE := Color(0.326, 0.532, 1.0)
+const COLOUR_CANCEL_RESPAWN := Color(0, 1, 0, 1)
+const COLOUR_LOCKED := Color(0.326, 0.532, 1.0, 1)
 
 const RESPAWN_TIMEOUT := 4
 const MAX_RESPAWN_COUNT := 3
@@ -97,7 +97,7 @@ func enter_locked_state():
 	start_respawn_timer()
 
 	if respawn_count > MAX_RESPAWN_COUNT:
-		texture_rect.modulate = COLOUR_BLUE
+		texture_rect.modulate = COLOUR_LOCKED
 
 func start_respawn_timer():
 	respawn_timer.start(RESPAWN_TIMEOUT + respawn_count)
@@ -111,21 +111,22 @@ func cancel_respawn():
 	respawn_timer.stop()
 	character_state = CharacterState.LOCKED
 	if respawn_count >= MAX_RESPAWN_COUNT:
-		texture_rect.modulate = COLOUR_BLUE
+		texture_rect.modulate = COLOUR_LOCKED
 	else:
-		blink(COLOUR_YELLOW)
+		blink(COLOUR_CANCEL_RESPAWN, 0, 0.5)
+		await get_tree().create_timer(0.5).timeout
 		start_respawn_timer()
 
 func _on_respawn_timer_timeout():
 	if character_state == CharacterState.LOCKED and respawn_count <= MAX_RESPAWN_COUNT:
 		character_state = CharacterState.RESPAWNING
-		blink(COLOUR_RESPAWN)
-		await get_tree().create_timer(1.3).timeout
+		blink(COLOUR_RESPAWN, 1, 0)
+		await get_tree().create_timer(1).timeout
 
 		if character_state == CharacterState.RESPAWNING:
 			pick_new_target()
 	elif respawn_count > MAX_RESPAWN_COUNT:
-		texture_rect.modulate = COLOUR_BLUE
+		texture_rect.modulate = COLOUR_LOCKED
 
 func blink(highlight_colour: Color, fade_in: float = 0.3, fade_out: float = 0.3):
 	if blink_tween and blink_tween.is_running():
@@ -135,6 +136,7 @@ func blink(highlight_colour: Color, fade_in: float = 0.3, fade_out: float = 0.3)
 	blink_tween = create_tween()
 	blink_tween.tween_property(texture_rect, "modulate", highlight_colour, fade_in)
 	blink_tween.tween_property(texture_rect, "modulate", COLOUR_NORMAL, fade_out)
+
 
 func is_available() -> bool:
 	return character_state == CharacterState.READY

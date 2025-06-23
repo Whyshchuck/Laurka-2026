@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://cimihk86uivh"]
+[gd_scene load_steps=57 format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://h8ofrdf1a5ix" path="res://desk_right.tscn" id="5_6e7js"]
 [ext_resource type="PackedScene" uid="uid://bhsgmj2terok8" path="res://pupil.tscn" id="6_6e7js"]
 [ext_resource type="AudioStream" uid="uid://ktr6d81f3f64" path="res://audio/hania.mp3" id="6_47w1q"]
+[ext_resource type="AudioStream" uid="uid://b72kptqtaxs1b" path="res://audio/lucja.mp3" id="6_l8q0k"]
 [ext_resource type="Texture2D" uid="uid://b06unagkm4w78" path="res://sprites/lucja.png" id="7_0hcv4"]
 [ext_resource type="Texture2D" uid="uid://ck4jx7a6vleda" path="res://sprites/oliwka.png" id="7_nfkg8"]
 [ext_resource type="Texture2D" uid="uid://ctv4u6w85a5sp" path="res://sprites/Hania.png" id="8_37esg"]
@@ -50,7 +51,9 @@
 [ext_resource type="AudioStream" uid="uid://bgjdev8tjxuds" path="res://audio/kazik_l.mp3" id="36_5qgbj"]
 [ext_resource type="AudioStream" uid="uid://d2a57uiiq50cp" path="res://audio/anabiya.mp3" id="38_shilq"]
 [ext_resource type="PackedScene" uid="uid://dswt0hq0h0a1i" path="res://chair_right.tscn" id="39_fl1xt"]
+[ext_resource type="AudioStream" uid="uid://c6d1ynikvb2b5" path="res://audio/kuba.mp3" id="40_12wbt"]
 [ext_resource type="PackedScene" uid="uid://bx3shxyyv5dbd" path="res://chair_left.tscn" id="40_onxaf"]
+[ext_resource type="AudioStream" uid="uid://bu0teu0p8y3sd" path="res://audio/abrish.mp3" id="41_dtuxj"]
 [ext_resource type="PackedScene" uid="uid://dfccb6pthyp8h" path="res://chair_center.tscn" id="42_t5pko"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0hcv4"]
@@ -63,6 +66,7 @@ agent_radius = 5.0
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_37esg")
+metadata/_edit_vertical_guides_ = [389.0]
 
 [node name="Walls" type="CollisionPolygon2D" parent="."]
 position = Vector2(1481, 292)
@@ -109,6 +113,9 @@ scale = Vector2(0.563777, 0.598144)
 texture = ExtResource("7_0hcv4")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Łucja"]
+stream = ExtResource("6_l8q0k")
 
 [node name="Hania" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(918, 825)
@@ -397,7 +404,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("34_mh7vt")
 
 [node name="KazikL" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(375, 985)
+position = Vector2(389, 988)
 collision_layer = 1
 collision_mask = 2
 
@@ -451,6 +458,7 @@ expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Kuba"]
+stream = ExtResource("40_12wbt")
 
 [node name="Abrish" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(138, 651)
@@ -467,6 +475,9 @@ scale = Vector2(0.34551, 0.543203)
 texture = ExtResource("26_fl1xt")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Abrish"]
+stream = ExtResource("41_dtuxj")
 
 [node name="Szymon" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(563, 825)

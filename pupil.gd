@@ -45,15 +45,19 @@ func _unhandled_input(event: InputEvent) -> void:
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	if texture_rect.get_global_rect().has_point(mouse_pos):
 		match Global.current_mode:
-			Global.GameMode.EASY:
-				if $AudioStreamPlayer:
-					$AudioStreamPlayer.play()
-
 			Global.GameMode.HARD:
 				if character_state == CharacterState.RESPAWNING:
 					cancel_respawn()
 				else:
 					return_to_start()
+				
+func on_click():
+	match Global.current_mode:
+		Global.GameMode.EASY:
+			if $AudioStreamPlayer:
+				$AudioStreamPlayer.play()
+
+		
 
 func _physics_process(delta):
 	if character_state in [CharacterState.READY, CharacterState.RESPAWNING]:

@@ -35,6 +35,28 @@ func _unhandled_input(event):
 	
 	if game_started and moving_count == 0:
 		Global.go_to_final_scene()
+	
+
+	if not (event is InputEventMouseButton and event.pressed):
+		return
+
+	var mouse_pos = get_global_mouse_position()
+	var clicked_characters := []
+
+	for node in $Pupils.get_children():
+		if node is CharacterBody2D and node.texture_rect.get_global_rect().has_point(mouse_pos):
+			clicked_characters.append(node)
+
+	if clicked_characters.is_empty():
+		return
+
+	# Sortuj po z_index malejąco (czyli najwyższy na początku)
+	clicked_characters.sort_custom(func(a, b): return a.position.y > b.position.y)
+	print(clicked_characters)
+	var top_character = clicked_characters[0]
+	
+	top_character.on_click()
+	
 
 func activate_pupils():
 	status_timer.start()

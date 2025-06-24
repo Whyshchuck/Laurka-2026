@@ -7,6 +7,7 @@ extends Node2D
 var zoom_duration = 0.8
 
 func _ready():
+	
 	label.text = str(current_count)
 	label.scale = Vector2(1, 1)
 	label.modulate.a = 1.0
@@ -39,4 +40,4 @@ func animate_number():
 	tween.parallel().tween_property(label, "modulate:a", 0.0, zoom_duration)
 
 func center_label():
-	label.position = get_viewport_rect().size / 2
+	label.position = self.get_parent().get_node("TextureRect2").size / 2

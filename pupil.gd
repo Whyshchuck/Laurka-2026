@@ -115,7 +115,7 @@ func cancel_respawn():
 	respawn_timer.stop()
 	character_state = CharacterState.LOCKED
 	if respawn_count >= MAX_RESPAWN_COUNT:
-		texture_rect.modulate = COLOUR_LOCKED
+		blink(COLOUR_LOCKED, 0, 0.5)
 	else:
 		blink(COLOUR_CANCEL_RESPAWN, 0, 0.5)
 		await get_tree().create_timer(0.5).timeout

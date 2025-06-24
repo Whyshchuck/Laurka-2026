@@ -7,7 +7,7 @@ extends Node2D
 var game_started := false
 
 var total_pupils := 0
-var moving_count := 0
+var sitting_count := 0
 func _ready():
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
 	print("Current mode: ", Global.get_current_mode_name())
@@ -33,7 +33,7 @@ func _unhandled_input(event):
 			KEY_0:
 				Global.go_to_final_scene()
 	
-	if game_started and moving_count == 0:
+	if game_started and sitting_count == 24:
 		Global.go_to_final_scene()
 	
 
@@ -72,13 +72,13 @@ func update_moving_pupil_count():
 	if not pupils_node:
 		return
 	
-	moving_count = 0
+	sitting_count = 24
 
 	for pupil in pupils_node.get_children():
 		if pupil is CharacterBody2D and pupil.is_moving():
-			moving_count += 1
+			sitting_count -= 1
 
-	var status_text := "Aktywni uczniowie: %d / %d" % [moving_count, total_pupils]
+	var status_text := "Uczniowie na miejscach: %d / %d" % [sitting_count, total_pupils]
 	
 	moving_pupils_counter.text = status_text
 	

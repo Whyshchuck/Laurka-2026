@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmeeekiqkxg6x"]
+[gd_scene load_steps=2 format=3 uid="uid://cjsptal7n5khq"]
 
-[ext_resource type="Script" uid="uid://do25mcrv6fd57" path="res://fade_layer.gd" id="1_jy74b"]
+[ext_resource type="Script" path="res://fade_layer.gd" id="1_jy74b"]
 
 [node name="FadeLayer" type="CanvasLayer"]
 script = ExtResource("1_jy74b")
@@ -8,5 +8,5 @@ script = ExtResource("1_jy74b")
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 offset_right = 1072.0
-offset_bottom = 1072.0
+offset_bottom = 1200.0
 color = Color(0, 0, 0, 1)

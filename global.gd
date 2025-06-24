@@ -9,10 +9,10 @@ func get_current_mode_name() -> String:
 
 func start_game(game_mode: GameMode) -> void:
 	Global.current_mode = game_mode
-	get_tree().change_scene_to_file("res://classroom.tscn")
+	await Fader.fade_to_scene("res://classroom.tscn", 0.5)
 
 func go_to_mode_selection() -> void:
-	get_tree().change_scene_to_file("res://mode_selection.tscn")
+	await Fader.fade_to_scene("res://mode_selection.tscn", 0.5)
 
 func go_to_final_scene() -> void:
-	get_tree().change_scene_to_file("res://final.tscn")
+	await Fader.fade_to_scene("res://final.tscn", 0.5)

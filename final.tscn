@@ -8,6 +8,7 @@ anchors_preset = 0
 script = ExtResource("1_h0aww")
 
 [node name="RestartButton" type="Button" parent="."]
+layout_mode = 0
 offset_left = 336.0
 offset_top = 510.0
 offset_right = 784.0

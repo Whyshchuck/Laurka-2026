@@ -48,8 +48,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			Global.GameMode.HARD:
 				if character_state == CharacterState.RESPAWNING:
 					cancel_respawn()
+					$AudioPing.play()
 				else:
 					return_to_start()
+					$AudioPing.play()
 				
 func on_click():
 	match Global.current_mode:

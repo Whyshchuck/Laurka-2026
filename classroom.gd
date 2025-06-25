@@ -17,7 +17,7 @@ func _ready():
 		var countdown_scene = preload("res://countdown.tscn")
 		var new_scene = countdown_scene.instantiate()
 		get_tree().current_scene.add_child(new_scene)
-		
+		$AudioIntro.play()
 		status_timer.timeout.connect(update_moving_pupil_count)
 		
 	

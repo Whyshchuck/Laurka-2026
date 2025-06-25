@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhsgmj2terok8"]
+[gd_scene load_steps=3 format=3 uid="uid://bhsgmj2terok8"]
 
 [ext_resource type="Script" uid="uid://bejta12oyawod" path="res://pupil.gd" id="1_c32rf"]
+[ext_resource type="AudioStream" uid="uid://oqvg2i2x2ass" path="res://audio/pacman_ping.wav" id="2_oafup"]
 
 [node name="Pupil" type="CharacterBody2D"]
 collision_layer = 255
@@ -13,3 +14,6 @@ script = ExtResource("1_c32rf")
 
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 5.0
+
+[node name="AudioPing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_oafup")

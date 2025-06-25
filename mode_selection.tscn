@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://o2ecxyvfexx"]
+[gd_scene load_steps=17 format=3 uid="uid://o2ecxyvfexx"]
 
 [ext_resource type="Script" uid="uid://bbhmvlntrs6sj" path="res://mode_selection.gd" id="1_a3mlw"]
 [ext_resource type="Texture2D" uid="uid://co8kqr3pmavd0" path="res://sprites/dzi.png" id="2_1qyy4"]
@@ -15,6 +15,7 @@
 [ext_resource type="FontFile" uid="uid://bxwlocm06ul5h" path="res://BAUHS93.TTF" id="12_cexcq"]
 [ext_resource type="Texture2D" uid="uid://daulb46k0m8rv" path="res://sprites/poznajmy_sie.png" id="13_l5p70"]
 [ext_resource type="Texture2D" uid="uid://c7r6jdgall4ph" path="res://sprites/skull.png" id="15_vp2q1"]
+[ext_resource type="Texture2D" uid="uid://csg6b1q5bdun7" path="res://sprites/skull_1.png" id="16_oms3n"]
 
 [node name="ModeSelection" type="Control"]
 layout_mode = 3
@@ -176,12 +177,12 @@ texture = ExtResource("15_vp2q1")
 
 [node name="Skull2" type="TextureRect" parent="Skulls"]
 visible = false
-offset_left = 896.0
-offset_top = 484.0
-offset_right = 1134.0
-offset_bottom = 680.0
+offset_left = 869.0
+offset_top = 480.0
+offset_right = 1107.0
+offset_bottom = 676.0
 scale = Vector2(0.531605, 0.587469)
-texture = ExtResource("15_vp2q1")
+texture = ExtResource("16_oms3n")
 
 [connection signal="gui_input" from="Buttons/EasyTexture" to="." method="_on_easy_texture_gui_input"]
 [connection signal="mouse_entered" from="Buttons/EasyTexture" to="." method="_on_easy_texture_mouse_entered"]

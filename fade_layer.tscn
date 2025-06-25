@@ -9,4 +9,3 @@ script = ExtResource("1_jy74b")
 modulate = Color(1, 1, 1, 0)
 offset_right = 1072.0
 offset_bottom = 1200.0
-color = Color(0, 0, 0, 1)

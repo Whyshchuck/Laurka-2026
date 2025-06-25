@@ -1,27 +1,191 @@
-[gd_scene load_steps=2 format=3 uid="uid://o2ecxyvfexx"]
+[gd_scene load_steps=16 format=3 uid="uid://o2ecxyvfexx"]
 
 [ext_resource type="Script" uid="uid://bbhmvlntrs6sj" path="res://mode_selection.gd" id="1_a3mlw"]
+[ext_resource type="Texture2D" uid="uid://co8kqr3pmavd0" path="res://sprites/dzi.png" id="2_1qyy4"]
+[ext_resource type="Texture2D" uid="uid://dmiv7m4uyuswc" path="res://sprites/ee.png" id="3_ks7qf"]
+[ext_resource type="Texture2D" uid="uid://28viyq08ubo0" path="res://sprites/klasa.png" id="3_uqwut"]
+[ext_resource type="Texture2D" uid="uid://bxsc2slxcbhph" path="res://sprites/1a.png" id="4_2bfs6"]
+[ext_resource type="Texture2D" uid="uid://bmb576kjh6jx4" path="res://sprites/k.png" id="4_ficww"]
+[ext_resource type="Texture2D" uid="uid://d38sqfcl7o0r0" path="res://sprites/u.png" id="5_uqwut"]
+[ext_resource type="Texture2D" uid="uid://ju7bfkuhfsd2" path="res://sprites/j.png" id="6_2bfs6"]
+[ext_resource type="Texture2D" uid="uid://yikfmhg4yogh" path="res://sprites/e.png" id="7_l5p70"]
+[ext_resource type="Texture2D" uid="uid://hqgx4d1b1nwo" path="res://sprites/m.png" id="8_cexcq"]
+[ext_resource type="Texture2D" uid="uid://cffhde1e5d488" path="res://sprites/y.png" id="9_vp2q1"]
+[ext_resource type="Texture2D" uid="uid://daodqdvtbggu7" path="res://sprites/zlap_nas.png" id="12_2bfs6"]
+[ext_resource type="FontFile" uid="uid://bxwlocm06ul5h" path="res://BAUHS93.TTF" id="12_cexcq"]
+[ext_resource type="Texture2D" uid="uid://daulb46k0m8rv" path="res://sprites/poznajmy_sie.png" id="13_l5p70"]
+[ext_resource type="Texture2D" uid="uid://c7r6jdgall4ph" path="res://sprites/skull.png" id="15_vp2q1"]
 
 [node name="ModeSelection" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_a3mlw")
 
-[node name="EasyModeButton" type="Button" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 318.0
-offset_top = 413.0
-offset_right = 495.0
-offset_bottom = 497.0
+offset_top = -148.0
+offset_right = 40.0
+offset_bottom = -108.0
+scale = Vector2(27.4113, 33.3425)
+
+[node name="EasyModeButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 474.0
+offset_top = 316.0
+offset_right = 651.0
+offset_bottom = 400.0
 text = "Anioły"
 
 [node name="HardModeButton" type="Button" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 606.0
-offset_top = 419.0
-offset_right = 761.0
-offset_bottom = 501.0
+offset_left = 321.0
+offset_top = 466.0
+offset_right = 476.0
+offset_bottom = 548.0
+scale = Vector2(3.37242, 2.01528)
 text = "Demony"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(558, 452)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Dzi" type="TextureRect" parent="Node"]
+offset_left = 23.0
+offset_top = -87.0
+offset_right = 819.0
+offset_bottom = 418.0
+scale = Vector2(0.240164, 0.332484)
+texture = ExtResource("2_1qyy4")
+
+[node name="Klasa" type="TextureRect" parent="Node"]
+offset_left = 256.0
+offset_top = 729.0
+offset_right = 1923.0
+offset_bottom = 1444.0
+scale = Vector2(0.257676, 0.348752)
+texture = ExtResource("3_uqwut")
+
+[node name="1a" type="TextureRect" parent="Node"]
+offset_left = 651.0
+offset_top = 729.0
+offset_right = 1815.0
+offset_bottom = 1436.0
+scale = Vector2(0.257676, 0.348752)
+texture = ExtResource("4_2bfs6")
+
+[node name="Ee" type="TextureRect" parent="Node"]
+offset_left = 205.0
+offset_top = -86.0
+offset_right = 657.0
+offset_bottom = 395.0
+scale = Vector2(0.358447, 0.369341)
+texture = ExtResource("3_ks7qf")
+
+[node name="K" type="TextureRect" parent="Node"]
+offset_left = 364.0
+offset_top = -77.0
+offset_right = 675.0
+offset_bottom = 373.0
+scale = Vector2(0.466395, 0.35806)
+texture = ExtResource("4_ficww")
+
+[node name="U" type="TextureRect" parent="Node"]
+offset_left = 493.0
+offset_top = -77.0
+offset_right = 828.0
+offset_bottom = 352.0
+scale = Vector2(0.462943, 0.380991)
+texture = ExtResource("5_uqwut")
+
+[node name="J" type="TextureRect" parent="Node"]
+offset_left = 636.0
+offset_top = -101.0
+offset_right = 877.0
+offset_bottom = 336.0
+scale = Vector2(0.5635, 0.3907)
+texture = ExtResource("6_2bfs6")
+
+[node name="E" type="TextureRect" parent="Node"]
+offset_left = 770.0
+offset_top = -88.0
+offset_right = 1033.0
+offset_bottom = 353.0
+scale = Vector2(0.376079, 0.320262)
+texture = ExtResource("7_l5p70")
+
+[node name="M" type="TextureRect" parent="Node"]
+offset_left = 867.0
+offset_top = -83.0
+offset_right = 1327.0
+offset_bottom = 329.0
+scale = Vector2(0.241786, 0.342308)
+texture = ExtResource("8_cexcq")
+
+[node name="Y" type="TextureRect" parent="Node"]
+offset_left = 963.0
+offset_top = -78.0
+offset_right = 1363.0
+offset_bottom = 445.0
+scale = Vector2(0.316441, 0.33199)
+texture = ExtResource("9_vp2q1")
+
+[node name="Buttons" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="Buttons"]
+visible = false
+modulate = Color(0.321569, 0.129412, 1, 1)
+offset_left = 109.0
+offset_top = 103.0
+offset_right = 408.0
+offset_bottom = 160.0
+theme_override_fonts/font = ExtResource("12_cexcq")
+theme_override_font_sizes/font_size = 50
+text = "Wybierz tryb:"
+
+[node name="EasyTexture" type="TextureRect" parent="Buttons"]
+visible = false
+offset_left = 109.0
+offset_top = 150.0
+offset_right = 1668.0
+offset_bottom = 606.0
+scale = Vector2(0.609399, 0.602032)
+texture = ExtResource("13_l5p70")
+
+[node name="HardTexture" type="TextureRect" parent="Buttons"]
+visible = false
+offset_left = 303.0
+offset_top = 452.0
+offset_right = 836.0
+offset_bottom = 629.0
+texture = ExtResource("12_2bfs6")
+
+[node name="Skulls" type="Node" parent="."]
+
+[node name="Skull1" type="TextureRect" parent="Skulls"]
+visible = false
+offset_left = 202.0
+offset_top = 500.0
+offset_right = 440.0
+offset_bottom = 696.0
+scale = Vector2(0.522347, 0.601356)
+texture = ExtResource("15_vp2q1")
+
+[node name="Skull2" type="TextureRect" parent="Skulls"]
+visible = false
+offset_left = 896.0
+offset_top = 484.0
+offset_right = 1134.0
+offset_bottom = 680.0
+scale = Vector2(0.531605, 0.587469)
+texture = ExtResource("15_vp2q1")
+
+[connection signal="gui_input" from="Buttons/EasyTexture" to="." method="_on_easy_texture_gui_input"]
+[connection signal="mouse_entered" from="Buttons/EasyTexture" to="." method="_on_easy_texture_mouse_entered"]
+[connection signal="mouse_exited" from="Buttons/EasyTexture" to="." method="_on_easy_texture_mouse_exited"]
+[connection signal="gui_input" from="Buttons/HardTexture" to="." method="_on_hard_texture_gui_input"]
+[connection signal="mouse_entered" from="Buttons/HardTexture" to="." method="_on_texture_rect_mouse_entered"]
+[connection signal="mouse_exited" from="Buttons/HardTexture" to="." method="_on_texture_rect_mouse_exited"]

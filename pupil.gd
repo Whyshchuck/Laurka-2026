@@ -101,7 +101,7 @@ func enter_locked_state():
 	start_respawn_timer()
 
 	if respawn_count > MAX_RESPAWN_COUNT:
-		texture_rect.modulate = COLOUR_LOCKED
+		blink(COLOUR_LOCKED, 0, 0.5)
 
 func start_respawn_timer():
 	respawn_timer.start(RESPAWN_TIMEOUT + respawn_count)
@@ -129,8 +129,8 @@ func _on_respawn_timer_timeout():
 
 		if character_state == CharacterState.RESPAWNING:
 			pick_new_target()
-	elif respawn_count > MAX_RESPAWN_COUNT:
-		texture_rect.modulate = COLOUR_LOCKED
+	#elif respawn_count > MAX_RESPAWN_COUNT:
+		#texture_rect.modulate = COLOUR_LOCKED
 
 func blink(highlight_colour: Color, fade_in: float = 0.3, fade_out: float = 0.3):
 	if blink_tween and blink_tween.is_running():

@@ -96,7 +96,7 @@ func _on_texture_rect_mouse_entered() -> void:
 
 	var tween := create_tween()
 	tween.tween_property(
-		label, "scale", orig * 1.1, 0.3
+		label, "scale", orig * 1.02, 0.3
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 

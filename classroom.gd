@@ -77,7 +77,7 @@ func update_moving_pupil_count():
 	for pupil in pupils_node.get_children():
 		if pupil is CharacterBody2D and pupil.is_moving():
 			sitting_count -= 1
-
+		
 	var status_text := "Uczniowie na miejscach: %d / %d" % [sitting_count, total_pupils]
 	
 	moving_pupils_counter.text = status_text

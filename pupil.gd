@@ -28,6 +28,7 @@ var blink_tween: Tween = null
 @onready var agent := $NavigationAgent2D
 @onready var respawn_timer: Timer = $RespawnTimer
 @onready var texture_rect: TextureRect = $TextureRect
+@onready var sprite: Sprite2D = $Sprite2D
 
 func _ready():
 	start_position = global_position
@@ -86,6 +87,8 @@ func _physics_process(delta):
 func move_along_agent(_delta):
 	var next_pos = agent.get_next_path_position()
 	direction = (next_pos - global_position).normalized()
+	if $AnimationPlayer:
+		$AnimationPlayer.play('walk')
 	velocity = direction * speed
 	move_and_slide()
 
@@ -98,6 +101,8 @@ func return_to_start():
 	agent.target_position = start_position
 
 func enter_locked_state():
+	if $AnimationPlayer:
+		$AnimationPlayer.play('idle')
 	character_state = CharacterState.LOCKED
 	direction = Vector2.ZERO
 	start_respawn_timer()
@@ -138,10 +143,17 @@ func blink(highlight_colour: Color, fade_in: float = 0.3, fade_out: float = 0.3)
 	if blink_tween and blink_tween.is_running():
 		blink_tween.kill()
 		texture_rect.modulate = COLOUR_NORMAL
+		
+	if sprite:
+		blink_tween = create_tween()
+		blink_tween.tween_property(sprite, "modulate", highlight_colour, fade_in)
+		blink_tween.tween_property(sprite, "modulate", COLOUR_NORMAL, fade_out)
+	
+	else:
 
-	blink_tween = create_tween()
-	blink_tween.tween_property(texture_rect, "modulate", highlight_colour, fade_in)
-	blink_tween.tween_property(texture_rect, "modulate", COLOUR_NORMAL, fade_out)
+		blink_tween = create_tween()
+		blink_tween.tween_property(texture_rect, "modulate", highlight_colour, fade_in)
+		blink_tween.tween_property(texture_rect, "modulate", COLOUR_NORMAL, fade_out)
 
 
 func is_available() -> bool:

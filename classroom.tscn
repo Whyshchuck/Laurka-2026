@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://cimihk86uivh"]
+[gd_scene load_steps=68 format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
@@ -60,6 +60,7 @@
 [ext_resource type="AudioStream" uid="uid://bu0teu0p8y3sd" path="res://audio/abrish.mp3" id="41_dtuxj"]
 [ext_resource type="PackedScene" uid="uid://dfccb6pthyp8h" path="res://chair_center.tscn" id="42_t5pko"]
 [ext_resource type="AudioStream" uid="uid://bwcgmnjfl4e22" path="res://audio/szymon.mp3" id="45_jbgm4"]
+[ext_resource type="Texture2D" uid="uid://dvndw4n3sihax" path="res://sprites/kuba-Sheet.png" id="46_hxmxl"]
 [ext_resource type="AudioStream" uid="uid://tmufgx73xek3" path="res://audio/pacman_beginning.wav" id="60_5qgbj"]
 
 [sub_resource type="Animation" id="Animation_hxmxl"]
@@ -270,17 +271,17 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("10_w47uv")
 
 [node name="Krzysiek" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(476, 979)
+position = Vector2(909, 662)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Krzysiek"]
 z_as_relative = false
 y_sort_enabled = true
-offset_left = -41.0
-offset_top = -196.0
-offset_right = 252.0
-offset_bottom = 219.0
+offset_left = -55.0
+offset_top = -202.0
+offset_right = 238.0
+offset_bottom = 213.0
 scale = Vector2(0.353529, 0.492316)
 texture = ExtResource("11_qiocc")
 expand_mode = 1
@@ -386,16 +387,16 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("24_jbgm4")
 
 [node name="Maja" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(920, 460)
+position = Vector2(825, 659)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Maja"]
 z_as_relative = false
-offset_left = -82.9999
-offset_top = -190.0
-offset_right = 210.0
-offset_bottom = 225.0
+offset_left = -69.0
+offset_top = -195.0
+offset_right = 224.0
+offset_bottom = 220.0
 scale = Vector2(0.503659, 0.543203)
 texture = ExtResource("19_7pr0m")
 expand_mode = 1
@@ -424,7 +425,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("30_5qgbj")
 
 [node name="Julek" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(914, 657)
+position = Vector2(485, 981)
 collision_layer = 1
 collision_mask = 2
 
@@ -543,6 +544,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Kuba"]
+visible = false
 z_as_relative = false
 offset_left = -61.0
 offset_top = -194.0
@@ -555,6 +557,18 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Kuba"]
 stream = ExtResource("40_12wbt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Kuba"]
+libraries = {
+&"": SubResource("AnimationLibrary_r3myd")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Kuba"]
+z_as_relative = false
+position = Vector2(6, -83)
+scale = Vector2(0.225053, 0.180767)
+texture = ExtResource("46_hxmxl")
+hframes = 12
 
 [node name="Abrish" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(138, 651)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://cimihk86uivh"]
+[gd_scene load_steps=79 format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://c14ffpq00m8uh" path="res://sprites/amelka.png" id="9_pubde"]
 [ext_resource type="AudioStream" uid="uid://dkvh60bdbrno5" path="res://audio/piotrek.mp3" id="10_n0qdd"]
 [ext_resource type="Texture2D" uid="uid://ch1ohoyoqnp22" path="res://sprites/milosz.png" id="10_v6oqn"]
+[ext_resource type="Texture2D" uid="uid://dqr17xl32mml0" path="res://sprites/Hania-Sheet.png" id="10_vtuje"]
 [ext_resource type="AudioStream" uid="uid://4ilkyptk88x1" path="res://audio/antek.mp3" id="10_w47uv"]
 [ext_resource type="Texture2D" uid="uid://c6oxme0eso18l" path="res://sprites/michał.png" id="11_1h0yc"]
 [ext_resource type="Texture2D" uid="uid://dmj8ih70o5g31" path="res://sprites/nati.png" id="11_770w0"]
@@ -55,6 +56,7 @@
 [ext_resource type="AudioStream" uid="uid://oah0xkgyrpuf" path="res://audio/kazik_r.mp3" id="34_mh7vt"]
 [ext_resource type="Texture2D" uid="uid://bss5w4fs7mrti" path="res://sprites/kazik_l.png" id="35_3f2uc"]
 [ext_resource type="AudioStream" uid="uid://bgjdev8tjxuds" path="res://audio/kazik_l.mp3" id="36_5qgbj"]
+[ext_resource type="Texture2D" uid="uid://bdlwafs5odrde" path="res://sprites/julek-Sheet.png" id="36_hlyff"]
 [ext_resource type="AudioStream" uid="uid://d2a57uiiq50cp" path="res://audio/anabiya.mp3" id="38_shilq"]
 [ext_resource type="PackedScene" uid="uid://dswt0hq0h0a1i" path="res://chair_right.tscn" id="39_fl1xt"]
 [ext_resource type="AudioStream" uid="uid://c6d1ynikvb2b5" path="res://audio/kuba.mp3" id="40_12wbt"]
@@ -67,6 +69,7 @@
 [ext_resource type="Texture2D" uid="uid://dvndw4n3sihax" path="res://sprites/kuba-Sheet.png" id="46_hxmxl"]
 [ext_resource type="Texture2D" uid="uid://bdouobs3s1ur7" path="res://sprites/anabiya-Sheet.png" id="48_yct1w"]
 [ext_resource type="AudioStream" uid="uid://tmufgx73xek3" path="res://audio/pacman_beginning.wav" id="60_5qgbj"]
+[ext_resource type="Texture2D" uid="uid://0ovyqduspdrb" path="res://sprites/jasiek-Sheet.png" id="61_vtuje"]
 [ext_resource type="Texture2D" uid="uid://bmdkonb4u2sop" path="res://sprites/p_kamila.png" id="65_y7ma7"]
 [ext_resource type="Texture2D" uid="uid://0gu82qf4auj" path="res://sprites/p_kamila-Sheet.png" id="69_eqqr6"]
 
@@ -226,6 +229,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Hania"]
+visible = false
 z_as_relative = false
 offset_left = -87.0
 offset_top = -248.0
@@ -238,6 +242,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Hania"]
 stream = ExtResource("6_47w1q")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Hania"]
+libraries = {
+&"": SubResource("AnimationLibrary_r3myd")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Hania"]
+z_as_relative = false
+position = Vector2(20.3583, -115.21)
+scale = Vector2(0.4159, 0.513163)
+texture = ExtResource("10_vtuje")
+hframes = 4
+vframes = 3
 
 [node name="Wojtek" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(368, 576)
@@ -485,6 +502,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Julek"]
+visible = false
 z_as_relative = false
 offset_left = -85.0
 offset_top = -228.0
@@ -497,6 +515,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Julek"]
 stream = ExtResource("22_fl1xt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Julek"]
+libraries = {
+&"": SubResource("AnimationLibrary_r3myd")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Julek"]
+z_as_relative = false
+position = Vector2(-11, -115)
+scale = Vector2(0.318099, 0.339054)
+texture = ExtResource("36_hlyff")
+hframes = 4
+vframes = 3
 
 [node name="Piotrek" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(652, 576)
@@ -732,6 +763,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Jasiek"]
+visible = false
 z_as_relative = false
 offset_left = -88.0
 offset_top = -208.0
@@ -745,6 +777,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Jasiek"]
 stream = ExtResource("25_fslkb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Jasiek"]
+libraries = {
+&"": SubResource("AnimationLibrary_r3myd")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Jasiek"]
+z_as_relative = false
+position = Vector2(-22, -88)
+scale = Vector2(0.321759, 0.369425)
+texture = ExtResource("61_vtuje")
+hframes = 4
+vframes = 3
 
 [node name="DeskCenter3" parent="Pupils" instance=ExtResource("3_dju2y")]
 z_as_relative = false

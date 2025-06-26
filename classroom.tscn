@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://cimihk86uivh"]
+[gd_scene load_steps=76 format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
@@ -68,6 +68,7 @@
 [ext_resource type="Texture2D" uid="uid://bdouobs3s1ur7" path="res://sprites/anabiya-Sheet.png" id="48_yct1w"]
 [ext_resource type="AudioStream" uid="uid://tmufgx73xek3" path="res://audio/pacman_beginning.wav" id="60_5qgbj"]
 [ext_resource type="Texture2D" uid="uid://bmdkonb4u2sop" path="res://sprites/p_kamila.png" id="65_y7ma7"]
+[ext_resource type="Texture2D" uid="uid://0gu82qf4auj" path="res://sprites/p_kamila-Sheet.png" id="69_eqqr6"]
 
 [sub_resource type="Animation" id="Animation_uohgg"]
 length = 0.001
@@ -96,7 +97,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [17]
 }
 
 [sub_resource type="Animation" id="Animation_hxmxl"]
@@ -117,9 +118,28 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 }
 
+[sub_resource type="Animation" id="Animation_yct1w"]
+resource_name = "freak_out"
+length = 1.7
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r3myd"]
 _data = {
 &"RESET": SubResource("Animation_uohgg"),
+&"freak_out": SubResource("Animation_yct1w"),
 &"idle": SubResource("Animation_shilq"),
 &"walk": SubResource("Animation_hxmxl")
 }
@@ -857,7 +877,10 @@ theme_override_font_sizes/font_size = 30
 [node name="AudioIntro" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("60_5qgbj")
 
-[node name="TextureRect3" type="TextureRect" parent="."]
+[node name="PKamila" type="CharacterBody2D" parent="."]
+
+[node name="TextureRect3" type="TextureRect" parent="PKamila"]
+visible = false
 top_level = true
 offset_left = 780.0
 offset_top = 648.0
@@ -865,3 +888,17 @@ offset_right = 2367.0
 offset_bottom = 2893.0
 scale = Vector2(0.172716, 0.312648)
 texture = ExtResource("65_y7ma7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PKamila"]
+libraries = {
+&"": SubResource("AnimationLibrary_r3myd")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="PKamila"]
+top_level = true
+z_as_relative = false
+position = Vector2(916, 1008)
+scale = Vector2(0.491423, 0.862692)
+texture = ExtResource("69_eqqr6")
+hframes = 6
+vframes = 3

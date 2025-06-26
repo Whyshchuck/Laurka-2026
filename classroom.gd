@@ -18,8 +18,10 @@ func _ready():
 		var new_scene = countdown_scene.instantiate()
 		get_tree().current_scene.add_child(new_scene)
 		$AudioIntro.play()
+		$PKamila/AnimationPlayer.play('freak_out')
 		status_timer.timeout.connect(update_moving_pupil_count)
-		
+	else:
+		$PKamila/AnimationPlayer.play('idle')	
 	
 	for pupil in pupils_node.get_children():
 		if pupil is CharacterBody2D:

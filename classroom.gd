@@ -3,11 +3,13 @@ extends Node2D
 @onready var pupils_node: Node = null
 @onready var status_timer := $StatusTimer
 @onready var moving_pupils_counter : Label = $MovingPupilsCounter
+@onready var time_label: Label = $TimeLabel
 
 var game_started := false
 
 var total_pupils := 0
 var sitting_count := 0
+
 func _ready():
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
 	print("Current mode: ", Global.get_current_mode_name())
@@ -84,3 +86,14 @@ func update_moving_pupil_count():
 	
 	if not game_started:
 		game_started = true
+
+
+func _process(delta: float) -> void:
+	if Global.current_mode == Global.GameMode.HARD and game_started:
+		Global.time_elapsed += delta
+		#var minutes := int(Global.time_elapsed) / 60
+		#var seconds := int(Global.time_elapsed) % 60
+		#var milliseconds := int((Global.time_elapsed - int(Global.time_elapsed)) * 1000)
+#
+		#time_label.text = "%02d:%02d.%03d" % [minutes, seconds, milliseconds]
+		

@@ -38,3 +38,12 @@ text = "Gratulacje!! Tym razem Ci się Udało."
 
 [node name="AudioTadam" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_tvybu")
+
+[node name="ResultLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 393.0
+offset_top = 398.0
+offset_right = 600.0
+offset_bottom = 440.0
+theme_override_colors/font_color = Color(0, 1, 0.368627, 1)
+theme_override_font_sizes/font_size = 30

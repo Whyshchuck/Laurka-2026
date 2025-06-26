@@ -865,3 +865,15 @@ offset_right = 2367.0
 offset_bottom = 2893.0
 scale = Vector2(0.172716, 0.312648)
 texture = ExtResource("65_y7ma7")
+
+[node name="TimeLabel" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 818.0
+offset_top = 39.0
+offset_right = 858.0
+offset_bottom = 81.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.926299, 2.5028e-06, 1.54018e-06, 1)
+theme_override_font_sizes/font_size = 30

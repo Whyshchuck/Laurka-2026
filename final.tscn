@@ -21,6 +21,7 @@ offset_left = 336.0
 offset_top = 510.0
 offset_right = 784.0
 offset_bottom = 594.0
+theme_override_font_sizes/font_size = 35
 text = "Zagraj ponownie"
 
 [node name="Camera2D" type="Camera2D" parent="."]

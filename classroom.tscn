@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://cimihk86uivh"]
+[gd_scene load_steps=74 format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://d2nbo8v6niqf" path="res://sprites/kazik_r.png" id="14_lqrni"]
 [ext_resource type="AudioStream" uid="uid://cyukyg5hvc0y6" path="res://audio/krzysiek.mp3" id="15_12wbt"]
 [ext_resource type="Texture2D" uid="uid://h88w5cr84mrc" path="res://sprites/michal_a.png" id="18_fslkb"]
+[ext_resource type="Texture2D" uid="uid://drcac3ruemshr" path="res://sprites/krzysiek-Sheet.png" id="18_mr3oy"]
 [ext_resource type="Texture2D" uid="uid://brqahxg1fatkj" path="res://sprites/maja.png" id="19_7pr0m"]
 [ext_resource type="AudioStream" uid="uid://dedx3g0lxh0ed" path="res://audio/krystian.mp3" id="19_l8q0k"]
 [ext_resource type="Texture2D" uid="uid://bs5b6hc0gnehr" path="res://sprites/julek.png" id="20_iyqoq"]
@@ -57,32 +58,16 @@
 [ext_resource type="AudioStream" uid="uid://d2a57uiiq50cp" path="res://audio/anabiya.mp3" id="38_shilq"]
 [ext_resource type="PackedScene" uid="uid://dswt0hq0h0a1i" path="res://chair_right.tscn" id="39_fl1xt"]
 [ext_resource type="AudioStream" uid="uid://c6d1ynikvb2b5" path="res://audio/kuba.mp3" id="40_12wbt"]
+[ext_resource type="Texture2D" uid="uid://bk756e0tm1xiv" path="res://sprites/wiktor-Sheet.png" id="40_eqqr6"]
 [ext_resource type="PackedScene" uid="uid://bx3shxyyv5dbd" path="res://chair_left.tscn" id="40_onxaf"]
 [ext_resource type="AudioStream" uid="uid://bu0teu0p8y3sd" path="res://audio/abrish.mp3" id="41_dtuxj"]
 [ext_resource type="PackedScene" uid="uid://dfccb6pthyp8h" path="res://chair_center.tscn" id="42_t5pko"]
 [ext_resource type="Texture2D" uid="uid://cf3o3eiqa37d1" path="res://sprites/kazik_l-Sheet.png" id="42_uohgg"]
 [ext_resource type="AudioStream" uid="uid://bwcgmnjfl4e22" path="res://audio/szymon.mp3" id="45_jbgm4"]
 [ext_resource type="Texture2D" uid="uid://dvndw4n3sihax" path="res://sprites/kuba-Sheet.png" id="46_hxmxl"]
+[ext_resource type="Texture2D" uid="uid://bdouobs3s1ur7" path="res://sprites/anabiya-Sheet.png" id="48_yct1w"]
 [ext_resource type="AudioStream" uid="uid://tmufgx73xek3" path="res://audio/pacman_beginning.wav" id="60_5qgbj"]
 [ext_resource type="Texture2D" uid="uid://bmdkonb4u2sop" path="res://sprites/p_kamila.png" id="65_y7ma7"]
-
-[sub_resource type="Animation" id="Animation_hxmxl"]
-resource_name = "walk"
-length = 1.2
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-}
 
 [sub_resource type="Animation" id="Animation_uohgg"]
 length = 0.001
@@ -112,6 +97,24 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_hxmxl"]
+resource_name = "walk"
+length = 1.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r3myd"]
@@ -280,6 +283,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Krzysiek"]
+visible = false
 z_as_relative = false
 y_sort_enabled = true
 offset_left = -55.0
@@ -293,6 +297,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Krzysiek"]
 stream = ExtResource("15_12wbt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Krzysiek"]
+libraries = {
+&"": SubResource("AnimationLibrary_r3myd")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Krzysiek"]
+z_as_relative = false
+position = Vector2(-4, -98)
+scale = Vector2(0.294152, 0.315571)
+texture = ExtResource("18_mr3oy")
+hframes = 4
+vframes = 3
 
 [node name="Nati" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(820, 886)
@@ -486,6 +503,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Wiktor"]
+visible = false
 z_as_relative = false
 offset_left = -79.0
 offset_top = -199.0
@@ -498,6 +516,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Wiktor"]
 stream = ExtResource("20_wnmoq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Wiktor"]
+libraries = {
+&"": SubResource("AnimationLibrary_r3myd")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Wiktor"]
+z_as_relative = false
+position = Vector2(-6, -86)
+scale = Vector2(0.366377, 0.343617)
+texture = ExtResource("40_eqqr6")
+hframes = 4
+vframes = 3
 
 [node name="KazikR" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(649, 295)
@@ -557,6 +588,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Anabiya"]
+visible = false
 z_as_relative = false
 offset_left = -62.0
 offset_top = -212.0
@@ -569,6 +601,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Anabiya"]
 stream = ExtResource("38_shilq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Anabiya"]
+libraries = {
+&"": SubResource("AnimationLibrary_r3myd")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Anabiya"]
+z_as_relative = false
+position = Vector2(14, -86)
+scale = Vector2(0.41505, 0.37873)
+texture = ExtResource("48_yct1w")
+hframes = 4
+vframes = 3
 
 [node name="Kuba" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(368, 432)
@@ -642,16 +687,16 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("45_jbgm4")
 
 [node name="Miłosz" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(658, 986)
+position = Vector2(659, 996)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Miłosz"]
 z_as_relative = false
-offset_left = -62.0
-offset_top = -208.0
-offset_right = 231.0
-offset_bottom = 207.0
+offset_left = -64.0
+offset_top = -210.0
+offset_right = 229.0
+offset_bottom = 205.0
 rotation = -0.0604706
 scale = Vector2(0.366435, 0.484321)
 texture = ExtResource("10_v6oqn")

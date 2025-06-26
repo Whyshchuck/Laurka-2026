@@ -3,11 +3,13 @@ extends Node
 enum GameMode { EASY, HARD }
 
 var current_mode: GameMode = GameMode.EASY
+var time_elapsed: float = 0
 
 func get_current_mode_name() -> String:
 	return GameMode.keys()[current_mode]
 
 func start_game(game_mode: GameMode) -> void:
+	time_elapsed = 0
 	Global.current_mode = game_mode
 	await Fader.fade_to_scene("res://classroom.tscn", 0.5)
 

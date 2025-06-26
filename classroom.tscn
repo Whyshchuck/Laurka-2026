@@ -889,6 +889,7 @@ offset_bottom = 2893.0
 scale = Vector2(0.172716, 0.312648)
 texture = ExtResource("65_y7ma7")
 
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PKamila"]
 libraries = {
 &"": SubResource("AnimationLibrary_r3myd")
@@ -902,3 +903,21 @@ scale = Vector2(0.491423, 0.862692)
 texture = ExtResource("69_eqqr6")
 hframes = 6
 vframes = 3
+
+[node name="TimeLabel" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 818.0
+offset_top = 39.0
+offset_right = 858.0
+offset_bottom = 81.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.926299, 2.5028e-06, 1.54018e-06, 1)
+theme_override_font_sizes/font_size = 30
+
+[node name="ReturnArrow" type="Polygon2D" parent="."]
+position = Vector2(-16, 0)
+color = Color(1, 0, 0, 0.756863)
+polygon = PackedVector2Array(64, 0, 40, 24, 64, 48, 64, 32, 96, 32, 96, 16, 64, 16)
+

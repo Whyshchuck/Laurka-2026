@@ -3,11 +3,13 @@ extends Node2D
 @onready var pupils_node: Node = null
 @onready var status_timer := $StatusTimer
 @onready var moving_pupils_counter : Label = $MovingPupilsCounter
+@onready var time_label: Label = $TimeLabel
 
 var game_started := false
 
 var total_pupils := 0
 var sitting_count := 0
+
 func _ready():
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
 	print("Current mode: ", Global.get_current_mode_name())
@@ -44,6 +46,11 @@ func _unhandled_input(event):
 
 	var mouse_pos = get_global_mouse_position()
 	var clicked_characters := []
+
+	var arrow_node = $ReturnArrow
+	if Geometry2D.is_point_in_polygon(mouse_pos, arrow_node.polygon):
+		Global.go_to_mode_selection()
+		return
 
 	for node in $Pupils.get_children():
 		if node is CharacterBody2D and node.texture_rect.get_global_rect().has_point(mouse_pos):
@@ -86,3 +93,14 @@ func update_moving_pupil_count():
 	
 	if not game_started:
 		game_started = true
+
+
+func _process(delta: float) -> void:
+	if Global.current_mode == Global.GameMode.HARD and game_started:
+		Global.time_elapsed += delta
+		#var minutes := int(Global.time_elapsed) / 60
+		#var seconds := int(Global.time_elapsed) % 60
+		#var milliseconds := int((Global.time_elapsed - int(Global.time_elapsed)) * 1000)
+#
+		#time_label.text = "%02d:%02d.%03d" % [minutes, seconds, milliseconds]
+		

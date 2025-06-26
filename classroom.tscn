@@ -877,3 +877,8 @@ offset_bottom = 81.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(0.926299, 2.5028e-06, 1.54018e-06, 1)
 theme_override_font_sizes/font_size = 30
+
+[node name="ReturnArrow" type="Polygon2D" parent="."]
+position = Vector2(-16, 0)
+color = Color(1, 0, 0, 0.756863)
+polygon = PackedVector2Array(64, 0, 40, 24, 64, 48, 64, 32, 96, 32, 96, 16, 64, 16)

@@ -45,6 +45,11 @@ func _unhandled_input(event):
 	var mouse_pos = get_global_mouse_position()
 	var clicked_characters := []
 
+	var arrow_node = $ReturnArrow
+	if Geometry2D.is_point_in_polygon(mouse_pos, arrow_node.polygon):
+		Global.go_to_mode_selection()
+		return
+
 	for node in $Pupils.get_children():
 		if node is CharacterBody2D and node.texture_rect.get_global_rect().has_point(mouse_pos):
 			clicked_characters.append(node)

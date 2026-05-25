@@ -1,8 +1,8 @@
 extends Node
 
-enum GameMode { EASY, HARD }
+enum GameMode { WELCOME, QUIZ }
 
-var current_mode: GameMode = GameMode.EASY
+var current_mode: GameMode = GameMode.WELCOME
 var time_elapsed: float = 0
 
 func get_current_mode_name() -> String:

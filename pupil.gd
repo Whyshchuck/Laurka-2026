@@ -28,7 +28,7 @@ var blink_tween: Tween = null
 @onready var agent := $NavigationAgent2D
 @onready var respawn_timer: Timer = $RespawnTimer
 @onready var texture_rect: TextureRect = $TextureRect
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: Sprite2D = get_node_or_null("Sprite2D")  # nie każdy uczeń ma Sprite2D
 
 func _ready():
 	start_position = global_position
@@ -45,20 +45,17 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	if texture_rect.get_global_rect().has_point(mouse_pos):
-		match Global.current_mode:
-			Global.GameMode.HARD:
-				if character_state == CharacterState.RESPAWNING:
-					cancel_respawn()
-					$AudioPing.play()
-				else:
-					return_to_start()
-					$AudioPing.play()
+		# Dawna mechanika "ganianie" (odprowadzanie uciekinierów) wycofana.
+		# Klik obsługuje classroom.gd -> on_click(). TODO Faza 1/2: usunąć resztę chase.
+		pass
 				
 func on_click():
 	match Global.current_mode:
-		Global.GameMode.EASY:
+		Global.GameMode.WELCOME:
 			if $AudioStreamPlayer:
 				$AudioStreamPlayer.play()
+		Global.GameMode.QUIZ:
+			pass # TODO (Faza 4): klik -> tło szarzeje, slide sprite'a, pytania a/b/c
 
 		
 
@@ -81,8 +78,8 @@ func _physics_process(delta):
 		CharacterState.MOVING:
 			if agent.is_navigation_finished():
 				pick_new_target()
-			elif Global.current_mode == Global.GameMode.HARD:
-				move_along_agent(delta)
+			elif Global.current_mode == Global.GameMode.QUIZ:
+				move_along_agent(delta) # legacy chase (uśpione — patrz Faza 1)
 
 func move_along_agent(_delta):
 	var next_pos = agent.get_next_path_position()

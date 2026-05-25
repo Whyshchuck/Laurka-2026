@@ -5,7 +5,7 @@ extends Control
 func _ready() -> void:
 	restart_button.pressed.connect(_on_restart_button_pressed)
 	$AudioTadam.play()
-	if Global.current_mode == Global.GameMode.HARD and Global.time_elapsed:
+	if Global.current_mode == Global.GameMode.QUIZ and Global.time_elapsed:
 		var minutes := int(Global.time_elapsed) / 60
 		var seconds := int(Global.time_elapsed) % 60
 		var milliseconds := int((Global.time_elapsed - int(Global.time_elapsed)) * 1000)

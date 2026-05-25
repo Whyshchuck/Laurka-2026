@@ -13,18 +13,12 @@ var sitting_count := 0
 func _ready():
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
 	print("Current mode: ", Global.get_current_mode_name())
-	
-	# Load the on-screen countdown only in Hard mode 
-	if Global.current_mode == Global.GameMode.HARD:
-		var countdown_scene = preload("res://countdown.tscn")
-		var new_scene = countdown_scene.instantiate()
-		get_tree().current_scene.add_child(new_scene)
-		$AudioIntro.play()
-		$PKamila/AnimationPlayer.play('freak_out')
-		status_timer.timeout.connect(update_moving_pupil_count)
-	else:
-		$PKamila/AnimationPlayer.play('idle')	
-	
+
+	# Tryb "ganianie" (dawny HARD) wycofany — klasa startuje spokojnie w obu trybach.
+	# TODO (Faza 1): usunąć resztę kodu chase (countdown, respawn, timer, licznik).
+	# TODO (Faza 4): zachowanie trybu QUIZ (klik w dziecko -> pytania a/b/c).
+	$PKamila/AnimationPlayer.play('idle')
+
 	for pupil in pupils_node.get_children():
 		if pupil is CharacterBody2D:
 			total_pupils += 1
@@ -93,14 +87,3 @@ func update_moving_pupil_count():
 	
 	if not game_started:
 		game_started = true
-
-
-func _process(delta: float) -> void:
-	if Global.current_mode == Global.GameMode.HARD and game_started:
-		Global.time_elapsed += delta
-		#var minutes := int(Global.time_elapsed) / 60
-		#var seconds := int(Global.time_elapsed) % 60
-		#var milliseconds := int((Global.time_elapsed - int(Global.time_elapsed)) * 1000)
-#
-		#time_label.text = "%02d:%02d.%03d" % [minutes, seconds, milliseconds]
-		

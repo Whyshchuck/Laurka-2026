@@ -10,6 +10,9 @@ var game_started := false
 var total_pupils := 0
 var sitting_count := 0
 
+const QuizOverlayScene := preload("res://quiz/quiz_overlay.tscn")
+var quiz_overlay: CanvasLayer = null
+
 func _ready():
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
 	print("Current mode: ", Global.get_current_mode_name())
@@ -58,8 +61,20 @@ func _unhandled_input(event):
 	print(clicked_characters)
 	var top_character = clicked_characters[0]
 	
-	top_character.on_click()
+	if Global.current_mode == Global.GameMode.QUIZ:
+		open_quiz(top_character)
+	else:
+		top_character.on_click()
 	
+
+func open_quiz(pupil) -> void:
+	# Otwórz nakładkę quizu dla klikniętego dziecka (tylko jedna naraz).
+	if quiz_overlay and is_instance_valid(quiz_overlay):
+		return
+	quiz_overlay = QuizOverlayScene.instantiate()
+	add_child(quiz_overlay)
+	quiz_overlay.open_for_pupil(pupil)
+
 
 func activate_pupils():
 	status_timer.start()

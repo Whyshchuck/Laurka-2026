@@ -51,8 +51,6 @@
 [ext_resource type="Texture2D" uid="uid://bnia17wrcd3gf" path="res://sprites/abrish.png" id="26_fl1xt"]
 [ext_resource type="AudioStream" uid="uid://c5jscxdu1ysih" path="res://audio/maja.mp3" id="26_j8bve"]
 [ext_resource type="Texture2D" uid="uid://bf34h0x46b278" path="res://sprites/szymon.png" id="27_onxaf"]
-[ext_resource type="Texture2D" uid="uid://bchjxxp4b113r" path="res://sprites/marysia.png" id="29_3f2uc"]
-[ext_resource type="AudioStream" uid="uid://desw0a35tfnu4" path="res://audio/marysia.mp3" id="30_5qgbj"]
 [ext_resource type="Texture2D" uid="uid://br5d726aa5ahc" path="res://sprites/maja-Sheet.png" id="33_1ck2j"]
 [ext_resource type="AudioStream" uid="uid://oah0xkgyrpuf" path="res://audio/kazik_r.mp3" id="34_mh7vt"]
 [ext_resource type="Texture2D" uid="uid://bss5w4fs7mrti" path="res://sprites/kazik_l.png" id="35_3f2uc"]
@@ -492,25 +490,6 @@ texture = ExtResource("33_1ck2j")
 hframes = 4
 vframes = 3
 
-[node name="Majarysia" parent="Pupils" instance=ExtResource("6_6e7js")]
-position = Vector2(148, 866)
-collision_layer = 1
-collision_mask = 2
-
-[node name="TextureRect" type="TextureRect" parent="Pupils/Majarysia"]
-z_as_relative = false
-offset_left = -73.0
-offset_top = -202.0
-offset_right = 220.0
-offset_bottom = 213.0
-scale = Vector2(0.33642, 0.539816)
-texture = ExtResource("29_3f2uc")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Majarysia"]
-stream = ExtResource("30_5qgbj")
-
 [node name="Julek" parent="Pupils" instance=ExtResource("6_6e7js")]
 position = Vector2(379, 738)
 collision_layer = 1
@@ -921,19 +900,6 @@ position = Vector2(2, 0)
 scale = Vector2(1.00378, 0.843547)
 navigation_polygon = SubResource("NavigationPolygon_0hcv4")
 
-[node name="StatusTimer" type="Timer" parent="."]
-wait_time = 0.1
-
-[node name="MovingPupilsCounter" type="Label" parent="."]
-z_index = 500
-offset_left = 35.0
-offset_top = 1110.0
-offset_right = 36.0
-offset_bottom = 1152.0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0.996078, 1)
-theme_override_font_sizes/font_size = 30
-
 [node name="AudioIntro" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("60_5qgbj")
 
@@ -962,18 +928,6 @@ scale = Vector2(0.491423, 0.862692)
 texture = ExtResource("69_eqqr6")
 hframes = 6
 vframes = 3
-
-[node name="TimeLabel" type="Label" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 818.0
-offset_top = 39.0
-offset_right = 858.0
-offset_bottom = 81.0
-grow_horizontal = 0
-theme_override_colors/font_color = Color(0.926299, 2.5028e-06, 1.54018e-06, 1)
-theme_override_font_sizes/font_size = 30
 
 [node name="ReturnArrow" type="Polygon2D" parent="."]
 position = Vector2(-16, 0)

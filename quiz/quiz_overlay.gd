@@ -34,17 +34,22 @@ func _ready() -> void:
 		answer_buttons[i].pressed.connect(_on_answer_pressed.bind(i))
 
 func open_for_pupil(pupil) -> void:
+	var data: Dictionary = QuizRepository.get_pupil_question(pupil.name)
+	
 	# Portret = grafika klikniętego dziecka, ustawiona tam, gdzie stoi w klasie.
 	var src: TextureRect = pupil.texture_rect
 	portrait.texture = src.texture
 	portrait.global_position = src.get_global_transform_with_canvas().origin
 
 	# Dane pytania (na razie puste placeholdery).
-	question_label.text = pupil.quiz_question
+	question_label.text = str(data.get("question", ""))
+	
+	var answers: Array = data.get("answers", [])
+	
 	for i in answer_buttons.size():
 		var ans := ""
-		if i < pupil.quiz_answers.size():
-			ans = pupil.quiz_answers[i]
+		if i < answers.size():
+			ans = str(answers[i])
 		answer_buttons[i].text = "%s)  %s" % [LETTERS[i], ans]
 
 	_animate_in()

@@ -1,0 +1,22 @@
+{
+  "Łucja": {
+	"question": "Jaki jest ulubiony kolor Łucji?",
+	"answers": ["Niebieski", "Zielony", "Czerwony"],
+	"correct": 0
+  },
+  "Jasiek": {
+	"question": "Ile kotów ma Jasiek?",
+	"answers": ["0", "1", "2"],
+	"correct": 2
+  },
+  "Krzysiek": {
+	"question": "Jakie hobby ma Krzysiek?",
+	"answers": ["Piłka nożna", "Programowanie", "Muzyka"],
+	"correct": 1
+  },
+"Hania": {
+	"question": "Jakie hobby ma Hania?",
+	"answers": ["Konie", "Coś tam", "Coś tam innego"],
+	"correct": 1
+  }
+}

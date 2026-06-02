@@ -10,14 +10,6 @@ enum CharacterState {
 
 @export var speed := 300.0
 
-@export_group("Quiz")
-## Pytanie o tego ucznia (tryb "Jak dobrze nas znasz?"). Na razie puste — placeholder.
-@export_multiline var quiz_question: String = ""
-## Trzy odpowiedzi a/b/c. Na razie puste.
-@export var quiz_answers: Array[String] = ["", "", ""]
-## Indeks poprawnej odpowiedzi (0 = A, 1 = B, 2 = C).
-@export var quiz_correct_answer: int = 0
-
 const COLOUR_NORMAL := Color(1, 1, 1, 1)
 const COLOUR_RESPAWN := Color(1, 0.3, 0.3, 1)
 const COLOUR_CANCEL_RESPAWN := Color(0, 1, 0, 1)

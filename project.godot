@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+QuizRepository="*uid://ckn2c5ux3mt1d"
 Global="*res://global.gd"
 Fader="*res://fade_layer.tscn"
 

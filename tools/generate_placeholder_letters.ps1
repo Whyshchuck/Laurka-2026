@@ -21,13 +21,14 @@ public static class LetterGen
     {
         { 'ą', "a_pol" }, { 'ć', "c_pol" }, { 'ę', "e_pol" },
         { 'ł', "l_pol" }, { 'ń', "n_pol" }, { 'ó', "o_pol" },
-        { 'ś', "s_pol" }, { 'ż', "z_pol" }, { 'ź', "zi_pol" }
+        { 'ś', "s_pol" }, { 'ż', "z_pol" }, { 'ź', "zi_pol" },
+        { '?', "pytajnik" }, { '!', "wykrzyknik" }
     };
 
     public static int Run(string outDir)
     {
         string chars = "abcdefghijklmnopqrstuvwxyz0123456789"
-            + "ąćęłńóśźż";
+            + "ąćęłńóśźż" + "?!";
         // 3 "odreczne" fonty = 3 warianty kazdej literki
         string[] fonts = { "Segoe Print", "Ink Free", "Comic Sans MS" };
         Color[] palette =

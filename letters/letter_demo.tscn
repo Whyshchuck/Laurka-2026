@@ -18,7 +18,7 @@ letter_height = 62.0
 [node name="NapisCykliczny" type="Node2D" parent="."]
 position = Vector2(540, 700)
 script = ExtResource("1_label")
-text = "żółta gęś"
+text = "żółta gęś?"
 letter_height = 150.0
 variant_mode = 1
 cycle_interval = 0.7

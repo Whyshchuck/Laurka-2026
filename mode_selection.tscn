@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://o2ecxyvfexx"]
+[gd_scene format=3 uid="uid://o2ecxyvfexx"]
 
 [ext_resource type="Script" uid="uid://bbhmvlntrs6sj" path="res://mode_selection.gd" id="1_a3mlw"]
 [ext_resource type="Texture2D" uid="uid://co8kqr3pmavd0" path="res://sprites/dzi.png" id="2_1qyy4"]
@@ -12,25 +12,26 @@
 [ext_resource type="Texture2D" uid="uid://hqgx4d1b1nwo" path="res://sprites/m.png" id="8_cexcq"]
 [ext_resource type="Texture2D" uid="uid://cffhde1e5d488" path="res://sprites/y.png" id="9_vp2q1"]
 [ext_resource type="FontFile" uid="uid://bxwlocm06ul5h" path="res://BAUHS93.TTF" id="12_cexcq"]
+[ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="13_l5p70"]
 
-[node name="ModeSelection" type="Control"]
+[node name="ModeSelection" type="Control" unique_id=939291522]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_a3mlw")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=456052546]
 layout_mode = 0
 offset_top = -148.0
 offset_right = 40.0
 offset_bottom = -108.0
 scale = Vector2(27.4113, 33.3425)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=553390772]
 position = Vector2(558, 452)
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="Node" parent="." unique_id=855777625]
 
-[node name="Dzi" type="TextureRect" parent="Node"]
+[node name="Dzi" type="TextureRect" parent="Node" unique_id=576724144]
 offset_left = 23.0
 offset_top = -87.0
 offset_right = 819.0
@@ -38,7 +39,7 @@ offset_bottom = 418.0
 scale = Vector2(0.240164, 0.332484)
 texture = ExtResource("2_1qyy4")
 
-[node name="Klasa" type="TextureRect" parent="Node"]
+[node name="Klasa" type="TextureRect" parent="Node" unique_id=929505809]
 offset_left = 256.0
 offset_top = 729.0
 offset_right = 1923.0
@@ -46,7 +47,7 @@ offset_bottom = 1444.0
 scale = Vector2(0.257676, 0.348752)
 texture = ExtResource("3_uqwut")
 
-[node name="1a" type="TextureRect" parent="Node"]
+[node name="1a" type="TextureRect" parent="Node" unique_id=801642]
 offset_left = 651.0
 offset_top = 729.0
 offset_right = 1815.0
@@ -54,7 +55,7 @@ offset_bottom = 1436.0
 scale = Vector2(0.257676, 0.348752)
 texture = ExtResource("4_2bfs6")
 
-[node name="Ee" type="TextureRect" parent="Node"]
+[node name="Ee" type="TextureRect" parent="Node" unique_id=1286020737]
 offset_left = 205.0
 offset_top = -86.0
 offset_right = 657.0
@@ -62,7 +63,7 @@ offset_bottom = 395.0
 scale = Vector2(0.358447, 0.369341)
 texture = ExtResource("3_ks7qf")
 
-[node name="K" type="TextureRect" parent="Node"]
+[node name="K" type="TextureRect" parent="Node" unique_id=1932866359]
 offset_left = 364.0
 offset_top = -77.0
 offset_right = 675.0
@@ -70,7 +71,7 @@ offset_bottom = 373.0
 scale = Vector2(0.466395, 0.35806)
 texture = ExtResource("4_ficww")
 
-[node name="U" type="TextureRect" parent="Node"]
+[node name="U" type="TextureRect" parent="Node" unique_id=80340218]
 offset_left = 493.0
 offset_top = -77.0
 offset_right = 828.0
@@ -78,7 +79,7 @@ offset_bottom = 352.0
 scale = Vector2(0.462943, 0.380991)
 texture = ExtResource("5_uqwut")
 
-[node name="J" type="TextureRect" parent="Node"]
+[node name="J" type="TextureRect" parent="Node" unique_id=981898186]
 offset_left = 636.0
 offset_top = -101.0
 offset_right = 877.0
@@ -86,7 +87,7 @@ offset_bottom = 336.0
 scale = Vector2(0.5635, 0.3907)
 texture = ExtResource("6_2bfs6")
 
-[node name="E" type="TextureRect" parent="Node"]
+[node name="E" type="TextureRect" parent="Node" unique_id=2044946542]
 offset_left = 770.0
 offset_top = -88.0
 offset_right = 1033.0
@@ -94,7 +95,7 @@ offset_bottom = 353.0
 scale = Vector2(0.376079, 0.320262)
 texture = ExtResource("7_l5p70")
 
-[node name="M" type="TextureRect" parent="Node"]
+[node name="M" type="TextureRect" parent="Node" unique_id=1311514143]
 offset_left = 867.0
 offset_top = -83.0
 offset_right = 1327.0
@@ -102,7 +103,7 @@ offset_bottom = 329.0
 scale = Vector2(0.241786, 0.342308)
 texture = ExtResource("8_cexcq")
 
-[node name="Y" type="TextureRect" parent="Node"]
+[node name="Y" type="TextureRect" parent="Node" unique_id=67673093]
 offset_left = 963.0
 offset_top = -78.0
 offset_right = 1363.0
@@ -110,9 +111,9 @@ offset_bottom = 445.0
 scale = Vector2(0.316441, 0.33199)
 texture = ExtResource("9_vp2q1")
 
-[node name="Buttons" type="Node" parent="."]
+[node name="Buttons" type="Node" parent="." unique_id=408162991]
 
-[node name="Label" type="Label" parent="Buttons"]
+[node name="Label" type="Label" parent="Buttons" unique_id=818816861]
 visible = false
 modulate = Color(0.321569, 0.129412, 1, 1)
 offset_left = 109.0
@@ -123,21 +124,31 @@ theme_override_fonts/font = ExtResource("12_cexcq")
 theme_override_font_sizes/font_size = 50
 text = "Wybierz tryb:"
 
-[node name="ToMyButton" type="Button" parent="Buttons"]
-visible = false
+[node name="ToMyButton" type="Button" parent="Buttons" unique_id=678272061]
 offset_left = 140.0
 offset_top = 220.0
 offset_right = 940.0
 offset_bottom = 380.0
 theme_override_font_sizes/font_size = 72
-text = "To my!"
 
-[node name="QuizButton" type="Button" parent="Buttons"]
-visible = false
+[node name="LetterLabel" type="Node2D" parent="Buttons/ToMyButton" unique_id=647909813]
+position = Vector2(418, 89)
+script = ExtResource("13_l5p70")
+text = "to my!"
+variant_mode = 1
+cycle_interval = 0.30000000000000004
+metadata/_custom_type_script = "uid://xjpugwcq0p3l"
+
+[node name="QuizButton" type="Button" parent="Buttons" unique_id=1864931870]
 offset_left = 140.0
 offset_top = 440.0
 offset_right = 940.0
 offset_bottom = 600.0
 theme_override_font_sizes/font_size = 72
-text = "Jak dobrze nas znasz?"
 
+[node name="LetterLabel" type="Node2D" parent="Buttons/QuizButton" unique_id=549529387]
+position = Vector2(383, 78)
+scale = Vector2(0.41097447, 0.76850367)
+script = ExtResource("13_l5p70")
+text = "jak dobrze nas znasz"
+metadata/_custom_type_script = "uid://xjpugwcq0p3l"

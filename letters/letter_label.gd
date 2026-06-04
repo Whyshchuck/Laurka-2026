@@ -9,6 +9,7 @@ extends Node2D
 # Kody polskich znaków (wspólny przyrostek _pol):
 #   a_pol=ą  c_pol=ć  e_pol=ę  l_pol=ł  n_pol=ń
 #   o_pol=ó  s_pol=ś  z_pol=ż  zi_pol=ź
+# Znaki specjalne: pytajnik=?  wykrzyknik=!
 # Każda literka może mieć dowolnie wiele wariantów (_1, _2, _3...).
 #
 # Tryby:
@@ -21,6 +22,7 @@ const LETTERS_DIR := "res://letters"
 const CODE_TO_CHAR := {
 	"a_pol": "ą", "c_pol": "ć", "e_pol": "ę", "l_pol": "ł", "n_pol": "ń",
 	"o_pol": "ó", "s_pol": "ś", "z_pol": "ż", "zi_pol": "ź",
+	"pytajnik": "?", "wykrzyknik": "!",
 }
 
 @export var text := "": set = set_text

@@ -30,6 +30,17 @@ składa napisy w grze.
 
 Czyli np. drugi wariant "ż" = `z_pol_2.png`. **Nie używamy ą, ć itd. w nazwach plików!**
 
+## Znaki specjalne
+
+| kod w nazwie pliku | znak |
+|---|---|
+| `pytajnik` | ? |
+| `wykrzyknik` | ! |
+
+(Windows nie pozwala na `?` w nazwie pliku, stąd kod słowny. Kolejne znaki
+specjalne dodajemy analogicznie: wpis w `CODE_TO_CHAR` w `letter_label.gd`
++ pliki `<kod>_<n>.png`.)
+
 ## Jak użyć w grze
 
 Dodaj węzeł `Node2D`, podepnij skrypt `letter_label.gd` (albo wyszukaj typ

@@ -32,6 +32,8 @@ const CODE_TO_CHAR := {
 @export var letter_spacing := 8.0: set = set_letter_spacing
 @export var space_width := 50.0: set = set_space_width
 @export var centered := true: set = set_centered
+# Przycisk w Inspektorze: przeładowuje literki z dysku (po dorzuceniu nowych plików).
+@export_tool_button("Przeładuj literki", "Reload") var _reload_btn := _on_reload_pressed
 
 # Wspólny cache tekstur: znak -> Array[Texture2D] (po restarcie edytora odświeża się sam;
 # po dorzuceniu nowych plików w trakcie pracy można wywołać LetterLabel.reload_letters()).
@@ -52,6 +54,11 @@ func _ready() -> void:
 
 static func reload_letters() -> void:
 	_atlas = {}
+
+
+func _on_reload_pressed() -> void:
+	reload_letters()
+	_rebuild()
 
 
 # --- settery ---------------------------------------------------------------

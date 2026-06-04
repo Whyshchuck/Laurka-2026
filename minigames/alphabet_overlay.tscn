@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://minigames/alphabet_overlay.gd" id="1_alpha"]
+[ext_resource type="Script" path="res://letters/letter_label.gd" id="2_letters"]
+[ext_resource type="AudioStream" uid="uid://bxhvxu4wkd0wh" path="res://audio/win311.mp3" id="3_win"]
+
+[node name="AlphabetOverlay" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_alpha")
+
+[node name="Dim" type="ColorRect" parent="."]
+offset_right = 1080.0
+offset_bottom = 1200.0
+color = Color(0, 0, 0, 1)
+
+[node name="Portrait" type="TextureRect" parent="."]
+mouse_filter = 2
+expand_mode = 1
+
+[node name="Cells" type="Control" parent="."]
+mouse_filter = 2
+offset_right = 1080.0
+offset_bottom = 1200.0
+
+[node name="Letters" type="Node2D" parent="."]
+
+[node name="WinLabel" type="Node2D" parent="."]
+visible = false
+position = Vector2(290, 150)
+script = ExtResource("2_letters")
+text = "brawo!"
+letter_height = 110.0
+variant_mode = 1
+cycle_interval = 0.3
+
+[node name="WinAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_win")
+
+[node name="CloseButton" type="Button" parent="."]
+offset_left = 980.0
+offset_top = 40.0
+offset_right = 1050.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 36
+text = "X"

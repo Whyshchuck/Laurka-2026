@@ -56,6 +56,14 @@ static func reload_letters() -> void:
 	_atlas = {}
 
 
+static func get_variants(ch: String) -> Array:
+	# Tekstury wszystkich wariantów znaku — do użycia poza LetterLabel
+	# (np. minigra alfabetu buduje z nich własne sprite'y).
+	if _atlas.is_empty():
+		_load_atlas()
+	return _atlas.get(ch, [])
+
+
 func _on_reload_pressed() -> void:
 	reload_letters()
 	_rebuild()

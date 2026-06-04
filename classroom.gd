@@ -11,7 +11,9 @@ var total_pupils := 0
 var sitting_count := 0
 
 const QuizOverlayScene := preload("res://quiz/quiz_overlay.tscn")
+const AlphabetOverlayScene := preload("res://minigames/alphabet_overlay.tscn")
 var quiz_overlay: CanvasLayer = null
+var alphabet_overlay: CanvasLayer = null
 
 func _ready():
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
@@ -54,6 +56,13 @@ func _unhandled_input(event):
 			clicked_characters.append(node)
 
 	if clicked_characters.is_empty():
+		# Pani Kamila nie jest w $Pupils — klik w nią otwiera minigrę alfabetu.
+		# Rect liczony ręcznie, bo get_global_rect() nie uwzględnia scale.
+		var kamila: TextureRect = $PKamila/TextureRect3
+		var kamila_rect := Rect2(
+			kamila.get_global_transform_with_canvas().origin, kamila.size * kamila.scale)
+		if kamila_rect.has_point(mouse_pos):
+			open_alphabet()
 		return
 
 	# Sortuj po z_index malejąco (czyli najwyższy na początku)
@@ -74,6 +83,15 @@ func open_quiz(pupil) -> void:
 	quiz_overlay = QuizOverlayScene.instantiate()
 	add_child(quiz_overlay)
 	quiz_overlay.open_for_pupil(pupil)
+
+
+func open_alphabet() -> void:
+	# Otwórz minigrę alfabetu (klik w panią Kamilę, tylko jedna nakładka naraz).
+	if alphabet_overlay and is_instance_valid(alphabet_overlay):
+		return
+	alphabet_overlay = AlphabetOverlayScene.instantiate()
+	add_child(alphabet_overlay)
+	alphabet_overlay.open_from($PKamila/TextureRect3)
 
 
 func activate_pupils():

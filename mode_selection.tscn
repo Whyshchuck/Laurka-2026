@@ -127,6 +127,7 @@ theme_override_font_sizes/font_size = 50
 text = "Wybierz tryb:"
 
 [node name="ToMyButton" type="Button" parent="Buttons" unique_id=678272061]
+visible = false
 offset_left = 140.0
 offset_top = 220.0
 offset_right = 940.0
@@ -146,6 +147,7 @@ cycle_interval = 0.30000000000000004
 metadata/_custom_type_script = "uid://xjpugwcq0p3l"
 
 [node name="QuizButton" type="Button" parent="Buttons" unique_id=1864931870]
+visible = false
 offset_left = 140.0
 offset_top = 440.0
 offset_right = 940.0

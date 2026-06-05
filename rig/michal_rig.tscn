@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" uid="uid://c6oxme0eso18l" path="res://sprites/michał.png" id="1_tex"]
+[ext_resource type="AnimationLibrary" path="res://rig/pupil_anims.tres" id="2_anims"]
+[ext_resource type="Script" path="res://rig/auto_outline.gd" id="3_outline"]
+
+[node name="MichalRig" type="Node2D"]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="."]
+
+[node name="Biodra" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(290, 540)
+rest = Transform2D(1, 0, 0, 1, 290, 540)
+
+[node name="Tulow" type="Bone2D" parent="Skeleton2D/Biodra"]
+position = Vector2(0, -220)
+rest = Transform2D(1, 0, 0, 1, 0, -220)
+
+[node name="Glowa" type="Bone2D" parent="Skeleton2D/Biodra/Tulow"]
+position = Vector2(0, -60)
+rest = Transform2D(1, 0, 0, 1, 0, -60)
+auto_calculate_length_and_angle = false
+length = 220.0
+bone_angle = -1.5708
+
+[node name="RamieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow"]
+position = Vector2(-70, 7)
+rest = Transform2D(1, 0, 0, 1, -70, 7)
+
+[node name="PrzedramieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL"]
+position = Vector2(-92, 49)
+rest = Transform2D(1, 0, 0, 1, -92, 49)
+
+[node name="DlonL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL/PrzedramieL"]
+position = Vector2(-81, 44)
+rest = Transform2D(1, 0, 0, 1, -81, 44)
+auto_calculate_length_and_angle = false
+length = 35.0
+bone_angle = 2.644
+
+[node name="RamieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow"]
+position = Vector2(74, 3)
+rest = Transform2D(1, 0, 0, 1, 74, 3)
+
+[node name="PrzedramieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP"]
+position = Vector2(86, 45)
+rest = Transform2D(1, 0, 0, 1, 86, 45)
+
+[node name="DlonP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP/PrzedramieP"]
+position = Vector2(89, 40)
+rest = Transform2D(1, 0, 0, 1, 89, 40)
+auto_calculate_length_and_angle = false
+length = 35.0
+bone_angle = 0.422
+
+[node name="UdoL" type="Bone2D" parent="Skeleton2D/Biodra"]
+position = Vector2(-22, 10)
+rest = Transform2D(1, 0, 0, 1, -22, 10)
+
+[node name="LydkaL" type="Bone2D" parent="Skeleton2D/Biodra/UdoL"]
+position = Vector2(-10, 117)
+rest = Transform2D(1, 0, 0, 1, -10, 117)
+
+[node name="StopaL" type="Bone2D" parent="Skeleton2D/Biodra/UdoL/LydkaL"]
+position = Vector2(-6, 117)
+rest = Transform2D(1, 0, 0, 1, -6, 117)
+auto_calculate_length_and_angle = false
+length = 45.0
+bone_angle = 2.8
+
+[node name="UdoP" type="Bone2D" parent="Skeleton2D/Biodra"]
+position = Vector2(26, 10)
+rest = Transform2D(1, 0, 0, 1, 26, 10)
+
+[node name="LydkaP" type="Bone2D" parent="Skeleton2D/Biodra/UdoP"]
+position = Vector2(8, 117)
+rest = Transform2D(1, 0, 0, 1, 8, 117)
+
+[node name="StopaP" type="Bone2D" parent="Skeleton2D/Biodra/UdoP/LydkaP"]
+position = Vector2(6, 117)
+rest = Transform2D(1, 0, 0, 1, 6, 117)
+auto_calculate_length_and_angle = false
+length = 45.0
+bone_angle = 0.34
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+texture = ExtResource("1_tex")
+skeleton = NodePath("../Skeleton2D")
+polygon = PackedVector2Array(0, 0, 620, 0, 620, 839, 0, 839)
+uv = PackedVector2Array(0, 0, 620, 0, 620, 839, 0, 839)
+script = ExtResource("3_outline")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries/ = ExtResource("2_anims")

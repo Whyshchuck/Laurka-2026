@@ -30,6 +30,13 @@ func _trace() -> void:
 		if p.size() > best.size():
 			best = p
 
+	# Stare wagi pasują do starej liczby wierzchołków — niedopasowane wagi
+	# po cichu wyłączają całą deformację, więc lepiej zacząć od zera.
+	if not bones.is_empty():
+		clear_bones()
+		push_warning("auto_outline: obrys się zmienił — wagi wyczyszczone, "
+			+ "kliknij ponownie 'Sync Bones to Polygon' i pomaluj je od nowa")
+
 	polygon = best
 	uv = best
 	internal_vertex_count = 0

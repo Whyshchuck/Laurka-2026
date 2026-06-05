@@ -1,8 +1,7 @@
-[gd_resource type="AnimationLibrary" load_steps=3 format=3]
+[gd_resource type="AnimationLibrary" format=3 uid="uid://bnbb65shec7km"]
 
 [sub_resource type="Animation" id="Animation_reset"]
 resource_name = "RESET"
-length = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

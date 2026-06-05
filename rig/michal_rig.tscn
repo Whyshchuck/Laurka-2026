@@ -1,94 +1,94 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://bkffwtfi6xke1"]
 
 [ext_resource type="Texture2D" uid="uid://c6oxme0eso18l" path="res://sprites/michał.png" id="1_tex"]
 [ext_resource type="AnimationLibrary" path="res://rig/pupil_anims.tres" id="2_anims"]
-[ext_resource type="Script" path="res://rig/auto_outline.gd" id="3_outline"]
+[ext_resource type="Script" uid="uid://bbka3u0sn1ebi" path="res://rig/auto_outline.gd" id="3_outline"]
 
-[node name="MichalRig" type="Node2D"]
+[node name="MichalRig" type="Node2D" unique_id=1282551274]
 
-[node name="Skeleton2D" type="Skeleton2D" parent="."]
+[node name="Skeleton2D" type="Skeleton2D" parent="." unique_id=152294897]
 
-[node name="Biodra" type="Bone2D" parent="Skeleton2D"]
+[node name="Biodra" type="Bone2D" parent="Skeleton2D" unique_id=446425576]
 position = Vector2(290, 540)
 rest = Transform2D(1, 0, 0, 1, 290, 540)
 
-[node name="Tulow" type="Bone2D" parent="Skeleton2D/Biodra"]
+[node name="Tulow" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=80937432]
 position = Vector2(0, -220)
 rest = Transform2D(1, 0, 0, 1, 0, -220)
 
-[node name="Glowa" type="Bone2D" parent="Skeleton2D/Biodra/Tulow"]
+[node name="Glowa" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=2038798227]
 position = Vector2(0, -60)
 rest = Transform2D(1, 0, 0, 1, 0, -60)
 auto_calculate_length_and_angle = false
 length = 220.0
-bone_angle = -1.5708
+bone_angle = -1.5707998
 
-[node name="RamieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow"]
+[node name="RamieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=535061684]
 position = Vector2(-70, 7)
 rest = Transform2D(1, 0, 0, 1, -70, 7)
 
-[node name="PrzedramieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL"]
+[node name="PrzedramieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL" unique_id=1831878168]
 position = Vector2(-92, 49)
 rest = Transform2D(1, 0, 0, 1, -92, 49)
 
-[node name="DlonL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL/PrzedramieL"]
+[node name="DlonL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL/PrzedramieL" unique_id=1184822642]
 position = Vector2(-81, 44)
 rest = Transform2D(1, 0, 0, 1, -81, 44)
 auto_calculate_length_and_angle = false
 length = 35.0
-bone_angle = 2.644
+bone_angle = 2.6439998
 
-[node name="RamieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow"]
+[node name="RamieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=662576914]
 position = Vector2(74, 3)
 rest = Transform2D(1, 0, 0, 1, 74, 3)
 
-[node name="PrzedramieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP"]
+[node name="PrzedramieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP" unique_id=95210401]
 position = Vector2(86, 45)
 rest = Transform2D(1, 0, 0, 1, 86, 45)
 
-[node name="DlonP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP/PrzedramieP"]
+[node name="DlonP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP/PrzedramieP" unique_id=5869367]
 position = Vector2(89, 40)
 rest = Transform2D(1, 0, 0, 1, 89, 40)
 auto_calculate_length_and_angle = false
 length = 35.0
-bone_angle = 0.422
+bone_angle = 0.42199996
 
-[node name="UdoL" type="Bone2D" parent="Skeleton2D/Biodra"]
+[node name="UdoL" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=454119200]
 position = Vector2(-22, 10)
 rest = Transform2D(1, 0, 0, 1, -22, 10)
 
-[node name="LydkaL" type="Bone2D" parent="Skeleton2D/Biodra/UdoL"]
+[node name="LydkaL" type="Bone2D" parent="Skeleton2D/Biodra/UdoL" unique_id=873122595]
 position = Vector2(-10, 117)
 rest = Transform2D(1, 0, 0, 1, -10, 117)
 
-[node name="StopaL" type="Bone2D" parent="Skeleton2D/Biodra/UdoL/LydkaL"]
+[node name="StopaL" type="Bone2D" parent="Skeleton2D/Biodra/UdoL/LydkaL" unique_id=1850217782]
 position = Vector2(-6, 117)
 rest = Transform2D(1, 0, 0, 1, -6, 117)
 auto_calculate_length_and_angle = false
 length = 45.0
-bone_angle = 2.8
+bone_angle = 2.7999997
 
-[node name="UdoP" type="Bone2D" parent="Skeleton2D/Biodra"]
+[node name="UdoP" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=1903672363]
 position = Vector2(26, 10)
 rest = Transform2D(1, 0, 0, 1, 26, 10)
 
-[node name="LydkaP" type="Bone2D" parent="Skeleton2D/Biodra/UdoP"]
+[node name="LydkaP" type="Bone2D" parent="Skeleton2D/Biodra/UdoP" unique_id=858085285]
 position = Vector2(8, 117)
 rest = Transform2D(1, 0, 0, 1, 8, 117)
 
-[node name="StopaP" type="Bone2D" parent="Skeleton2D/Biodra/UdoP/LydkaP"]
+[node name="StopaP" type="Bone2D" parent="Skeleton2D/Biodra/UdoP/LydkaP" unique_id=1102681188]
 position = Vector2(6, 117)
 rest = Transform2D(1, 0, 0, 1, 6, 117)
 auto_calculate_length_and_angle = false
 length = 45.0
 bone_angle = 0.34
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1046952407]
 texture = ExtResource("1_tex")
 skeleton = NodePath("../Skeleton2D")
-polygon = PackedVector2Array(0, 0, 620, 0, 620, 839, 0, 839)
-uv = PackedVector2Array(0, 0, 620, 0, 620, 839, 0, 839)
+polygon = PackedVector2Array(303, 28, 284, 40, 282, 40, 269, 60, 268, 60, 253, 132, 252, 132, 282, 226, 282, 229, 297, 250, 298, 250, 296, 285, 296, 287, 293, 290, 289, 290, 263, 278, 263, 277, 240, 283, 238, 283, 204, 312, 203, 312, 193, 331, 193, 332, 122, 374, 120, 374, 6, 456, 5, 456, 10, 468, 10, 469, 35, 462, 36, 462, 38, 474, 43, 474, 74, 441, 74, 440, 111, 413, 111, 412, 168, 387, 170, 387, 207, 353, 207, 352, 215, 363, 215, 364, 226, 358, 228, 358, 230, 471, 230, 483, 223, 618, 223, 620, 233, 722, 233, 758, 231, 780, 231, 797, 215, 806, 214, 806, 214, 822, 214, 824, 237, 832, 237, 833, 301, 829, 302, 829, 315, 645, 315, 634, 336, 788, 337, 788, 331, 827, 331, 829, 408, 834, 414, 834, 432, 823, 433, 823, 431, 813, 431, 811, 415, 798, 414, 798, 408, 742, 407, 742, 395, 544, 394, 544, 399, 477, 400, 477, 394, 353, 394, 344, 445, 367, 447, 367, 552, 427, 572, 440, 572, 441, 580, 444, 591, 444, 598, 438, 598, 436, 618, 434, 620, 434, 608, 410, 608, 409, 553, 401, 550, 401, 506, 371, 506, 370, 425, 329, 422, 329, 414, 306, 414, 304, 392, 286, 392, 285, 369, 279, 369, 278, 349, 278, 337, 285, 336, 285, 333, 253, 333, 252, 360, 225, 361, 225, 370, 204, 371, 204, 375, 172, 375, 166, 384, 155, 384, 139, 371, 86, 371, 82, 353, 48, 353, 46, 340, 38, 340, 37, 321, 42, 319, 42, 314, 31, 314, 30, 303, 27)
+uv = PackedVector2Array(303, 28, 284, 40, 282, 40, 269, 60, 268, 60, 253, 132, 252, 132, 282, 226, 282, 229, 297, 250, 298, 250, 296, 285, 296, 287, 293, 290, 289, 290, 263, 278, 263, 277, 240, 283, 238, 283, 204, 312, 203, 312, 193, 331, 193, 332, 122, 374, 120, 374, 6, 456, 5, 456, 10, 468, 10, 469, 35, 462, 36, 462, 38, 474, 43, 474, 74, 441, 74, 440, 111, 413, 111, 412, 168, 387, 170, 387, 207, 353, 207, 352, 215, 363, 215, 364, 226, 358, 228, 358, 230, 471, 230, 483, 223, 618, 223, 620, 233, 722, 233, 758, 231, 780, 231, 797, 215, 806, 214, 806, 214, 822, 214, 824, 237, 832, 237, 833, 301, 829, 302, 829, 315, 645, 315, 634, 336, 788, 337, 788, 331, 827, 331, 829, 408, 834, 414, 834, 432, 823, 433, 823, 431, 813, 431, 811, 415, 798, 414, 798, 408, 742, 407, 742, 395, 544, 394, 544, 399, 477, 400, 477, 394, 353, 394, 344, 445, 367, 447, 367, 572, 440, 572, 441, 580, 444, 591, 444, 598, 438, 598, 436, 618, 434, 620, 434, 608, 410, 608, 409, 553, 401, 550, 401, 506, 371, 506, 370, 425, 329, 422, 329, 414, 306, 414, 304, 392, 286, 392, 285, 369, 279, 369, 278, 349, 278, 337, 285, 336, 285, 333, 253, 333, 252, 360, 225, 361, 225, 370, 204, 371, 204, 375, 172, 375, 166, 384, 155, 384, 139, 371, 86, 371, 82, 353, 48, 353, 46, 340, 38, 340, 37, 321, 42, 319, 42, 314, 31, 314, 30, 303, 27)
 script = ExtResource("3_outline")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=715790114]
 libraries/ = ExtResource("2_anims")

@@ -10,6 +10,13 @@ enum CharacterState {
 
 @export var speed := 300.0
 
+# Reakcja na klik (tryb WELCOME): kolejne stadia przemiany,
+# np. dla Łucji [norm, trans_1, trans_2, bronto]. Puste = uczeń się nie zmienia.
+# Drugi klik odwraca przemianę.
+@export var transform_textures: Array[Texture2D] = []
+
+enum TransformState { NORMAL, RUNNING, TRANSFORMED }
+
 const COLOUR_NORMAL := Color(1, 1, 1, 1)
 const COLOUR_RESPAWN := Color(1, 0.3, 0.3, 1)
 const COLOUR_CANCEL_RESPAWN := Color(0, 1, 0, 1)
@@ -18,12 +25,22 @@ const COLOUR_LOCKED := Color(0.326, 0.532, 1.0, 1)
 const RESPAWN_TIMEOUT := 4
 const MAX_RESPAWN_COUNT := 3
 
+const FLASH_COLOUR := Color(1.6, 1.5, 0.4, 1)  # żółty błysk przemiany
+const FLASH_SWAPS := 6    # ile podmian tekstur na jedno stadium przemiany
+const FLASH_TIME := 0.09  # czas jednej podmiany
+
 var character_state: CharacterState = CharacterState.READY
 var direction := Vector2.ZERO
 var start_position := Vector2.ZERO
 var nav_map_rid: RID
 var respawn_count := 0
 var blink_tween: Tween = null
+
+var transform_state := TransformState.NORMAL
+var _transform_orig := {}      # zapamiętany wygląd sprite'a sprzed przemiany
+var _transform_scale := 1.0    # wspólna skala tekstur przemiany
+var _transform_bottom := 0.0   # y dolnej krawędzi — stopy/łapy zawsze na ziemi
+var _transform_base_w := 0.0   # szerokość stadium wyjściowego na ekranie
 
 @onready var agent := $NavigationAgent2D
 @onready var respawn_timer: Timer = $RespawnTimer
@@ -52,12 +69,121 @@ func _unhandled_input(event: InputEvent) -> void:
 func on_click():
 	match Global.current_mode:
 		Global.GameMode.WELCOME:
-			if $AudioStreamPlayer:
-				$AudioStreamPlayer.play()
+			react()
 		Global.GameMode.QUIZ:
 			pass # TODO (Faza 4): klik -> tło szarzeje, slide sprite'a, pytania a/b/c
 
-		
+
+func react() -> void:
+	# Reakcja na klik: głos + (jeśli uczeń ją ma) proceduralna przemiana.
+	if $AudioStreamPlayer:
+		$AudioStreamPlayer.play()
+	if transform_textures.size() >= 2 and transform_state != TransformState.RUNNING:
+		_run_transform()
+
+
+# --- przemiana (np. Łucja -> brontozaur) ------------------------------------
+
+func _run_transform() -> void:
+	# Każde stadium miga na żółto na zmianę z następnym, aż zostaje ostatnie.
+	# Przy odwrotnej przemianie sekwencja leci od końca i wraca oryginalny sprite.
+	var reverse := transform_state == TransformState.TRANSFORMED
+	transform_state = TransformState.RUNNING
+
+	if _transform_orig.is_empty():
+		_save_transform_orig()
+
+	var anim: AnimationPlayer = get_node_or_null("AnimationPlayer")
+	if anim and anim.is_playing():
+		_transform_orig.anim = anim.current_animation
+		anim.stop()
+
+	var target: CanvasItem = sprite if sprite else texture_rect
+	var seq := transform_textures.duplicate()
+	if reverse:
+		seq.reverse()
+
+	# Stopniowe rozszerzanie: po pierwszym stadium szerokość rośnie z każdym
+	# mignięciem od szerokości wyjściowej do naturalnej szerokości tekstury
+	# (trans_2/bronto zaczynają wąskie jak Łucja i puchną do brontozaura).
+	var total_steps := (seq.size() - 1) * FLASH_SWAPS
+	var step := 0
+	for phase in seq.size() - 1:
+		for j in FLASH_SWAPS:
+			var width_p := clampf(
+				float(step + 1 - FLASH_SWAPS) / float(total_steps - FLASH_SWAPS), 0.0, 1.0)
+			if reverse:
+				width_p = 1.0 - width_p
+			_set_transform_texture(seq[phase + (j % 2)], width_p)
+			target.modulate = FLASH_COLOUR if j % 2 == 0 else COLOUR_NORMAL
+			step += 1
+			await get_tree().create_timer(FLASH_TIME).timeout
+			if not is_inside_tree():
+				return
+
+	target.modulate = COLOUR_NORMAL
+	if reverse:
+		_restore_transform_orig()
+		transform_state = TransformState.NORMAL
+	else:
+		transform_state = TransformState.TRANSFORMED
+
+
+func _save_transform_orig() -> void:
+	# Wygląd sprzed przemiany + wspólna skala: pierwsza tekstura przemiany ma być
+	# tak wysoka, jak klatka, którą uczeń wyświetla na co dzień. Wysokości rysunków
+	# stadiów są spójne, więc jeden mnożnik wystarcza (bronto wychodzi szerszy).
+	if sprite:
+		_transform_orig = {
+			"texture": sprite.texture,
+			"hframes": sprite.hframes,
+			"vframes": sprite.vframes,
+			"scale": sprite.scale,
+			"position": sprite.position,
+			"anim": "",
+		}
+		var frame_h := float(sprite.texture.get_height()) / sprite.vframes
+		var display_h := frame_h * sprite.scale.y
+		_transform_scale = display_h / transform_textures[0].get_height()
+		_transform_bottom = sprite.position.y + display_h / 2.0
+		_transform_base_w = transform_textures[0].get_width() * _transform_scale
+	else:
+		_transform_orig = { "texture": texture_rect.texture, "anim": "" }
+
+
+func _set_transform_texture(tex: Texture2D, width_p := 1.0) -> void:
+	if sprite:
+		sprite.texture = tex
+		sprite.hframes = 1
+		sprite.vframes = 1
+		sprite.frame = 0
+		# Szerokość na ekranie: między szerokością stadium wyjściowego
+		# a naturalną szerokością tej tekstury, wg postępu przemiany.
+		var natural_w := tex.get_width() * _transform_scale
+		var w := lerpf(minf(_transform_base_w, natural_w), natural_w, width_p)
+		sprite.scale = Vector2(_transform_scale * w / natural_w, _transform_scale)
+		sprite.position = Vector2(
+			_transform_orig.position.x,
+			_transform_bottom - tex.get_height() * _transform_scale / 2.0)
+	else:
+		texture_rect.texture = tex
+
+
+func _restore_transform_orig() -> void:
+	if sprite:
+		sprite.texture = _transform_orig.texture
+		sprite.hframes = _transform_orig.hframes
+		sprite.vframes = _transform_orig.vframes
+		sprite.frame = 0
+		sprite.scale = _transform_orig.scale
+		sprite.position = _transform_orig.position
+	else:
+		texture_rect.texture = _transform_orig.texture
+	var anim: AnimationPlayer = get_node_or_null("AnimationPlayer")
+	if anim and _transform_orig.anim != "":
+		anim.play(_transform_orig.anim)
+
+
 
 func _physics_process(delta):
 	if character_state in [CharacterState.READY, CharacterState.RESPAWNING]:

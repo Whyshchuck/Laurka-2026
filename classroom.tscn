@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://cimihk86uivh"]
+[gd_scene format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://classroom.gd" id="1_37esg"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://desk_left.tscn" id="2_pq1j3"]
@@ -10,9 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://bhsgmj2terok8" path="res://pupil.tscn" id="6_6e7js"]
 [ext_resource type="AudioStream" uid="uid://ktr6d81f3f64" path="res://audio/hania.mp3" id="6_47w1q"]
 [ext_resource type="AudioStream" uid="uid://b72kptqtaxs1b" path="res://audio/lucja.mp3" id="6_l8q0k"]
-[ext_resource type="Texture2D" uid="uid://b06unagkm4w78" path="res://sprites/lucja.png" id="7_0hcv4"]
+[ext_resource type="Texture2D" uid="uid://d2khc2pn2svq6" path="res://sprites/lucja_bronto.png" id="7_lucbro"]
+[ext_resource type="Texture2D" uid="uid://bfyejmncvcpy5" path="res://sprites/lucja_norm.png" id="7_lucnorm"]
+[ext_resource type="Texture2D" uid="uid://dg7gavyoyuh04" path="res://sprites/lucja_trans_1.png" id="7_luctr1"]
+[ext_resource type="Texture2D" uid="uid://bl60fqbhp1c8e" path="res://sprites/lucja_trans_2.png" id="7_luctr2"]
 [ext_resource type="Texture2D" uid="uid://ck4jx7a6vleda" path="res://sprites/oliwka.png" id="7_nfkg8"]
-[ext_resource type="Texture2D" uid="uid://uld0x4k41ig7" path="res://sprites/lucja-Sheet.png" id="7_shilq"]
 [ext_resource type="Texture2D" uid="uid://ctv4u6w85a5sp" path="res://sprites/Hania.png" id="8_37esg"]
 [ext_resource type="Texture2D" uid="uid://g6lp4bbr1pou" path="res://sprites/krystian.png" id="8_ccl3g"]
 [ext_resource type="Texture2D" uid="uid://cvbh4n2t5kon7" path="res://sprites/antek.png" id="8_v6oqn"]
@@ -154,18 +156,18 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(104.605, 248.949, 107, 1379, 932, 1384, 928.49, 256.062)])
 agent_radius = 5.0
 
-[node name="Classroom" type="StaticBody2D"]
+[node name="Classroom" type="StaticBody2D" unique_id=105980212]
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_37esg")
 metadata/_edit_vertical_guides_ = [389.0]
 
-[node name="Walls" type="CollisionPolygon2D" parent="."]
+[node name="Walls" type="CollisionPolygon2D" parent="." unique_id=1881339172]
 position = Vector2(1481, 292)
 scale = Vector2(0.996135, 0.792319)
 polygon = PackedVector2Array(-1381, -92, -543, -83, -541, 1054, -549, 1125, -384, 1127, -389, -354, -1500, -351, -1505, 1133, -548, 1126, -548, 1099, -1375, 1106)
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=589853578]
 visible = false
 offset_left = -7.0
 offset_top = -54.0
@@ -174,7 +176,7 @@ offset_bottom = 1410.0
 texture = ExtResource("2_qiocc")
 expand_mode = 4
 
-[node name="TextureRect2" type="TextureRect" parent="."]
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=1503779154]
 offset_left = -7.0
 offset_top = -54.0
 offset_right = 1080.0
@@ -183,19 +185,20 @@ scale = Vector2(0.993284, 0.831165)
 texture = ExtResource("3_i34hi")
 expand_mode = 4
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=533480321]
 position = Vector2(534, 576)
 
-[node name="Pupils" type="Node2D" parent="."]
+[node name="Pupils" type="Node2D" parent="." unique_id=2006890679]
 z_as_relative = false
 y_sort_enabled = true
 
-[node name="Łucja" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Łucja" parent="Pupils" unique_id=1321633523 instance=ExtResource("6_6e7js")]
 position = Vector2(368, 858)
 collision_layer = 1
 collision_mask = 2
+transform_textures = Array[Texture2D]([ExtResource("7_lucnorm"), ExtResource("7_luctr1"), ExtResource("7_luctr2"), ExtResource("7_lucbro")])
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Łucja"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Łucja" unique_id=1373301868]
 visible = false
 z_as_relative = false
 offset_left = -88.0
@@ -203,33 +206,29 @@ offset_top = -210.0
 offset_right = 199.0
 offset_bottom = 196.0
 scale = Vector2(0.563777, 0.598144)
-texture = ExtResource("7_0hcv4")
+texture = ExtResource("7_lucnorm")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Łucja"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Łucja" unique_id=734343436]
 stream = ExtResource("6_l8q0k")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Łucja"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Łucja" unique_id=788304551]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/Łucja"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Łucja" unique_id=1348761024]
 z_as_relative = false
 position = Vector2(-7, -90)
-scale = Vector2(0.323241, 0.366912)
-texture = ExtResource("7_shilq")
-hframes = 4
-vframes = 3
+scale = Vector2(0.397045, 0.397045)
+texture = ExtResource("7_lucnorm")
 
-[node name="Hania" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Hania" parent="Pupils" unique_id=1593792820 instance=ExtResource("6_6e7js")]
 position = Vector2(918, 876)
 scale = Vector2(0.88416, 0.798544)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Hania"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Hania" unique_id=1057111449]
 visible = false
 z_as_relative = false
 offset_left = -87.0
@@ -241,15 +240,13 @@ texture = ExtResource("8_37esg")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Hania"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Hania" unique_id=1118446497]
 stream = ExtResource("6_47w1q")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Hania"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Hania" unique_id=851113214]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/Hania"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Hania" unique_id=979331196]
 z_as_relative = false
 position = Vector2(20.3583, -115.21)
 scale = Vector2(0.4159, 0.513163)
@@ -257,12 +254,12 @@ texture = ExtResource("10_vtuje")
 hframes = 4
 vframes = 3
 
-[node name="Wojtek" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Wojtek" parent="Pupils" unique_id=1588107542 instance=ExtResource("6_6e7js")]
 position = Vector2(368, 576)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Wojtek"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Wojtek" unique_id=1702167115]
 z_as_relative = false
 offset_left = -74.0
 offset_top = -208.0
@@ -273,16 +270,16 @@ texture = ExtResource("9_0hcv4")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Wojtek"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Wojtek" unique_id=1870162590]
 stream = ExtResource("9_2u30p")
 
-[node name="Oliwka" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Oliwka" parent="Pupils" unique_id=615776245 instance=ExtResource("6_6e7js")]
 position = Vector2(478, 418)
 scale = Vector2(0.389313, 0.479169)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Oliwka"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Oliwka" unique_id=1308545109]
 z_as_relative = false
 offset_left = -161.824
 offset_top = -402.781
@@ -292,15 +289,15 @@ texture = ExtResource("7_nfkg8")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Oliwka"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Oliwka" unique_id=258169476]
 stream = ExtResource("11_dtuxj")
 
-[node name="Antek" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Antek" parent="Pupils" unique_id=2074091120 instance=ExtResource("6_6e7js")]
 position = Vector2(457, 723)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Antek"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Antek" unique_id=665966252]
 z_as_relative = false
 y_sort_enabled = true
 offset_left = -48.0
@@ -312,15 +309,15 @@ texture = ExtResource("8_v6oqn")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Antek"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Antek" unique_id=887652788]
 stream = ExtResource("10_w47uv")
 
-[node name="Krzysiek" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Krzysiek" parent="Pupils" unique_id=2128427189 instance=ExtResource("6_6e7js")]
 position = Vector2(916, 706)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Krzysiek"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Krzysiek" unique_id=768116149]
 visible = false
 z_as_relative = false
 y_sort_enabled = true
@@ -333,15 +330,13 @@ texture = ExtResource("11_qiocc")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Krzysiek"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Krzysiek" unique_id=1619788427]
 stream = ExtResource("15_12wbt")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Krzysiek"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Krzysiek" unique_id=1021316798]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/Krzysiek"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Krzysiek" unique_id=1428706390]
 z_as_relative = false
 position = Vector2(-4, -98)
 scale = Vector2(0.294152, 0.315571)
@@ -349,12 +344,12 @@ texture = ExtResource("18_mr3oy")
 hframes = 4
 vframes = 3
 
-[node name="Nati" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Nati" parent="Pupils" unique_id=1277592532 instance=ExtResource("6_6e7js")]
 position = Vector2(820, 886)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Nati"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Nati" unique_id=1981991540]
 visible = false
 z_as_relative = false
 y_sort_enabled = true
@@ -367,15 +362,13 @@ texture = ExtResource("11_770w0")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Nati"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Nati" unique_id=1437394525]
 stream = ExtResource("12_r71ne")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Nati"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Nati" unique_id=1047690026]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/Nati"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Nati" unique_id=2102833435]
 z_as_relative = false
 position = Vector2(14, -94)
 scale = Vector2(0.216293, 0.315571)
@@ -383,12 +376,12 @@ texture = ExtResource("20_r3myd")
 hframes = 4
 vframes = 3
 
-[node name="Krystian" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Krystian" parent="Pupils" unique_id=1682544423 instance=ExtResource("6_6e7js")]
 position = Vector2(468, 576)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Krystian"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Krystian" unique_id=979918346]
 z_as_relative = false
 offset_left = -59.0
 offset_top = -202.0
@@ -399,15 +392,15 @@ texture = ExtResource("8_ccl3g")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Krystian"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Krystian" unique_id=1154073236]
 stream = ExtResource("19_l8q0k")
 
-[node name="Amelka" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Amelka" parent="Pupils" unique_id=863685177 instance=ExtResource("6_6e7js")]
 position = Vector2(544, 567)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Amelka"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Amelka" unique_id=1346497617]
 z_as_relative = false
 offset_left = -70.0
 offset_top = -228.0
@@ -418,15 +411,15 @@ texture = ExtResource("9_pubde")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Amelka"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Amelka" unique_id=454612981]
 stream = ExtResource("11_lqrni")
 
-[node name="Michał" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Michał" parent="Pupils" unique_id=1952351644 instance=ExtResource("6_6e7js")]
 position = Vector2(661, 432)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Michał"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Michał" unique_id=1091350307]
 z_as_relative = false
 offset_left = -67.0
 offset_top = -212.0
@@ -437,15 +430,15 @@ texture = ExtResource("11_1h0yc")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Michał"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Michał" unique_id=360689577]
 stream = ExtResource("24_j8bve")
 
-[node name="MichałA" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="MichałA" parent="Pupils" unique_id=26034157 instance=ExtResource("6_6e7js")]
 position = Vector2(651, 866)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/MichałA"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/MichałA" unique_id=564168240]
 z_as_relative = false
 offset_left = -68.0
 offset_top = -210.0
@@ -456,15 +449,15 @@ texture = ExtResource("18_fslkb")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/MichałA"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/MichałA" unique_id=1396146290]
 stream = ExtResource("24_jbgm4")
 
-[node name="Maja" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Maja" parent="Pupils" unique_id=2122220698 instance=ExtResource("6_6e7js")]
 position = Vector2(820, 692)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Maja"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Maja" unique_id=1674133643]
 visible = false
 z_as_relative = false
 offset_left = -69.0
@@ -476,15 +469,13 @@ texture = ExtResource("19_7pr0m")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Maja"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Maja" unique_id=1271547424]
 stream = ExtResource("26_j8bve")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Maja"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Maja" unique_id=1916662597]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/Maja"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Maja" unique_id=2031577019]
 z_as_relative = false
 position = Vector2(8, -82)
 scale = Vector2(0.452913, 0.405629)
@@ -492,12 +483,12 @@ texture = ExtResource("33_1ck2j")
 hframes = 4
 vframes = 3
 
-[node name="Majarysia" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Majarysia" parent="Pupils" unique_id=1595249454 instance=ExtResource("6_6e7js")]
 position = Vector2(148, 866)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Majarysia"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Majarysia" unique_id=690600125]
 z_as_relative = false
 offset_left = -73.0
 offset_top = -202.0
@@ -508,15 +499,15 @@ texture = ExtResource("29_3f2uc")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Majarysia"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Majarysia" unique_id=1398407544]
 stream = ExtResource("30_5qgbj")
 
-[node name="Julek" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Julek" parent="Pupils" unique_id=2063939969 instance=ExtResource("6_6e7js")]
 position = Vector2(379, 738)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Julek"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Julek" unique_id=776782303]
 visible = false
 z_as_relative = false
 offset_left = -85.0
@@ -528,15 +519,13 @@ texture = ExtResource("20_iyqoq")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Julek"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Julek" unique_id=1434381351]
 stream = ExtResource("22_fl1xt")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Julek"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Julek" unique_id=576057832]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/Julek"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Julek" unique_id=977067493]
 z_as_relative = false
 position = Vector2(-11, -115)
 scale = Vector2(0.318099, 0.339054)
@@ -544,12 +533,12 @@ texture = ExtResource("36_hlyff")
 hframes = 4
 vframes = 3
 
-[node name="Piotrek" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Piotrek" parent="Pupils" unique_id=2009672695 instance=ExtResource("6_6e7js")]
 position = Vector2(652, 576)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Piotrek"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Piotrek" unique_id=1650838949]
 z_as_relative = false
 offset_left = -68.0
 offset_top = -210.0
@@ -560,15 +549,15 @@ texture = ExtResource("12_ct2yb")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Piotrek"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Piotrek" unique_id=367647182]
 stream = ExtResource("10_n0qdd")
 
-[node name="Wiktor" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Wiktor" parent="Pupils" unique_id=1827558988 instance=ExtResource("6_6e7js")]
 position = Vector2(658, 723)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Wiktor"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Wiktor" unique_id=247624420]
 visible = false
 z_as_relative = false
 offset_left = -79.0
@@ -580,15 +569,13 @@ texture = ExtResource("13_b5xur")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Wiktor"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Wiktor" unique_id=1657047597]
 stream = ExtResource("20_wnmoq")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Wiktor"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Wiktor" unique_id=1719054148]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/Wiktor"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Wiktor" unique_id=2113585384]
 z_as_relative = false
 position = Vector2(-6, -86)
 scale = Vector2(0.366377, 0.343617)
@@ -596,12 +583,12 @@ texture = ExtResource("40_eqqr6")
 hframes = 4
 vframes = 3
 
-[node name="KazikR" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="KazikR" parent="Pupils" unique_id=828244482 instance=ExtResource("6_6e7js")]
 position = Vector2(649, 295)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/KazikR"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/KazikR" unique_id=1084984408]
 z_as_relative = false
 offset_left = -76.0
 offset_top = -203.0
@@ -612,15 +599,15 @@ texture = ExtResource("14_lqrni")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/KazikR"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/KazikR" unique_id=213787724]
 stream = ExtResource("34_mh7vt")
 
-[node name="KazikL" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="KazikL" parent="Pupils" unique_id=1001703883 instance=ExtResource("6_6e7js")]
 position = Vector2(374, 1016)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/KazikL"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/KazikL" unique_id=1554750207]
 visible = false
 z_as_relative = false
 offset_left = -68.0
@@ -632,15 +619,13 @@ texture = ExtResource("35_3f2uc")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/KazikL"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/KazikL" unique_id=501838490]
 stream = ExtResource("36_5qgbj")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/KazikL"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/KazikL" unique_id=1805946353]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/KazikL"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/KazikL" unique_id=2042301548]
 z_as_relative = false
 position = Vector2(5, -98)
 scale = Vector2(0.538657, 0.338766)
@@ -648,12 +633,13 @@ texture = ExtResource("42_uohgg")
 hframes = 4
 vframes = 3
 
-[node name="Anabiya" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Anabiya" parent="Pupils" unique_id=945626928 instance=ExtResource("6_6e7js")]
+visible = false
 position = Vector2(463, 876)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Anabiya"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Anabiya" unique_id=1195176300]
 visible = false
 z_as_relative = false
 offset_left = -62.0
@@ -665,15 +651,13 @@ texture = ExtResource("25_qiocc")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Anabiya"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Anabiya" unique_id=1388057136]
 stream = ExtResource("38_shilq")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Anabiya"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Anabiya" unique_id=550802247]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/Anabiya"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Anabiya" unique_id=2109296537]
 z_as_relative = false
 position = Vector2(14, -86)
 scale = Vector2(0.41505, 0.37873)
@@ -681,12 +665,12 @@ texture = ExtResource("48_yct1w")
 hframes = 4
 vframes = 3
 
-[node name="Kuba" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Kuba" parent="Pupils" unique_id=17679816 instance=ExtResource("6_6e7js")]
 position = Vector2(368, 432)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Kuba"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Kuba" unique_id=968333932]
 visible = false
 z_as_relative = false
 offset_left = -61.0
@@ -698,15 +682,13 @@ texture = ExtResource("26_7pr0m")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Kuba"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Kuba" unique_id=1785435030]
 stream = ExtResource("40_12wbt")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Kuba"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Kuba" unique_id=1488562179]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/Kuba"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Kuba" unique_id=1837746926]
 z_as_relative = false
 position = Vector2(6, -79)
 scale = Vector2(0.396845, 0.351726)
@@ -714,12 +696,12 @@ texture = ExtResource("46_hxmxl")
 hframes = 4
 vframes = 3
 
-[node name="Abrish" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Abrish" parent="Pupils" unique_id=745045710 instance=ExtResource("6_6e7js")]
 position = Vector2(128, 705)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Abrish"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Abrish" unique_id=661607927]
 z_as_relative = false
 offset_left = -55.0
 offset_top = -215.0
@@ -730,15 +712,15 @@ texture = ExtResource("26_fl1xt")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Abrish"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Abrish" unique_id=906452446]
 stream = ExtResource("41_dtuxj")
 
-[node name="Szymon" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Szymon" parent="Pupils" unique_id=1437319454 instance=ExtResource("6_6e7js")]
 position = Vector2(557, 875)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Szymon"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Szymon" unique_id=611368118]
 z_as_relative = false
 offset_left = -67.0
 offset_top = -226.0
@@ -749,15 +731,15 @@ texture = ExtResource("27_onxaf")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Szymon"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Szymon" unique_id=77559053]
 stream = ExtResource("45_jbgm4")
 
-[node name="Miłosz" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Miłosz" parent="Pupils" unique_id=1281844037 instance=ExtResource("6_6e7js")]
 position = Vector2(659, 996)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Miłosz"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Miłosz" unique_id=1237453093]
 z_as_relative = false
 offset_left = -64.0
 offset_top = -210.0
@@ -769,15 +751,15 @@ texture = ExtResource("10_v6oqn")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Miłosz"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Miłosz" unique_id=17719537]
 stream = ExtResource("23_1j5ya")
 
-[node name="Jasiek" parent="Pupils" instance=ExtResource("6_6e7js")]
+[node name="Jasiek" parent="Pupils" unique_id=1293226741 instance=ExtResource("6_6e7js")]
 position = Vector2(228, 515)
 collision_layer = 1
 collision_mask = 2
 
-[node name="TextureRect" type="TextureRect" parent="Pupils/Jasiek"]
+[node name="TextureRect" type="TextureRect" parent="Pupils/Jasiek" unique_id=1059409345]
 visible = false
 z_as_relative = false
 offset_left = -88.0
@@ -790,15 +772,13 @@ texture = ExtResource("14_1h0yc")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Jasiek"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Jasiek" unique_id=1566879333]
 stream = ExtResource("25_fslkb")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Jasiek"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pupils/Jasiek" unique_id=1009415555]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pupils/Jasiek"]
+[node name="Sprite2D" type="Sprite2D" parent="Pupils/Jasiek" unique_id=1494813850]
 z_as_relative = false
 position = Vector2(-22, -88)
 scale = Vector2(0.321759, 0.369425)
@@ -806,125 +786,125 @@ texture = ExtResource("61_vtuje")
 hframes = 4
 vframes = 3
 
-[node name="DeskCenter3" parent="Pupils" instance=ExtResource("3_dju2y")]
+[node name="DeskCenter3" parent="Pupils" unique_id=182975833 instance=ExtResource("3_dju2y")]
 z_as_relative = false
 position = Vector2(332, 775)
 
-[node name="DeskCenter6" parent="Pupils" instance=ExtResource("3_dju2y")]
+[node name="DeskCenter6" parent="Pupils" unique_id=326983218 instance=ExtResource("3_dju2y")]
 z_as_relative = false
 position = Vector2(329, 331)
 
-[node name="DeskCenter2" parent="Pupils" instance=ExtResource("3_dju2y")]
+[node name="DeskCenter2" parent="Pupils" unique_id=969128046 instance=ExtResource("3_dju2y")]
 z_as_relative = false
 position = Vector2(329, 625)
 
-[node name="DeskCenter1" parent="Pupils" instance=ExtResource("3_dju2y")]
+[node name="DeskCenter1" parent="Pupils" unique_id=750423161 instance=ExtResource("3_dju2y")]
 z_as_relative = false
 position = Vector2(329, 475)
 
-[node name="DeskCenter4" parent="Pupils" instance=ExtResource("3_dju2y")]
+[node name="DeskCenter4" parent="Pupils" unique_id=436229604 instance=ExtResource("3_dju2y")]
 z_as_relative = false
 position = Vector2(325, 920)
 
-[node name="DeskCenter5" parent="Pupils" instance=ExtResource("3_dju2y")]
+[node name="DeskCenter5" parent="Pupils" unique_id=1846139893 instance=ExtResource("3_dju2y")]
 z_as_relative = false
 position = Vector2(328, 1054)
 
-[node name="DeskLeft" parent="Pupils" instance=ExtResource("2_pq1j3")]
+[node name="DeskLeft" parent="Pupils" unique_id=409555453 instance=ExtResource("2_pq1j3")]
 z_as_relative = false
 position = Vector2(64, 546)
 
-[node name="DeskLeft3" parent="Pupils" instance=ExtResource("2_pq1j3")]
+[node name="DeskLeft3" parent="Pupils" unique_id=1792360015 instance=ExtResource("2_pq1j3")]
 position = Vector2(64, 736)
 
-[node name="DeskLeft4" parent="Pupils" instance=ExtResource("2_pq1j3")]
+[node name="DeskLeft4" parent="Pupils" unique_id=1049362424 instance=ExtResource("2_pq1j3")]
 position = Vector2(69, 906)
 
-[node name="DeskLeft2" parent="Pupils" instance=ExtResource("4_5aa18")]
+[node name="DeskLeft2" parent="Pupils" unique_id=144343283 instance=ExtResource("4_5aa18")]
 position = Vector2(779, 964)
 collision_layer = 2
 
-[node name="DeskRight" parent="Pupils" instance=ExtResource("5_6e7js")]
+[node name="DeskRight" parent="Pupils" unique_id=842537648 instance=ExtResource("5_6e7js")]
 position = Vector2(787, 389)
 
-[node name="DeskRight2" parent="Pupils" instance=ExtResource("5_6e7js")]
+[node name="DeskRight2" parent="Pupils" unique_id=1716302027 instance=ExtResource("5_6e7js")]
 position = Vector2(787, 553)
 
-[node name="DeskRight3" parent="Pupils" instance=ExtResource("5_6e7js")]
+[node name="DeskRight3" parent="Pupils" unique_id=1231560744 instance=ExtResource("5_6e7js")]
 position = Vector2(786, 739)
 
-[node name="DeskRight4" parent="Pupils" instance=ExtResource("5_6e7js")]
+[node name="DeskRight4" parent="Pupils" unique_id=140521236 instance=ExtResource("5_6e7js")]
 z_as_relative = false
 position = Vector2(787, 912)
 
-[node name="ChairRight1" parent="Pupils" instance=ExtResource("39_fl1xt")]
+[node name="ChairRight1" parent="Pupils" unique_id=713318187 instance=ExtResource("39_fl1xt")]
 position = Vector2(782, 643)
 
-[node name="ChairRight2" parent="Pupils" instance=ExtResource("39_fl1xt")]
+[node name="ChairRight2" parent="Pupils" unique_id=936822732 instance=ExtResource("39_fl1xt")]
 position = Vector2(782, 816)
 
-[node name="ChairRight3" parent="Pupils" instance=ExtResource("39_fl1xt")]
+[node name="ChairRight3" parent="Pupils" unique_id=1665127703 instance=ExtResource("39_fl1xt")]
 position = Vector2(781, 293)
 
-[node name="ChairRight4" parent="Pupils" instance=ExtResource("39_fl1xt")]
+[node name="ChairRight4" parent="Pupils" unique_id=1394351329 instance=ExtResource("39_fl1xt")]
 position = Vector2(777, 452)
 
-[node name="ChairLeft1" parent="Pupils" instance=ExtResource("40_onxaf")]
+[node name="ChairLeft1" parent="Pupils" unique_id=219405166 instance=ExtResource("40_onxaf")]
 position = Vector2(89, 811)
 
-[node name="ChairLeft2" parent="Pupils" instance=ExtResource("40_onxaf")]
+[node name="ChairLeft2" parent="Pupils" unique_id=381341346 instance=ExtResource("40_onxaf")]
 position = Vector2(84, 643)
 
-[node name="ChairLeft3" parent="Pupils" instance=ExtResource("40_onxaf")]
+[node name="ChairLeft3" parent="Pupils" unique_id=1639051999 instance=ExtResource("40_onxaf")]
 position = Vector2(76, 455)
 
-[node name="ChairCenter1" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter1" parent="Pupils" unique_id=395053487 instance=ExtResource("42_t5pko")]
 position = Vector2(316, 960)
 
-[node name="ChairCenter2" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter2" parent="Pupils" unique_id=2056961830 instance=ExtResource("42_t5pko")]
 position = Vector2(307, 821)
 
-[node name="ChairCenter3" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter3" parent="Pupils" unique_id=1790589858 instance=ExtResource("42_t5pko")]
 position = Vector2(500, 827)
 
-[node name="ChairCenter4" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter4" parent="Pupils" unique_id=1685563416 instance=ExtResource("42_t5pko")]
 position = Vector2(506, 960)
 
-[node name="ChairCenter5" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter5" parent="Pupils" unique_id=546999631 instance=ExtResource("42_t5pko")]
 position = Vector2(496, 527)
 
-[node name="ChairCenter6" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter6" parent="Pupils" unique_id=41253540 instance=ExtResource("42_t5pko")]
 position = Vector2(313, 527)
 
-[node name="ChairCenter11" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter11" parent="Pupils" unique_id=2143782180 instance=ExtResource("42_t5pko")]
 position = Vector2(307, 677)
 
-[node name="ChairCenter12" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter12" parent="Pupils" unique_id=529449262 instance=ExtResource("42_t5pko")]
 position = Vector2(494, 676)
 
-[node name="ChairCenter7" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter7" parent="Pupils" unique_id=754051134 instance=ExtResource("42_t5pko")]
 position = Vector2(314, 382)
 
-[node name="ChairCenter8" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter8" parent="Pupils" unique_id=1670929297 instance=ExtResource("42_t5pko")]
 position = Vector2(501, 387)
 
-[node name="ChairCenter10" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter10" parent="Pupils" unique_id=265922686 instance=ExtResource("42_t5pko")]
 position = Vector2(497, 236)
 
-[node name="ChairCenter9" parent="Pupils" instance=ExtResource("42_t5pko")]
+[node name="ChairCenter9" parent="Pupils" unique_id=1392529853 instance=ExtResource("42_t5pko")]
 position = Vector2(313, 236)
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1594346397]
 unique_name_in_owner = true
 y_sort_enabled = true
 position = Vector2(2, 0)
 scale = Vector2(1.00378, 0.843547)
 navigation_polygon = SubResource("NavigationPolygon_0hcv4")
 
-[node name="StatusTimer" type="Timer" parent="."]
+[node name="StatusTimer" type="Timer" parent="." unique_id=1118596610]
 wait_time = 0.1
 
-[node name="MovingPupilsCounter" type="Label" parent="."]
+[node name="MovingPupilsCounter" type="Label" parent="." unique_id=1492166101]
 z_index = 500
 offset_left = 35.0
 offset_top = 1110.0
@@ -934,12 +914,12 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0.996078, 1)
 theme_override_font_sizes/font_size = 30
 
-[node name="AudioIntro" type="AudioStreamPlayer" parent="."]
+[node name="AudioIntro" type="AudioStreamPlayer" parent="." unique_id=1430154277]
 stream = ExtResource("60_5qgbj")
 
-[node name="PKamila" type="CharacterBody2D" parent="."]
+[node name="PKamila" type="CharacterBody2D" parent="." unique_id=462450015]
 
-[node name="TextureRect3" type="TextureRect" parent="PKamila"]
+[node name="TextureRect3" type="TextureRect" parent="PKamila" unique_id=2098838230]
 visible = false
 top_level = true
 offset_left = 780.0
@@ -949,12 +929,10 @@ offset_bottom = 2893.0
 scale = Vector2(0.172716, 0.312648)
 texture = ExtResource("65_y7ma7")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PKamila"]
-libraries = {
-&"": SubResource("AnimationLibrary_r3myd")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PKamila" unique_id=652336418]
+libraries/ = SubResource("AnimationLibrary_r3myd")
 
-[node name="Sprite2D" type="Sprite2D" parent="PKamila"]
+[node name="Sprite2D" type="Sprite2D" parent="PKamila" unique_id=355944907]
 top_level = true
 z_as_relative = false
 position = Vector2(916, 1008)
@@ -963,7 +941,7 @@ texture = ExtResource("69_eqqr6")
 hframes = 6
 vframes = 3
 
-[node name="TimeLabel" type="Label" parent="."]
+[node name="TimeLabel" type="Label" parent="." unique_id=734892391]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -975,7 +953,7 @@ grow_horizontal = 0
 theme_override_colors/font_color = Color(0.926299, 2.5028e-06, 1.54018e-06, 1)
 theme_override_font_sizes/font_size = 30
 
-[node name="ReturnArrow" type="Polygon2D" parent="."]
+[node name="ReturnArrow" type="Polygon2D" parent="." unique_id=997541753]
 position = Vector2(-16, 0)
 color = Color(1, 0, 0, 0.756863)
 polygon = PackedVector2Array(64, 0, 40, 24, 64, 48, 64, 32, 96, 32, 96, 16, 64, 16)

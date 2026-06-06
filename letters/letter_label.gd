@@ -18,7 +18,17 @@ extends Node2D
 
 enum VariantMode { RANDOM, CYCLE }
 
+# Emitowany po każdym przeliczeniu układu literek (zmiana tekstu, rozmiaru,
+# wariantów w trybie CYCLE) — np. LetterDecor trzyma się wtedy swojej literki.
+signal layout_changed
+
 const LETTERS_DIR := "res://letters"
+# Udekorowane literki: scena res://letters/decor/<kod>.tscn (np. o_pol.tscn)
+# zastępuje zwykły sprite znaku w KAŻDYM napisie. Konwencja sceny:
+#   - dziecko Sprite2D o nazwie "Litera" (centered=false, pozycja (0,0))
+#     z teksturą literki — wyznacza rozmiar w układzie napisu,
+#   - dowolne LetterDecor/sprite'y obok, w pikselach tej tekstury.
+const DECOR_DIR := "res://letters/decor"
 const CODE_TO_CHAR := {
 	"a_pol": "ą", "c_pol": "ć", "e_pol": "ę", "l_pol": "ł", "n_pol": "ń",
 	"o_pol": "ó", "s_pol": "ś", "z_pol": "ż", "zi_pol": "ź",
@@ -38,6 +48,8 @@ const CODE_TO_CHAR := {
 # Wspólny cache tekstur: znak -> Array[Texture2D] (po restarcie edytora odświeża się sam;
 # po dorzuceniu nowych plików w trakcie pracy można wywołać LetterLabel.reload_letters()).
 static var _atlas: Dictionary = {}
+# Cache scen dekoru: znak -> PackedScene.
+static var _decor: Dictionary = {}
 
 # Sloty napisu: { sprite: Sprite2D, char: String, idx: int, spaces_before: int }
 var _slots: Array = []
@@ -54,6 +66,7 @@ func _ready() -> void:
 
 static func reload_letters() -> void:
 	_atlas = {}
+	_decor = {}
 
 
 static func get_variants(ch: String) -> Array:
@@ -116,6 +129,27 @@ func _rebuild() -> void:
 		if ch == " " or ch == "\t" or ch == "\n":
 			pending_spaces += 1
 			continue
+
+		# Znak z własną sceną dekoru (literka + ruchome elementy).
+		if _decor.has(ch):
+			var inst := (_decor[ch] as PackedScene).instantiate() as Node2D
+			var lit := inst.get_node_or_null("Litera") as Sprite2D
+			if lit == null or lit.texture == null:
+				push_warning("LetterLabel: scena dekoru znaku '%s' nie ma Sprite2D "
+					+ "'Litera' z teksturą — używam zwykłego sprite'a" % ch)
+				inst.free()
+			else:
+				add_child(inst)
+				_slots.append({
+					"sprite": inst,
+					"char": ch,
+					"idx": -1,  # -1 = scena dekoru (bez podmiany wariantów)
+					"spaces_before": pending_spaces,
+					"size_tex": lit.texture,
+				})
+				pending_spaces = 0
+				continue
+
 		if not _atlas.has(ch):
 			push_warning("LetterLabel: brak sprite'a dla znaku '%s' (w res://letters/)" % ch)
 			continue
@@ -136,6 +170,8 @@ func _rebuild() -> void:
 
 func _apply_variants() -> void:
 	for slot in _slots:
+		if slot.idx < 0:
+			continue  # scena dekoru — wariant ustalony w scenie
 		var variants: Array = _atlas[slot.char]
 		slot.sprite.texture = variants[clampi(slot.idx, 0, variants.size() - 1)]
 	_layout()
@@ -148,7 +184,7 @@ func _layout() -> void:
 	var x := 0.0
 	for slot in _slots:
 		x += slot.spaces_before * space_width
-		var tex: Texture2D = slot.sprite.texture
+		var tex: Texture2D = _slot_tex(slot)
 		var s := letter_height / tex.get_height()
 		slot.sprite.scale = Vector2(s, s)
 		slot.sprite.position = Vector2(x, 0.0)
@@ -159,6 +195,44 @@ func _layout() -> void:
 		var offset := Vector2(-total_width / 2.0, -letter_height / 2.0)
 		for slot in _slots:
 			slot.sprite.position += offset
+
+	layout_changed.emit()
+
+
+# --- pozycje literek (dla ozdób itp.) ---------------------------------------
+
+func get_letter_count() -> int:
+	return _slots.size()
+
+
+func get_letter_center(idx: int) -> Vector2:
+	# Środek literki o danym indeksie (w układzie LetterLabel).
+	# Indeks ujemny liczy od końca (-1 = ostatnia).
+	if _slots.is_empty():
+		return Vector2.ZERO
+	if idx < 0:
+		idx += _slots.size()
+	var slot: Dictionary = _slots[clampi(idx, 0, _slots.size() - 1)]
+	var tex := _slot_tex(slot)
+	if tex == null:
+		return slot.sprite.position
+	return slot.sprite.position + tex.get_size() * slot.sprite.scale * 0.5
+
+
+func _slot_tex(slot: Dictionary) -> Texture2D:
+	# Tekstura wyznaczająca rozmiar slotu (scena dekoru trzyma ją osobno).
+	if slot.has("size_tex"):
+		return slot.size_tex
+	return slot.sprite.texture
+
+
+func find_letter(ch: String) -> int:
+	# Indeks pierwszego wystąpienia znaku (spacje nie mają slotów); -1 = brak.
+	var wanted := ch.to_lower()
+	for i in _slots.size():
+		if _slots[i].char == wanted:
+			return i
+	return -1
 
 
 # --- tryb CYCLE ------------------------------------------------------------
@@ -174,6 +248,8 @@ func _update_timer() -> void:
 
 func _on_cycle_timeout() -> void:
 	for slot in _slots:
+		if slot.idx < 0:
+			continue  # scena dekoru
 		var variants: Array = _atlas.get(slot.char, [])
 		if variants.size() < 2:
 			continue
@@ -231,3 +307,26 @@ static func _load_atlas() -> void:
 		for e in entries:
 			textures.append(e.tex)
 		_atlas[ch] = textures
+
+	# Sceny dekoru: <kod>.tscn w res://letters/decor (np. o_pol.tscn = ó).
+	_decor = {}
+	var ddir := DirAccess.open(DECOR_DIR)
+	if ddir == null:
+		return
+	for file_name in ddir.get_files():
+		var name := file_name
+		if name.ends_with(".remap"):
+			name = name.substr(0, name.rfind("."))
+		if not name.ends_with(".tscn"):
+			continue
+		var code := name.get_basename()
+		var ch := ""
+		if code.length() == 1:
+			ch = code
+		elif CODE_TO_CHAR.has(code):
+			ch = CODE_TO_CHAR[code]
+		else:
+			continue
+		var ps := load(DECOR_DIR + "/" + name) as PackedScene
+		if ps:
+			_decor[ch] = ps

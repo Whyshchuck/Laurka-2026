@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cnbeey0a140aa"]
+
+[ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="1_label"]
+
+[node name="LetterDecorDemo" type="Node2D" unique_id=1342381810]
+
+[node name="Napis" type="Node2D" parent="." unique_id=1972852086]
+position = Vector2(540, 500)
+script = ExtResource("1_label")
+text = "żółta gęś?"
+letter_height = 150.0
+cycle_interval = 0.7

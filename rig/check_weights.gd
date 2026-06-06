@@ -4,10 +4,12 @@ extends SceneTree
 # Sprawdza: rozmiary tablic wag, wierzchołki bez wag, najniższy punkt głowy,
 # wagi innych kości powyżej brody oraz trójkąty łączące głowę z rękami.
 
-const SCENE := "res://rig/michal_rig.tscn"
+const SCENE_DEFAULT := "res://rig/michal_rig.tscn"
 
 func _init() -> void:
-	var poly: Polygon2D = (load(SCENE) as PackedScene).instantiate().get_node("Polygon2D")
+	var args := OS.get_cmdline_user_args()
+	var scene_path := args[0] if args.size() > 0 else SCENE_DEFAULT
+	var poly: Polygon2D = (load(scene_path) as PackedScene).instantiate().get_node("Polygon2D")
 	var pts: PackedVector2Array = poly.polygon
 	var n := pts.size()
 	print("Wierzcholkow: %d (w tym internal: %d)" % [n, poly.internal_vertex_count])

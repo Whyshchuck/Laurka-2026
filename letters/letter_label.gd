@@ -77,6 +77,13 @@ static func get_variants(ch: String) -> Array:
 	return _atlas.get(ch, [])
 
 
+static func get_decor(ch: String) -> PackedScene:
+	# Scena dekoru znaku (literka + ruchome elementy) albo null.
+	if _atlas.is_empty():
+		_load_atlas()
+	return _decor.get(ch, null)
+
+
 func _on_reload_pressed() -> void:
 	reload_letters()
 	_rebuild()

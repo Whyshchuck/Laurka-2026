@@ -28,7 +28,7 @@ const CELL := 116.0
 const GRID_ORIGIN := Vector2(560.0, 120.0)
 const LETTER_HEIGHT := CELL * 0.66
 const MAX_LETTER_W := CELL * 0.85
-const DRAG_SCALE := 1.25
+const DRAG_SCALE := 3
 
 # indeks komórki -> { sprite: Sprite2D, char: String, base_scale: Vector2, tween: Tween }
 var _tiles: Array = []
@@ -103,21 +103,43 @@ func _spawn_letters(from: Vector2) -> void:
 	_tiles.resize(ALPHABET.length())
 	for i in ALPHABET.length():
 		var ch := String(ALPHABET[order[i]])
-		var variants: Array = LetterLabel.get_variants(ch)
-		if variants.is_empty():
-			push_warning("AlphabetOverlay: brak sprite'a dla znaku '%s'" % ch)
-			continue
-		var sprite := Sprite2D.new()
-		sprite.texture = variants[randi() % variants.size()]
-		sprite.position = from
-		sprite.scale = Vector2.ZERO
-		letters_root.add_child(sprite)
+		var node: Node2D = null
+		var tex: Texture2D = null
 
-		var s := LETTER_HEIGHT / sprite.texture.get_height()
-		if sprite.texture.get_width() * s > MAX_LETTER_W:
-			s = MAX_LETTER_W / sprite.texture.get_width()
+		# Literka ze sceną dekoru (ruchome elementy) — jak w LetterLabel.
+		# Scena trafia do "uchwytu" przesuniętego tak, żeby środek literki
+		# wypadał w (0,0) — kafle są pozycjonowane środkiem na komórce.
+		var decor := LetterLabel.get_decor(ch)
+		if decor:
+			var inst := decor.instantiate() as Node2D
+			var lit := inst.get_node_or_null("Litera") as Sprite2D
+			if lit != null and lit.texture != null:
+				tex = lit.texture
+				node = Node2D.new()
+				node.add_child(inst)
+				inst.position = -tex.get_size() / 2.0
+			else:
+				inst.free()
+
+		if node == null:
+			var variants: Array = LetterLabel.get_variants(ch)
+			if variants.is_empty():
+				push_warning("AlphabetOverlay: brak sprite'a dla znaku '%s'" % ch)
+				continue
+			var sprite := Sprite2D.new()
+			sprite.texture = variants[randi() % variants.size()]
+			tex = sprite.texture
+			node = sprite
+
+		node.position = from
+		node.scale = Vector2.ZERO
+		letters_root.add_child(node)
+
+		var s := LETTER_HEIGHT / tex.get_height()
+		if tex.get_width() * s > MAX_LETTER_W:
+			s = MAX_LETTER_W / tex.get_width()
 		_tiles[i] = {
-			"sprite": sprite,
+			"sprite": node,
 			"char": ch,
 			"base_scale": Vector2(s, s),
 			"tween": null,

@@ -21,6 +21,10 @@ const ANIM_TIME := 0.45
 const PORTRAIT_TARGET := Vector2(60.0, 360.0)  # docelowa pozycja sprite'a (lewa strona)
 const LETTERS := ["A", "B", "C"]
 
+const CORRECT_ANSWER_COLOR: Color = Color.GREEN
+const WRONG_ANSWER_COLOR: Color = Color.RED
+const DEFAULT_FLASH_DURATION: float = 0.5
+
 var _closing := false
 
 func _ready() -> void:
@@ -31,7 +35,8 @@ func _ready() -> void:
 	dim.gui_input.connect(_on_dim_input)
 	close_button.pressed.connect(close)
 	for i in answer_buttons.size():
-		answer_buttons[i].pressed.connect(_on_answer_pressed.bind(i))
+		var button: Button = answer_buttons[i]
+		button.pressed.connect(_on_answer_pressed.bind(button))
 
 func open_for_pupil(pupil) -> void:
 	var data: Dictionary = QuizRepository.get_pupil_question(pupil.name)
@@ -45,12 +50,13 @@ func open_for_pupil(pupil) -> void:
 	question_label.text = str(data.get("question", ""))
 	
 	var answers: Array = data.get("answers", [])
-	
+	var correct_index = data.get("correct", -1)
 	for i in answer_buttons.size():
-		var ans := ""
-		if i < answers.size():
-			ans = str(answers[i])
-		answer_buttons[i].text = "%s)  %s" % [LETTERS[i], ans]
+		var button: Button = answer_buttons[i]
+		var answer_text: String = str(answers[i]) if i < answers.size() else ""
+		button.text = "%s)  %s" % [LETTERS[i], answer_text]
+		button.set_meta("is_correct", correct_index == i)
+		_reset_button_styles(button)
 
 	_animate_in()
 
@@ -66,10 +72,42 @@ func _on_dim_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		close()
 
-func _on_answer_pressed(_index: int) -> void:
+func _on_answer_pressed(clicked_button: Button) -> void:
 	# TODO (Faza 4): sprawdzenie poprawnej odpowiedzi (quiz_correct_answer) + punktacja/feedback.
-	close()
+	var is_correct: bool = clicked_button.get_meta("is_correct")
+	
+	if is_correct:
+		print("Correct answer.")
+		flash_button(clicked_button, CORRECT_ANSWER_COLOR)
+		close()
+	else:
+		flash_button(clicked_button, WRONG_ANSWER_COLOR)
+		print("Wrong answer. Try again.")
 
+func _reset_button_styles(button: Button) -> void:
+	button.remove_theme_stylebox_override("normal")
+	button.remove_theme_stylebox_override("hover")
+	button.remove_theme_stylebox_override("pressed")
+	button.remove_theme_color_override("font_color")
+	button.remove_theme_color_override("font_hover_color")
+	button.remove_theme_color_override("font_pressed_color")
+
+func flash_button(button: Button, flash_color: Color, flash_duration: float = DEFAULT_FLASH_DURATION) -> void:
+	var style := StyleBoxFlat.new()
+	style.bg_color = flash_color
+
+	# Apply temporary override
+	button.add_theme_stylebox_override("normal", style)
+	button.add_theme_stylebox_override("hover", style)
+	button.add_theme_stylebox_override("pressed", style)
+	
+	var tween := button.create_tween()
+	tween.tween_interval(flash_duration)
+
+	tween.tween_callback(func():
+		_reset_button_styles(button)
+	)
+	
 func close() -> void:
 	if _closing:
 		return

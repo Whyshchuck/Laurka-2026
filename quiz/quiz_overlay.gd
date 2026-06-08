@@ -3,7 +3,7 @@ extends CanvasLayer
 # Nakładka quizu "Jak dobrze nas znasz?".
 # Po kliknięciu w dziecko: przyciemnia tło klasy, sprite dziecka wjeżdża w lewo,
 # z prawej pojawia się panel z pytaniem i 3 odpowiedziami (A/B/C).
-# Na razie pytania/odpowiedzi są PUSTE (placeholder) — chodzi o zobaczenie mechaniki.
+# Obsługuje teraz wiele pytań dla jednego ucznia.
 
 @onready var dim: ColorRect = $Dim
 @onready var portrait: TextureRect = $Portrait
@@ -23,9 +23,11 @@ const LETTERS := ["A", "B", "C"]
 
 const CORRECT_ANSWER_COLOR: Color = Color.GREEN
 const WRONG_ANSWER_COLOR: Color = Color.RED
-const DEFAULT_FLASH_DURATION: float = 0.5
 
 var _closing := false
+var _pupil_name := ""
+var _question_index: int = 0
+var _questions_count: int = 0
 
 func _ready() -> void:
 	# Stan początkowy przed animacją wejścia.
@@ -34,31 +36,38 @@ func _ready() -> void:
 	close_button.modulate.a = 0.0
 	dim.gui_input.connect(_on_dim_input)
 	close_button.pressed.connect(close)
-	for i in answer_buttons.size():
-		var button: Button = answer_buttons[i]
+	for button in answer_buttons:
 		button.pressed.connect(_on_answer_pressed.bind(button))
 
 func open_for_pupil(pupil) -> void:
-	var data: Dictionary = QuizRepository.get_pupil_question(pupil.name)
-	
+	_pupil_name = pupil.name
+
 	# Portret = grafika klikniętego dziecka, ustawiona tam, gdzie stoi w klasie.
 	var src: TextureRect = pupil.texture_rect
 	portrait.texture = src.texture
 	portrait.global_position = src.get_global_transform_with_canvas().origin
-
-	# Dane pytania (na razie puste placeholdery).
-	question_label.text = str(data.get("question", ""))
 	
-	var answers: Array = data.get("answers", [])
-	var correct_index = data.get("correct", -1)
+	_questions_count = QuizRepository.get_pupil_questions_count(_pupil_name)
+	
+	_show_current_question()
+	_animate_in()
+
+func _show_current_question() -> void:
+	var progress_text := ""
+	var question_data = QuizRepository.get_pupil_question(_pupil_name, _question_index)
+	
+	if _questions_count > 1:
+		progress_text = "[%d / %d]\n" % [_question_index + 1, _questions_count]
+	question_label.text = "%s%s" % [progress_text, str(question_data.get("question", ""))]
+
+	var answers: Array = question_data.get("answers", [])
+	var correct_index = question_data.get("correct", -1)
 	for i in answer_buttons.size():
 		var button: Button = answer_buttons[i]
 		var answer_text: String = str(answers[i]) if i < answers.size() else ""
 		button.text = "%s)  %s" % [LETTERS[i], answer_text]
 		button.set_meta("is_correct", correct_index == i)
 		_reset_button_styles(button)
-
-	_animate_in()
 
 func _animate_in() -> void:
 	var t := create_tween().set_parallel(true)
@@ -73,15 +82,18 @@ func _on_dim_input(event: InputEvent) -> void:
 		close()
 
 func _on_answer_pressed(clicked_button: Button) -> void:
-	# TODO (Faza 4): sprawdzenie poprawnej odpowiedzi (quiz_correct_answer) + punktacja/feedback.
 	var is_correct: bool = clicked_button.get_meta("is_correct")
-	
+
 	if is_correct:
 		print("Correct answer.")
-		flash_button(clicked_button, CORRECT_ANSWER_COLOR)
-		close()
+		await flash_button(clicked_button, CORRECT_ANSWER_COLOR)
+		if _question_index + 1 < _questions_count:
+			_question_index += 1
+			_show_current_question()
+		else:
+			close()
 	else:
-		flash_button(clicked_button, WRONG_ANSWER_COLOR)
+		await flash_button(clicked_button, WRONG_ANSWER_COLOR)
 		print("Wrong answer. Try again.")
 
 func _reset_button_styles(button: Button) -> void:
@@ -92,7 +104,8 @@ func _reset_button_styles(button: Button) -> void:
 	button.remove_theme_color_override("font_hover_color")
 	button.remove_theme_color_override("font_pressed_color")
 
-func flash_button(button: Button, flash_color: Color, flash_duration: float = DEFAULT_FLASH_DURATION) -> void:
+func flash_button(button: Button, flash_color: Color, flash_duration: float = ANIM_TIME) -> Signal:
+	"""Temporarily overrides the button's style to flash a color, then resets it after the duration."""
 	var style := StyleBoxFlat.new()
 	style.bg_color = flash_color
 
@@ -100,15 +113,16 @@ func flash_button(button: Button, flash_color: Color, flash_duration: float = DE
 	button.add_theme_stylebox_override("normal", style)
 	button.add_theme_stylebox_override("hover", style)
 	button.add_theme_stylebox_override("pressed", style)
-	
-	var tween := button.create_tween()
-	tween.tween_interval(flash_duration)
 
-	tween.tween_callback(func():
-		_reset_button_styles(button)
-	)
+	var tween := create_tween()
+	tween.tween_interval(flash_duration)
+	tween.tween_callback(_reset_button_styles.bind(button))
+
+	return tween.finished
 	
+
 func close() -> void:
+	"""Closes the quiz overlay with an animation, then frees it."""
 	if _closing:
 		return
 	_closing = true

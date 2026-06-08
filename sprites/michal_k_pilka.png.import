@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b57xkxbaajm7w"
-path="res://.godot/imported/debug_skeleton.png-a2b7920d735a0e14b917f0c57c46772b.ctex"
+uid="uid://50p8q1opo4ni"
+path="res://.godot/imported/michal_k_pilka.png-7bc2317b6aaaacbbe0a0e03f1f2a5f77.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rig/debug_skeleton.png"
-dest_files=["res://.godot/imported/debug_skeleton.png-a2b7920d735a0e14b917f0c57c46772b.ctex"]
+source_file="res://sprites/michal_k_pilka.png"
+dest_files=["res://.godot/imported/michal_k_pilka.png-7bc2317b6aaaacbbe0a0e03f1f2a5f77.ctex"]
 
 [params]
 

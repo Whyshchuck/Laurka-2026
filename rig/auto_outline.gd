@@ -30,6 +30,13 @@ extends Polygon2D
 const BONE_HALF_WIDTH := { "Biodra": 60.0, "Tulow": 60.0, "Glowa": 45.0 }
 const LIMB_HALF_WIDTH := 12.0
 
+# Kolejność rysowania trójkątów wg dominującej kości (większa = na wierzchu).
+# Przy pozach z rękami przed tułowiem decyduje o tym, co kogo zasłania.
+const DRAW_LAYER := {
+	"Ramie": 2.0, "Przedramie": 3.0, "Dlon": 4.0,  # ręce nad tułowiem
+}
+const DRAW_LAYER_DEFAULT := 0.0
+
 # Automatyczne rozstawienie kości na podstawie obrysu: skrajne punkty to
 # czubek głowy / dłonie / stopy, krocze z wcięcia między nogami (fallback:
 # proporcja), łokcie i kolana w połowie kończyn. Wynik to szkic — stawy
@@ -39,15 +46,16 @@ const LIMB_HALF_WIDTH := 12.0
 # Kombajn po każdej zmianie punktów lub kości: triangulacja (jeśli są punkty
 # wewnętrzne) + auto-wagi. Obrys zostaje, jaki jest.
 @export_tool_button("Przelicz siatkę i wagi", "Reload") var _all_btn := _rebuild_all
+# Sortuje trójkąty wg DRAW_LAYER — ręce/dłonie rysowane na wierzchu. Potrzebne,
+# gdy w animacji ręce składają się przed tułowiem (inaczej tułów je zasłania).
+@export_tool_button("Ręce na wierzch (kolejność)", "Sort") var _order_btn := _order_draw
 
 
 func _rebuild_all() -> void:
 	_sync_rests()
-	if internal_vertex_count > 0:
-		_triangulate()
-	else:
-		polygons = []  # czysty obrys — wraca automatyczna triangulacja Godota
+	_triangulate()   # zawsze jawne trójkąty (potrzebne do kolejności rysowania)
 	_auto_weights()
+	_order_draw()
 
 
 func _sync_rests() -> void:
@@ -477,6 +485,60 @@ func _scan_width(pts: PackedVector2Array, y: float,
 		lo = minf(lo, x)
 		hi = maxf(hi, x)
 	return hi - lo
+
+
+func _order_draw() -> void:
+	# Sortuje listę trójkątów tak, by te „wyżej w hierarchii rysowania"
+	# (ręce, dłonie) były na końcu — czyli rysowane na wierzchu. Warstwę
+	# trójkąta wyznacza dominująca kość jego wierzchołków.
+	if polygons.is_empty():
+		_triangulate()
+		if polygons.is_empty():
+			return
+	var nb := get_bone_count()
+	if nb == 0:
+		push_warning("auto_outline: brak wag — najpierw 'Auto-wagi'")
+		return
+
+	# Warstwa rysowania per wierzchołek = warstwa jego najcięższej kości.
+	var n := polygon.size()
+	var names: Array[String] = []
+	var weights: Array = []
+	for b in nb:
+		names.append(str(get_bone_path(b)).get_file())
+		weights.append(get_bone_weights(b))
+	var vlayer := PackedFloat32Array()
+	vlayer.resize(n)
+	for v in n:
+		var best_w := -1.0
+		var lay := DRAW_LAYER_DEFAULT
+		for b in nb:
+			var w: float = weights[b][v] if v < weights[b].size() else 0.0
+			if w > best_w:
+				best_w = w
+				lay = DRAW_LAYER_DEFAULT
+				for prefix in DRAW_LAYER:
+					if names[b].begins_with(prefix):
+						lay = DRAW_LAYER[prefix]
+						break
+		vlayer[v] = lay
+
+	# Stabilne sortowanie trójkątów po maksymalnej warstwie wierzchołków.
+	var tris: Array = []
+	for i in polygons.size():
+		var tri: PackedInt32Array = polygons[i]
+		var lay: float = maxf(vlayer[tri[0]], maxf(vlayer[tri[1]], vlayer[tri[2]]))
+		tris.append({ "tri": tri, "lay": lay, "ord": i })
+	tris.sort_custom(func(a, b):
+		if a.lay != b.lay:
+			return a.lay < b.lay
+		return a.ord < b.ord)
+	var ordered: Array = []
+	for e in tris:
+		ordered.append(e.tri)
+	polygons = ordered
+	print("auto_outline: kolejność rysowania ustawiona (%d trójkątów, ręce na wierzchu)"
+		% ordered.size())
 
 
 func _collect_bones(node: Node, out: Array) -> void:

@@ -21,8 +21,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*uid://cn0p2k45celh8"
+QuizRepository="*uid://b7ls011w8das0"
 QuizManager="*uid://b7ls011w8das0"
+GameFlow="*uid://cn0p2k45celh8"
+GameState="*uid://c2wm5p6pqpmif"
 SceneManager="*uid://giox0v6isqqx"
 
 [display]

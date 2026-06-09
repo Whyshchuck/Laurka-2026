@@ -19,9 +19,9 @@ func _ready():
 
 func _on_to_my_pressed():
 	# Tryb "To my!" — eksploracja klasy (klik w dziecko -> mówi + animacja).
-	Global.start_game(Global.GameMode.WELCOME)
+	GameFlow.start_game(GameState.GameMode.WELCOME)
 
 func _on_quiz_pressed():
 	# Tryb "Jak dobrze nas znasz?" — quiz o dzieciach.
 	# Wchodzi do tej samej klasy; zachowanie quizu dochodzi w Fazie 4.
-	Global.start_game(Global.GameMode.QUIZ)
+	GameFlow.start_game(GameState.GameMode.QUIZ)

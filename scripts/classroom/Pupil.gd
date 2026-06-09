@@ -67,10 +67,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		pass
 				
 func on_click():
-	match Global.current_mode:
-		Global.GameMode.WELCOME:
+	match GameState.current_mode:
+		GameState.GameMode.WELCOME:
 			react()
-		Global.GameMode.QUIZ:
+		GameState.GameMode.QUIZ:
 			pass # TODO (Faza 4): klik -> tło szarzeje, slide sprite'a, pytania a/b/c
 
 
@@ -204,7 +204,7 @@ func _physics_process(delta):
 		CharacterState.MOVING:
 			if agent.is_navigation_finished():
 				pick_new_target()
-			elif Global.current_mode == Global.GameMode.QUIZ:
+			elif GameState.current_mode == GameState.GameMode.QUIZ:
 				move_along_agent(delta) # legacy chase (uśpione — patrz Faza 1)
 
 func move_along_agent(_delta):

@@ -18,7 +18,7 @@ var alphabet_overlay: CanvasLayer = null
 
 func _ready():
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
-	print("Current mode: ", Global.get_current_mode_name())
+	print("Current mode: ", GameState.get_current_mode_name())
 	update_quiz_score_label()
 
 	# Tryb "ganianie" (dawny HARD) wycofany — klasa startuje spokojnie w obu trybach.
@@ -34,12 +34,12 @@ func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
 		match event.keycode:
 			KEY_ESCAPE:
-				Global.go_to_mode_selection()
+				GameFlow.go_to_mode_selection()
 			KEY_0:
-				Global.go_to_final_scene()
+				GameFlow.go_to_final_scene()
 	
 	if game_started and sitting_count == 24:
-		Global.go_to_final_scene()
+		GameFlow.go_to_final_scene()
 	
 
 	if not (event is InputEventMouseButton and event.pressed):
@@ -50,7 +50,7 @@ func _unhandled_input(event):
 
 	var arrow_node = $ReturnArrow
 	if Geometry2D.is_point_in_polygon(mouse_pos, arrow_node.polygon):
-		Global.go_to_mode_selection()
+		GameFlow.go_to_mode_selection()
 		return
 
 	for node in $Pupils.get_children():
@@ -72,7 +72,7 @@ func _unhandled_input(event):
 	print(clicked_characters)
 	var top_character = clicked_characters[0]
 	
-	if Global.current_mode == Global.GameMode.QUIZ:
+	if GameState.current_mode == GameState.GameMode.QUIZ:
 		open_quiz(top_character)
 	else:
 		top_character.on_click()
@@ -83,7 +83,7 @@ func open_quiz(pupil) -> void:
 	if quiz_overlay and is_instance_valid(quiz_overlay):
 		return
 	# Prevent reopening quiz for a pupil that's already been answered
-	if Global.has_pupil_been_answered(pupil.name):
+	if GameState.has_pupil_been_answered(pupil.name):
 		print("Pupil %s already answered." % pupil.name)
 		return
 	quiz_overlay = QuizOverlayScene.instantiate()
@@ -130,5 +130,5 @@ func update_moving_pupil_count():
 func update_quiz_score_label() -> void:
 	if not score_label:
 		return
-	score_label.visible = Global.current_mode == Global.GameMode.QUIZ
-	score_label.text = Global.get_quiz_score_text()
+	score_label.visible = GameState.current_mode == GameState.GameMode.QUIZ
+	score_label.text = GameState.get_quiz_score_text()

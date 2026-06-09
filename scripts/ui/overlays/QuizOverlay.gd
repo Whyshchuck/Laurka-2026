@@ -91,9 +91,9 @@ func _on_answer_pressed(clicked_button: Button) -> void:
 			_question_index += 1
 			_show_current_question()
 		else:
-			Global.add_quiz_point()
+			GameState.add_quiz_point()
 			# Mark this pupil as answered so they cannot be quizzed again
-			Global.mark_pupil_answered(_pupil_name)
+			GameState.mark_pupil_answered(_pupil_name)
 			
 			await close()
 			# Update the label after the overlay closes so it's visible

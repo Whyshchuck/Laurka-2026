@@ -1,10 +1,10 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b1g4b7wgaxrxx"]
 
-[ext_resource type="Texture2D" path="res://sprites/michal_k_2026.png" id="1_l5d2u"]
-[ext_resource type="Script" path="res://rig/auto_outline.gd" id="2_odtnb"]
-[ext_resource type="AnimationLibrary" path="res://rig/pupil_anims.tres" id="3_vaarq"]
-[ext_resource type="AnimationLibrary" path="res://rig/michal_k_anims.tres" id="4_kanim"]
-[ext_resource type="Texture2D" path="res://sprites/michal_k_pilka.png" id="5_pilka"]
+[ext_resource type="Texture2D" uid="uid://c0ls0f3vh2jwg" path="res://sprites/michal_k_2026.png" id="1_l5d2u"]
+[ext_resource type="Script" uid="uid://bbka3u0sn1ebi" path="res://rig/auto_outline.gd" id="2_odtnb"]
+[ext_resource type="AnimationLibrary" uid="uid://bnbb65shec7km" path="res://rig/pupil_anims.tres" id="3_vaarq"]
+[ext_resource type="AnimationLibrary" uid="uid://dpetmw8cqo42y" path="res://rig/michal_k_anims.tres" id="4_kanim"]
+[ext_resource type="Texture2D" uid="uid://50p8q1opo4ni" path="res://sprites/michal_k_pilka.png" id="5_pilka"]
 
 [node name="MichalRig" type="Node2D" unique_id=1282551274]
 
@@ -26,16 +26,16 @@ scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, -0.13024902, -70.893616)
 auto_calculate_length_and_angle = false
 length = 271.75925
-bone_angle = -1.5726328
+bone_angle = -1.5726327
 
 [node name="RamieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=535061684]
 position = Vector2(-93.26651, 4.120117)
-scale = Vector2(0.9999999, 0.9999999)
+scale = Vector2(0.9999998, 0.9999998)
 rest = Transform2D(1, 0, 0, 1, -93.26651, 4.120117)
 
 [node name="PrzedramieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL" unique_id=1831878168]
 position = Vector2(-139.89977, 29.113739)
-scale = Vector2(0.9999999, 0.9999999)
+scale = Vector2(0.99999976, 0.99999976)
 rest = Transform2D(1, 0, 0, 1, -139.89977, 29.113739)
 
 [node name="DlonL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL/PrzedramieL" unique_id=1184822642]
@@ -51,6 +51,7 @@ rest = Transform2D(1, 0, 0, 1, 98.98352, 4.120117)
 
 [node name="PrzedramieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP" unique_id=95210401]
 position = Vector2(148.47522, 26.113739)
+scale = Vector2(0.9999999, 0.9999999)
 rest = Transform2D(1, 0, 0, 1, 148.47522, 26.113739)
 
 [node name="DlonP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP/PrzedramieP" unique_id=5869367]
@@ -103,7 +104,7 @@ internal_vertex_count = 44
 script = ExtResource("2_odtnb")
 
 [node name="Pilka" type="Sprite2D" parent="." unique_id=915790001]
-position = Vector2(388, 636)
+position = Vector2(417, 545)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_pilka")
 

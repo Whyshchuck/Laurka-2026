@@ -6,8 +6,14 @@ extends Polygon2D
 # Po obrysowaniu trzeba jeszcze ręcznie dodać Internal Vertices przy stawach
 # (UV -> Points) i pomalować wagi (UV -> Bones) — tego automat nie zrobi.
 
+# JEDEN PRZYCISK: rozstawia kości z obrysu, obrysowuje gęsto + punkty
+# wewnętrzne, trianguluje, liczy wagi i ustawia kolejność — cały rig naraz.
+@export_tool_button("★ ZRÓB WSZYSTKO (kości → obrys → wagi)", "PlayStart") var _all_in_one := _do_everything
+
 # Tolerancja upraszczania obrysu (px): mniejsza = wierniej, więcej punktów.
 @export_range(0.5, 30.0, 0.5) var epsilon := 4.0
+# Maks. długość krawędzi obrysu (px): dłuższe są dzielone — gęstszy, równy obrys.
+@export_range(20.0, 120.0, 5.0) var max_edge := 45.0
 @export_tool_button("Obrysuj sprite'a", "CurveEdit") var _trace_btn := _trace
 # Po dodaniu Internal Vertices automatyczna triangulacja Godota się wyłącza
 # (sprite znika) — ten przycisk buduje pod-poligony (trójkąty) automatycznie.
@@ -51,7 +57,27 @@ const DRAW_LAYER_DEFAULT := 0.0
 @export_tool_button("Ręce na wierzch (kolejność)", "Sort") var _order_btn := _order_draw
 
 
+func _do_everything() -> void:
+	# Cały rig jednym kliknięciem. Kolejność ma znaczenie:
+	# 1) wstępny obrys (auto-rozstaw kości potrzebuje konturu do wykrycia
+	#    głowy/dłoni/stóp), 2) rozstaw kości z tego konturu, 3) właściwy obrys
+	#    (gęsty + punkty wewnętrzne na już ustawionych kościach) — _trace sam
+	#    domyka triangulację, wagi i kolejność rysowania.
+	if texture == null:
+		push_warning("auto_outline: Polygon2D nie ma tekstury")
+		return
+	if get_node_or_null(skeleton) == null:
+		push_warning("auto_outline: ustaw właściwość 'skeleton' (Skeleton2D) i powtórz")
+		return
+	if polygon.size() < 8:
+		_trace()        # potrzebny kontur do auto-rozstawienia kości
+	_auto_skeleton()    # rozstaw kości z obrysu
+	_trace()            # gęsty obrys + punkty wewnętrzne + triangulacja + wagi + kolejność
+	print("auto_outline: ★ gotowe — rig złożony (kości, siatka, wagi, kolejność)")
+
+
 func _rebuild_all() -> void:
+	_neutralize(get_node_or_null(skeleton) as Skeleton2D)
 	_sync_rests()
 	_triangulate()   # zawsze jawne trójkąty (potrzebne do kolejności rysowania)
 	_auto_weights()
@@ -67,21 +93,37 @@ func _sync_rests() -> void:
 	var bones_list: Array = []
 	_collect_bones(skel, bones_list)
 	for bone in bones_list:
+		# Wymuś spoczynek: rotacja 0. Wagi/siatkę liczymy ZAWSZE na pozie
+		# spoczynkowej — inaczej (np. podgląd animacji) odcinki kości się
+		# rozjeżdżają i wagi wychodzą bez sensu.
 		if absf(bone.rotation) > 0.001:
-			push_warning("auto_outline: kość %s ma rotację %.2f — w spoczynku powinna być 0 "
-				% [bone.name, bone.rotation]
-				+ "(wyzeruj albo odpal animację RESET przed przeliczeniem)")
+			print("auto_outline: zeruję rotację kości %s (%.2f -> 0)" % [bone.name, bone.rotation])
+			bone.rotation = 0.0
 		var r: Transform2D = bone.rest
 		if r.origin != bone.position:
-			print("auto_outline: rest %s %s -> %s" % [bone.name, str(r.origin), str(bone.position)])
 			r.origin = bone.position
 			bone.rest = r
+
+
+func _neutralize(skel: Skeleton2D) -> void:
+	# Rig do liczenia MUSI być w stanie spoczynkowym: Polygon2D bez offsetu
+	# (animacja skoku wsadu ustawia Polygon2D:position!) i kości bez rotacji.
+	# Inaczej obrys/kości/wagi liczą się na przesuniętej/wygiętej pozie.
+	if position != Vector2.ZERO:
+		print("auto_outline: zeruję offset Polygon2D %s (zostało po animacji)" % str(position))
+		position = Vector2.ZERO
+	if skel:
+		var bl: Array = []
+		_collect_bones(skel, bl)
+		for b in bl:
+			b.rotation = 0.0
 
 
 func _trace() -> void:
 	if texture == null:
 		push_warning("auto_outline: Polygon2D nie ma tekstury")
 		return
+	_neutralize(get_node_or_null(skeleton) as Skeleton2D)
 
 	var img := texture.get_image()
 	var bm := BitMap.new()
@@ -97,32 +139,140 @@ func _trace() -> void:
 		if p.size() > best.size():
 			best = p
 
-	# Przenieś stare wagi na nowy obrys (każdy nowy punkt dziedziczy po
-	# najbliższym starym) zamiast je kasować.
-	var old_pts := uv
-	var old_bones: Array = []
-	for b in get_bone_count():
-		old_bones.append([get_bone_path(b), get_bone_weights(b)])
+	# Gęstszy obrys: podziel długie krawędzie (równe, drobne odcinki).
+	var outline := _densify(best, max_edge)
+	var outline_n := outline.size()
 
-	polygon = best
-	uv = best
-	internal_vertex_count = 0
+	# Punkty wewnętrzne: najpierw stawy/połowy kończyn (geometria na zgięciach),
+	# potem GĘSTA SIATKA wypełniająca całe wnętrze — bez niej wnętrze ciała to
+	# kilka długich trójkątów, które przy animacji rozrywają teksturę.
+	var skel := get_node_or_null(skeleton) as Skeleton2D
+	var internals := _limb_internal_points(skel, outline) if skel else PackedVector2Array()
+	var seeded := PackedVector2Array(outline)
+	seeded.append_array(internals)
+	internals.append_array(_grid_internal_points(outline, seeded, max_edge))
+
+	var all := PackedVector2Array(outline)
+	all.append_array(internals)
+
+	polygon = all
+	uv = all
+	internal_vertex_count = internals.size()
 	polygons = []
 
-	if not old_bones.is_empty() and not old_pts.is_empty():
-		clear_bones()
-		for ob in old_bones:
-			var w: PackedFloat32Array = ob[1]
-			var nw := PackedFloat32Array()
-			nw.resize(best.size())
-			if w.size() > 0:
-				for i in best.size():
-					nw[i] = w[_nearest(old_pts, best[i], w.size())]
-			add_bone(ob[0], nw)
-		print("auto_outline: wagi przeniesione na nowy obrys (najbliższy sąsiad)")
+	print("auto_outline: obrys %d pkt + %d wewnętrznych (stawy, kończyny, siatka)"
+		% [outline_n, internals.size()])
 
-	print("auto_outline: obrys z %d punktów (znalezionych kształtów: %d)"
-		% [best.size(), polys.size()])
+	# Mając szkielet, od razu policz siatkę i wagi (gotowe w jednym kliknięciu).
+	if skel:
+		_rebuild_all()
+	else:
+		push_warning("auto_outline: brak szkieletu — pominięto punkty wewnętrzne "
+			+ "i wagi; rozstaw kości i kliknij 'Przelicz siatkę i wagi'")
+
+
+func _grid_internal_points(outline: PackedVector2Array, existing: PackedVector2Array,
+		spacing: float) -> PackedVector2Array:
+	# Siatka punktów co `spacing` wypełniająca wnętrze obrysu (pomija punkty
+	# poza obrysem i zbyt blisko już istniejących). Daje drobne, równe trójkąty.
+	var pmin := outline[0]
+	var pmax := outline[0]
+	for p in outline:
+		pmin = pmin.min(p)
+		pmax = pmax.max(p)
+	var added := PackedVector2Array()
+	var accepted := PackedVector2Array(existing)
+	var min_d := spacing * 0.6
+	var y := pmin.y + spacing * 0.5
+	while y < pmax.y:
+		var x := pmin.x + spacing * 0.5
+		while x < pmax.x:
+			var c := Vector2(x, y)
+			if Geometry2D.is_point_in_polygon(c, outline):
+				var ok := true
+				for e in accepted:
+					if e.distance_squared_to(c) < min_d * min_d:
+						ok = false
+						break
+				if ok:
+					added.append(c)
+					accepted.append(c)
+			x += spacing
+		y += spacing
+	return added
+
+
+func _densify(pts: PackedVector2Array, max_len: float) -> PackedVector2Array:
+	# Wstawia punkty na krawędziach dłuższych niż max_len (równo rozłożone).
+	var out := PackedVector2Array()
+	var n := pts.size()
+	for i in n:
+		var a := pts[i]
+		var b := pts[(i + 1) % n]
+		out.append(a)
+		var d := a.distance_to(b)
+		if d > max_len:
+			var steps := int(ceil(d / max_len))
+			for s in range(1, steps):
+				out.append(a.lerp(b, float(s) / steps))
+	return out
+
+
+func _limb_internal_points(skel: Skeleton2D, outline: PackedVector2Array) -> PackedVector2Array:
+	# Dla kości kończyn dodaje punkt w stawie (początek) i w połowie odcinka
+	# do następnego stawu. Tułów/głowa dostają środek dla gęstości. Punkty poza
+	# obrysem albo zbyt blisko istniejących są pomijane.
+	const LIMB := ["RamieL", "PrzedramieL", "DlonL", "RamieP", "PrzedramieP", "DlonP",
+		"UdoL", "LydkaL", "StopaL", "UdoP", "LydkaP", "StopaP"]
+	const MIN_SPACING := 18.0
+	var bones: Array = []
+	_collect_bones(skel, bones)
+	var added := PackedVector2Array()
+	var accepted := PackedVector2Array(outline)
+
+	for bone in bones:
+		var name := String(bone.name)
+		var joint := to_local(_bone_gpos(skel, bone))
+		# Koniec odcinka kości: następny staw (dziecko) albo czubek po bone_angle.
+		var tip := joint
+		var child: Bone2D = null
+		for c in bone.get_children():
+			if c is Bone2D:
+				child = c
+				break
+		if child:
+			tip = to_local(_bone_gpos(skel, child))
+		else:
+			tip = to_local(_bone_gpos(skel, bone) + _bone_gxform(skel, bone) \
+				.basis_xform(Vector2.from_angle(bone.bone_angle)) * bone.length)
+
+		var candidates: Array[Vector2] = []
+		if name in LIMB:
+			# Staw + punkty wzdłuż kończyny (1/3 i 2/3) — w tym połowa.
+			# Gęsta geometria na zgięciach = mniej rozmazywania tekstury.
+			candidates.append(joint)
+			candidates.append(joint.lerp(tip, 0.34))
+			candidates.append(joint.lerp(tip, 0.67))
+			# Dla ramion dodatkowy punkt przy pasze (lekko ku tułowiowi),
+			# bo tam siatka rozciąga się najmocniej przy uniesieniu ręki.
+			if name.begins_with("Ramie"):
+				candidates.append(joint.lerp(tip, 0.18) + (joint - tip).normalized() * 0.0)
+		elif name in ["Tulow", "Glowa", "Biodra"]:
+			candidates.append(joint.lerp(tip, 0.4))
+			candidates.append(joint.lerp(tip, 0.7))
+
+		for c in candidates:
+			if not Geometry2D.is_point_in_polygon(c, outline):
+				continue
+			var too_close := false
+			for e in accepted:
+				if e.distance_to(c) < MIN_SPACING:
+					too_close = true
+					break
+			if not too_close:
+				added.append(c)
+				accepted.append(c)
+	return added
 
 
 func _repair() -> void:
@@ -170,6 +320,7 @@ func _auto_weights() -> void:
 	if skel == null:
 		push_warning("auto_outline: właściwość 'skeleton' nie wskazuje na Skeleton2D")
 		return
+	_neutralize(skel)  # offset Polygon2D (skok wsadu) rozjechałby wagi
 	var pts := polygon
 	if pts.is_empty():
 		push_warning("auto_outline: brak obrysu — najpierw 'Obrysuj sprite'a'")
@@ -189,7 +340,7 @@ func _auto_weights() -> void:
 	var segs: Array = []
 	var node_to_idx: Dictionary = {}
 	for bone in bones_list:
-		var joint := to_local(bone.global_position)
+		var joint := to_local(_bone_gpos(skel, bone))
 		var b := joint
 		var child: Bone2D = null
 		for c in bone.get_children():
@@ -197,9 +348,9 @@ func _auto_weights() -> void:
 				child = c
 				break
 		if child:
-			b = to_local(child.global_position)
+			b = to_local(_bone_gpos(skel, child))
 		else:
-			b = to_local(bone.global_position + bone.get_global_transform() \
+			b = to_local(_bone_gpos(skel, bone) + _bone_gxform(skel, bone) \
 				.basis_xform(Vector2.from_angle(bone.bone_angle)) * bone.length)
 		var a := joint
 		if bone.get_parent() is Bone2D:
@@ -247,9 +398,11 @@ func _auto_weights() -> void:
 		var owner := 0
 		var best_d := INF
 		for si in segs.size():
-			var d: float = maxf(
-				_dist_to_segment(pts[v], segs[si].a, segs[si].b) - segs[si].half_width,
-				0.0)
+			var raw := _dist_to_segment(pts[v], segs[si].a, segs[si].b)
+			# Grubość kości skraca dystans, ALE nie poniżej 35% rzeczywistego —
+			# inaczej szeroki tułów/biodra "zassałyby" odległe wierzchołki barku
+			# czy uda, które należą do kończyny.
+			var d: float = maxf(raw - segs[si].half_width, raw * 0.42)
 			if d < best_d:
 				best_d = d
 				owner = si
@@ -285,6 +438,7 @@ func _auto_skeleton() -> void:
 	if skel == null:
 		push_warning("auto_outline: właściwość 'skeleton' nie wskazuje na Skeleton2D")
 		return
+	_neutralize(skel)  # wyzeruj offset Polygon2D (skok wsadu) i pozę kości
 	var pts := polygon.slice(0, polygon.size() - internal_vertex_count)
 	if pts.size() < 8:
 		push_warning("auto_outline: najpierw 'Obrysuj sprite'a'")
@@ -346,18 +500,22 @@ func _auto_skeleton() -> void:
 	var hips := Vector2(hips_cx, crotch_y - 0.02 * h)
 	var chest := Vector2(lerpf(hips_cx, head_cx, 0.42), lerpf(hips.y, top.y, 0.42))
 	var neck := Vector2(lerpf(hips_cx, head_cx, 0.54), chest.y - 0.12 * (hips.y - top.y))
-	# Linia barków z sylwetki: od szyi w dół, pierwsze miejsce, gdzie kontur
-	# robi się wyraźnie szerszy od głowy (działa i dla rąk odstających,
-	# i opuszczonych wzdłuż ciała).
-	var head_w := _scan_width(pts, top.y + 0.10 * h, bbox_cx, 0.35 * w)
+	# Wysokość barków = środek PASMA RAMIENIA, mierzony pionowym skanem tuż za
+	# szyją (tam jest już tylko materiał ramienia). Dzięki temu bark wypada na
+	# wysokości ramienia — i dla T-pozy (ręce poziomo), i dla A-pozy.
+	var head_half := _scan_width(pts, top.y + 0.10 * h, bbox_cx, 0.35 * w) * 0.5
+	if head_half <= 0.0:
+		head_half = 0.10 * w
+	var probe_dx := head_half + 0.07 * w
+	var syl := _arm_center_y(pts, cx - probe_dx, top.y, hips.y)
+	var syr := _arm_center_y(pts, cx + probe_dx, top.y, hips.y)
 	var sh_y := chest.y + 0.015 * h  # fallback: tuż pod klatką
-	if head_w > 0.0:
-		var yy := neck.y
-		while yy < hips.y:
-			if _scan_width(pts, yy, cx, 0.45 * w) > head_w * 1.35:
-				sh_y = yy + 0.015 * h
-				break
-			yy += 0.015 * h
+	if syl > 0.0 and syr > 0.0:
+		sh_y = (syl + syr) / 2.0
+	elif syl > 0.0:
+		sh_y = syl
+	elif syr > 0.0:
+		sh_y = syr
 
 	var sh_l := Vector2(chest.x + (hand_l.x - chest.x) * 0.25, sh_y)
 	var sh_p := Vector2(chest.x + (hand_p.x - chest.x) * 0.25, sh_y)
@@ -474,6 +632,36 @@ func _scan_inner_width(pts: PackedVector2Array, y: float, center_x: float) -> fl
 	return hi - lo
 
 
+func _scan_ys(pts: PackedVector2Array, x: float,
+		y_lo: float, y_hi: float) -> PackedFloat32Array:
+	# Przecięcia pionowej linii x z krawędziami obrysu (w paśmie y_lo..y_hi).
+	var ys := PackedFloat32Array()
+	var n := pts.size()
+	for i in n:
+		var a := pts[i]
+		var b := pts[(i + 1) % n]
+		if (a.x <= x) == (b.x <= x):
+			continue
+		var y := a.y + (x - a.x) / (b.x - a.x) * (b.y - a.y)
+		if y >= y_lo and y <= y_hi:
+			ys.append(y)
+	return ys
+
+
+func _arm_center_y(pts: PackedVector2Array, x: float, top_y: float, bottom_y: float) -> float:
+	# Środek najwyższego sensownego pasma materiału na kolumnie x = środek
+	# ramienia w okolicy barku (-1 gdy brak).
+	var ys := _scan_ys(pts, x, top_y, bottom_y)
+	if ys.size() < 2:
+		return -1.0
+	ys.sort()
+	for i in range(0, ys.size() - 1, 2):
+		var thick := ys[i + 1] - ys[i]
+		if thick > 8.0:
+			return (ys[i] + ys[i + 1]) / 2.0  # najwyższe pasmo = ramię
+	return -1.0
+
+
 func _scan_width(pts: PackedVector2Array, y: float,
 		x_guard_center: float, x_guard_half: float) -> float:
 	var xs := _scan_xs(pts, y, x_guard_center, x_guard_half)
@@ -541,6 +729,23 @@ func _order_draw() -> void:
 		% ordered.size())
 
 
+func _bone_gxform(skel: Skeleton2D, bone: Bone2D) -> Transform2D:
+	# Globalna transformata kości liczona ANALITYCZNIE z bone.position/rotation.
+	# NIE używamy bone.global_position/get_global_transform() — Skeleton2D je
+	# cache'uje, więc tuż po ustawieniu kości (bez klatki) zwracają stare wartości
+	# (inaczej w edytorze, inaczej headless). FK jest natychmiastowe i pewne.
+	var t := Transform2D(bone.rotation, bone.position)
+	var p := bone.get_parent()
+	while p is Bone2D:
+		t = Transform2D(p.rotation, p.position) * t
+		p = p.get_parent()
+	return skel.global_transform * t
+
+
+func _bone_gpos(skel: Skeleton2D, bone: Bone2D) -> Vector2:
+	return _bone_gxform(skel, bone).origin
+
+
 func _collect_bones(node: Node, out: Array) -> void:
 	for c in node.get_children():
 		if c is Bone2D:
@@ -564,37 +769,35 @@ func _triangulate() -> void:
 	var outline_n := pts.size() - internal_vertex_count
 	var outline := pts.slice(0, outline_n)
 
-	# Baza: triangulacja samego konturu (earcut) — szanuje granicę obrysu,
-	# więc nie robi ani dziur, ani mostków przez wklęsłości.
-	var ear := Geometry2D.triangulate_polygon(outline)
-	if ear.is_empty():
-		push_warning("auto_outline: kontur się nie trianguluje — sprawdź obrys")
+	# Delaunay wszystkich punktów (równe, niewydłużone trójkąty), a potem
+	# odrzuć trójkąty poza obrysem (mostki przez pachy/między nogami). Przy
+	# gęstej siatce wnętrza daje to ładną, drobną i równą siatkę deformacji.
+	var idx := Geometry2D.triangulate_delaunay(pts)
+	if idx.is_empty():
+		push_warning("auto_outline: Delaunay zwrócił pustkę — sprawdź punkty")
 		return
-	var tris: Array = []
-	for t in range(0, ear.size(), 3):
-		tris.append([ear[t], ear[t + 1], ear[t + 2]])
-
-	# Punkty wewnętrzne wszywamy w siatkę: trójkąt, w którym leży punkt,
-	# dzielimy na 3 mniejsze (punkt łączy się z jego wierzchołkami).
-	for vi in range(outline_n, pts.size()):
-		var found := -1
-		for ti in tris.size():
-			if Geometry2D.point_is_inside_triangle(
-					pts[vi], pts[tris[ti][0]], pts[tris[ti][1]], pts[tris[ti][2]]):
-				found = ti
-				break
-		if found == -1:
-			push_warning("auto_outline: punkt wewnętrzny %d leży poza obrysem — pomijam" % vi)
-			continue
-		var tr: Array = tris[found]
-		tris.remove_at(found)
-		tris.append([tr[0], tr[1], vi])
-		tris.append([tr[1], tr[2], vi])
-		tris.append([tr[2], tr[0], vi])
-
 	var packed: Array = []
-	for t in tris:
-		packed.append(PackedInt32Array(t))
+	for t in range(0, idx.size(), 3):
+		var a := pts[idx[t]]
+		var b := pts[idx[t + 1]]
+		var c := pts[idx[t + 2]]
+		var centroid := (a + b + c) / 3.0
+		# Trójkąt zostaje, jeśli środek i (lekko ściągnięte do środka) środki
+		# boków leżą w obrysie — to odcina trójkąty mostkujące wklęsłości.
+		if not Geometry2D.is_point_in_polygon(centroid, outline):
+			continue
+		var ok := true
+		for pair in [[a, b], [b, c], [c, a]]:
+			var mid: Vector2 = ((pair[0] + pair[1]) * 0.5).lerp(centroid, 0.06)
+			if not Geometry2D.is_point_in_polygon(mid, outline):
+				ok = false
+				break
+		if ok:
+			packed.append(PackedInt32Array([idx[t], idx[t + 1], idx[t + 2]]))
+
+	if packed.is_empty():
+		push_warning("auto_outline: triangulacja pusta — sprawdź obrys")
+		return
 	polygons = packed
 	print("auto_outline: %d trójkątów (%d punktów, w tym %d wewnętrznych)"
 		% [packed.size(), pts.size(), internal_vertex_count])

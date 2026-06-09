@@ -47,14 +47,14 @@ func open_for_pupil(pupil) -> void:
 	portrait.texture = src.texture
 	portrait.global_position = src.get_global_transform_with_canvas().origin
 	
-	_questions_count = QuizRepository.get_pupil_questions_count(_pupil_name)
+	_questions_count = QuizManager.get_pupil_questions_count(_pupil_name)
 	
 	_show_current_question()
 	_animate_in()
 
 func _show_current_question() -> void:
 	var progress_text := ""
-	var question_data = QuizRepository.get_pupil_question(_pupil_name, _question_index)
+	var question_data = QuizManager.get_pupil_question(_pupil_name, _question_index)
 	
 	if _questions_count > 1:
 		progress_text = "[%d / %d]\n" % [_question_index + 1, _questions_count]

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bhsgmj2terok8"]
+
+[ext_resource type="Script" uid="uid://bejta12oyawod" path="res://scripts/classroom/Pupil.gd" id="1_sa8sb"]
+[ext_resource type="AudioStream" uid="uid://oqvg2i2x2ass" path="res://audio/pacman_ping.wav" id="2_e70ka"]
+
+[node name="Pupil" type="CharacterBody2D" unique_id=1753425199]
+collision_layer = 255
+collision_mask = 255
+script = ExtResource("1_sa8sb")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1903042410]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=601061575]
+
+[node name="RespawnTimer" type="Timer" parent="." unique_id=1299944569]
+wait_time = 5.0
+
+[node name="AudioPing" type="AudioStreamPlayer" parent="." unique_id=378555288]
+stream = ExtResource("2_e70ka")

@@ -16,7 +16,7 @@ func start_game(game_mode: GameMode) -> void:
 	Global.current_mode = game_mode
 	if game_mode == GameMode.QUIZ:
 		reset()
-	await Fader.fade_to_scene("res://classroom.tscn", 0.5)
+	await Fader.fade_to_scene("res://scenes/classroom/Classroom.tscn", 0.5)
 
 func go_to_mode_selection() -> void:
 	await Fader.fade_to_scene("res://mode_selection.tscn", 0.5)

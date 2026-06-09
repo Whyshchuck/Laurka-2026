@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://eader54mvl73"
-path="res://.godot/imported/o_pol_2.png-959e50ad25b3c5052af5f49686e01e18.ctex"
+uid="uid://bmmv2kp6ensof"
+path="res://.godot/imported/y_2.png-e9ead735ebad20a7f679a3849fd51887.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://letters/o_pol_2.png"
-dest_files=["res://.godot/imported/o_pol_2.png-959e50ad25b3c5052af5f49686e01e18.ctex"]
+source_file="res://letters/y_2.png"
+dest_files=["res://.godot/imported/y_2.png-e9ead735ebad20a7f679a3849fd51887.ctex"]
 
 [params]
 

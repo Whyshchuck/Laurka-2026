@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cavypgiq0fldi"
-path="res://.godot/imported/g_3.png-f3e3cb36e2df40162eb0fe7a56e93a3b.ctex"
+uid="uid://nncpsdrrvhcl"
+path="res://.godot/imported/n_pol_2.png-7d259885bb23cabe75c7dee27d548b7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://letters/g_3.png"
-dest_files=["res://.godot/imported/g_3.png-f3e3cb36e2df40162eb0fe7a56e93a3b.ctex"]
+source_file="res://letters/n_pol_2.png"
+dest_files=["res://.godot/imported/n_pol_2.png-7d259885bb23cabe75c7dee27d548b7d.ctex"]
 
 [params]
 

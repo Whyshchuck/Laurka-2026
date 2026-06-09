@@ -69,6 +69,12 @@ func _do_everything() -> void:
 	if get_node_or_null(skeleton) == null:
 		push_warning("auto_outline: ustaw właściwość 'skeleton' (Skeleton2D) i powtórz")
 		return
+	# Normalizuj skalę Polygon2D do 1 — rig liczymy w pikselach sprajta. Po
+	# sklonowaniu riga na inny sprajt skala bywa rozjechana (rozciąga ciało
+	# i rozsypuje kości). Powiększanie do gry rób na węźle-korzeniu.
+	if scale != Vector2.ONE:
+		print("auto_outline: normalizuję skalę Polygon2D %s -> (1,1)" % str(scale))
+		scale = Vector2.ONE
 	if polygon.size() < 8:
 		_trace()        # potrzebny kontur do auto-rozstawienia kości
 	_auto_skeleton()    # rozstaw kości z obrysu
@@ -112,6 +118,10 @@ func _neutralize(skel: Skeleton2D) -> void:
 	if position != Vector2.ZERO:
 		print("auto_outline: zeruję offset Polygon2D %s (zostało po animacji)" % str(position))
 		position = Vector2.ZERO
+	if scale != Vector2.ONE:
+		push_warning("auto_outline: Polygon2D ma skalę %s — rig powinien być w skali 1 "
+			% str(scale) + "(powiększanie rób na węźle-korzeniu). Użyj '★ ZRÓB WSZYSTKO', "
+			+ "który normalizuje skalę i przelicza rig od nowa.")
 	if skel:
 		var bl: Array = []
 		_collect_bones(skel, bl)
@@ -475,47 +485,58 @@ func _auto_skeleton() -> void:
 				and p.y < pmin.y + 0.88 * h:
 			crotch_y = minf(crotch_y, p.y)
 
-	# Środek ciała mierzony z obrysu (środek między lewą a prawą krawędzią
-	# konturu): osobno na wysokości głowy i tuż nad kroczem. Pomiar przecina
-	# poziomą linię z krawędziami obrysu (scanline) — wierzchołki bywają
-	# rozmieszczone rzadko i jednostronnie, więc ich próbkowanie kłamie.
+	# Środek głowy ze skanu sylwetki (głowa to czysta bryła u góry).
 	var head_cx := _scan_center_x(pts, top.y + 0.10 * h, bbox_cx, 0.35 * w, bbox_cx)
-	var hips_cx := _scan_center_x(pts, crotch_y - 0.07 * h, bbox_cx, 0.30 * w, bbox_cx)
-	var cx := hips_cx
 
-	var foot_l := Vector2(cx - 0.15 * w, pmax.y)
-	var foot_p := Vector2(cx + 0.15 * w, pmax.y)
+	# Stopy: najniższy punkt w lewej/prawej połowie (podział wg środka ramki),
+	# szukany tylko w dolnych 25% ciała, żeby nie złapać zwisającej dłoni.
+	var foot_l := Vector2(bbox_cx - 0.15 * w, pmax.y)
+	var foot_p := Vector2(bbox_cx + 0.15 * w, pmax.y)
 	var found_l := false
 	var found_p := false
 	for p in pts:
-		if p.x < cx and (not found_l or p.y > foot_l.y):
+		if p.y < pmax.y - 0.25 * h:
+			continue
+		if p.x < bbox_cx and (not found_l or p.y > foot_l.y):
 			foot_l = p
 			found_l = true
-		elif p.x >= cx and (not found_p or p.y > foot_p.y):
+		elif p.x >= bbox_cx and (not found_p or p.y > foot_p.y):
 			foot_p = p
 			found_p = true
+
+	# Środek bioder = rozstaw stóp (są poniżej rąk, więc czyste). Skan sylwetki
+	# na wysokości bioder łapie zwisające przedramiona i ściąga środek w bok —
+	# stąd wcześniej kręgosłup uciekał na lewo przy asymetrycznej pozie.
+	var hips_cx := (foot_l.x + foot_p.x) / 2.0
+	var cx := hips_cx
 
 	# Punkty szkieletu. Kręgosłup biegnie po linii hips_cx -> head_cx
 	# (może być lekko skośny, jeśli rysunek jest przekrzywiony).
 	var hips := Vector2(hips_cx, crotch_y - 0.02 * h)
-	var chest := Vector2(lerpf(hips_cx, head_cx, 0.42), lerpf(hips.y, top.y, 0.42))
-	var neck := Vector2(lerpf(hips_cx, head_cx, 0.54), chest.y - 0.12 * (hips.y - top.y))
-	# Wysokość barków = środek PASMA RAMIENIA, mierzony pionowym skanem tuż za
-	# szyją (tam jest już tylko materiał ramienia). Dzięki temu bark wypada na
-	# wysokości ramienia — i dla T-pozy (ręce poziomo), i dla A-pozy.
-	var head_half := _scan_width(pts, top.y + 0.10 * h, bbox_cx, 0.35 * w) * 0.5
-	if head_half <= 0.0:
-		head_half = 0.10 * w
-	var probe_dx := head_half + 0.07 * w
-	var syl := _arm_center_y(pts, cx - probe_dx, top.y, hips.y)
-	var syr := _arm_center_y(pts, cx + probe_dx, top.y, hips.y)
-	var sh_y := chest.y + 0.015 * h  # fallback: tuż pod klatką
-	if syl > 0.0 and syr > 0.0:
-		sh_y = (syl + syr) / 2.0
-	elif syl > 0.0:
-		sh_y = syl
-	elif syr > 0.0:
-		sh_y = syr
+
+	# Linia barków = tuż pod SZYJĄ, a szyja to najwęższe miejsce sylwetki
+	# między głową a barkami. To odporne na proporcje: przy wielkiej głowie
+	# czubek jest wysoko, ale przewężenie szyi i tak jest tam, gdzie trzeba.
+	# (Próba mierzenia szerokości głowy u góry zawodzi — głowa rozszerza się
+	# niżej i probe ramienia trafia w policzek/czapkę.)
+	var neck_y := lerpf(top.y, hips.y, 0.32)  # fallback proporcjonalny
+	var min_w := INF
+	var yy := top.y + 0.10 * h
+	var y_lo := hips.y - 0.12 * h
+	while yy < y_lo:
+		var ww := _scan_width(pts, yy, cx, 0.45 * w)
+		if ww > 0.0 and ww < min_w:
+			min_w = ww
+			neck_y = yy
+		yy += 0.01 * h
+	var sh_y := neck_y + 0.08 * h  # staw barkowy jest niżej niż samo przewężenie
+
+	# Tułów (Tulow) NA linii barków; szyja (Glowa) tuż nad nią, ku głowie.
+	# x kręgosłupa interpolowane wzdłuż linii hips_cx -> head_cx.
+	var sh_frac := clampf((hips.y - sh_y) / maxf(hips.y - top.y, 1.0), 0.0, 1.0)
+	var chest := Vector2(lerpf(hips_cx, head_cx, sh_frac), sh_y)
+	var neck := Vector2(lerpf(hips_cx, head_cx, minf(sh_frac + 0.12, 1.0)),
+		sh_y - 0.12 * (sh_y - top.y))
 
 	var sh_l := Vector2(chest.x + (hand_l.x - chest.x) * 0.25, sh_y)
 	var sh_p := Vector2(chest.x + (hand_p.x - chest.x) * 0.25, sh_y)
@@ -648,17 +669,20 @@ func _scan_ys(pts: PackedVector2Array, x: float,
 	return ys
 
 
-func _arm_center_y(pts: PackedVector2Array, x: float, top_y: float, bottom_y: float) -> float:
-	# Środek najwyższego sensownego pasma materiału na kolumnie x = środek
-	# ramienia w okolicy barku (-1 gdy brak).
+func _arm_center_y(pts: PackedVector2Array, x: float, top_y: float, bottom_y: float,
+		min_thick: float) -> float:
+	# Środek najwyższego SENSOWNEGO pasma materiału na kolumnie x = środek
+	# ramienia w okolicy barku (-1 gdy brak). Próg grubości jest proporcjonalny
+	# do ciała (min_thick) — inaczej na dużym sprajcie łapie cienki kosmyk
+	# włosów przy głowie zamiast ramienia (próg absolutny był wrażliwy na rozmiar).
 	var ys := _scan_ys(pts, x, top_y, bottom_y)
 	if ys.size() < 2:
 		return -1.0
 	ys.sort()
 	for i in range(0, ys.size() - 1, 2):
 		var thick := ys[i + 1] - ys[i]
-		if thick > 8.0:
-			return (ys[i] + ys[i + 1]) / 2.0  # najwyższe pasmo = ramię
+		if thick > min_thick:
+			return (ys[i] + ys[i + 1]) / 2.0  # najwyższe odpowiednio grube pasmo = ramię
 	return -1.0
 
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cjsptal7n5khq"]
 
-[ext_resource type="Script" uid="uid://ypvgf0aeiu3u" path="res://autoload/fade_layer.gd" id="1_jy74b"]
+[ext_resource type="Script" uid="uid://ypvgf0aeiu3u" path="res://scripts/ui/FadeLayer.gd" id="1_jy74b"]
 
 [node name="FadeLayer" type="CanvasLayer" unique_id=646253564]
 script = ExtResource("1_jy74b")

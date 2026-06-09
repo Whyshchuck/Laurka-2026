@@ -16,13 +16,13 @@ func start_game(game_mode: GameMode) -> void:
 	Global.current_mode = game_mode
 	if game_mode == GameMode.QUIZ:
 		reset()
-	await Fader.fade_to_scene("res://scenes/classroom/Classroom.tscn", 0.5)
+	await SceneManager.change_scene("res://scenes/classroom/Classroom.tscn", 0.5)
 
 func go_to_mode_selection() -> void:
-	await Fader.fade_to_scene("res://mode_selection.tscn", 0.5)
+	await SceneManager.change_scene("res://mode_selection.tscn", 0.5)
 
 func go_to_final_scene() -> void:
-	await Fader.fade_to_scene("res://final.tscn", 0.5)
+	await SceneManager.change_scene("res://scenes/ui/Final.tscn", 0.5)
 
 func add_quiz_point() -> void:
 	total_score += 1

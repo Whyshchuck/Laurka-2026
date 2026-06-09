@@ -953,6 +953,18 @@ grow_horizontal = 0
 theme_override_colors/font_color = Color(0.926299, 2.5028e-06, 1.54018e-06, 1)
 theme_override_font_sizes/font_size = 30
 
+[node name="ScoreLabel" type="Label" parent="." unique_id=1450000000]
+visible = false
+offset_left = 742.0
+offset_top = 8.0
+offset_right = 1042.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(1, 0.33791047, 0.6358837, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Quiz: 0"
+horizontal_alignment = 2
+
 [node name="ReturnArrow" type="Polygon2D" parent="." unique_id=997541753]
 position = Vector2(-16, 0)
 color = Color(1, 0, 0, 0.756863)

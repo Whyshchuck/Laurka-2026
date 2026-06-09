@@ -91,7 +91,14 @@ func _on_answer_pressed(clicked_button: Button) -> void:
 			_question_index += 1
 			_show_current_question()
 		else:
-			close()
+			Global.add_quiz_point()
+			# Mark this pupil as answered so they cannot be quizzed again
+			Global.mark_pupil_answered(_pupil_name)
+			
+			await close()
+			# Update the label after the overlay closes so it's visible
+			if get_parent() and get_parent().has_method("update_quiz_score_label"):
+				get_parent().update_quiz_score_label()
 	else:
 		await flash_button(clicked_button, WRONG_ANSWER_COLOR)
 		print("Wrong answer. Try again.")
@@ -117,9 +124,8 @@ func flash_button(button: Button, flash_color: Color, flash_duration: float = AN
 	var tween := create_tween()
 	tween.tween_interval(flash_duration)
 	tween.tween_callback(_reset_button_styles.bind(button))
-
-	return tween.finished
 	
+	return tween.finished
 
 func close() -> void:
 	"""Closes the quiz overlay with an animation, then frees it."""

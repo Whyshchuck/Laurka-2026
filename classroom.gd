@@ -4,6 +4,7 @@ extends Node2D
 @onready var status_timer := $StatusTimer
 @onready var moving_pupils_counter : Label = $MovingPupilsCounter
 @onready var time_label: Label = $TimeLabel
+@onready var score_label: Label = $ScoreLabel
 
 var game_started := false
 
@@ -18,6 +19,7 @@ var alphabet_overlay: CanvasLayer = null
 func _ready():
 	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
 	print("Current mode: ", Global.get_current_mode_name())
+	update_quiz_score_label()
 
 	# Tryb "ganianie" (dawny HARD) wycofany — klasa startuje spokojnie w obu trybach.
 	# TODO (Faza 1): usunąć resztę kodu chase (countdown, respawn, timer, licznik).
@@ -80,6 +82,10 @@ func open_quiz(pupil) -> void:
 	# Otwórz nakładkę quizu dla klikniętego dziecka (tylko jedna naraz).
 	if quiz_overlay and is_instance_valid(quiz_overlay):
 		return
+	# Prevent reopening quiz for a pupil that's already been answered
+	if Global.has_pupil_been_answered(pupil.name):
+		print("Pupil %s already answered." % pupil.name)
+		return
 	quiz_overlay = QuizOverlayScene.instantiate()
 	add_child(quiz_overlay)
 	quiz_overlay.open_for_pupil(pupil)
@@ -120,3 +126,10 @@ func update_moving_pupil_count():
 	
 	if not game_started:
 		game_started = true
+
+func update_quiz_score_label() -> void:
+	if not score_label:
+		return
+	score_label.visible = Global.current_mode == Global.GameMode.QUIZ
+	score_label.text = Global.get_quiz_score_text()
+	print(score_label.text)

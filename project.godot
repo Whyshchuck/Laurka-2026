@@ -22,7 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://cn0p2k45celh8"
-Fader="*res://fade_layer.tscn"
+Fader="*res://scenes/ui/FadeLayer.tscn"
 QuizRepository="*uid://b7ls011w8das0"
 
 [display]

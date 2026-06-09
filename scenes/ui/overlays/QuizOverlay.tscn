@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c2ebk7die6hdn"]
 
-[ext_resource type="Script" uid="uid://3ox363br134e" path="res://quiz/quiz_overlay.gd" id="1_quiz"]
+[ext_resource type="Script" uid="uid://3ox363br134e" path="res://scripts/ui/overlays/QuizOverlay.gd" id="1_quiz"]
 
 [node name="QuizOverlay" type="CanvasLayer" unique_id=323478101]
 script = ExtResource("1_quiz")

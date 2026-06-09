@@ -11,7 +11,7 @@ var game_started := false
 var total_pupils := 0
 var sitting_count := 0
 
-const QuizOverlayScene := preload("res://quiz/quiz_overlay.tscn")
+const QuizOverlayScene := preload("res://scenes/ui/overlays/QuizOverlay.tscn")
 const AlphabetOverlayScene := preload("res://minigames/alphabet_overlay.tscn")
 var quiz_overlay: CanvasLayer = null
 var alphabet_overlay: CanvasLayer = null

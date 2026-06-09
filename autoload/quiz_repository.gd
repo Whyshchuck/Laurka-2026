@@ -22,7 +22,7 @@ const EMPTY_QUESTION := [
 func _init() -> void:
 	load_quiz_data()
 
-func load_quiz_data(path: String = "res://quiz/quiz_data.json") -> void:
+func load_quiz_data(path: String = "res://data/quiz_data.json") -> void:
 	"""Loads quiz data from a JSON file."""
 	var file := FileAccess.open(path, FileAccess.READ)
 

@@ -29,23 +29,22 @@ func _init() -> void:
 		tex.decompress()
 	tex.convert(Image.FORMAT_RGBA8)
 
-	# Wyskok robi się transformatą węzła Polygon2D (nakładaną PO skinningu).
-	# Skinning liczymy z poly w (0,0), a offset dodajemy przy rysowaniu —
-	# inaczej obrót kości "rozjechałby" przesunięcie.
-	var jump: Vector2 = poly.position
-	poly.position = Vector2.ZERO
-	var off := Vector2(0, HEADROOM)  # przesunięcie rysunku w dół (zapas u góry)
+	# TRYB PRAWDZIWY: honorujemy rzeczywiste Polygon2D.position (skok), żeby
+	# podgląd 1:1 odwzorowywał Godot — w tym ew. rozjazd skinningu przy skoku.
+	var off := Vector2(0, HEADROOM)  # tylko zapas u góry obrazu
 
-	# Zdeformowany podgląd: CPU-skinning siatki Polygon2D na tle (przezroczyste).
-	var img := _skin_render(poly, skel, tex, jump + off)
+	# Zdeformowany podgląd: CPU-skinning siatki Polygon2D (real Godot).
+	var img := _skin_render(poly, skel, tex, off)
 
+	# Kości czytamy z global_position — gdy wsad ma tor Skeleton2D:position,
+	# zawiera już skok (pojedynczy). NIE dodajemy poly.position (byłby podwójny).
 	var bones: Array = []
 	poly._collect_bones(skel, bones)
 	for bone in bones:
-		_dot(img, bone.global_position + jump + off, Color(0, 0.6, 1), 4)
+		_dot(img, bone.global_position + off, Color(0, 0.6, 1), 4)
 
-	var dl: Vector2 = skel.get_node("Biodra/Tulow/RamieL/PrzedramieL/DlonL").global_position + jump
-	var dp: Vector2 = skel.get_node("Biodra/Tulow/RamieP/PrzedramieP/DlonP").global_position + jump
+	var dl: Vector2 = skel.get_node("Biodra/Tulow/RamieL/PrzedramieL/DlonL").global_position
+	var dp: Vector2 = skel.get_node("Biodra/Tulow/RamieP/PrzedramieP/DlonP").global_position
 	print("dlonL @ ", dl.round(), "  dlonP @ ", dp.round())
 
 	# Piłka: wrysuj jej teksturę w aktualnej pozycji (i kółko konturu).

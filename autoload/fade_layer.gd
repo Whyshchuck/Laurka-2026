@@ -22,7 +22,6 @@ func fade_to_scene(scene_path: String, duration: float = 1.0) -> void:
 	await fade_out(duration)
 	get_tree().change_scene_to_file(scene_path)
 	# Wait one frame to ensure the scene is fully switched
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
+	await get_tree().tree_changed
+	
 	await fade_in(duration)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1qp2at7isf1"
-path="res://.godot/imported/zi_pol_2.png-666573363ce6c3122c1977bd899673c0.ctex"
+uid="uid://cng3u770raeu1"
+path="res://.godot/imported/jasiek_smok.png-7e8fe1b7dcc8e54ca1eb842204d34e5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://letters/zi_pol_2.png"
-dest_files=["res://.godot/imported/zi_pol_2.png-666573363ce6c3122c1977bd899673c0.ctex"]
+source_file="res://sprites/jasiek_smok.png"
+dest_files=["res://.godot/imported/jasiek_smok.png-7e8fe1b7dcc8e54ca1eb842204d34e5e.ctex"]
 
 [params]
 

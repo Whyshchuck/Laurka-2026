@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1tbn68l7q471"
-path="res://.godot/imported/s_pol_3.png-ccd8ee0add63e13347ec0e7065bad548.ctex"
+uid="uid://ff3x8nk7s2ue"
+path="res://.godot/imported/jas4.png-942d6737de9038f91758f758701d1d58.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://letters/s_pol_3.png"
-dest_files=["res://.godot/imported/s_pol_3.png-ccd8ee0add63e13347ec0e7065bad548.ctex"]
+source_file="res://rig/jas4.png"
+dest_files=["res://.godot/imported/jas4.png-942d6737de9038f91758f758701d1d58.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjkw0ilpj101q"
-path="res://.godot/imported/zi_pol_3.png-934fa290575bfcf2203db66adc6f61db.ctex"
+uid="uid://cns7e6rqmki5c"
+path="res://.godot/imported/h_2.png-486b8fc15e059a94489b48b8267a254b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://letters/zi_pol_3.png"
-dest_files=["res://.godot/imported/zi_pol_3.png-934fa290575bfcf2203db66adc6f61db.ctex"]
+source_file="res://letters/h_2.png"
+dest_files=["res://.godot/imported/h_2.png-486b8fc15e059a94489b48b8267a254b.ctex"]
 
 [params]
 

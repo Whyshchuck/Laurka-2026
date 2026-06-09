@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cffhde1e5d488" path="res://sprites/y.png" id="9_vp2q1"]
 [ext_resource type="FontFile" uid="uid://bxwlocm06ul5h" path="res://BAUHS93.TTF" id="12_cexcq"]
 [ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="13_l5p70"]
+[ext_resource type="Script" uid="uid://dldjrur18ck03" path="res://scripts/components/IntroAnimator.gd" id="14_cexcq"]
 
 [sub_resource type="StyleBoxEmpty" id="sbe_button"]
 
@@ -164,3 +165,6 @@ scale = Vector2(0.41097447, 0.76850367)
 script = ExtResource("13_l5p70")
 text = "jak dobrze nas znasz?"
 metadata/_custom_type_script = "uid://xjpugwcq0p3l"
+
+[node name="IntroAnimator" type="Node" parent="." unique_id=1354161528]
+script = ExtResource("14_cexcq")

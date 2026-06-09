@@ -4,7 +4,7 @@ extends Node2D
 @onready var status_timer := $StatusTimer
 @onready var moving_pupils_counter : Label = $MovingPupilsCounter
 @onready var time_label: Label = $TimeLabel
-@onready var score_label: Label = $ScoreLabel
+@onready var score_label: LetterLabel = $ScoreLetterLabel
 
 var game_started := false
 
@@ -132,4 +132,3 @@ func update_quiz_score_label() -> void:
 		return
 	score_label.visible = Global.current_mode == Global.GameMode.QUIZ
 	score_label.text = Global.get_quiz_score_text()
-	print(score_label.text)

@@ -36,7 +36,7 @@ func mark_pupil_answered(pupil_name: String) -> void:
 	_answered_pupils[pupil_name] = true
 
 func get_quiz_score_text() -> String:
-	return "Quiz: %d" % total_score
+	return "Wynik: %d" % total_score
 
 func reset() -> void:
 	total_score = 0

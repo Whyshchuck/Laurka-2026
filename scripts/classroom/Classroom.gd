@@ -17,7 +17,6 @@ var quiz_overlay: CanvasLayer = null
 var alphabet_overlay: CanvasLayer = null
 
 func _ready():
-	pupils_node = get_node("Pupils")  # Adjust path if Pupils is not a direct child
 	print("Current mode: ", GameState.get_current_mode_name())
 	update_quiz_score_label()
 
@@ -26,9 +25,8 @@ func _ready():
 	# TODO (Faza 4): zachowanie trybu QUIZ (klik w dziecko -> pytania a/b/c).
 	$PKamila/AnimationPlayer.play('idle')
 
-	for pupil in pupils_node.get_children():
-		if pupil is CharacterBody2D:
-			total_pupils += 1
+	for pupil in get_pupils():
+		total_pupils += 1
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
@@ -53,8 +51,8 @@ func _unhandled_input(event):
 		GameFlow.go_to_mode_selection()
 		return
 
-	for node in $Pupils.get_children():
-		if node is CharacterBody2D and node.texture_rect.get_global_rect().has_point(mouse_pos):
+	for node in get_pupils():
+		if node.texture_rect.get_global_rect().has_point(mouse_pos):
 			clicked_characters.append(node)
 
 	if clicked_characters.is_empty():
@@ -77,6 +75,14 @@ func _unhandled_input(event):
 	else:
 		top_character.on_click()
 	
+func get_pupils() -> Array[Pupil]:
+	var result: Array[Pupil] = []
+	pupils_node = get_node("Pupils")
+	
+	for pupil in pupils_node.get_children():
+		if pupil is Pupil:
+			result.append(pupil)
+	return result
 
 func open_quiz(pupil) -> void:
 	# Otwórz nakładkę quizu dla klikniętego dziecka (tylko jedna naraz).
@@ -106,18 +112,18 @@ func activate_pupils():
 	if not pupils_node:
 		return
 
-	for pupil in pupils_node.get_children():
-		if pupil is CharacterBody2D and pupil.is_available():
+	for pupil in get_pupils():
+		if pupil.is_available():
 			pupil.pick_new_target()
 
 func update_moving_pupil_count():
 	if not pupils_node:
 		return
 	
-	sitting_count = 24
+	sitting_count = total_pupils
 
-	for pupil in pupils_node.get_children():
-		if pupil is CharacterBody2D and pupil.is_moving():
+	for pupil in get_pupils():
+		if pupil.is_moving():
 			sitting_count -= 1
 		
 	var status_text := "Uczniowie na miejscach: %d / %d" % [sitting_count, total_pupils]

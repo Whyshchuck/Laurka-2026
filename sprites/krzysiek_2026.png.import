@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ff3x8nk7s2ue"
-path="res://.godot/imported/jas4.png-942d6737de9038f91758f758701d1d58.ctex"
+uid="uid://c71v1hfxfsnre"
+path="res://.godot/imported/krzysiek_2026.png-81f650e36a75a97ebcb1f4d6d4ff51fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rig/jas4.png"
-dest_files=["res://.godot/imported/jas4.png-942d6737de9038f91758f758701d1d58.ctex"]
+source_file="res://sprites/krzysiek_2026.png"
+dest_files=["res://.godot/imported/krzysiek_2026.png-81f650e36a75a97ebcb1f4d6d4ff51fa.ctex"]
 
 [params]
 

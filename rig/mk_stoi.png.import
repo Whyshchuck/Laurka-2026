@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2s1j6y4odpgt"
-path="res://.godot/imported/debug_skeleton.png-a2b7920d735a0e14b917f0c57c46772b.ctex"
+uid="uid://cttw2yxhasxu3"
+path="res://.godot/imported/mk_stoi.png-cac21f77e57cedce386930affe9a057d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rig/debug_skeleton.png"
-dest_files=["res://.godot/imported/debug_skeleton.png-a2b7920d735a0e14b917f0c57c46772b.ctex"]
+source_file="res://rig/mk_stoi.png"
+dest_files=["res://.godot/imported/mk_stoi.png-cac21f77e57cedce386930affe9a057d.ctex"]
 
 [params]
 

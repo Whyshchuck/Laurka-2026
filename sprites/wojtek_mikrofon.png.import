@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2s1j6y4odpgt"
-path="res://.godot/imported/debug_skeleton.png-a2b7920d735a0e14b917f0c57c46772b.ctex"
+uid="uid://wa2cf4f25n46"
+path="res://.godot/imported/wojtek_mikrofon.png-282e652252bd920fe6a4ea26747a0cd7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rig/debug_skeleton.png"
-dest_files=["res://.godot/imported/debug_skeleton.png-a2b7920d735a0e14b917f0c57c46772b.ctex"]
+source_file="res://sprites/wojtek_mikrofon.png"
+dest_files=["res://.godot/imported/wojtek_mikrofon.png-282e652252bd920fe6a4ea26747a0cd7.ctex"]
 
 [params]
 

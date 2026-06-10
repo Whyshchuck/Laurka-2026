@@ -2,7 +2,7 @@ extends Node
 
 # Rename it to free up GameMode
 enum GameType { WELCOME, QUIZ }
-
+var game_mode: GameMode = null
 var current_type: GameType = GameType.WELCOME
 var time_elapsed: float = 0
 var total_score: int = 0

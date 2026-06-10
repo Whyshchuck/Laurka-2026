@@ -5,6 +5,8 @@ extends CanvasLayer
 # z prawej pojawia się panel z pytaniem i 3 odpowiedziami (A/B/C).
 # Obsługuje teraz wiele pytań dla jednego ucznia.
 
+signal quiz_completed
+
 @onready var dim: ColorRect = $Dim
 @onready var portrait: TextureRect = $Portrait
 @onready var panel: Panel = $Panel
@@ -96,9 +98,8 @@ func _on_answer_pressed(clicked_button: Button) -> void:
 			GameState.mark_pupil_answered(_pupil_name)
 			
 			await close()
-			# Update the label after the overlay closes so it's visible
-			if get_parent() and get_parent().has_method("update_quiz_score_label"):
-				get_parent().update_quiz_score_label()
+			# Emit signal after the overlay closes
+			quiz_completed.emit()
 	else:
 		await flash_button(clicked_button, WRONG_ANSWER_COLOR)
 		print("Wrong answer. Try again.")

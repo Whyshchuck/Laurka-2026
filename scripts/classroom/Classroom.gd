@@ -17,7 +17,7 @@ var quiz_overlay: CanvasLayer = null
 var alphabet_overlay: CanvasLayer = null
 
 func _ready():
-	print("Current mode: ", GameState.get_current_mode_name())
+	print("Current game type: ", GameState.get_current_game_type_name())
 	update_quiz_score_label()
 
 	# Tryb "ganianie" (dawny HARD) wycofany — klasa startuje spokojnie w obu trybach.
@@ -70,7 +70,7 @@ func _unhandled_input(event):
 	print(clicked_characters)
 	var top_character = clicked_characters[0]
 	
-	if GameState.current_mode == GameState.GameMode.QUIZ:
+	if GameState.current_type == GameState.GameType.QUIZ:
 		open_quiz(top_character)
 	else:
 		top_character.on_click()
@@ -136,5 +136,5 @@ func update_moving_pupil_count():
 func update_quiz_score_label() -> void:
 	if not score_label:
 		return
-	score_label.visible = GameState.current_mode == GameState.GameMode.QUIZ
+	score_label.visible = GameState.current_type == GameState.GameType.QUIZ
 	score_label.text = GameState.get_quiz_score_text()

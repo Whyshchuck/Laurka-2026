@@ -48,6 +48,8 @@ var _transform_base_w := 0.0   # szerokość stadium wyjściowego na ekranie
 @onready var texture_rect: TextureRect = $TextureRect
 @onready var sprite: Sprite2D = get_node_or_null("Sprite2D")  # nie każdy uczeń ma Sprite2D
 
+signal pupil_clicked(pupil: Pupil)
+
 func _ready():
 	start_position = global_position
 	var nav_region: NavigationRegion2D = get_node("/root/Classroom/NavigationRegion2D")
@@ -68,10 +70,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		pass
 				
 func on_click():
-	match GameState.current_mode:
-		GameState.GameMode.WELCOME:
+	match GameState.current_type:
+		GameState.GameType.WELCOME:
 			react()
-		GameState.GameMode.QUIZ:
+		GameState.GameType.QUIZ:
+			
 			pass # TODO (Faza 4): klik -> tło szarzeje, slide sprite'a, pytania a/b/c
 
 
@@ -205,7 +208,7 @@ func _physics_process(delta):
 		CharacterState.MOVING:
 			if agent.is_navigation_finished():
 				pick_new_target()
-			elif GameState.current_mode == GameState.GameMode.QUIZ:
+			elif GameState.current_type == GameState.GameType.QUIZ:
 				move_along_agent(delta) # legacy chase (uśpione — patrz Faza 1)
 
 func move_along_agent(_delta):

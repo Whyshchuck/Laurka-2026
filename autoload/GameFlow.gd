@@ -4,10 +4,10 @@ const CLASSROOM_SCENE_PATH: String = "res://scenes/classroom/Classroom.tscn"
 const MODE_SELECTION_SCENE_PATH: String = "res://scenes/ui/ModeSelection.tscn"
 const FINAL_SCENE_PATH: String = "res://scenes/ui/Final.tscn"
 
-func start_game(mode: int) -> void:
+func start_game(game_type: int) -> void:
 	GameState.time_elapsed = 0
-	GameState.set_mode(mode)
-	if mode == GameState.GameMode.QUIZ:
+	GameState.set_game_type(game_type)
+	if game_type == GameState.GameType.QUIZ:
 		GameState.reset()
 	await SceneManager.change_scene(CLASSROOM_SCENE_PATH, 0.5)
 

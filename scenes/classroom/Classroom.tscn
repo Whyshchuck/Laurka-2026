@@ -197,6 +197,7 @@ y_sort_enabled = true
 position = Vector2(368, 858)
 collision_layer = 1
 collision_mask = 2
+speed = null
 transform_textures = Array[Texture2D]([ExtResource("7_lucnorm"), ExtResource("7_luctr1"), ExtResource("7_luctr2"), ExtResource("7_lucbro")])
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Łucja" unique_id=1373301868]
@@ -228,6 +229,8 @@ position = Vector2(918, 876)
 scale = Vector2(0.88416, 0.798544)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Hania" unique_id=1057111449]
 visible = false
@@ -259,6 +262,8 @@ vframes = 3
 position = Vector2(368, 576)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Wojtek" unique_id=1702167115]
 z_as_relative = false
@@ -279,6 +284,8 @@ position = Vector2(478, 418)
 scale = Vector2(0.389313, 0.479169)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Oliwka" unique_id=1308545109]
 z_as_relative = false
@@ -297,6 +304,8 @@ stream = ExtResource("11_dtuxj")
 position = Vector2(457, 723)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Antek" unique_id=665966252]
 z_as_relative = false
@@ -317,6 +326,8 @@ stream = ExtResource("10_w47uv")
 position = Vector2(916, 706)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Krzysiek" unique_id=768116149]
 visible = false
@@ -349,6 +360,8 @@ vframes = 3
 position = Vector2(820, 886)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Nati" unique_id=1981991540]
 visible = false
@@ -381,6 +394,8 @@ vframes = 3
 position = Vector2(468, 576)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Krystian" unique_id=979918346]
 z_as_relative = false
@@ -400,6 +415,8 @@ stream = ExtResource("19_l8q0k")
 position = Vector2(544, 567)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Amelka" unique_id=1346497617]
 z_as_relative = false
@@ -419,6 +436,8 @@ stream = ExtResource("11_lqrni")
 position = Vector2(661, 432)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Michał" unique_id=1091350307]
 z_as_relative = false
@@ -438,6 +457,8 @@ stream = ExtResource("24_j8bve")
 position = Vector2(651, 866)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/MichałA" unique_id=564168240]
 z_as_relative = false
@@ -457,6 +478,8 @@ stream = ExtResource("24_jbgm4")
 position = Vector2(820, 692)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Maja" unique_id=1674133643]
 visible = false
@@ -488,6 +511,8 @@ vframes = 3
 position = Vector2(148, 866)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Majarysia" unique_id=690600125]
 z_as_relative = false
@@ -507,6 +532,8 @@ stream = ExtResource("30_5qgbj")
 position = Vector2(379, 738)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Julek" unique_id=776782303]
 visible = false
@@ -538,6 +565,8 @@ vframes = 3
 position = Vector2(652, 576)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Piotrek" unique_id=1650838949]
 z_as_relative = false
@@ -557,6 +586,8 @@ stream = ExtResource("10_n0qdd")
 position = Vector2(658, 723)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Wiktor" unique_id=247624420]
 visible = false
@@ -588,6 +619,8 @@ vframes = 3
 position = Vector2(649, 295)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/KazikR" unique_id=1084984408]
 z_as_relative = false
@@ -607,6 +640,8 @@ stream = ExtResource("34_mh7vt")
 position = Vector2(374, 1016)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/KazikL" unique_id=1554750207]
 visible = false
@@ -639,6 +674,8 @@ visible = false
 position = Vector2(463, 876)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Anabiya" unique_id=1195176300]
 visible = false
@@ -670,6 +707,8 @@ vframes = 3
 position = Vector2(368, 432)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Kuba" unique_id=968333932]
 visible = false
@@ -701,6 +740,8 @@ vframes = 3
 position = Vector2(128, 705)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Abrish" unique_id=661607927]
 z_as_relative = false
@@ -720,6 +761,8 @@ stream = ExtResource("41_dtuxj")
 position = Vector2(557, 875)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Szymon" unique_id=611368118]
 z_as_relative = false
@@ -739,6 +782,8 @@ stream = ExtResource("45_jbgm4")
 position = Vector2(659, 996)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Miłosz" unique_id=1237453093]
 z_as_relative = false
@@ -759,6 +804,8 @@ stream = ExtResource("23_1j5ya")
 position = Vector2(228, 515)
 collision_layer = 1
 collision_mask = 2
+speed = null
+transform_textures = null
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Jasiek" unique_id=1059409345]
 visible = false

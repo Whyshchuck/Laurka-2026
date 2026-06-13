@@ -14,4 +14,4 @@ func _ready() -> void:
 		$ResultLabel.text = "Twój wynik to: " + "%02d:%02d.%03d" % [minutes, seconds, milliseconds]
 	
 func _on_restart_button_pressed() -> void:
-	SceneManager.go_to_mode_selection()
+	GameFlow.go_to_mode_selection()

@@ -23,6 +23,6 @@ func go_to_mode_selection() -> void:
 	
 
 func go_to_final_scene() -> void:
-	if GameState.game_mode:
-		GameState.game_mode.on_exit()
+	#if GameState.game_mode:
+		#GameState.game_mode.on_exit()
 	await SceneManager.change_scene(FINAL_SCENE_PATH, 0.5)

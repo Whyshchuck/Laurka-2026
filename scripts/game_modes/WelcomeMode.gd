@@ -2,15 +2,24 @@ extends GameMode
 
 class_name WelcomeMode
 
+const AlphabetOverlayScene := preload("res://minigames/alphabet_overlay.tscn")
+var alphabet_overlay: CanvasLayer = null
+
 func on_enter(classroom: Classroom) -> void:
 	_classroom = classroom
-	for pupil in classroom.get_pupils():
+	
+	for pupil in classroom.all_pupils:
 		pupil.pupil_clicked.connect(on_pupil_clicked)
+	
+	_classroom.teacher.teacher_clicked.connect(on_teacher_clicked)
 
 func on_exit() -> void:
-	for pupil in _classroom.get_pupils():
+	for pupil in _classroom.all_pupils:
 		if pupil.pupil_clicked.is_connected(on_pupil_clicked):
 			pupil.pupil_clicked.disconnect(on_pupil_clicked)
+	
+	_classroom.teacher.teacher_clicked.disconnect(on_teacher_clicked)
+	
 	_classroom = null
 
 func on_pupil_clicked(pupil: Pupil) -> void:
@@ -20,6 +29,17 @@ func on_pupil_clicked(pupil: Pupil) -> void:
 		audio.play()
 	if pupil.transform_textures.size() >= 2 and pupil.transform_state != pupil.TransformState.RUNNING:
 		_run_transform(pupil)
+
+func on_teacher_clicked(teacher: Teacher) -> void:
+	open_alphabet()
+	
+func open_alphabet() -> void:
+	# Otwórz minigrę alfabetu (klik w panią Kamilę, tylko jedna nakładka naraz).
+	if alphabet_overlay and is_instance_valid(alphabet_overlay):
+		return
+	alphabet_overlay = AlphabetOverlayScene.instantiate()
+	_classroom.add_child(alphabet_overlay)
+	alphabet_overlay.open_from(_classroom.get_node("PKamila/TextureRect3"))
 
 
 # --- przemiana (np. Łucja -> brontozaur) ------------------------------------

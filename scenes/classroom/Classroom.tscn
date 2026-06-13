@@ -75,6 +75,7 @@
 [ext_resource type="Texture2D" uid="uid://0ovyqduspdrb" path="res://sprites/jasiek-Sheet.png" id="61_vtuje"]
 [ext_resource type="Texture2D" uid="uid://bmdkonb4u2sop" path="res://sprites/p_kamila.png" id="65_y7ma7"]
 [ext_resource type="Texture2D" uid="uid://0gu82qf4auj" path="res://sprites/p_kamila-Sheet.png" id="69_eqqr6"]
+[ext_resource type="Script" uid="uid://bbq2tpb75mx86" path="res://scripts/classroom/Teacher.gd" id="74_7v7bw"]
 [ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="76_enr04"]
 
 [sub_resource type="Animation" id="Animation_uohgg"]
@@ -919,6 +920,7 @@ theme_override_font_sizes/font_size = 30
 stream = ExtResource("60_5qgbj")
 
 [node name="PKamila" type="CharacterBody2D" parent="." unique_id=462450015]
+script = ExtResource("74_7v7bw")
 
 [node name="TextureRect3" type="TextureRect" parent="PKamila" unique_id=2098838230]
 visible = false

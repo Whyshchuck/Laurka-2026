@@ -43,54 +43,57 @@
 			"correct": 1
 		}
 	],
-	
-	
-  "Łucja": [
-	{
-	  "question": "Jaki jest ulubiony kolor Łucji?",
-	  "answers": ["Niebieski", "Zielony", "Czerwony"],
-	  "correct": 0
-	},
-	{
-	  "question": "Gdzie Łucja lubi spędzać czas?",
-	  "answers": ["Na placu zabaw", "W bibliotece", "W kuchni"],
-	  "correct": 1
-	}
-  ],
-  "Jasiek": [
-	{
-	  "question": "Ile kotów ma Jasiek?",
-	  "answers": ["0", "1", "2"],
-	  "correct": 2
-	},
-	{
-	  "question": "Które zwierzę lubi Jasiek najbardziej?",
-	  "answers": ["Pies", "Kot", "Chomik"],
-	  "correct": 0
-	}
-  ],
-  "Krzysiek": [
-	{
-	  "question": "Jakie hobby ma Krzysiek?",
-	  "answers": ["Piłka nożna", "Programowanie", "Muzyka"],
-	  "correct": 1
-	},
-	{
-	  "question": "Co Krzysiek lubi robić na przerwie?",
-	  "answers": ["Rysować", "Grać w piłkę", "Czytać książki"],
-	  "correct": 2
-	}
-  ],
-  "Hania": [
-	{
-	  "question": "Jakie hobby ma Hania?",
-	  "answers": ["Konie", "Coś tam", "Coś tam innego"],
-	  "correct": 1
-	},
-	{
-	  "question": "Jaki jest ulubiony kolor Hani?",
-	  "answers": ["Różowy", "Fioletowy", "Żółty"],
-	  "correct": 0
-	}
-  ]
+	"Julek": [
+		{
+			"question": "W jakim miesiącu Julek ma urodziny?",
+			"answers": ["w lutym", "w kwietniu", "w maju"],
+			"correct": 1
+			
+		},
+		{
+			"question": "Jaki jest ulubiony kolor Julka?",
+			"answers": ["zielony", "brązowy", "niebieski"],
+			"correct": 2
+		},
+		{
+			"question": "Jak ma na imię pies Julka?",
+			"answers": ["Mia", "Luna", "Suzi"],
+			"correct": 0
+		}
+		
+	],
+	"KazikR": [
+		{
+			"question": "Jakie sztuki walki trenuję?",
+			"answers": ["karate", "judo", "boks"],
+			"correct": 1
+		},
+		{
+			"question": "Jaka lekcję najbardziej lubię?",
+			"answers": ["w-f", "informatyka", "etyka"],
+			"correct": 0
+		},
+		{
+			"question": "W zimę najbardziej lubie jeździć na?",
+			"answers": ["sankach", "nartach", "snowboardzie"],
+			"correct": 2
+		}
+	],
+	"Oliwka": [
+		{
+			"question": "Jakie jest ulubione zwierzę Oliwii?",
+			"answers": ["kapibara", "meduza", "kot"],
+			"correct": 2
+		},
+		{
+			"question": "Jakie jest ulubione jedzenie Oliwii?",
+			"answers": ["Kawior", "Naleśniki", "Nóżki w galarecie"],
+			"correct": 1
+		},
+		{
+			"question": "Jaka jest ulubiona gra planszowa Oliwii?",
+			"answers": ["Monopol", "Twister", "Memory"],
+			"correct": 0
+		}
+	]
 }

@@ -1,4 +1,50 @@
 {
+	"Wiktor":[
+		{
+			"question": "Jakie karty zbiera Wiktor?",
+			"answers": ["Pokemon", "Dragon Ball", "piłkarskie"],
+			"correct": 0
+		},
+		{
+			"question": "Jakie jest ulubione zwierzę Wiktora?",
+			"answers": ["Pies", "Kot", "Rybki"],
+			"correct": 1
+		},
+		{
+			"question": "Jaki jest ulubiony piłkarz Wiktora?",
+			"answers": ["Lionel Messi", "Cristiano Ronaldo", "Neymar Jr"],
+			"correct": 0
+		}
+	],
+	"Amelka": [
+		{
+			"question": "Jak nazywa się kotka Amelki?",
+			"answers": ["Momo", "Mia", "Misia"],
+			"correct": 0
+		},
+		{
+			"question": "Co Amelka lubi oglądać w wolnym czasie?",
+			"answers": ["K-pop demon Hunters", "Koci domek Gabii", "My little pony"],
+			"correct": 0
+		},
+		{
+			"question": "Jakie jest ulubione zwierzę Amelii?",
+			"answers": ["Kot", "Tygrys", "panda ruda"],
+			"correct": 2
+		},
+		{
+			"question": "Jaki jest ulubiony kolor Amelki?",
+			"answers": ["Różowy", "Fioletowy", "Niebieski"],
+			"correct": 1
+		},
+		{
+			"question": "Jakie jest ulubione powiedzenie Amelii?",
+			"answers": ["No przecież!", "Oczywistość oczywista", "Tak, tak wiedziałam!"],
+			"correct": 1
+		}
+	],
+	
+	
   "Łucja": [
 	{
 	  "question": "Jaki jest ulubiony kolor Łucji?",

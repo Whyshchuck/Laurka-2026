@@ -85,7 +85,6 @@ func _on_answer_pressed(clicked_button: Button) -> void:
 	var is_correct: bool = clicked_button.get_meta("is_correct")
 
 	if is_correct:
-		print("Correct answer.")
 		await flash_button(clicked_button, CORRECT_ANSWER_COLOR)
 		if _question_index + 1 < _questions_count:
 			_question_index += 1
@@ -101,7 +100,6 @@ func _on_answer_pressed(clicked_button: Button) -> void:
 				get_parent().update_quiz_score_label()
 	else:
 		await flash_button(clicked_button, WRONG_ANSWER_COLOR)
-		print("Wrong answer. Try again.")
 
 func _reset_button_styles(button: Button) -> void:
 	button.remove_theme_stylebox_override("normal")

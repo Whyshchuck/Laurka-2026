@@ -17,7 +17,6 @@ var quiz_overlay: CanvasLayer = null
 var alphabet_overlay: CanvasLayer = null
 
 func _ready():
-	print("Current game type: ", GameState.get_current_game_type_name())
 	update_quiz_score_label()
 
 	# Tryb "ganianie" (dawny HARD) wycofany — klasa startuje spokojnie w obu trybach.
@@ -67,7 +66,6 @@ func _unhandled_input(event):
 
 	# Sortuj po z_index malejąco (czyli najwyższy na początku)
 	clicked_characters.sort_custom(func(a, b): return a.position.y > b.position.y)
-	print(clicked_characters)
 	var top_character = clicked_characters[0]
 	
 	if GameState.current_type == GameState.GameType.QUIZ:
@@ -90,7 +88,6 @@ func open_quiz(pupil) -> void:
 		return
 	# Prevent reopening quiz for a pupil that's already been answered
 	if GameState.has_pupil_been_answered(pupil.name):
-		print("Pupil %s already answered." % pupil.name)
 		return
 	quiz_overlay = QuizOverlayScene.instantiate()
 	add_child(quiz_overlay)

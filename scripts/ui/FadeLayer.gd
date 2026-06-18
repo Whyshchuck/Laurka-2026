@@ -4,8 +4,6 @@ extends CanvasLayer
 @onready var rect = get_node_or_null("ColorRect")
 
 func _ready():
-	print("FadeLayer children:", get_children())
-	print("Rect is:", rect)
 	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rect.modulate.a = 0.0
 

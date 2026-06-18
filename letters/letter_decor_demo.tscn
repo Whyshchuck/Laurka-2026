@@ -5,8 +5,33 @@
 [node name="LetterDecorDemo" type="Node2D" unique_id=1342381810]
 
 [node name="Napis" type="Node2D" parent="." unique_id=1972852086]
-position = Vector2(540, 500)
+position = Vector2(484, 208)
 script = ExtResource("1_label")
-text = "żółta gęś?"
+text = "Aąbcćdeę"
 letter_height = 150.0
+variant_mode = 1
+cycle_interval = 0.7
+
+[node name="Napis2" type="Node2D" parent="." unique_id=1593315318]
+position = Vector2(523, 398)
+script = ExtResource("1_label")
+text = "fghijklłm"
+letter_height = 150.0
+variant_mode = 1
+cycle_interval = 0.7
+
+[node name="Napis3" type="Node2D" parent="." unique_id=1885390643]
+position = Vector2(469, 608)
+script = ExtResource("1_label")
+text = "nńoóprsś"
+letter_height = 150.0
+variant_mode = 1
+cycle_interval = 0.7
+
+[node name="Napis4" type="Node2D" parent="." unique_id=1257445507]
+position = Vector2(469, 824)
+script = ExtResource("1_label")
+text = "tuwzźż"
+letter_height = 150.0
+variant_mode = 1
 cycle_interval = 0.7

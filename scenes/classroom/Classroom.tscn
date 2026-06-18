@@ -157,6 +157,18 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(104.605, 248.949, 107, 1379, 932, 1384, 928.49, 256.062)])
 agent_radius = 5.0
 
+[sub_resource type="Gradient" id="Gradient_scorebg"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 0.984314, 0.870588, 0.901961, 1, 0.952941, 0.733333, 0.501961, 1, 0.945098, 0.701961, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_scorebg"]
+gradient = SubResource("Gradient_scorebg")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
 [node name="Classroom" type="StaticBody2D" unique_id=105980212]
 z_as_relative = false
 y_sort_enabled = true
@@ -1000,6 +1012,11 @@ offset_bottom = 81.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(0.926299, 2.5028e-06, 1.54018e-06, 1)
 theme_override_font_sizes/font_size = 30
+
+[node name="ScoreBackdrop" type="Sprite2D" parent="." unique_id=1018322079]
+position = Vector2(839.00006, 32)
+scale = Vector2(1.7, 0.62)
+texture = SubResource("GradientTexture2D_scorebg")
 
 [node name="ScoreLetterLabel" type="Node2D" parent="." unique_id=1018322080]
 position = Vector2(839.00006, 32)

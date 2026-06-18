@@ -5,6 +5,7 @@ extends Node2D
 @onready var moving_pupils_counter : Label = $MovingPupilsCounter
 @onready var time_label: Label = $TimeLabel
 @onready var score_label: LetterLabel = $ScoreLetterLabel
+@onready var score_backdrop: Sprite2D = $ScoreBackdrop
 
 var game_started := false
 
@@ -133,5 +134,8 @@ func update_moving_pupil_count():
 func update_quiz_score_label() -> void:
 	if not score_label:
 		return
-	score_label.visible = GameState.current_type == GameState.GameType.QUIZ
+	var is_quiz := GameState.current_type == GameState.GameType.QUIZ
+	score_label.visible = is_quiz
 	score_label.text = GameState.get_quiz_score_text()
+	if score_backdrop:
+		score_backdrop.visible = is_quiz

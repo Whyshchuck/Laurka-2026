@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0a1at1xarkkv"
-path="res://.godot/imported/debug_pose.png-4600273b9d9951fe2fbbe20714e8b67c.ctex"
+uid="uid://3f4plud5h1gq"
+path="res://.godot/imported/milosz_karate.png-c215b38bbe61d76bad1a4f7d248c9dca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rig/debug_pose.png"
-dest_files=["res://.godot/imported/debug_pose.png-4600273b9d9951fe2fbbe20714e8b67c.ctex"]
+source_file="res://sprites/milosz_karate.png"
+dest_files=["res://.godot/imported/milosz_karate.png-c215b38bbe61d76bad1a4f7d248c9dca.ctex"]
 
 [params]
 

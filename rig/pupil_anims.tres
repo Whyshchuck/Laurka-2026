@@ -580,16 +580,16 @@ tracks/5/path = NodePath("Skeleton2D/Biodra/UdoP:rotation")
 tracks/5/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [-0.05]}
 tracks/6/type = "value"
 tracks/6/path = NodePath("Skeleton2D/Biodra/UdoL:scale")
-tracks/6/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 0.05)]}
+tracks/6/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 0.4)]}
 tracks/7/type = "value"
 tracks/7/path = NodePath("Skeleton2D/Biodra/UdoP:scale")
-tracks/7/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 0.05)]}
+tracks/7/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 0.4)]}
 tracks/8/type = "value"
 tracks/8/path = NodePath("Skeleton2D/Biodra/UdoL/LydkaL:scale")
-tracks/8/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 20)]}
+tracks/8/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 1)]}
 tracks/9/type = "value"
 tracks/9/path = NodePath("Skeleton2D/Biodra/UdoP/LydkaP:scale")
-tracks/9/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 20)]}
+tracks/9/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 1)]}
 
 [sub_resource type="Animation" id="Animation_siadanie"]
 resource_name = "siadanie"
@@ -608,16 +608,16 @@ tracks/3/path = NodePath("Skeleton2D/Biodra/Tulow/RamieP/PrzedramieP:rotation")
 tracks/3/keys = {"times": PackedFloat32Array(0, 0.6),"transitions": PackedFloat32Array(1, 1),"update": 0,"values": [0.1, 0.15]}
 tracks/4/type = "value"
 tracks/4/path = NodePath("Skeleton2D/Biodra/UdoL:scale")
-tracks/4/keys = {"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),"transitions": PackedFloat32Array(1, 1, 1, 1, 1),"update": 0,"values": [Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 0.25), Vector2(1, 0.1), Vector2(1, 0.05)]}
+tracks/4/keys = {"times": PackedFloat32Array(0, 0.6),"transitions": PackedFloat32Array(1, 1),"update": 0,"values": [Vector2(1, 1), Vector2(1, 0.4)]}
 tracks/5/type = "value"
 tracks/5/path = NodePath("Skeleton2D/Biodra/UdoP:scale")
-tracks/5/keys = {"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),"transitions": PackedFloat32Array(1, 1, 1, 1, 1),"update": 0,"values": [Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 0.25), Vector2(1, 0.1), Vector2(1, 0.05)]}
+tracks/5/keys = {"times": PackedFloat32Array(0, 0.6),"transitions": PackedFloat32Array(1, 1),"update": 0,"values": [Vector2(1, 1), Vector2(1, 0.4)]}
 tracks/6/type = "value"
 tracks/6/path = NodePath("Skeleton2D/Biodra/UdoL/LydkaL:scale")
-tracks/6/keys = {"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),"transitions": PackedFloat32Array(1, 1, 1, 1, 1),"update": 0,"values": [Vector2(1, 1), Vector2(1, 2), Vector2(1, 4), Vector2(1, 10), Vector2(1, 20)]}
+tracks/6/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 1)]}
 tracks/7/type = "value"
 tracks/7/path = NodePath("Skeleton2D/Biodra/UdoP/LydkaP:scale")
-tracks/7/keys = {"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),"transitions": PackedFloat32Array(1, 1, 1, 1, 1),"update": 0,"values": [Vector2(1, 1), Vector2(1, 2), Vector2(1, 4), Vector2(1, 10), Vector2(1, 20)]}
+tracks/7/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 1)]}
 
 [sub_resource type="Animation" id="Animation_wstawanie"]
 resource_name = "wstawanie"
@@ -636,16 +636,16 @@ tracks/3/path = NodePath("Skeleton2D/Biodra/Tulow/RamieP/PrzedramieP:rotation")
 tracks/3/keys = {"times": PackedFloat32Array(0, 0.6),"transitions": PackedFloat32Array(1, 1),"update": 0,"values": [0.15, 0.1]}
 tracks/4/type = "value"
 tracks/4/path = NodePath("Skeleton2D/Biodra/UdoL:scale")
-tracks/4/keys = {"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),"transitions": PackedFloat32Array(1, 1, 1, 1, 1),"update": 0,"values": [Vector2(1, 0.05), Vector2(1, 0.1), Vector2(1, 0.25), Vector2(1, 0.5), Vector2(1, 1)]}
+tracks/4/keys = {"times": PackedFloat32Array(0, 0.6),"transitions": PackedFloat32Array(1, 1),"update": 0,"values": [Vector2(1, 0.4), Vector2(1, 1)]}
 tracks/5/type = "value"
 tracks/5/path = NodePath("Skeleton2D/Biodra/UdoP:scale")
-tracks/5/keys = {"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),"transitions": PackedFloat32Array(1, 1, 1, 1, 1),"update": 0,"values": [Vector2(1, 0.05), Vector2(1, 0.1), Vector2(1, 0.25), Vector2(1, 0.5), Vector2(1, 1)]}
+tracks/5/keys = {"times": PackedFloat32Array(0, 0.6),"transitions": PackedFloat32Array(1, 1),"update": 0,"values": [Vector2(1, 0.4), Vector2(1, 1)]}
 tracks/6/type = "value"
 tracks/6/path = NodePath("Skeleton2D/Biodra/UdoL/LydkaL:scale")
-tracks/6/keys = {"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),"transitions": PackedFloat32Array(1, 1, 1, 1, 1),"update": 0,"values": [Vector2(1, 20), Vector2(1, 10), Vector2(1, 4), Vector2(1, 2), Vector2(1, 1)]}
+tracks/6/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 1)]}
 tracks/7/type = "value"
 tracks/7/path = NodePath("Skeleton2D/Biodra/UdoP/LydkaP:scale")
-tracks/7/keys = {"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),"transitions": PackedFloat32Array(1, 1, 1, 1, 1),"update": 0,"values": [Vector2(1, 20), Vector2(1, 10), Vector2(1, 4), Vector2(1, 2), Vector2(1, 1)]}
+tracks/7/keys = {"times": PackedFloat32Array(0),"transitions": PackedFloat32Array(1),"update": 0,"values": [Vector2(1, 1)]}
 
 [resource]
 _data = {

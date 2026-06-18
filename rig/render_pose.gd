@@ -102,7 +102,10 @@ func _skin_render(poly: Polygon2D, skel: Skeleton2D, tex: Image, jump: Vector2) 
 	var deltas: Array = []
 	var weights: Array = []
 	for bone in bones:
-		deltas.append(bone.get_global_transform() * _bone_rest_global(skel, bone).affine_inverse())
+		# Pozę liczymy ręcznym FK z .transform (zawiera rotację I SKALĘ kości),
+		# bo get_global_transform() w headless ma nieaktualny cache skali —
+		# inaczej deformacje skalą (siad) nie były widać w podglądzie.
+		deltas.append(_bone_posed_global(skel, bone) * _bone_rest_global(skel, bone).affine_inverse())
 		weights.append(poly.get_bone_weights(_bone_index(poly, skel, bone)))
 
 	var skinned := PackedVector2Array()
@@ -150,6 +153,16 @@ func _bone_rest_global(skel: Skeleton2D, bone: Bone2D) -> Transform2D:
 	var p := bone.get_parent()
 	while p is Bone2D:
 		t = p.rest * t
+		p = p.get_parent()
+	return skel.global_transform * t
+
+
+func _bone_posed_global(skel: Skeleton2D, bone: Bone2D) -> Transform2D:
+	# FK z aktualnych .transform kości (pozycja+rotacja+skala z animacji).
+	var t: Transform2D = bone.transform
+	var p := bone.get_parent()
+	while p is Bone2D:
+		t = p.transform * t
 		p = p.get_parent()
 	return skel.global_transform * t
 

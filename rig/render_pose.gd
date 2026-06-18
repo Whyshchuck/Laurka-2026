@@ -19,32 +19,44 @@ func _init() -> void:
 	var poly: Polygon2D = root.get_node("Polygon2D")
 	var skel: Skeleton2D = root.get_node("Skeleton2D")
 
+	# Pozycje bind (z czasu wiązania skóry, przed animacją). Opad ciała robimy
+	# torami Polygon2D:position + Skeleton2D:position; w prawdziwym Godocie to
+	# czysta translacja całej skóry o offset. Tu liczymy skinning BEZ opadu
+	# (kości w bind), a wynik przesuwamy o opad — inaczej rest liczone z
+	# opuszczonym szkieletem skasowałoby translację (znana rozbieżność).
+	var poly_bind := poly.position
+	var skel_bind := skel.position
+
 	if anim_name != "":
 		var ap: AnimationPlayer = root.get_node("AnimationPlayer")
 		ap.play(anim_name)
 		ap.seek(t, true)
+
+	# Opad ciała z animacji (Polygon2D:position względem bind) i reset do bind,
+	# by skinning policzył tylko deformację pozy (rotacje/skale), bez translacji.
+	var body_drop := poly.position - poly_bind
+	poly.position = poly_bind
+	skel.position = skel_bind
 
 	var tex: Image = poly.texture.get_image()
 	if tex.is_compressed():
 		tex.decompress()
 	tex.convert(Image.FORMAT_RGBA8)
 
-	# TRYB PRAWDZIWY: honorujemy rzeczywiste Polygon2D.position (skok), żeby
-	# podgląd 1:1 odwzorowywał Godot — w tym ew. rozjazd skinningu przy skoku.
-	var off := Vector2(0, HEADROOM)  # tylko zapas u góry obrazu
+	var off := Vector2(0, HEADROOM)  # zapas u góry obrazu
+	# Sprite i kości rysujemy przesunięte o opad ciała; piłka ma własną pozycję.
+	var body_off := off + body_drop
 
-	# Zdeformowany podgląd: CPU-skinning siatki Polygon2D (real Godot).
-	var img := _skin_render(poly, skel, tex, off)
+	# Zdeformowany podgląd: CPU-skinning siatki Polygon2D (bez opadu), przesunięty.
+	var img := _skin_render(poly, skel, tex, body_off)
 
-	# Kości czytamy z global_position — gdy wsad ma tor Skeleton2D:position,
-	# zawiera już skok (pojedynczy). NIE dodajemy poly.position (byłby podwójny).
 	var bones: Array = []
 	poly._collect_bones(skel, bones)
 	for bone in bones:
-		_dot(img, bone.global_position + off, Color(0, 0.6, 1), 4)
+		_dot(img, bone.global_position + body_off, Color(0, 0.6, 1), 4)
 
-	var dl: Vector2 = skel.get_node("Biodra/Tulow/RamieL/PrzedramieL/DlonL").global_position
-	var dp: Vector2 = skel.get_node("Biodra/Tulow/RamieP/PrzedramieP/DlonP").global_position
+	var dl: Vector2 = skel.get_node("Biodra/Tulow/RamieL/PrzedramieL/DlonL").global_position + body_drop
+	var dp: Vector2 = skel.get_node("Biodra/Tulow/RamieP/PrzedramieP/DlonP").global_position + body_drop
 	print("dlonL @ ", dl.round(), "  dlonP @ ", dp.round())
 
 	# Piłka: wrysuj jej teksturę w aktualnej pozycji (i kółko konturu).

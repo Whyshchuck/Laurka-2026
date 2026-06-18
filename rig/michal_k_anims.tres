@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" format=3]
+[gd_resource type="AnimationLibrary" format=3 uid="uid://7mh5ehxt7j6"]
 
 [sub_resource type="Animation" id="Animation_xwnkv"]
 resource_name = "RESET"
@@ -1380,7 +1380,6 @@ tracks/5/keys = {
 [sub_resource type="Animation" id="Animation_wsad"]
 resource_name = "wsad"
 length = 1.7
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

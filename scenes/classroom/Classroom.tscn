@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cbkj76tp5u72n" path="res://scenes/classroom/furniture/DeskCenter.tscn" id="3_dju2y"]
 [ext_resource type="Texture2D" uid="uid://b1sl3bo61l6lh" path="res://sprites/klasa_2_short_mini.png" id="3_i34hi"]
 [ext_resource type="PackedScene" uid="uid://b4003w83to05o" path="res://scenes/classroom/furniture/DeskTeacher.tscn" id="4_5aa18"]
-[ext_resource type="PackedScene" uid="uid://h8ofrdf1a5ix" path="res://scenes/classroom/furniture/DeskRight.tscn" id="5_6e7js"]
 [ext_resource type="PackedScene" uid="uid://bhsgmj2terok8" path="res://scenes/classroom/Pupil.tscn" id="6_6e7js"]
 [ext_resource type="AudioStream" uid="uid://ktr6d81f3f64" path="res://audio/hania.mp3" id="6_47w1q"]
 [ext_resource type="AudioStream" uid="uid://b72kptqtaxs1b" path="res://audio/lucja.mp3" id="6_l8q0k"]
@@ -53,15 +52,12 @@
 [ext_resource type="Texture2D" uid="uid://bnia17wrcd3gf" path="res://sprites/abrish.png" id="26_fl1xt"]
 [ext_resource type="AudioStream" uid="uid://c5jscxdu1ysih" path="res://audio/maja.mp3" id="26_j8bve"]
 [ext_resource type="Texture2D" uid="uid://bf34h0x46b278" path="res://sprites/szymon.png" id="27_onxaf"]
-[ext_resource type="Texture2D" uid="uid://bchjxxp4b113r" path="res://sprites/marysia.png" id="29_3f2uc"]
-[ext_resource type="AudioStream" uid="uid://desw0a35tfnu4" path="res://audio/marysia.mp3" id="30_5qgbj"]
 [ext_resource type="Texture2D" uid="uid://br5d726aa5ahc" path="res://sprites/maja-Sheet.png" id="33_1ck2j"]
 [ext_resource type="AudioStream" uid="uid://oah0xkgyrpuf" path="res://audio/kazik_r.mp3" id="34_mh7vt"]
 [ext_resource type="Texture2D" uid="uid://bss5w4fs7mrti" path="res://sprites/kazik_l.png" id="35_3f2uc"]
 [ext_resource type="AudioStream" uid="uid://bgjdev8tjxuds" path="res://audio/kazik_l.mp3" id="36_5qgbj"]
 [ext_resource type="Texture2D" uid="uid://bdlwafs5odrde" path="res://sprites/julek-Sheet.png" id="36_hlyff"]
 [ext_resource type="AudioStream" uid="uid://d2a57uiiq50cp" path="res://audio/anabiya.mp3" id="38_shilq"]
-[ext_resource type="PackedScene" uid="uid://dswt0hq0h0a1i" path="res://scenes/classroom/furniture/ChairRright.tscn" id="39_fl1xt"]
 [ext_resource type="AudioStream" uid="uid://c6d1ynikvb2b5" path="res://audio/kuba.mp3" id="40_12wbt"]
 [ext_resource type="Texture2D" uid="uid://bk756e0tm1xiv" path="res://sprites/wiktor-Sheet.png" id="40_eqqr6"]
 [ext_resource type="PackedScene" uid="uid://bx3shxyyv5dbd" path="res://scenes/classroom/furniture/ChairLeft.tscn" id="40_onxaf"]
@@ -237,7 +233,7 @@ scale = Vector2(0.397045, 0.397045)
 texture = ExtResource("7_lucnorm")
 
 [node name="Hania" parent="Pupils" unique_id=1593792820 instance=ExtResource("6_6e7js")]
-position = Vector2(918, 876)
+position = Vector2(108.00006, 880)
 scale = Vector2(0.88416, 0.798544)
 collision_layer = 1
 collision_mask = 2
@@ -335,7 +331,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("10_w47uv")
 
 [node name="Krzysiek" parent="Pupils" unique_id=2128427189 instance=ExtResource("6_6e7js")]
-position = Vector2(916, 706)
+position = Vector2(108, 523)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -369,7 +365,7 @@ hframes = 4
 vframes = 3
 
 [node name="Nati" parent="Pupils" unique_id=1277592532 instance=ExtResource("6_6e7js")]
-position = Vector2(820, 886)
+position = Vector2(201, 880)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -487,7 +483,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("24_jbgm4")
 
 [node name="Maja" parent="Pupils" unique_id=2122220698 instance=ExtResource("6_6e7js")]
-position = Vector2(820, 692)
+position = Vector2(201, 687)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -518,27 +514,6 @@ scale = Vector2(0.452913, 0.405629)
 texture = ExtResource("33_1ck2j")
 hframes = 4
 vframes = 3
-
-[node name="Majarysia" parent="Pupils" unique_id=1595249454 instance=ExtResource("6_6e7js")]
-position = Vector2(148, 866)
-collision_layer = 1
-collision_mask = 2
-speed = null
-transform_textures = null
-
-[node name="TextureRect" type="TextureRect" parent="Pupils/Majarysia" unique_id=690600125]
-z_as_relative = false
-offset_left = -73.0
-offset_top = -202.0
-offset_right = 220.0
-offset_bottom = 213.0
-scale = Vector2(0.33642, 0.539816)
-texture = ExtResource("29_3f2uc")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Majarysia" unique_id=1398407544]
-stream = ExtResource("30_5qgbj")
 
 [node name="Julek" parent="Pupils" unique_id=2063939969 instance=ExtResource("6_6e7js")]
 position = Vector2(379, 738)
@@ -880,34 +855,12 @@ position = Vector2(64, 736)
 [node name="DeskLeft4" parent="Pupils" unique_id=1049362424 instance=ExtResource("2_pq1j3")]
 position = Vector2(69, 906)
 
+[node name="DeskLeft5" parent="Pupils" unique_id=1071870075 instance=ExtResource("2_pq1j3")]
+position = Vector2(64, 371)
+
 [node name="DeskLeft2" parent="Pupils" unique_id=144343283 instance=ExtResource("4_5aa18")]
 position = Vector2(779, 964)
 collision_layer = 2
-
-[node name="DeskRight" parent="Pupils" unique_id=842537648 instance=ExtResource("5_6e7js")]
-position = Vector2(787, 389)
-
-[node name="DeskRight2" parent="Pupils" unique_id=1716302027 instance=ExtResource("5_6e7js")]
-position = Vector2(787, 553)
-
-[node name="DeskRight3" parent="Pupils" unique_id=1231560744 instance=ExtResource("5_6e7js")]
-position = Vector2(786, 739)
-
-[node name="DeskRight4" parent="Pupils" unique_id=140521236 instance=ExtResource("5_6e7js")]
-z_as_relative = false
-position = Vector2(787, 912)
-
-[node name="ChairRight1" parent="Pupils" unique_id=713318187 instance=ExtResource("39_fl1xt")]
-position = Vector2(782, 643)
-
-[node name="ChairRight2" parent="Pupils" unique_id=936822732 instance=ExtResource("39_fl1xt")]
-position = Vector2(782, 816)
-
-[node name="ChairRight3" parent="Pupils" unique_id=1665127703 instance=ExtResource("39_fl1xt")]
-position = Vector2(781, 293)
-
-[node name="ChairRight4" parent="Pupils" unique_id=1394351329 instance=ExtResource("39_fl1xt")]
-position = Vector2(777, 452)
 
 [node name="ChairLeft1" parent="Pupils" unique_id=219405166 instance=ExtResource("40_onxaf")]
 position = Vector2(89, 811)
@@ -917,6 +870,9 @@ position = Vector2(84, 643)
 
 [node name="ChairLeft3" parent="Pupils" unique_id=1639051999 instance=ExtResource("40_onxaf")]
 position = Vector2(76, 455)
+
+[node name="ChairLeft4" parent="Pupils" unique_id=1824978596 instance=ExtResource("40_onxaf")]
+position = Vector2(80, 267)
 
 [node name="ChairCenter1" parent="Pupils" unique_id=395053487 instance=ExtResource("42_t5pko")]
 position = Vector2(316, 960)

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cimihk86uivh"]
 
 [ext_resource type="Script" uid="uid://cu8xhjsc5n4dj" path="res://scripts/classroom/Classroom.gd" id="1_37esg"]
+[ext_resource type="Texture2D" uid="uid://cgdg3m0qdu4p3" path="res://sprites/carpet.png" id="2_ddnbg"]
 [ext_resource type="PackedScene" uid="uid://dukp8h5el2gf1" path="res://scenes/classroom/furniture/DeskLeft.tscn" id="2_pq1j3"]
-[ext_resource type="Texture2D" uid="uid://dn6vyvvih7u2x" path="res://sprites/klasa_2_mini.png" id="2_qiocc"]
 [ext_resource type="PackedScene" uid="uid://cbkj76tp5u72n" path="res://scenes/classroom/furniture/DeskCenter.tscn" id="3_dju2y"]
 [ext_resource type="Texture2D" uid="uid://b1sl3bo61l6lh" path="res://sprites/klasa_2_short_mini.png" id="3_i34hi"]
 [ext_resource type="PackedScene" uid="uid://b4003w83to05o" path="res://scenes/classroom/furniture/DeskTeacher.tscn" id="4_5aa18"]
@@ -71,6 +71,7 @@
 [ext_resource type="Texture2D" uid="uid://0ovyqduspdrb" path="res://sprites/jasiek-Sheet.png" id="61_vtuje"]
 [ext_resource type="Texture2D" uid="uid://bmdkonb4u2sop" path="res://sprites/p_kamila.png" id="65_y7ma7"]
 [ext_resource type="Texture2D" uid="uid://0gu82qf4auj" path="res://sprites/p_kamila-Sheet.png" id="69_eqqr6"]
+[ext_resource type="Texture2D" uid="uid://crhcsm03c307q" path="res://sprites/igloo.png" id="73_facdn"]
 [ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="76_enr04"]
 
 [sub_resource type="Animation" id="Animation_uohgg"]
@@ -182,7 +183,7 @@ offset_left = -7.0
 offset_top = -54.0
 offset_right = 1080.0
 offset_bottom = 1410.0
-texture = ExtResource("2_qiocc")
+texture = ExtResource("2_ddnbg")
 expand_mode = 4
 
 [node name="TextureRect2" type="TextureRect" parent="." unique_id=1503779154]
@@ -195,7 +196,7 @@ texture = ExtResource("3_i34hi")
 expand_mode = 4
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=533480321]
-position = Vector2(534, 576)
+position = Vector2(531, 576)
 
 [node name="Pupils" type="Node2D" parent="." unique_id=2006890679]
 z_as_relative = false
@@ -912,6 +913,7 @@ position = Vector2(313, 236)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1594346397]
 unique_name_in_owner = true
+visible = false
 y_sort_enabled = true
 position = Vector2(2, 0)
 scale = Vector2(1.00378, 0.843547)
@@ -985,3 +987,14 @@ metadata/_custom_type_script = "uid://xjpugwcq0p3l"
 position = Vector2(-16, 0)
 color = Color(1, 0, 0, 0.756863)
 polygon = PackedVector2Array(64, 0, 40, 24, 64, 48, 64, 32, 96, 32, 96, 16, 64, 16)
+
+[node name="Igloo" type="Sprite2D" parent="." unique_id=1829769496]
+z_index = 1
+position = Vector2(818, 391)
+scale = Vector2(0.3190359, 0.36558992)
+texture = ExtResource("73_facdn")
+
+[node name="Carpet" type="Sprite2D" parent="." unique_id=441449400]
+position = Vector2(817.99994, 631.00006)
+scale = Vector2(0.5198239, 0.9514959)
+texture = ExtResource("2_ddnbg")

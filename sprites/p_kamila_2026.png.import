@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcdhmrj4eoo5h"
-path="res://.godot/imported/i_2.png-2f2b95d932088a2e3cfce15581a97fdc.ctex"
+uid="uid://botr4d8fr4f32"
+path="res://.godot/imported/p_kamila_2026.png-3d0d9fac50433c4f3ea75ea628ffe3c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://letters/i_2.png"
-dest_files=["res://.godot/imported/i_2.png-2f2b95d932088a2e3cfce15581a97fdc.ctex"]
+source_file="res://sprites/p_kamila_2026.png"
+dest_files=["res://.godot/imported/p_kamila_2026.png-3d0d9fac50433c4f3ea75ea628ffe3c7.ctex"]
 
 [params]
 

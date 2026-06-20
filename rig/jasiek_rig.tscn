@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bbka3u0sn1ebi" path="res://rig/auto_outline.gd" id="2_57bcr"]
 [ext_resource type="AnimationLibrary" uid="uid://bnbb65shec7km" path="res://rig/pupil_anims.tres" id="3_2olme"]
 
-[node name="MichalRig" type="Node2D" unique_id=1282551274]
+[node name="JasiekRig" type="Node2D" unique_id=1282551274]
 
 [node name="Skeleton2D" type="Skeleton2D" parent="." unique_id=152294897]
 position = Vector2(23, 0)
@@ -55,7 +55,7 @@ position = Vector2(93.70227, 90.9187)
 rest = Transform2D(1, 0, 0, 1, 93.70227, 90.9187)
 auto_calculate_length_and_angle = false
 length = 43.52054
-bone_angle = 0.770323
+bone_angle = 0.7703229
 
 [node name="UdoL" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=454119200]
 position = Vector2(-17.820007, 31.619995)

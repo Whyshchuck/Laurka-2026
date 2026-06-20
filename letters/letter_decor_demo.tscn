@@ -7,31 +7,27 @@
 [node name="Napis" type="Node2D" parent="." unique_id=1972852086]
 position = Vector2(484, 208)
 script = ExtResource("1_label")
-text = "Aąbcćdeę"
+text = "dziękujemy"
 letter_height = 150.0
-variant_mode = 1
 cycle_interval = 0.7
 
 [node name="Napis2" type="Node2D" parent="." unique_id=1593315318]
 position = Vector2(523, 398)
 script = ExtResource("1_label")
-text = "fghijklłm"
+text = "za    wszystko"
 letter_height = 150.0
-variant_mode = 1
 cycle_interval = 0.7
 
 [node name="Napis3" type="Node2D" parent="." unique_id=1885390643]
 position = Vector2(469, 608)
 script = ExtResource("1_label")
-text = "nńoóprsś"
+text = "II A"
 letter_height = 150.0
-variant_mode = 1
-cycle_interval = 0.7
+cycle_interval = 601.2
 
 [node name="Napis4" type="Node2D" parent="." unique_id=1257445507]
-position = Vector2(469, 824)
+position = Vector2(502, 1407)
 script = ExtResource("1_label")
-text = "tuwzźż"
+text = "w imieniu rodziców"
 letter_height = 150.0
-variant_mode = 1
 cycle_interval = 0.7

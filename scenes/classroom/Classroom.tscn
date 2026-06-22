@@ -197,14 +197,14 @@ texture = ExtResource("3_i34hi")
 expand_mode = 4
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=533480321]
-position = Vector2(531, 576)
+position = Vector2(531, 535)
 
 [node name="Pupils" type="Node2D" parent="." unique_id=2006890679]
 z_as_relative = false
 y_sort_enabled = true
 
 [node name="Łucja" parent="Pupils" unique_id=1321633523 instance=ExtResource("6_6e7js")]
-position = Vector2(368, 858)
+position = Vector2(368, 817)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -269,7 +269,7 @@ hframes = 4
 vframes = 3
 
 [node name="Wojtek" parent="Pupils" unique_id=1588107542 instance=ExtResource("6_6e7js")]
-position = Vector2(368, 576)
+position = Vector2(368, 535)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -290,7 +290,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("9_2u30p")
 
 [node name="Oliwka" parent="Pupils" unique_id=615776245 instance=ExtResource("6_6e7js")]
-position = Vector2(478, 418)
+position = Vector2(477, 340)
 scale = Vector2(0.389313, 0.479169)
 collision_layer = 1
 collision_mask = 2
@@ -311,7 +311,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("11_dtuxj")
 
 [node name="Antek" parent="Pupils" unique_id=2074091120 instance=ExtResource("6_6e7js")]
-position = Vector2(457, 723)
+position = Vector2(457, 682)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -401,7 +401,7 @@ hframes = 4
 vframes = 3
 
 [node name="Krystian" parent="Pupils" unique_id=1682544423 instance=ExtResource("6_6e7js")]
-position = Vector2(468, 576)
+position = Vector2(468, 535)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -422,7 +422,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("19_l8q0k")
 
 [node name="Amelka" parent="Pupils" unique_id=863685177 instance=ExtResource("6_6e7js")]
-position = Vector2(544, 567)
+position = Vector2(544, 526)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -443,7 +443,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("11_lqrni")
 
 [node name="Michał" parent="Pupils" unique_id=1952351644 instance=ExtResource("6_6e7js")]
-position = Vector2(661, 432)
+position = Vector2(660, 354)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -464,7 +464,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("24_j8bve")
 
 [node name="MichałA" parent="Pupils" unique_id=26034157 instance=ExtResource("6_6e7js")]
-position = Vector2(651, 866)
+position = Vector2(651, 825)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -518,7 +518,7 @@ hframes = 4
 vframes = 3
 
 [node name="Julek" parent="Pupils" unique_id=2063939969 instance=ExtResource("6_6e7js")]
-position = Vector2(379, 738)
+position = Vector2(379, 697)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -551,7 +551,7 @@ hframes = 4
 vframes = 3
 
 [node name="Piotrek" parent="Pupils" unique_id=2009672695 instance=ExtResource("6_6e7js")]
-position = Vector2(652, 576)
+position = Vector2(652, 535)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -572,7 +572,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("10_n0qdd")
 
 [node name="Wiktor" parent="Pupils" unique_id=1827558988 instance=ExtResource("6_6e7js")]
-position = Vector2(658, 723)
+position = Vector2(658, 682)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -605,7 +605,7 @@ hframes = 4
 vframes = 3
 
 [node name="KazikR" parent="Pupils" unique_id=828244482 instance=ExtResource("6_6e7js")]
-position = Vector2(649, 295)
+position = Vector2(560, 349)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -626,7 +626,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("34_mh7vt")
 
 [node name="KazikL" parent="Pupils" unique_id=1001703883 instance=ExtResource("6_6e7js")]
-position = Vector2(374, 1016)
+position = Vector2(374, 975)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -693,7 +693,7 @@ hframes = 4
 vframes = 3
 
 [node name="Kuba" parent="Pupils" unique_id=17679816 instance=ExtResource("6_6e7js")]
-position = Vector2(368, 432)
+position = Vector2(367, 354)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -747,7 +747,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("41_dtuxj")
 
 [node name="Szymon" parent="Pupils" unique_id=1437319454 instance=ExtResource("6_6e7js")]
-position = Vector2(557, 875)
+position = Vector2(557, 834)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -768,7 +768,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("45_jbgm4")
 
 [node name="Miłosz" parent="Pupils" unique_id=1281844037 instance=ExtResource("6_6e7js")]
-position = Vector2(659, 996)
+position = Vector2(659, 955)
 collision_layer = 1
 collision_mask = 2
 speed = null
@@ -825,27 +825,23 @@ vframes = 3
 
 [node name="DeskCenter3" parent="Pupils" unique_id=182975833 instance=ExtResource("3_dju2y")]
 z_as_relative = false
-position = Vector2(332, 775)
-
-[node name="DeskCenter6" parent="Pupils" unique_id=326983218 instance=ExtResource("3_dju2y")]
-z_as_relative = false
-position = Vector2(329, 331)
+position = Vector2(332, 734)
 
 [node name="DeskCenter2" parent="Pupils" unique_id=969128046 instance=ExtResource("3_dju2y")]
 z_as_relative = false
-position = Vector2(329, 625)
+position = Vector2(329, 584)
 
 [node name="DeskCenter1" parent="Pupils" unique_id=750423161 instance=ExtResource("3_dju2y")]
 z_as_relative = false
-position = Vector2(329, 475)
+position = Vector2(328, 397)
 
 [node name="DeskCenter4" parent="Pupils" unique_id=436229604 instance=ExtResource("3_dju2y")]
 z_as_relative = false
-position = Vector2(325, 920)
+position = Vector2(325, 879)
 
 [node name="DeskCenter5" parent="Pupils" unique_id=1846139893 instance=ExtResource("3_dju2y")]
 z_as_relative = false
-position = Vector2(328, 1054)
+position = Vector2(328, 1013)
 
 [node name="DeskLeft" parent="Pupils" unique_id=409555453 instance=ExtResource("2_pq1j3")]
 z_as_relative = false
@@ -877,40 +873,34 @@ position = Vector2(76, 455)
 position = Vector2(80, 267)
 
 [node name="ChairCenter1" parent="Pupils" unique_id=395053487 instance=ExtResource("42_t5pko")]
-position = Vector2(316, 960)
+position = Vector2(316, 919)
 
 [node name="ChairCenter2" parent="Pupils" unique_id=2056961830 instance=ExtResource("42_t5pko")]
-position = Vector2(307, 821)
+position = Vector2(307, 780)
 
 [node name="ChairCenter3" parent="Pupils" unique_id=1790589858 instance=ExtResource("42_t5pko")]
-position = Vector2(500, 827)
+position = Vector2(500, 786)
 
 [node name="ChairCenter4" parent="Pupils" unique_id=1685563416 instance=ExtResource("42_t5pko")]
-position = Vector2(506, 960)
+position = Vector2(506, 919)
 
 [node name="ChairCenter5" parent="Pupils" unique_id=546999631 instance=ExtResource("42_t5pko")]
-position = Vector2(496, 527)
+position = Vector2(496, 486)
 
 [node name="ChairCenter6" parent="Pupils" unique_id=41253540 instance=ExtResource("42_t5pko")]
-position = Vector2(313, 527)
+position = Vector2(313, 486)
 
 [node name="ChairCenter11" parent="Pupils" unique_id=2143782180 instance=ExtResource("42_t5pko")]
-position = Vector2(307, 677)
+position = Vector2(307, 636)
 
 [node name="ChairCenter12" parent="Pupils" unique_id=529449262 instance=ExtResource("42_t5pko")]
-position = Vector2(494, 676)
+position = Vector2(494, 635)
 
 [node name="ChairCenter7" parent="Pupils" unique_id=754051134 instance=ExtResource("42_t5pko")]
-position = Vector2(314, 382)
+position = Vector2(313, 304)
 
 [node name="ChairCenter8" parent="Pupils" unique_id=1670929297 instance=ExtResource("42_t5pko")]
-position = Vector2(501, 387)
-
-[node name="ChairCenter10" parent="Pupils" unique_id=265922686 instance=ExtResource("42_t5pko")]
-position = Vector2(497, 236)
-
-[node name="ChairCenter9" parent="Pupils" unique_id=1392529853 instance=ExtResource("42_t5pko")]
-position = Vector2(313, 236)
+position = Vector2(500, 309)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1594346397]
 unique_name_in_owner = true
@@ -961,10 +951,12 @@ texture = ExtResource("69_eqqr6")
 hframes = 6
 vframes = 3
 
-[node name="Rig" parent="PKamila" instance=ExtResource("70_kamrig")]
+[node name="Rig" parent="PKamila" unique_id=1727688370 instance=ExtResource("70_kamrig")]
 top_level = true
 z_index = 10
 z_as_relative = false
+position = Vector2(787.2, 828.4)
+scale = Vector2(0.4088, 0.4088)
 
 [node name="TimeLabel" type="Label" parent="." unique_id=734892391]
 anchors_preset = 1

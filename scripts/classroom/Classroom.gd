@@ -29,7 +29,7 @@ func _ready():
 	_fit_kamila_rig()
 	var anim := kamila_rig.get_node_or_null("AnimationPlayer") as AnimationPlayer
 	if anim:
-		anim.play("stoi")
+		anim.play("k/stoi")  # własna poza "stoi" pani Kamili (biblioteka "k")
 
 	for pupil in get_pupils():
 		total_pupils += 1

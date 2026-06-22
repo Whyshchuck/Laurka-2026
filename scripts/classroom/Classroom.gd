@@ -6,6 +6,7 @@ extends Node2D
 @onready var time_label: Label = $TimeLabel
 @onready var score_label: LetterLabel = $ScoreLetterLabel
 @onready var score_backdrop: Sprite2D = $ScoreBackdrop
+@onready var kamila_rig: Node2D = $PKamila/Rig
 
 var game_started := false
 
@@ -23,7 +24,12 @@ func _ready():
 	# Tryb "ganianie" (dawny HARD) wycofany — klasa startuje spokojnie w obu trybach.
 	# TODO (Faza 1): usunąć resztę kodu chase (countdown, respawn, timer, licznik).
 	# TODO (Faza 4): zachowanie trybu QUIZ (klik w dziecko -> pytania a/b/c).
-	$PKamila/AnimationPlayer.play('idle')
+	# Pani Kamila to teraz rig (Skeleton2D + mesh) zamiast sprite'a.
+	# Dopasuj rig do obszaru, w którym dawniej stała (TextureRect3), i odpal idle.
+	_fit_kamila_rig()
+	var anim := kamila_rig.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if anim:
+		anim.play("stoi")
 
 	for pupil in get_pupils():
 		total_pupils += 1
@@ -93,6 +99,40 @@ func open_quiz(pupil) -> void:
 	quiz_overlay = QuizOverlayScene.instantiate()
 	add_child(quiz_overlay)
 	quiz_overlay.open_for_pupil(pupil)
+
+
+func _fit_kamila_rig() -> void:
+	# Wpasuj rig pani Kamili tam, gdzie i w rozmiarze, w jakim był dawny widoczny
+	# sprite ($PKamila/Sprite2D) — żeby Kamila była tej samej wielkości co wcześniej.
+	# Skala wg wysokości, stopy na dole, wyśrodkowane w poziomie.
+	if not kamila_rig:
+		return
+	var spr: Sprite2D = $PKamila/Sprite2D
+	var frame := Vector2(
+		spr.texture.get_width() / float(spr.hframes),
+		spr.texture.get_height() / float(spr.vframes))
+	var disp := frame * spr.scale.abs()       # rozmiar dawnego sprite'a na ekranie
+	var target := Rect2(spr.global_position - disp * 0.5, disp)  # sprite jest wyśrodkowany
+	var bbox := _rig_bbox(kamila_rig)
+	if bbox.size.y <= 0.0:
+		return
+	var s := target.size.y / bbox.size.y
+	kamila_rig.scale = Vector2(s, s)
+	var bottom_center_local := Vector2(bbox.position.x + bbox.size.x * 0.5, bbox.end.y)
+	var target_bottom_center := Vector2(target.position.x + target.size.x * 0.5, target.end.y)
+	kamila_rig.global_position = target_bottom_center - s * bottom_center_local
+
+
+static func _rig_bbox(rig: Node2D) -> Rect2:
+	# Prostokąt otaczający mesh rigu (w przestrzeni lokalnej rigu).
+	var poly := rig.get_node_or_null("Polygon2D") as Polygon2D
+	if poly == null or poly.polygon.is_empty():
+		return Rect2()
+	var pts := poly.polygon
+	var r := Rect2(pts[0], Vector2.ZERO)
+	for p in pts:
+		r = r.expand(p)
+	return Rect2(poly.position + r.position * poly.scale, r.size * poly.scale)
 
 
 func open_alphabet() -> void:

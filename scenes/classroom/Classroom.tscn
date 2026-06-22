@@ -71,6 +71,7 @@
 [ext_resource type="Texture2D" uid="uid://0ovyqduspdrb" path="res://sprites/jasiek-Sheet.png" id="61_vtuje"]
 [ext_resource type="Texture2D" uid="uid://bmdkonb4u2sop" path="res://sprites/p_kamila.png" id="65_y7ma7"]
 [ext_resource type="Texture2D" uid="uid://0gu82qf4auj" path="res://sprites/p_kamila-Sheet.png" id="69_eqqr6"]
+[ext_resource type="PackedScene" uid="uid://dvwy6gapmhtov" path="res://rig/p_kamila_rig.tscn" id="70_kamrig"]
 [ext_resource type="Texture2D" uid="uid://crhcsm03c307q" path="res://sprites/igloo.png" id="73_facdn"]
 [ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="76_enr04"]
 
@@ -951,6 +952,7 @@ texture = ExtResource("65_y7ma7")
 libraries/ = SubResource("AnimationLibrary_r3myd")
 
 [node name="Sprite2D" type="Sprite2D" parent="PKamila" unique_id=355944907]
+visible = false
 top_level = true
 z_as_relative = false
 position = Vector2(916, 1008)
@@ -958,6 +960,11 @@ scale = Vector2(0.491423, 0.862692)
 texture = ExtResource("69_eqqr6")
 hframes = 6
 vframes = 3
+
+[node name="Rig" parent="PKamila" instance=ExtResource("70_kamrig")]
+top_level = true
+z_index = 10
+z_as_relative = false
 
 [node name="TimeLabel" type="Label" parent="." unique_id=734892391]
 anchors_preset = 1

@@ -41,6 +41,12 @@ func _ready() -> void:
 	for button in answer_buttons:
 		button.pressed.connect(_on_answer_pressed.bind(button))
 
+func _input(event: InputEvent) -> void:
+	# ESC zamyka quiz (i nie wyrzuca do wyboru trybu).
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		get_viewport().set_input_as_handled()
+		close()
+
 func open_for_pupil(pupil) -> void:
 	_pupil_name = pupil.name
 

@@ -34,6 +34,8 @@ func _ready():
 	for pupil in get_pupils():
 		total_pupils += 1
 
+	_report_missing_quiz()
+
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
 		match event.keycode:
@@ -99,6 +101,19 @@ func open_quiz(pupil) -> void:
 	quiz_overlay = QuizOverlayScene.instantiate()
 	add_child(quiz_overlay)
 	quiz_overlay.open_for_pupil(pupil)
+
+
+func _report_missing_quiz() -> void:
+	# Walidacja przy starcie: kto z uczniów nie ma jeszcze (niepustych) pytań.
+	var missing: Array[String] = []
+	for pupil in get_pupils():
+		if not QuizManager.has_real_questions(pupil.name):
+			missing.append(String(pupil.name))
+	if missing.is_empty():
+		print("[Quiz] Wszyscy uczniowie (%d) mają pytania ✔" % total_pupils)
+	else:
+		print("[Quiz] Brak pytań dla %d/%d: %s" % [
+			missing.size(), total_pupils, ", ".join(missing)])
 
 
 func _fit_kamila_rig() -> void:

@@ -26,9 +26,16 @@ const ANIM_TIME := 0.45
 const PORTRAIT_RECT := Rect2(50.0, 330.0, 340.0, 520.0)
 const KamilaRig := preload("res://rig/p_kamila_rig.tscn")
 
-# Poza lewej ręki "pod bokiem" (kształt <). Kąty względne kości — dostrój na oko.
-const LEFT_UPPER_ARM_ROT := 0.0   # górne ramię ~ jak w spoczynku (łokieć na bok)
-const LEFT_FOREARM_ROT := -2.0    # przedramię zgięte z powrotem do biodra
+# Lewa ręka "pod bokiem": dłoń sięga IK-iem do biodra, łokieć wychodzi w bok (<).
+# Cel = biodro przesunięte w BOK (ku barkowi) i lekko w GÓRĘ, żeby dłoń siadła na
+# boku biodra, a nie na środku. Ułamki odległości bark–biodro:
+const AKIMBO_HIP_SIDE := 0.99   # w bok (większe = dłoń bardziej z boku)
+const AKIMBO_HIP_UP := 0.3      # w górę
+
+# Tupanie lewą (ekranowo) stopą: rotacja StopaL od pozy stojącej do ~TAP_MAX,
+# z powrotem do 0 (uderzenie). TAP_HZ = liczba tupnięć na sekundę.
+const TAP_MAX_DEG := 40.0
+const TAP_HZ := 2.0
 
 const ALPHABET := "aąbcćdeęfghijklłmnńoóprsśtuwyzźż"  # 32 litery
 const COLS := 4
@@ -54,6 +61,11 @@ var _arm_r_upper: Bone2D = null   # prawe (ekranowo) górne ramię — wskazuje 
 var _arm_r_fore: Bone2D = null
 var _arm_l_upper: Bone2D = null   # lewe (ekranowo) górne ramię — pod bokiem
 var _arm_l_fore: Bone2D = null
+var _arm_l_hand: Bone2D = null    # lewa dłoń (cel IK = biodro)
+var _hip: Bone2D = null           # biodro (Biodra)
+var _foot_l: Bone2D = null        # lewa stopa (tupanie)
+var _foot_l_base := 0.0           # rotacja stopy w pozie stoi (baza tupania)
+var _tap_time := 0.0
 
 var _drag_idx := -1
 var _intro_done := false
@@ -81,23 +93,51 @@ func _input(event: InputEvent) -> void:
 		close()
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if _rig == null or _closing:
 		return
-	# Lewa (ekranowo) ręka pod bokiem — kształt "<".
-	if _arm_l_upper:
-		_arm_l_upper.rotation = LEFT_UPPER_ARM_ROT
-	if _arm_l_fore:
-		_arm_l_fore.rotation = LEFT_FOREARM_ROT
-	# Prawa (ekranowo) ręka wskazuje kursor — obracamy górne ramię tak, by
-	# odcinek bark→łokieć celował w mysz; przedramię trzymamy prosto.
+	# Lewa (ekranowo) ręka pod bokiem — dłoń sięga do biodra, łokieć w bok (<).
+	if _arm_l_upper and _arm_l_fore and _arm_l_hand and _hip:
+		_pose_akimbo(_arm_l_upper, _arm_l_fore, _arm_l_hand, _hip)
+	# Tupanie lewą stopą: 0 -> ~40° -> 0 (abs(sin) daje ostry powrót = "tup").
+	if _foot_l:
+		_tap_time += delta
+		var tap := absf(sin(_tap_time * PI * TAP_HZ))
+		_foot_l.rotation = _foot_l_base + tap * deg_to_rad(TAP_MAX_DEG)
+	# Prawa (ekranowo) ręka wskazuje kursor — proste ramię celuje w mysz.
 	if _arm_r_upper and _arm_r_fore:
 		_arm_r_fore.rotation = 0.0
-		var origin := _arm_r_upper.global_position
-		var elbow := _arm_r_upper.to_global(_arm_r_fore.position)
-		var cur := (elbow - origin).angle()
-		var want := (_arm_r_upper.get_global_mouse_position() - origin).angle()
-		_arm_r_upper.rotation += wrapf(want - cur, -PI, PI)
+		_aim_segment(_arm_r_upper, _arm_r_fore, _arm_r_upper.get_global_mouse_position())
+
+
+func _aim_segment(bone: Bone2D, child: Bone2D, target: Vector2) -> void:
+	# Obróć kość tak, by odcinek kość->dziecko celował w punkt świata `target`.
+	var seg := child.global_position - bone.global_position
+	if seg.length_squared() == 0.0:
+		return
+	bone.rotation += wrapf((target - bone.global_position).angle() - seg.angle(), -PI, PI)
+
+
+func _pose_akimbo(upper: Bone2D, fore: Bone2D, hand: Bone2D, hip: Bone2D) -> void:
+	# 2-kostny IK: dłoń (hand) ma sięgnąć biodra, z łokciem wypchniętym na zewnątrz.
+	var s := upper.global_position
+	var l1 := s.distance_to(fore.global_position)        # długości stałe (skala * rest)
+	var l2 := fore.global_position.distance_to(hand.global_position)
+	if l1 <= 0.0 or l2 <= 0.0:
+		return
+	# Cel: biodro przesunięte w bok (ku barkowi) i lekko w górę — dłoń na boku biodra.
+	var sh_off := s - hip.global_position
+	var t := hip.global_position + Vector2(sh_off.x * AKIMBO_HIP_SIDE, sh_off.y * AKIMBO_HIP_UP)
+	var d := clampf(s.distance_to(t), absf(l1 - l2) + 1.0, l1 + l2 - 1.0)
+	var base := (t - s).angle()
+	var sh := acos(clampf((l1 * l1 + d * d - l2 * l2) / (2.0 * l1 * d), -1.0, 1.0))
+	# Dwa rozwiązania (łokieć po dwóch stronach) — bierzemy łokieć bardziej w lewo
+	# (na zewnątrz), żeby wyszedł kształt "<".
+	var ea := s + l1 * Vector2.from_angle(base - sh)
+	var eb := s + l1 * Vector2.from_angle(base + sh)
+	var elbow := ea if ea.x <= eb.x else eb
+	_aim_segment(upper, fore, elbow)
+	_aim_segment(fore, hand, t)
 
 
 func open_from(src: TextureRect) -> void:
@@ -112,14 +152,25 @@ func open_from(src: TextureRect) -> void:
 	rig.position = -bbox.get_center()
 	portrait.add_child(rig)
 
-	# Nie odtwarzamy animacji — ramiona pozujemy ręcznie w _process
-	# (lewe pod bokiem, prawe wskazuje kursor).
+	# Ciało w pozie "stoi" (zamrożonej), a ramiona pozujemy ręcznie w _process
+	# (lewe pod bokiem, prawe wskazuje kursor) — dlatego seek+pause, żeby animacja
+	# nie nadpisywała rąk co klatkę.
 	_rig = rig
+	var anim := rig.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if anim:
+		anim.play("k/stoi")
+		anim.seek(0.0, true)
+		anim.pause()
+	_hip = rig.get_node_or_null("Skeleton2D/Biodra") as Bone2D
 	var skel := "Skeleton2D/Biodra/Tulow/"
 	_arm_r_upper = rig.get_node_or_null(skel + "RamieP") as Bone2D
 	_arm_r_fore = rig.get_node_or_null(skel + "RamieP/PrzedramieP") as Bone2D
 	_arm_l_upper = rig.get_node_or_null(skel + "RamieL") as Bone2D
 	_arm_l_fore = rig.get_node_or_null(skel + "RamieL/PrzedramieL") as Bone2D
+	_arm_l_hand = rig.get_node_or_null(skel + "RamieL/PrzedramieL/DlonL") as Bone2D
+	_foot_l = rig.get_node_or_null("Skeleton2D/Biodra/UdoL/LydkaL/StopaL") as Bone2D
+	if _foot_l:
+		_foot_l_base = _foot_l.rotation  # poza "stoi" stopy = pozycja "0" tupania
 
 	# Skala startowa: dopasowana wysokością do miejsca w klasie (jak w Classroom).
 	var start_scale := 1.0

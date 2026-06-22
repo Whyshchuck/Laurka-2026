@@ -16,7 +16,18 @@ extends Path2D
 @export_range(0.05, 10.0, 0.05) var segment_time := 0.8   # czas punkt -> punkt
 @export_range(0.0, 10.0, 0.05) var pause_time := 0.0      # postój na punkcie
 @export var ping_pong := false       # true: tam i z powrotem, false: pętla
-@export var rotate_along := false    # obracaj element w kierunku ruchu
+
+enum Orient {
+	UPRIGHT,         # bez obrotu — zawsze pionowo (jak dotąd)
+	BOTTOM_TO_LINE,  # spód elementu jedzie po linii, przechyla się z jej nachyleniem
+	PERPENDICULAR,   # element sterczy prostopadle, w bok od linii
+}
+# Jak obracać element jadący po krzywej. BOTTOM_TO_LINE = „dołem do linii".
+@export var orient: Orient = Orient.UPRIGHT
+# Dodatkowy obrót elementu w stopniach — dostrojenie, gdy „dół" grafiki nie leży
+# na osi +Y (np. żeby obrócić zwierzaka o 180° albo lekko podkręcić).
+@export_range(-180.0, 180.0, 5.0) var orient_offset := 0.0
+
 @export var stagger := true          # kolejne dzieci startują z kolejnych punktów
 @export var transition := Tween.TRANS_SINE  # kształt ease-in/out
 
@@ -110,9 +121,15 @@ func _place(node: CanvasItem, off: float, facing: float) -> void:
 		return
 	var pos := curve.sample_baked(off)
 	node.position = pos
-	if rotate_along:
-		# Patrz w kierunku jazdy (przy ruchu wstecz krzywej — odwrotnie).
-		var ahead := curve.sample_baked(off + 2.0 * facing)
-		if ahead != pos:
-			node.rotation = (ahead - pos).angle() if facing > 0.0 \
-				else (pos - ahead).angle()
+	if orient == Orient.UPRIGHT:
+		return
+	# Styczna do krzywej w kierunku jazdy (przy ruchu wstecz krzywej — odwrotnie).
+	var ahead := curve.sample_baked(off + 2.0 * facing)
+	if ahead == pos:
+		return
+	var tangent := (ahead - pos) if facing > 0.0 else (pos - ahead)
+	var ang := tangent.angle()
+	if orient == Orient.PERPENDICULAR:
+		# Obróć o 90°, żeby element sterczał prostopadle do linii.
+		ang += PI / 2.0
+	node.rotation = ang + deg_to_rad(orient_offset)

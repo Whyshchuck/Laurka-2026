@@ -9,7 +9,9 @@ extends CanvasLayer
 # podświetlają się na zielono.
 
 @onready var dim: ColorRect = $Dim
-@onready var portrait: TextureRect = $Portrait
+# Portrait to "uchwyt" (Node2D) — wkładamy do niego rig pani Kamili, a tweenujemy
+# pozycję i skalę uchwytu (rig centrowany tak, by jego środek leżał w (0,0)).
+@onready var portrait: Node2D = $Portrait
 @onready var cells_root: Control = $Cells
 @onready var letters_root: Node2D = $Letters
 @onready var win_label: Node2D = $WinLabel
@@ -18,8 +20,15 @@ extends CanvasLayer
 
 const DIM_ALPHA := 0.65
 const ANIM_TIME := 0.45
-const PORTRAIT_TARGET := Vector2(80.0, 260.0)   # docelowa pozycja pani Kamili (lewa strona)
-const PORTRAIT_MAX := Vector2(460.0, 860.0)     # maksymalny rozmiar portretu po powiększeniu
+# Rig pani Kamili wpasowywany jest w ten prostokąt (lewa kolumna, z dala od siatki
+# liter zaczynającej się na x=560). Skala dobierana tak, by mieścił się w całości
+# — więc żeby zmienić wielkość Kamili, wystarczy zmienić rozmiar tego prostokąta.
+const PORTRAIT_RECT := Rect2(50.0, 330.0, 340.0, 520.0)
+const KamilaRig := preload("res://rig/p_kamila_rig.tscn")
+
+# Poza lewej ręki "pod bokiem" (kształt <). Kąty względne kości — dostrój na oko.
+const LEFT_UPPER_ARM_ROT := 0.0   # górne ramię ~ jak w spoczynku (łokieć na bok)
+const LEFT_FOREARM_ROT := -2.0    # przedramię zgięte z powrotem do biodra
 
 const ALPHABET := "aąbcćdeęfghijklłmnńoóprsśtuwyzźż"  # 32 litery
 const COLS := 4
@@ -35,6 +44,16 @@ var _tiles: Array = []
 var _cell_panels: Array[Panel] = []
 var _style_normal: StyleBoxFlat
 var _style_correct: StyleBoxFlat
+
+var _portrait_target := Vector2.ZERO   # docelowa pozycja uchwytu (środek rigu)
+var _portrait_scale := 1.0             # docelowa skala uchwytu
+
+# Kości rigu pani Kamili (do pozowania ramion na żywo).
+var _rig: Node2D = null
+var _arm_r_upper: Bone2D = null   # prawe (ekranowo) górne ramię — wskazuje kursor
+var _arm_r_fore: Bone2D = null
+var _arm_l_upper: Bone2D = null   # lewe (ekranowo) górne ramię — pod bokiem
+var _arm_l_fore: Bone2D = null
 
 var _drag_idx := -1
 var _intro_done := false
@@ -62,17 +81,74 @@ func _input(event: InputEvent) -> void:
 		close()
 
 
+func _process(_delta: float) -> void:
+	if _rig == null or _closing:
+		return
+	# Lewa (ekranowo) ręka pod bokiem — kształt "<".
+	if _arm_l_upper:
+		_arm_l_upper.rotation = LEFT_UPPER_ARM_ROT
+	if _arm_l_fore:
+		_arm_l_fore.rotation = LEFT_FOREARM_ROT
+	# Prawa (ekranowo) ręka wskazuje kursor — obracamy górne ramię tak, by
+	# odcinek bark→łokieć celował w mysz; przedramię trzymamy prosto.
+	if _arm_r_upper and _arm_r_fore:
+		_arm_r_fore.rotation = 0.0
+		var origin := _arm_r_upper.global_position
+		var elbow := _arm_r_upper.to_global(_arm_r_fore.position)
+		var cur := (elbow - origin).angle()
+		var want := (_arm_r_upper.get_global_mouse_position() - origin).angle()
+		_arm_r_upper.rotation += wrapf(want - cur, -PI, PI)
+
+
 func open_from(src: TextureRect) -> void:
-	# Portret = grafika pani Kamili; startuje tam, gdzie stoi w klasie,
-	# w rozmiarze, w jakim jest tam wyświetlana (size * scale, bo TextureRect3
-	# ma niejednolitą skalę, której get_global_rect() nie uwzględnia),
-	# a przy przesunięciu tylko jednolicie się powiększa.
+	# Portret = rig pani Kamili. Startuje tam i w tym rozmiarze, w jakim stoi
+	# w klasie (prostokąt liczony jak przy wykrywaniu kliknięć), a potem wjeżdża
+	# w lewo i powiększa się, żeby wypełnić PORTRAIT_RECT.
 	var rect := Rect2(src.get_global_transform_with_canvas().origin, src.size * src.scale)
-	portrait.texture = src.texture
-	portrait.global_position = rect.position
-	portrait.size = rect.size
+
+	var rig := KamilaRig.instantiate() as Node2D
+	var bbox := _rig_bbox(rig)
+	# Wycentruj rig w uchwycie: jego środek (bbox) trafia w (0,0) uchwytu.
+	rig.position = -bbox.get_center()
+	portrait.add_child(rig)
+
+	# Nie odtwarzamy animacji — ramiona pozujemy ręcznie w _process
+	# (lewe pod bokiem, prawe wskazuje kursor).
+	_rig = rig
+	var skel := "Skeleton2D/Biodra/Tulow/"
+	_arm_r_upper = rig.get_node_or_null(skel + "RamieP") as Bone2D
+	_arm_r_fore = rig.get_node_or_null(skel + "RamieP/PrzedramieP") as Bone2D
+	_arm_l_upper = rig.get_node_or_null(skel + "RamieL") as Bone2D
+	_arm_l_fore = rig.get_node_or_null(skel + "RamieL/PrzedramieL") as Bone2D
+
+	# Skala startowa: dopasowana wysokością do miejsca w klasie (jak w Classroom).
+	var start_scale := 1.0
+	if bbox.size.y > 0.0:
+		start_scale = rect.size.y / bbox.size.y
+	portrait.scale = Vector2(start_scale, start_scale)
+	portrait.global_position = rect.get_center()
+
+	# Cel: wpasowanie w PORTRAIT_RECT (cały rig, bez wychodzenia na siatkę liter).
+	_portrait_scale = start_scale
+	if bbox.size.x > 0.0 and bbox.size.y > 0.0:
+		_portrait_scale = min(
+			PORTRAIT_RECT.size.x / bbox.size.x, PORTRAIT_RECT.size.y / bbox.size.y)
+	_portrait_target = PORTRAIT_RECT.get_center()
+
 	_spawn_letters(rect.get_center())
 	_animate_in()
+
+
+static func _rig_bbox(rig: Node2D) -> Rect2:
+	# Prostokąt otaczający mesh rigu (w przestrzeni lokalnej rigu).
+	var poly := rig.get_node_or_null("Polygon2D") as Polygon2D
+	if poly == null or poly.polygon.is_empty():
+		return Rect2()
+	var pts := poly.polygon
+	var r := Rect2(pts[0], Vector2.ZERO)
+	for p in pts:
+		r = r.expand(p)
+	return Rect2(poly.position + r.position * poly.scale, r.size * poly.scale)
 
 
 # --- budowanie siatki i literek ---------------------------------------------
@@ -165,10 +241,9 @@ func _cell_at(pos: Vector2) -> int:
 func _animate_in() -> void:
 	var t := create_tween().set_parallel(true)
 	t.tween_property(dim, "color:a", DIM_ALPHA, ANIM_TIME).set_trans(Tween.TRANS_SINE)
-	t.tween_property(portrait, "global_position", PORTRAIT_TARGET, ANIM_TIME) \
+	t.tween_property(portrait, "global_position", _portrait_target, ANIM_TIME) \
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	var zoom: float = min(PORTRAIT_MAX.x / portrait.size.x, PORTRAIT_MAX.y / portrait.size.y)
-	t.tween_property(portrait, "size", portrait.size * zoom, ANIM_TIME) \
+	t.tween_property(portrait, "scale", Vector2(_portrait_scale, _portrait_scale), ANIM_TIME) \
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	t.tween_property(cells_root, "modulate:a", 1.0, ANIM_TIME).set_delay(0.15)
 	t.tween_property(close_button, "modulate:a", 1.0, ANIM_TIME).set_delay(0.15)

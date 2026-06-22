@@ -56,6 +56,28 @@ const DRAW_LAYER_DEFAULT := 0.0
 # gdy w animacji ręce składają się przed tułowiem (inaczej tułów je zasłania).
 @export_tool_button("Ręce na wierzch (kolejność)", "Sort") var _order_btn := _order_draw
 
+# Sync rest POJEDYNCZEJ kości: ustawia jej rest = aktualny transform (jak
+# "Overwrite Rest Pose" w menu Skeleton2D, ale tylko dla wskazanej kości).
+# Użycie: przesuń kość w viewporcie, przeciągnij ją do pola 'Sync Rest Bone'
+# poniżej, kliknij — sprajt wraca do nieodkształconego, wagi zostają (dzieci
+# kości też, bo rest jest względem rodzica). Konwencja rigu: rest rotacja 0,
+# więc przesuwaj przeguby (pozycja), nie obracaj kości.
+@export var sync_rest_bone: Bone2D
+@export_tool_button("Sync rest wskazanej kości", "BoneAttachment2D") var _sync_one_btn := _sync_rest_one
+
+# TRYB: edycja szkieletu na NIERUCHOMYM sprajcie. Gdy włączony, rest każdej
+# kości podąża na bieżąco za jej transformem, więc deformacja = (transform vs
+# rest) = 0 — możesz przeciągać dowolne kości w odpowiednie miejsca, a sprajt
+# stoi. Tego Godot nie ma natywnie (deformuje na żywo). Po ustawieniu kości:
+# WYŁĄCZ tryb, potem "Przelicz siatkę i wagi" (żeby wierzchołki trafiły do
+# nowych kości). Działa tylko w edytorze.
+@export var edytuj_szkielet_bez_deformacji := false:
+	set(v):
+		edytuj_szkielet_bez_deformacji = v
+		if v:
+			print("auto_outline: TRYB edycji szkieletu WŁĄCZONY — przesuwaj kości, "
+				+ "sprajt zamrożony. Po ustawieniu: wyłącz tryb i 'Przelicz siatkę i wagi'.")
+
 
 func _do_everything() -> void:
 	# Cały rig jednym kliknięciem. Kolejność ma znaczenie:
@@ -105,10 +127,57 @@ func _sync_rests() -> void:
 		if absf(bone.rotation) > 0.001:
 			print("auto_outline: zeruję rotację kości %s (%.2f -> 0)" % [bone.name, bone.rotation])
 			bone.rotation = 0.0
-		var r: Transform2D = bone.rest
-		if r.origin != bone.position:
-			r.origin = bone.position
-			bone.rest = r
+		# Konwencja: rest = identyczność (rotacja 0, skala 1) + origin = pozycja
+		# kości. Wymuszamy też rotację 0 w SAMYM REST — gdyby coś ją zabakeowało
+		# (np. tryb edycji szkieletu odpalony podczas pozy/scrubu animacji),
+		# inaczej animacje (liczone względem rest=0) byłyby przekręcone.
+		var want := Transform2D(0.0, bone.position)
+		if not bone.rest.is_equal_approx(want):
+			if not bone.rest.x.is_equal_approx(Vector2(1, 0)):
+				print("auto_outline: czyszczę zabakeowaną rotację w rest kości %s" % bone.name)
+			bone.rest = want
+
+
+func _sync_rest_one() -> void:
+	# Nadpisuje rest TYLKO wskazanej kości jej aktualnym transformem — sprajt
+	# wraca do nieodkształconego (deformacja = aktualny vs rest), wagi bez zmian.
+	# Reszta szkieletu nietknięta; dzieci tej kości też się prostują (rest jest
+	# względem rodzica). NIE da się cofnąć (Skeleton2D nie wspiera undo restu).
+	if sync_rest_bone == null:
+		push_warning("auto_outline: wskaż kość w polu 'Sync Rest Bone'")
+		return
+	sync_rest_bone.rest = sync_rest_bone.transform
+	print("auto_outline: rest kości '%s' = jej transform %s (sprajt wyprostowany, wagi bez zmian)"
+		% [sync_rest_bone.name, str(sync_rest_bone.position)])
+
+
+func _process(_delta: float) -> void:
+	# Tryb edycji szkieletu: rest każdej kości goni jej transform, więc ruch
+	# kości nie odkształca sprajta. Guard (rest != transform) → zapis tylko gdy
+	# kość faktycznie się ruszy. Tylko w edytorze i tylko przy włączonym trybie.
+	if not edytuj_szkielet_bez_deformacji or not Engine.is_editor_hint():
+		return
+	var skel := get_node_or_null(skeleton) as Skeleton2D
+	if skel == null:
+		return
+	var bl: Array = []
+	_collect_bones(skel, bl)
+	for b in bl:
+		# Sync TYLKO pozycji (rest rotacja zawsze 0): przesuwanie kości nie
+		# deformuje, ale obrót już tak — świadomie, bo w spoczynku kości się NIE
+		# obraca (rotacje są dla animacji). Dzięki temu nic się nie zabakeuje do
+		# rest, gdyby tryb był włączony podczas pozy/scrubu animacji.
+		var want := Transform2D(0.0, b.position)
+		if not b.rest.is_equal_approx(want):
+			b.rest = want
+
+
+func _ready() -> void:
+	# Tryb edycji szkieletu jest PRZEJŚCIOWY — resetujemy go do false przy każdym
+	# wczytaniu sceny, żeby nie został włączony po cichu (zamrożony sprajt =
+	# "sprajt nie idzie za szkieletem"). Włączasz go ręcznie na czas rozstawiania.
+	if Engine.is_editor_hint() and edytuj_szkielet_bez_deformacji:
+		edytuj_szkielet_bez_deformacji = false
 
 
 func _neutralize(skel: Skeleton2D) -> void:

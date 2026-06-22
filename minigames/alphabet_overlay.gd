@@ -182,10 +182,18 @@ func _spawn_letters(from: Vector2) -> void:
 		var node: Node2D = null
 		var tex: Texture2D = null
 
+		# Losuj wariant; jeśli ten wariant ma dekor (np. a_3) — animowana scena,
+		# inaczej zwykły sprite. Dzięki temu dekor obejmuje tylko wybrany wariant.
+		var variants: Array = LetterLabel.get_variants(ch)
+		if variants.is_empty():
+			push_warning("AlphabetOverlay: brak sprite'a dla znaku '%s'" % ch)
+			continue
+		var vi := randi() % variants.size()
+
 		# Literka ze sceną dekoru (ruchome elementy) — jak w LetterLabel.
 		# Scena trafia do "uchwytu" przesuniętego tak, żeby środek literki
 		# wypadał w (0,0) — kafle są pozycjonowane środkiem na komórce.
-		var decor := LetterLabel.get_decor(ch)
+		var decor := LetterLabel.get_variant_decor(ch, vi)
 		if decor:
 			var inst := decor.instantiate() as Node2D
 			var lit := inst.get_node_or_null("Litera") as Sprite2D
@@ -198,12 +206,8 @@ func _spawn_letters(from: Vector2) -> void:
 				inst.free()
 
 		if node == null:
-			var variants: Array = LetterLabel.get_variants(ch)
-			if variants.is_empty():
-				push_warning("AlphabetOverlay: brak sprite'a dla znaku '%s'" % ch)
-				continue
 			var sprite := Sprite2D.new()
-			sprite.texture = variants[randi() % variants.size()]
+			sprite.texture = variants[vi]
 			tex = sprite.texture
 			node = sprite
 

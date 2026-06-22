@@ -48,7 +48,9 @@ const CODE_TO_CHAR := {
 # Wspólny cache tekstur: znak -> Array[Texture2D] (po restarcie edytora odświeża się sam;
 # po dorzuceniu nowych plików w trakcie pracy można wywołać LetterLabel.reload_letters()).
 static var _atlas: Dictionary = {}
-# Cache scen dekoru: znak -> PackedScene.
+# Cache dekorów: znak -> Array wyrównana z _atlas[znak]; element to PackedScene
+# dla wariantu z dekorem albo null. Dzięki temu dekor obejmuje tylko wybrane
+# warianty (np. tylko a_3), a nie każde wystąpienie znaku.
 static var _decor: Dictionary = {}
 
 # Sloty napisu: { sprite: Sprite2D, char: String, idx: int, spaces_before: int }
@@ -77,11 +79,15 @@ static func get_variants(ch: String) -> Array:
 	return _atlas.get(ch, [])
 
 
-static func get_decor(ch: String) -> PackedScene:
-	# Scena dekoru znaku (literka + ruchome elementy) albo null.
+static func get_variant_decor(ch: String, idx: int) -> PackedScene:
+	# Scena dekoru dla KONKRETNEGO wariantu znaku (albo null, gdy ten wariant
+	# jest zwykłym sprite'em). idx to indeks w get_variants(ch).
 	if _atlas.is_empty():
 		_load_atlas()
-	return _decor.get(ch, null)
+	var arr: Array = _decor.get(ch, [])
+	if idx < 0 or idx >= arr.size():
+		return null
+	return arr[idx]
 
 
 func _on_reload_pressed() -> void:
@@ -137,51 +143,54 @@ func _rebuild() -> void:
 			pending_spaces += 1
 			continue
 
-		# Znak z własną sceną dekoru (literka + ruchome elementy).
-		if _decor.has(ch):
-			var inst := (_decor[ch] as PackedScene).instantiate() as Node2D
-			var lit := inst.get_node_or_null("Litera") as Sprite2D
-			if lit == null or lit.texture == null:
-				push_warning("LetterLabel: scena dekoru znaku '%s' nie ma Sprite2D "
-					+ "'Litera' z teksturą — używam zwykłego sprite'a" % ch)
-				inst.free()
-			else:
-				add_child(inst)
-				_slots.append({
-					"sprite": inst,
-					"char": ch,
-					"idx": -1,  # -1 = scena dekoru (bez podmiany wariantów)
-					"spaces_before": pending_spaces,
-					"size_tex": lit.texture,
-				})
-				pending_spaces = 0
-				continue
-
-		if not _atlas.has(ch):
+		if not _atlas.has(ch) or (_atlas[ch] as Array).is_empty():
 			push_warning("LetterLabel: brak sprite'a dla znaku '%s' (w res://letters/)" % ch)
 			continue
-		var variants: Array = _atlas[ch]
-		var sprite := Sprite2D.new()
-		sprite.centered = false
-		add_child(sprite)
-		_slots.append({
-			"sprite": sprite,
-			"char": ch,
-			"idx": randi() % variants.size(),
-			"spaces_before": pending_spaces,
-		})
+
+		# Losowy wariant; jeśli ma dekor — wstaw scenę dekoru, inaczej zwykły sprite.
+		var idx := randi() % (_atlas[ch] as Array).size()
+		var slot := _make_node(ch, idx)
+		slot["char"] = ch
+		slot["idx"] = idx
+		slot["spaces_before"] = pending_spaces
+		_slots.append(slot)
 		pending_spaces = 0
 
-	_apply_variants()
-
-
-func _apply_variants() -> void:
-	for slot in _slots:
-		if slot.idx < 0:
-			continue  # scena dekoru — wariant ustalony w scenie
-		var variants: Array = _atlas[slot.char]
-		slot.sprite.texture = variants[clampi(slot.idx, 0, variants.size() - 1)]
 	_layout()
+
+
+func _make_node(ch: String, idx: int) -> Dictionary:
+	# Węzeł slotu: scena dekoru (gdy ten wariant ma dekor) albo zwykły Sprite2D.
+	var scene: PackedScene = null
+	if _decor.has(ch) and idx < (_decor[ch] as Array).size():
+		scene = _decor[ch][idx]
+	if scene != null:
+		var inst := scene.instantiate() as Node2D
+		var lit := inst.get_node_or_null("Litera") as Sprite2D
+		if lit != null and lit.texture != null:
+			add_child(inst)
+			return { "sprite": inst, "is_decor": true, "size_tex": lit.texture }
+		push_warning("LetterLabel: dekor znaku '%s' (wariant %d) bez Sprite2D 'Litera' z teksturą — używam zwykłego sprite'a" % [ch, idx])
+		inst.free()
+
+	var sprite := Sprite2D.new()
+	sprite.centered = false
+	sprite.texture = _atlas[ch][idx]
+	add_child(sprite)
+	return { "sprite": sprite, "is_decor": false }
+
+
+func _replace_slot_node(slot: Dictionary, new_idx: int) -> void:
+	# Podmiana węzła slotu (przejście sprite <-> dekor w trybie CYCLE).
+	slot.sprite.queue_free()
+	var made := _make_node(slot.char, new_idx)
+	slot.sprite = made.sprite
+	slot.is_decor = made.is_decor
+	if made.has("size_tex"):
+		slot.size_tex = made.size_tex
+	else:
+		slot.erase("size_tex")
+	slot.idx = new_idx
 
 
 func _layout() -> void:
@@ -255,20 +264,26 @@ func _update_timer() -> void:
 
 func _on_cycle_timeout() -> void:
 	for slot in _slots:
-		if slot.idx < 0:
-			continue  # scena dekoru
 		var variants: Array = _atlas.get(slot.char, [])
 		if variants.size() < 2:
 			continue
 		# losowy wariant, ale zawsze inny niż obecny
-		slot.idx = (slot.idx + 1 + randi() % (variants.size() - 1)) % variants.size()
-	_apply_variants()
+		var new_idx: int = (slot.idx + 1 + randi() % (variants.size() - 1)) % variants.size()
+		var new_decor: bool = _decor.has(slot.char) and _decor[slot.char][new_idx] != null
+		if slot.is_decor or new_decor:
+			# zmiana typu węzła (sprite <-> dekor) — przebuduj slot
+			_replace_slot_node(slot, new_idx)
+		else:
+			slot.idx = new_idx
+			slot.sprite.texture = variants[new_idx]
+	_layout()
 
 
 # --- wczytywanie literek ---------------------------------------------------
 
 static func _load_atlas() -> void:
 	_atlas = {}
+	_decor = {}
 	var dir := DirAccess.open(LETTERS_DIR)
 	if dir == null:
 		push_warning("LetterLabel: nie mogę otworzyć folderu %s" % LETTERS_DIR)
@@ -307,33 +322,49 @@ static func _load_atlas() -> void:
 			raw[ch] = []
 		raw[ch].append({ "variant": int(variant), "tex": tex })
 
+	# Sceny dekoru: <znak>.tscn = dekor każdego wariantu znaku;
+	# <znak>_<wariant>.tscn = dekor TYLKO tego wariantu (np. a_3.tscn = a, wariant 3).
+	# Kod znaku jak przy teksturach: 1 litera albo wpis z CODE_TO_CHAR (np. z_pol).
+	var decor_map: Dictionary = {}  # znak -> { wariant:int  (-1 = każdy) : PackedScene }
+	var ddir := DirAccess.open(DECOR_DIR)
+	if ddir != null:
+		for file_name in ddir.get_files():
+			var dname := file_name
+			if dname.ends_with(".remap"):
+				dname = dname.substr(0, dname.rfind("."))
+			if not dname.ends_with(".tscn"):
+				continue
+			var stem := dname.get_basename()
+			var dcode := stem
+			var dvariant := -1
+			var dsep := stem.rfind("_")
+			if dsep != -1 and stem.substr(dsep + 1).is_valid_int():
+				dcode = stem.substr(0, dsep)
+				dvariant = int(stem.substr(dsep + 1))
+			var dch := ""
+			if dcode.length() == 1:
+				dch = dcode
+			elif CODE_TO_CHAR.has(dcode):
+				dch = CODE_TO_CHAR[dcode]
+			else:
+				continue
+			var ps := load(DECOR_DIR + "/" + dname) as PackedScene
+			if ps == null:
+				continue
+			if not decor_map.has(dch):
+				decor_map[dch] = {}
+			decor_map[dch][dvariant] = ps
+
+	# Posortuj warianty i zbuduj listę dekorów wyrównaną z teksturami (scena/null).
 	for ch in raw:
 		var entries: Array = raw[ch]
 		entries.sort_custom(func(a, b): return a.variant < b.variant)
+		var cmap: Dictionary = decor_map.get(ch, {})
+		var per_char = cmap.get(-1, null)
 		var textures: Array = []
+		var decor_aligned: Array = []
 		for e in entries:
 			textures.append(e.tex)
+			decor_aligned.append(cmap.get(e.variant, per_char))
 		_atlas[ch] = textures
-
-	# Sceny dekoru: <kod>.tscn w res://letters/decor (np. o_pol.tscn = ó).
-	_decor = {}
-	var ddir := DirAccess.open(DECOR_DIR)
-	if ddir == null:
-		return
-	for file_name in ddir.get_files():
-		var name := file_name
-		if name.ends_with(".remap"):
-			name = name.substr(0, name.rfind("."))
-		if not name.ends_with(".tscn"):
-			continue
-		var code := name.get_basename()
-		var ch := ""
-		if code.length() == 1:
-			ch = code
-		elif CODE_TO_CHAR.has(code):
-			ch = CODE_TO_CHAR[code]
-		else:
-			continue
-		var ps := load(DECOR_DIR + "/" + name) as PackedScene
-		if ps:
-			_decor[ch] = ps
+		_decor[ch] = decor_aligned

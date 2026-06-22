@@ -1,24 +1,24 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://d4edkstwco48r"]
 
-[ext_resource type="Script" path="res://letters/letter_label.gd" id="1_label"]
+[ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="1_label"]
 
-[node name="LetterDemo" type="Node2D"]
+[node name="LetterDemo" type="Node2D" unique_id=238155950]
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=278495226]
 offset_right = 1080.0
 offset_bottom = 1200.0
 color = Color(0.98, 0.95, 0.88, 1)
 
-[node name="NapisLosowy" type="Node2D" parent="."]
+[node name="NapisLosowy" type="Node2D" parent="." unique_id=2084174503]
 position = Vector2(540, 300)
 script = ExtResource("1_label")
 text = "sto lat pani kamilo"
 letter_height = 62.0
 
-[node name="NapisCykliczny" type="Node2D" parent="."]
+[node name="NapisCykliczny" type="Node2D" parent="." unique_id=1139648711]
 position = Vector2(540, 700)
 script = ExtResource("1_label")
 text = "żółta gęś?"
-letter_height = 150.0
+letter_height = 40.0
 variant_mode = 1
 cycle_interval = 0.7

@@ -78,6 +78,31 @@ const DRAW_LAYER_DEFAULT := 0.0
 			print("auto_outline: TRYB edycji szkieletu WŁĄCZONY — przesuwaj kości, "
 				+ "sprajt zamrożony. Po ustawieniu: wyłącz tryb i 'Przelicz siatkę i wagi'.")
 
+# Zapisuje OBECNE rotacje kości jako kalibrację "stoi" (do retargetingu animacji
+# pod proporcje tej postaci). Użycie: obróć kości tak, by postać stała prosto
+# (ręce wzdłuż ciała, nogi pionowo), kliknij ten przycisk, potem Ctrl+S. Łapie
+# rotacje od razu (do metadanych węzła), więc nie zgubi ich zapis sceny.
+@export_tool_button("Zapisz pozę jako stoi", "Save") var _save_stoi_btn := _save_stoi
+
+
+func _save_stoi() -> void:
+	var skel := get_node_or_null(skeleton) as Skeleton2D
+	if skel == null:
+		push_warning("auto_outline: brak Skeleton2D")
+		return
+	var bl: Array = []
+	_collect_bones(skel, bl)
+	var calib := {}
+	for b in bl:
+		calib[str(skel.get_path_to(b))] = b.rotation
+	set_meta("stoi_calib", calib)
+	var nonzero := 0
+	for k in calib:
+		if absf(calib[k]) > 0.001:
+			nonzero += 1
+	print("auto_outline: zapisano pozę 'stoi' (%d kości, %d z obrotem). "
+		% [calib.size(), nonzero] + "Teraz Ctrl+S, żeby utrwalić w scenie.")
+
 
 func _do_everything() -> void:
 	# Cały rig jednym kliknięciem. Kolejność ma znaczenie:

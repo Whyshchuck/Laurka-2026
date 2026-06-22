@@ -1,5 +1,5 @@
 {
-	"Wiktor":[
+	"Wiktor": [
 		{
 			"question": "Jakie karty zbiera Wiktor?",
 			"answers": ["Pokemon", "Dragon Ball", "piłkarskie"],
@@ -48,7 +48,6 @@
 			"question": "W jakim miesiącu Julek ma urodziny?",
 			"answers": ["w lutym", "w kwietniu", "w maju"],
 			"correct": 1
-			
 		},
 		{
 			"question": "Jaki jest ulubiony kolor Julka?",
@@ -60,7 +59,6 @@
 			"answers": ["Mia", "Luna", "Suzi"],
 			"correct": 0
 		}
-		
 	],
 	"KazikR": [
 		{
@@ -95,5 +93,60 @@
 			"answers": ["Monopol", "Twister", "Memory"],
 			"correct": 0
 		}
+	],
+
+	"Lucja": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Hania": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Wojtek": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Antek": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Krzysiek": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Nati": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Krystian": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Michal": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"MichalA": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Maja": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Piotrek": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"KazikL": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Anabiya": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Kuba": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Abrish": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Szymon": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Milosz": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+	],
+	"Jasiek": [
+		{ "question": "", "answers": ["", "", ""], "correct": 0 }
 	]
 }

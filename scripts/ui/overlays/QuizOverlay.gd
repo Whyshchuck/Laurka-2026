@@ -15,6 +15,7 @@ extends CanvasLayer
 	$Panel/AnswerC,
 ]
 @onready var close_button: Button = $CloseButton
+@onready var name_label: LetterLabel = $NameLabel  # imię dziecka z naszych literek
 
 const DIM_ALPHA := 0.65
 const ANIM_TIME := 0.45
@@ -34,6 +35,7 @@ func _ready() -> void:
 	dim.color.a = 0.0
 	panel.modulate.a = 0.0
 	close_button.modulate.a = 0.0
+	name_label.modulate.a = 0.0
 	dim.gui_input.connect(_on_dim_input)
 	close_button.pressed.connect(close)
 	for button in answer_buttons:
@@ -41,6 +43,10 @@ func _ready() -> void:
 
 func open_for_pupil(pupil) -> void:
 	_pupil_name = pupil.name
+
+	# Nagłówek z imieniem dziecka, złożony z naszych literek (tryb RANDOM).
+	# Obcinamy końcowy inicjał nazwiska (np. "MichałA" -> "Michał", "KazikR" -> "Kazik").
+	name_label.text = _strip_surname_initial(_pupil_name)
 
 	# Portret = grafika klikniętego dziecka, ustawiona tam, gdzie stoi w klasie.
 	var src: TextureRect = pupil.texture_rect
@@ -51,6 +57,17 @@ func open_for_pupil(pupil) -> void:
 	
 	_show_current_question()
 	_animate_in()
+
+func _strip_surname_initial(n: String) -> String:
+	# Imiona dzieci o tym samym imieniu są odróżniane końcową wielką literą
+	# (inicjałem nazwiska): "KazikR", "KazikL", "MichałA". Zwykłe imiona kończą się
+	# małą literą, więc obcinamy tylko końcową WIELKĄ literę.
+	if n.length() > 1:
+		var last := n.substr(n.length() - 1)
+		if last == last.to_upper() and last != last.to_lower():
+			return n.substr(0, n.length() - 1)
+	return n
+
 
 func _show_current_question() -> void:
 	var progress_text := ""
@@ -76,6 +93,7 @@ func _animate_in() -> void:
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	t.tween_property(panel, "modulate:a", 1.0, ANIM_TIME).set_delay(0.15)
 	t.tween_property(close_button, "modulate:a", 1.0, ANIM_TIME).set_delay(0.15)
+	t.tween_property(name_label, "modulate:a", 1.0, ANIM_TIME).set_delay(0.15)
 
 func _on_dim_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
@@ -83,6 +101,8 @@ func _on_dim_input(event: InputEvent) -> void:
 
 func _on_answer_pressed(clicked_button: Button) -> void:
 	var is_correct: bool = clicked_button.get_meta("is_correct")
+	# Każde kliknięcie to udzielona odpowiedź (y); prawidłowe zwiększa też x.
+	GameState.register_answer(is_correct)
 
 	if is_correct:
 		await flash_button(clicked_button, CORRECT_ANSWER_COLOR)
@@ -90,14 +110,9 @@ func _on_answer_pressed(clicked_button: Button) -> void:
 			_question_index += 1
 			_show_current_question()
 		else:
-			GameState.add_quiz_point()
 			# Mark this pupil as answered so they cannot be quizzed again
 			GameState.mark_pupil_answered(_pupil_name)
-			
 			await close()
-			# Update the label after the overlay closes so it's visible
-			if get_parent() and get_parent().has_method("update_quiz_score_label"):
-				get_parent().update_quiz_score_label()
 	else:
 		await flash_button(clicked_button, WRONG_ANSWER_COLOR)
 
@@ -135,5 +150,9 @@ func close() -> void:
 	t.tween_property(panel, "modulate:a", 0.0, ANIM_TIME)
 	t.tween_property(close_button, "modulate:a", 0.0, ANIM_TIME)
 	t.tween_property(portrait, "modulate:a", 0.0, ANIM_TIME)
+	t.tween_property(name_label, "modulate:a", 0.0, ANIM_TIME)
 	await t.finished
+	# Odśwież licznik x/y (po każdym zamknięciu — także przez X lub kliknięcie w tło).
+	if get_parent() and get_parent().has_method("update_quiz_score_label"):
+		get_parent().update_quiz_score_label()
 	queue_free()

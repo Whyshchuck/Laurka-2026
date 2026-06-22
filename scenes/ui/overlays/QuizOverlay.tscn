@@ -1,6 +1,19 @@
 [gd_scene format=3 uid="uid://c2ebk7die6hdn"]
 
 [ext_resource type="Script" uid="uid://3ox363br134e" path="res://scripts/ui/overlays/QuizOverlay.gd" id="1_quiz"]
+[ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="2_letters"]
+
+[sub_resource type="Gradient" id="Gradient_namebg"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 0.984314, 0.870588, 0.901961, 1, 0.952941, 0.733333, 0.501961, 1, 0.945098, 0.701961, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_namebg"]
+gradient = SubResource("Gradient_namebg")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [node name="QuizOverlay" type="CanvasLayer" unique_id=323478101]
 script = ExtResource("1_quiz")
@@ -18,6 +31,15 @@ offset_bottom = 800.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
+
+[node name="NameLabel" type="Node2D" parent="." unique_id=771019283]
+position = Vector2(790, 210)
+script = ExtResource("2_letters")
+letter_height = 64.0
+
+[node name="NameBackdrop" type="Sprite2D" parent="NameLabel" unique_id=771019284]
+scale = Vector2(2.4, 0.55)
+texture = SubResource("GradientTexture2D_namebg")
 
 [node name="Panel" type="Panel" parent="." unique_id=582838667]
 offset_left = 540.0

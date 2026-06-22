@@ -20,6 +20,7 @@ extends CanvasLayer
 const DIM_ALPHA := 0.65
 const ANIM_TIME := 0.45
 const PORTRAIT_TARGET := Vector2(60.0, 360.0)  # docelowa pozycja sprite'a (lewa strona)
+const QUIZ_RIG_RECT := Rect2(60.0, 320.0, 380.0, 540.0)  # gdzie/jak duży rig w quizie
 const LETTERS := ["A", "B", "C"]
 
 const CORRECT_ANSWER_COLOR: Color = Color.GREEN
@@ -29,6 +30,10 @@ var _closing := false
 var _pupil_name := ""
 var _question_index: int = 0
 var _questions_count: int = 0
+
+var _rig: Node2D = null              # rig ucznia w quizie (jeśli go ma)
+var _rig_target_pos := Vector2.ZERO  # docelowa pozycja/skala po wjeździe
+var _rig_target_scale := Vector2.ONE
 
 func _ready() -> void:
 	# Stan początkowy przed animacją wejścia.
@@ -54,15 +59,36 @@ func open_for_pupil(pupil) -> void:
 	# Obcinamy końcowy inicjał nazwiska (np. "MichałA" -> "Michał", "KazikR" -> "Kazik").
 	name_label.text = _strip_surname_initial(_pupil_name)
 
-	# Portret = grafika klikniętego dziecka, ustawiona tam, gdzie stoi w klasie.
-	var src: TextureRect = pupil.texture_rect
-	portrait.texture = src.texture
-	portrait.global_position = src.get_global_transform_with_canvas().origin
-	
+	# Rig ucznia (jeśli ma) — inaczej płaski portret jak dotąd.
+	var rig_scene := RigHelper.scene_for(_pupil_name)
+	if rig_scene:
+		_setup_quiz_rig(rig_scene, pupil)
+		portrait.visible = false
+	else:
+		var src: TextureRect = pupil.texture_rect
+		portrait.texture = src.texture
+		portrait.global_position = src.get_global_transform_with_canvas().origin
+
 	_questions_count = QuizManager.get_pupil_questions_count(_pupil_name)
 	
 	_show_current_question()
 	_animate_in()
+
+func _setup_quiz_rig(scene: PackedScene, pupil) -> void:
+	_rig = scene.instantiate() as Node2D
+	add_child(_rig)
+	_rig.modulate.a = 0.0
+	RigHelper.play_stand(_rig)
+	# Start: tam i w rozmiarze, w jakim uczeń stoi w klasie; cel: powiększony, po lewej.
+	RigHelper.fit(_rig, pupil._display_rect())
+	var start_pos := _rig.global_position
+	var start_scale := _rig.scale
+	RigHelper.fit(_rig, QUIZ_RIG_RECT)
+	_rig_target_pos = _rig.global_position
+	_rig_target_scale = _rig.scale
+	_rig.global_position = start_pos
+	_rig.scale = start_scale
+
 
 func _strip_surname_initial(n: String) -> String:
 	# Imiona dzieci o tym samym imieniu są odróżniane końcową wielką literą
@@ -95,8 +121,15 @@ func _show_current_question() -> void:
 func _animate_in() -> void:
 	var t := create_tween().set_parallel(true)
 	t.tween_property(dim, "color:a", DIM_ALPHA, ANIM_TIME).set_trans(Tween.TRANS_SINE)
-	t.tween_property(portrait, "global_position", PORTRAIT_TARGET, ANIM_TIME) \
-		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	if _rig:
+		t.tween_property(_rig, "global_position", _rig_target_pos, ANIM_TIME) \
+			.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		t.tween_property(_rig, "scale", _rig_target_scale, ANIM_TIME) \
+			.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		t.tween_property(_rig, "modulate:a", 1.0, ANIM_TIME)
+	else:
+		t.tween_property(portrait, "global_position", PORTRAIT_TARGET, ANIM_TIME) \
+			.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	t.tween_property(panel, "modulate:a", 1.0, ANIM_TIME).set_delay(0.15)
 	t.tween_property(close_button, "modulate:a", 1.0, ANIM_TIME).set_delay(0.15)
 	t.tween_property(name_label, "modulate:a", 1.0, ANIM_TIME).set_delay(0.15)
@@ -111,10 +144,14 @@ func _on_answer_pressed(clicked_button: Button) -> void:
 	GameState.register_answer(is_correct)
 
 	if is_correct:
+		if _rig:
+			RigHelper.play(_rig, "hura")  # uczeń się cieszy (k/hura albo hura)
 		await flash_button(clicked_button, CORRECT_ANSWER_COLOR)
 		if _question_index + 1 < _questions_count:
 			_question_index += 1
 			_show_current_question()
+			if _rig:
+				RigHelper.play_stand(_rig)  # wróć do stania na kolejne pytanie
 		else:
 			# Mark this pupil as answered so they cannot be quizzed again
 			GameState.mark_pupil_answered(_pupil_name)
@@ -157,6 +194,8 @@ func close() -> void:
 	t.tween_property(close_button, "modulate:a", 0.0, ANIM_TIME)
 	t.tween_property(portrait, "modulate:a", 0.0, ANIM_TIME)
 	t.tween_property(name_label, "modulate:a", 0.0, ANIM_TIME)
+	if _rig:
+		t.tween_property(_rig, "modulate:a", 0.0, ANIM_TIME)
 	await t.finished
 	# Odśwież licznik x/y (po każdym zamknięciu — także przez X lub kliknięcie w tło).
 	if get_parent() and get_parent().has_method("update_quiz_score_label"):

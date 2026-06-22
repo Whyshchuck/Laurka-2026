@@ -54,6 +54,16 @@ var _rig: Node2D = null  # rig ucznia (jeśli go ma) — zastępuje płaską gra
 signal pupil_clicked(pupil: Pupil)
 
 
+func _process(delta: float) -> void:
+	# W edytorze AnimationPlayer nie chodzi sam — popychamy go, żeby było widać
+	# animację rigu (w grze chodzi normalnie, więc tu tylko dla podglądu).
+	if not Engine.is_editor_hint() or _rig == null:
+		return
+	var ap := _rig.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if ap and ap.is_playing():
+		ap.advance(delta)
+
+
 func setup_rig() -> void:
 	# Jeśli uczeń ma rig — pokaż rig zamiast płaskiej grafiki, w pozie "stand".
 	var scene := RigHelper.scene_for(String(name))

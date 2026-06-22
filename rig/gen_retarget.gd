@@ -4,6 +4,8 @@ extends SceneTree
 # Dla każdego toru ROTACJI: nowa = stoi_postaci + (wspólna - wspólne_stoi).
 # Skale kopiuje, RESET zostawia (rysunkowy zero). Dla póz siadu dokłada
 # opuszczenie Biodra; dla postaci z piłką - tor piłki na podłodze.
+# Na końcu wpina bibliotekę jako "k" do AnimationPlayer i ZAPISUJE scenę rigu,
+# więc — jak w apply_all — scena MUSI być zamknięta w edytorze.
 #  godot --headless --script res://rig/gen_retarget.gd -- \
 #     <shared.tres> <char.tres> <scene.tscn> <sit_drop> [floor_x floor_y]
 
@@ -77,4 +79,18 @@ func _init() -> void:
 	var err := ResourceSaver.save(klib, char_path)
 	print("stoi_calib niezerowych: ", stoi.values().filter(func(v): return absf(v) > 0.001).size())
 	print("zapis ", char_path, ": ", "OK" if err == OK else str(err))
+
+	# Wepnij bibliotekę jako "k" do AnimationPlayer i ZAPISZ scenę rigu,
+	# żeby nie trzeba było dodawać jej ręcznie w edytorze (libraries/k = char.tres).
+	var ap := root.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if ap:
+		if ap.has_animation_library("k"):
+			ap.remove_animation_library("k")
+		ap.add_animation_library("k", klib)
+		var packed := PackedScene.new()
+		packed.pack(root)
+		var serr := ResourceSaver.save(packed, a[2])
+		print("wpięto k/ + zapis sceny ", a[2], ": ", "OK" if serr == OK else str(serr))
+	else:
+		print("UWAGA: brak AnimationPlayer w scenie — k/ nie wpięte")
 	quit()

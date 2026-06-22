@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bko5fc6ayys47" path="res://sprites/jasiek_2026.png" id="1_t6mi0"]
 [ext_resource type="Script" uid="uid://bbka3u0sn1ebi" path="res://rig/auto_outline.gd" id="2_57bcr"]
 [ext_resource type="AnimationLibrary" uid="uid://bnbb65shec7km" path="res://rig/pupil_anims.tres" id="3_2olme"]
+[ext_resource type="AnimationLibrary" uid="uid://bpf7sxc1qjnlg" path="res://rig/jasiek_anims.tres" id="4_janim"]
 
 [node name="JasiekRig" type="Node2D" unique_id=1282551274]
 
@@ -23,7 +24,7 @@ position = Vector2(1.924469, -104.34601)
 rest = Transform2D(1, 0, 0, 1, 1.924469, -104.34601)
 auto_calculate_length_and_angle = false
 length = 765.31067
-bone_angle = -1.554101
+bone_angle = -1.5541009
 
 [node name="RamieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=535061684]
 position = Vector2(-97.45911, 0)
@@ -55,7 +56,7 @@ position = Vector2(68.77283, 122.775024)
 rest = Transform2D(1, 0, 0, 1, 68.77283, 122.775024)
 auto_calculate_length_and_angle = false
 length = 43.52054
-bone_angle = 0.77032304
+bone_angle = 0.770323
 
 [node name="UdoL" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=454119200]
 position = Vector2(-47.000004, 32)
@@ -71,7 +72,7 @@ position = Vector2(-1.5258789e-05, 178.0001)
 rest = Transform2D(1, 0, 0, 1, -1.5258789e-05, 178.0001)
 auto_calculate_length_and_angle = false
 length = 67.811745
-bone_angle = 1.8041606
+bone_angle = 1.8041605
 
 [node name="UdoP" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=1903672363]
 position = Vector2(52.000004, 32)
@@ -101,3 +102,4 @@ script = ExtResource("2_57bcr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=715790114]
 libraries/ = ExtResource("3_2olme")
+libraries/k = ExtResource("4_janim")

@@ -58,10 +58,24 @@ static func fit(rig: Node2D, target: Rect2) -> void:
 	rig.global_position = target_bottom - s * bottom_center
 
 
-static func play_stand(rig: Node2D) -> void:
-	# Własna poza "stand" = "k/stoi"; gdy brak — uniwersalna "stoi".
+static func play(rig: Node2D, base: String) -> void:
+	# Odtwórz animację: własną z osobnej biblioteki (np. "k/hura"); inaczej "<base>".
 	var ap := rig.get_node_or_null("AnimationPlayer") as AnimationPlayer
 	if ap == null:
 		return
-	ap.play("k/stoi" if ap.has_animation("k/stoi") else "stoi")
-	ap.seek(0.0, true)  # od razu zastosuj pozę (też w edytorze, gdzie nie ma _process)
+	var anim := ""
+	for a in ap.get_animation_list():
+		if a.ends_with("/" + base):   # własna biblioteka, np. "k/stoi", "k/hura"
+			anim = a
+			break
+	if anim == "" and ap.has_animation(base):
+		anim = base
+	if anim == "":
+		return
+	ap.play(anim)
+	ap.seek(0.0, true)  # od razu 1. klatka (też w edytorze, gdzie nie ma _process)
+
+
+static func play_stand(rig: Node2D) -> void:
+	# Własna poza "stand" = "k/stoi"; gdy brak — uniwersalna "stoi".
+	play(rig, "stoi")

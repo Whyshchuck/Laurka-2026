@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dc51ky08unmko" path="res://sprites/lucja_2026.png" id="1_oa5vj"]
 [ext_resource type="Script" uid="uid://bbka3u0sn1ebi" path="res://rig/auto_outline.gd" id="2_55jyk"]
 [ext_resource type="AnimationLibrary" uid="uid://bnbb65shec7km" path="res://rig/pupil_anims.tres" id="3_tuwwg"]
+[ext_resource type="AnimationLibrary" uid="uid://b078jnwb24mwb" path="res://rig/lucja_anims.tres" id="4_55jyk"]
 
 [node name="KrzysiekRig" type="Node2D" unique_id=1282551274]
 
@@ -47,7 +48,7 @@ rest = Transform2D(1, 0, 0, 1, 82.000015, 19.000002)
 
 [node name="PrzedramieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP" unique_id=95210401]
 position = Vector2(80.00002, 90.00003)
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.9999999, 0.9999999)
 rest = Transform2D(1, 0, 0, 1, 80.00002, 90.00003)
 
 [node name="DlonP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP/PrzedramieP" unique_id=5869367]
@@ -59,7 +60,6 @@ bone_angle = 0.7428227
 
 [node name="UdoL" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=454119200]
 position = Vector2(-34, 11)
-scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, -34, 11)
 
 [node name="LydkaL" type="Bone2D" parent="Skeleton2D/Biodra/UdoL" unique_id=873122595]
@@ -75,7 +75,6 @@ bone_angle = 1.5522053
 
 [node name="UdoP" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=1903672363]
 position = Vector2(48, 6)
-scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, 48, 6)
 
 [node name="LydkaP" type="Bone2D" parent="Skeleton2D/Biodra/UdoP" unique_id=858085285]
@@ -99,6 +98,24 @@ bones = ["Biodra", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 internal_vertex_count = 52
 script = ExtResource("2_55jyk")
 sync_rest_bone = NodePath("../Skeleton2D/Biodra/Tulow")
+metadata/stoi_calib = {
+"Biodra": 0.0,
+"Biodra/Tulow": 0.0,
+"Biodra/Tulow/Glowa": -0.13752438,
+"Biodra/Tulow/RamieL": -0.58737546,
+"Biodra/Tulow/RamieL/PrzedramieL": 0.15571888,
+"Biodra/Tulow/RamieL/PrzedramieL/DlonL": 0.0,
+"Biodra/Tulow/RamieP": 0.49165225,
+"Biodra/Tulow/RamieP/PrzedramieP": -0.07912562,
+"Biodra/Tulow/RamieP/PrzedramieP/DlonP": 0.0,
+"Biodra/UdoL": -0.045753147,
+"Biodra/UdoL/LydkaL": -0.09871747,
+"Biodra/UdoL/LydkaL/StopaL": 0.2563992,
+"Biodra/UdoP": 0.21240233,
+"Biodra/UdoP/LydkaP": 0.0,
+"Biodra/UdoP/LydkaP/StopaP": 0.21382792
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=715790114]
 libraries/ = ExtResource("3_tuwwg")
+libraries/k = ExtResource("4_55jyk")

@@ -14,6 +14,13 @@ extends Polygon2D
 @export_range(0.5, 30.0, 0.5) var epsilon := 4.0
 # Maks. długość krawędzi obrysu (px): dłuższe są dzielone — gęstszy, równy obrys.
 @export_range(20.0, 120.0, 5.0) var max_edge := 45.0
+# Próg alfa obrysu: piksel należy do sylwetki, gdy alfa > prog. Wyżej (np. 0.35)
+# = ignoruje blade, rozwiane kosmyki (włosy ołówkiem), czystszy kontur.
+@export_range(0.05, 0.9, 0.05) var prog_alfa := 0.1
+# Domknięcie luk (px): rozszerza maskę i ściąga z powrotem (domknięcie morfolog.).
+# Dla rozwianych/rzadkich włosów scala kosmyki w jedną bryłę — znika dziurawy,
+# kolczasty obrys. 0 = wyłączone (sprajty z pełnym, gęstym wypełnieniem).
+@export_range(0, 40, 1) var domknij_luki := 0
 @export_tool_button("Obrysuj sprite'a", "CurveEdit") var _trace_btn := _trace
 # Po dodaniu Internal Vertices automatyczna triangulacja Godota się wyłącza
 # (sprite znika) — ten przycisk buduje pod-poligony (trójkąty) automatycznie.
@@ -327,8 +334,12 @@ func _trace() -> void:
 
 	var img := texture.get_image()
 	var bm := BitMap.new()
-	bm.create_from_image_alpha(img)
-	var polys := bm.opaque_to_polygons(Rect2i(Vector2i.ZERO, img.get_size()), epsilon)
+	bm.create_from_image_alpha(img, prog_alfa)
+	var rect := Rect2i(Vector2i.ZERO, img.get_size())
+	if domknij_luki > 0:
+		bm.grow_mask(domknij_luki, rect)    # rozszerz — mostki między kosmykami
+		bm.grow_mask(-domknij_luki, rect)   # ściągnij — zostaje domknięta bryła
+	var polys := bm.opaque_to_polygons(rect, epsilon)
 	if polys.is_empty():
 		push_warning("auto_outline: nie znalazłem nieprzezroczystych pikseli")
 		return

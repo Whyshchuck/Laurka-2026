@@ -78,11 +78,24 @@ const DRAW_LAYER_DEFAULT := 0.0
 			print("auto_outline: TRYB edycji szkieletu WŁĄCZONY — przesuwaj kości, "
 				+ "sprajt zamrożony. Po ustawieniu: wyłącz tryb i 'Przelicz siatkę i wagi'.")
 
-# Zapisuje OBECNE rotacje kości jako kalibrację "stoi" (do retargetingu animacji
-# pod proporcje tej postaci). Użycie: obróć kości tak, by postać stała prosto
-# (ręce wzdłuż ciała, nogi pionowo), kliknij ten przycisk, potem Ctrl+S. Łapie
-# rotacje od razu (do metadanych węzła), więc nie zgubi ich zapis sceny.
-@export_tool_button("Zapisz pozę jako stoi", "Save") var _save_stoi_btn := _save_stoi
+# Kalibracja "stoi" + AUTOMATYCZNE wygenerowanie wszystkich animacji postaci.
+# Użycie: obróć kości tak, by postać stała prosto (ręce wzdłuż ciała, nogi
+# pionowo), kliknij — przycisk: 1) zapisuje rotacje (metadane stoi_calib),
+# 2) retargetuje wspólne animacje pod te proporcje (rotacja = stoi +
+# (wspólna − wspólne_stoi); skale kopiuje; RESET zostawia; siad dokłada
+# opuszczenie bioder; piłka — tor na podłodze), 3) zapisuje <postać>_anims.tres
+# i wpina jako 'k' do AnimationPlayera. Potem Ctrl+S. (Scena musi być wcześniej
+# zapisana, żeby znać ścieżkę pliku.)
+@export_tool_button("Zapisz stoi i wygeneruj animacje (k)", "Save") var _save_stoi_btn := _save_stoi
+const SHARED_LIB := "res://rig/pupil_anims.tres"
+
+
+func _bone_path_of(track_path: String) -> String:
+	var p := track_path
+	if p.begins_with("Skeleton2D/"):
+		p = p.substr("Skeleton2D/".length())
+	var c := p.find(":")
+	return p.substr(0, c) if c >= 0 else p
 
 
 func _save_stoi() -> void:
@@ -90,18 +103,101 @@ func _save_stoi() -> void:
 	if skel == null:
 		push_warning("auto_outline: brak Skeleton2D")
 		return
+	# 1) złap kalibrację stoi z obecnych rotacji kości
 	var bl: Array = []
 	_collect_bones(skel, bl)
 	var calib := {}
+	var nonzero := 0
 	for b in bl:
 		calib[str(skel.get_path_to(b))] = b.rotation
-	set_meta("stoi_calib", calib)
-	var nonzero := 0
-	for k in calib:
-		if absf(calib[k]) > 0.001:
+		if absf(b.rotation) > 0.001:
 			nonzero += 1
-	print("auto_outline: zapisano pozę 'stoi' (%d kości, %d z obrotem). "
-		% [calib.size(), nonzero] + "Teraz Ctrl+S, żeby utrwalić w scenie.")
+	# Bezpiecznik: przycisk łapie BIEŻĄCE rotacje. Jeśli wszystkie są 0, to znaczy
+	# że kości nie są obrócone do stoi (albo zresetowały się) — nie nadpisujemy
+	# dobrej kalibracji zerami. Najpierw obróć kości, kliknij gdy są obrócone.
+	if nonzero == 0:
+		push_warning("auto_outline: kości na rotacji 0 — najpierw obróć je do pozy "
+			+ "'stoi', kliknij gdy SĄ obrócone. Nic nie zapisano.")
+		return
+	set_meta("stoi_calib", calib)
+	# 2) ścieżka biblioteki z nazwy sceny: <katalog>/<nazwa bez _rig>_anims.tres
+	var scene_path: String = owner.scene_file_path if owner else ""
+	if scene_path == "":
+		push_warning("auto_outline: zapisz scenę (Ctrl+S), potem kliknij ponownie")
+		return
+	var base := scene_path.get_file().get_basename().trim_suffix("_rig")
+	var lib_path := scene_path.get_base_dir().path_join(base + "_anims.tres")
+	# 3) retarget do biblioteki (istniejącą wczytujemy — zachowa ręczne anim, np. piłki)
+	var lib: AnimationLibrary
+	if ResourceLoader.exists(lib_path):
+		lib = load(lib_path)
+	else:
+		lib = AnimationLibrary.new()
+	_retarget_into(lib, calib, skel)
+	var err := ResourceSaver.save(lib, lib_path)
+	if err != OK:
+		push_warning("auto_outline: zapis biblioteki nieudany: " + str(err))
+		return
+	# 4) wepnij jako 'k' do AnimationPlayera
+	var ap := owner.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if ap:
+		var saved: AnimationLibrary = load(lib_path)
+		if ap.has_animation_library("k"):
+			ap.remove_animation_library("k")
+		ap.add_animation_library("k", saved)
+	print("auto_outline: stoi (%d kości z obrotem) → animacje zretargetowane do %s, wpięte jako 'k'. Graj k/stoi, k/machanie… Teraz Ctrl+S."
+		% [nonzero, lib_path])
+
+
+func _retarget_into(lib: AnimationLibrary, calib: Dictionary, skel: Skeleton2D) -> void:
+	var shared := load(SHARED_LIB) as AnimationLibrary
+	var biodra: Vector2 = (skel.get_node("Biodra") as Bone2D).rest.origin
+	var bottom := -1e9
+	for p in polygon:
+		bottom = maxf(bottom, p.y)
+	var sit_drop := roundf(0.5 * (bottom - biodra.y))
+	# wspólne stoi — referencja rotacji
+	var sref := {}
+	var sstoi := shared.get_animation("stoi") as Animation
+	for ti in sstoi.get_track_count():
+		var sp := str(sstoi.track_get_path(ti))
+		if sp.ends_with(":rotation"):
+			sref[_bone_path_of(sp)] = float(sstoi.track_get_key_value(ti, 0))
+	# piłka (jeśli postać ją ma) — pozycja na podłodze
+	var has_pilka: bool = owner and owner.has_node("Pilka")
+	var floor_pos := Vector2.ZERO
+	if has_pilka:
+		var pilka := owner.get_node("Pilka") as Sprite2D
+		var bh := pilka.texture.get_height() * pilka.scale.y * 0.5
+		floor_pos = Vector2(biodra.x + 90, bottom - bh)
+	var sit := {"siedzi": [1.0, 1.0], "siadanie": [0.0, 1.0], "wstawanie": [1.0, 0.0]}
+	var up := biodra
+	var down := biodra + Vector2(0, sit_drop)
+	for name in shared.get_animation_list():
+		var anim := (shared.get_animation(name) as Animation).duplicate(true)
+		var length: float = maxf(anim.length, 0.0001)
+		if name != "RESET":
+			for ti in anim.get_track_count():
+				var ap := str(anim.track_get_path(ti))
+				if ap.ends_with(":rotation") and anim.track_get_type(ti) == Animation.TYPE_VALUE:
+					var off: float = float(calib.get(_bone_path_of(ap), 0.0)) - float(sref.get(_bone_path_of(ap), 0.0))
+					if absf(off) > 0.0001:
+						for ki in anim.track_get_key_count(ti):
+							anim.track_set_key_value(ti, ki, float(anim.track_get_key_value(ti, ki)) + off)
+		if has_pilka:
+			var tp: int = anim.add_track(Animation.TYPE_VALUE)
+			anim.track_set_path(tp, NodePath("Pilka:position"))
+			anim.track_insert_key(tp, 0.0, floor_pos)
+			anim.track_insert_key(tp, length, floor_pos)
+		if sit.has(name):
+			var fr: Array = sit[name]
+			var tb: int = anim.add_track(Animation.TYPE_VALUE)
+			anim.track_set_path(tb, NodePath("Skeleton2D/Biodra:position"))
+			anim.track_insert_key(tb, 0.0, up.lerp(down, fr[0]))
+			anim.track_insert_key(tb, length, up.lerp(down, fr[1]))
+		if lib.has_animation(name):
+			lib.remove_animation(name)
+		lib.add_animation(name, anim)
 
 
 func _do_everything() -> void:

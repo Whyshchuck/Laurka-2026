@@ -32,7 +32,7 @@ const DECOR_DIR := "res://letters/decor"
 const CODE_TO_CHAR := {
 	"a_pol": "ą", "c_pol": "ć", "e_pol": "ę", "l_pol": "ł", "n_pol": "ń",
 	"o_pol": "ó", "s_pol": "ś", "z_pol": "ż", "zi_pol": "ź",
-	"pytajnik": "?", "wykrzyknik": "!",
+	"pytajnik": "?", "wykrzyknik": "!", "ukosnik": "/", "dwukropek": ":",
 }
 
 @export var text := "": set = set_text

@@ -1,3 +1,4 @@
+@tool
 extends CharacterBody2D
 class_name Pupil
 
@@ -48,15 +49,58 @@ var _transform_base_w := 0.0   # szerokość stadium wyjściowego na ekranie
 @onready var texture_rect: TextureRect = $TextureRect
 @onready var sprite: Sprite2D = get_node_or_null("Sprite2D")  # nie każdy uczeń ma Sprite2D
 
+var _rig: Node2D = null  # rig ucznia (jeśli go ma) — zastępuje płaską grafikę
+
 signal pupil_clicked(pupil: Pupil)
 
+
+func setup_rig() -> void:
+	# Jeśli uczeń ma rig — pokaż rig zamiast płaskiej grafiki, w pozie "stand".
+	var scene := RigHelper.scene_for(String(name))
+	if scene == null:
+		return
+	var old := get_node_or_null("Rig")  # usuń poprzedni podgląd (np. przeładowanie @tool)
+	if old:
+		old.free()
+	_rig = scene.instantiate() as Node2D
+	_rig.name = "Rig"
+	add_child(_rig)
+	_rig.z_as_relative = false  # jak dawne TextureRect/Sprite2D (warstwa wg y-sort)
+	RigHelper.fit(_rig, _display_rect())
+	# Chowamy płaską grafikę (TextureRect zostaje — niewidoczny — do wykrywania klików).
+	if sprite:
+		sprite.visible = false
+	texture_rect.visible = false
+	RigHelper.play_stand(_rig)
+
+
+func _display_rect() -> Rect2:
+	# Obszar, w którym uczeń jest rysowany: Sprite2D jeśli go ma (to on jest grafiką),
+	# inaczej TextureRect. Nie patrzymy na .visible (po schowaniu byłoby zawodne).
+	# Współrzędne sceny (get_global_transform), żeby działało też w edytorze.
+	if sprite and sprite.texture:
+		var frame := Vector2(
+			sprite.texture.get_width() / float(maxi(sprite.hframes, 1)),
+			sprite.texture.get_height() / float(maxi(sprite.vframes, 1)))
+		var disp := frame * sprite.scale.abs()
+		return Rect2(sprite.global_position - disp * 0.5, disp)
+	return Rect2(
+		texture_rect.get_global_transform().origin,
+		texture_rect.size * texture_rect.scale)
+
+
 func _ready():
+	if Engine.is_editor_hint():
+		setup_rig()  # tylko podgląd rigu w edytorze
+		return
 	start_position = global_position
 	var nav_region: NavigationRegion2D = get_node("/root/Classroom/NavigationRegion2D")
 	nav_map_rid = nav_region.get_navigation_map()
 	respawn_timer.timeout.connect(_on_respawn_timer_timeout)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if Engine.is_editor_hint():
+		return
 	if character_state in [CharacterState.LOCKED, CharacterState.RETURNING]:
 		return
 
@@ -82,6 +126,8 @@ func react() -> void:
 	# Reakcja na klik: głos + (jeśli uczeń ją ma) proceduralna przemiana.
 	if $AudioStreamPlayer:
 		$AudioStreamPlayer.play()
+	if _rig:
+		return  # uczeń z rigiem — bez przemiany płaskiego sprite'a
 	if transform_textures.size() >= 2 and transform_state != TransformState.RUNNING:
 		_run_transform()
 
@@ -190,6 +236,8 @@ func _restore_transform_orig() -> void:
 
 
 func _physics_process(delta):
+	if Engine.is_editor_hint():
+		return
 	if character_state in [CharacterState.READY, CharacterState.RESPAWNING]:
 		return
 

@@ -7,7 +7,7 @@
 [node name="KrzysiekRig" type="Node2D" unique_id=1282551274]
 
 [node name="Skeleton2D" type="Skeleton2D" parent="." unique_id=152294897]
-position = Vector2(78, 1)
+position = Vector2(88, 113)
 
 [node name="Biodra" type="Bone2D" parent="Skeleton2D" unique_id=446425576]
 position = Vector2(220, 520)
@@ -15,78 +15,79 @@ scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(0.99999994, 0, 0, 0.99999994, 220, 520)
 
 [node name="Tulow" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=80937432]
-position = Vector2(-1.5258789e-05, -184)
+position = Vector2(-6.0000153, -310.00003)
 scale = Vector2(0.9999999, 0.9999999)
-rest = Transform2D(0.9999999, 0, 0, 0.9999999, -1.5258789e-05, -184)
+rest = Transform2D(1, 0, 0, 1, -6.0000153, -310.00003)
 
 [node name="Glowa" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=2038798227]
 position = Vector2(-7.5599976, -37.342804)
 rest = Transform2D(1, 0, 0, 1, -7.5599976, -37.342804)
 auto_calculate_length_and_angle = false
 length = 275.50107
-bone_angle = -1.6804239
+bone_angle = -1.6804237
 
 [node name="RamieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=535061684]
-position = Vector2(-51.92552, 0)
-rest = Transform2D(1, 0, 0, 1, -51.92552, 0)
+position = Vector2(-69.000015, 15.000002)
+rest = Transform2D(1, 0, 0, 1, -69.000015, 15.000002)
 
 [node name="PrzedramieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL" unique_id=1831878168]
-position = Vector2(-77.888275, 132.405)
-rest = Transform2D(1, 0, 0, 1, -77.888275, 132.405)
+position = Vector2(-82.000015, 60.000023)
+rest = Transform2D(1, 0, 0, 1, -82.000015, 60.000023)
 
 [node name="DlonL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL/PrzedramieL" unique_id=1184822642]
-position = Vector2(-58.416206, 99.30374)
-rest = Transform2D(1, 0, 0, 1, -58.416206, 99.30374)
+position = Vector2(-79.000015, 125.00003)
+rest = Transform2D(1, 0, 0, 1, -79.000015, 125.00003)
 auto_calculate_length_and_angle = false
 length = 38.40384
 bone_angle = 2.102537
 
 [node name="RamieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=662576914]
-position = Vector2(86.32448, 0)
-rest = Transform2D(1, 0, 0, 1, 86.32448, 0)
+position = Vector2(82.000015, 19.000002)
+rest = Transform2D(1, 0, 0, 1, 82.000015, 19.000002)
 
 [node name="PrzedramieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP" unique_id=95210401]
-position = Vector2(129.48672, 118.905)
-rest = Transform2D(1, 0, 0, 1, 129.48672, 118.905)
+position = Vector2(80.00002, 90.00003)
+scale = Vector2(0.99999994, 0.99999994)
+rest = Transform2D(1, 0, 0, 1, 80.00002, 90.00003)
 
 [node name="DlonP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP/PrzedramieP" unique_id=5869367]
-position = Vector2(97.11502, 89.17874)
-rest = Transform2D(1, 0, 0, 1, 97.11502, 89.17874)
+position = Vector2(43.000023, 93.00003)
+rest = Transform2D(1, 0, 0, 1, 43.000023, 93.00003)
 auto_calculate_length_and_angle = false
 length = 43.94972
 bone_angle = 0.7428227
 
 [node name="UdoL" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=454119200]
-position = Vector2(-52.51422, 18.859985)
+position = Vector2(-34, 11)
 scale = Vector2(0.99999994, 0.99999994)
-rest = Transform2D(0.99999994, 0, 0, 0.99999994, -52.51422, 18.859985)
+rest = Transform2D(1, 0, 0, 1, -34, 11)
 
 [node name="LydkaL" type="Bone2D" parent="Skeleton2D/Biodra/UdoL" unique_id=873122595]
-position = Vector2(3.3062592, 177.82288)
-rest = Transform2D(1, 0, 0, 1, 3.3062592, 177.82288)
+position = Vector2(-12.999987, 119.99999)
+rest = Transform2D(1, 0, 0, 1, -12.999987, 119.99999)
 
 [node name="StopaL" type="Bone2D" parent="Skeleton2D/Biodra/UdoL/LydkaL" unique_id=1850217782]
-position = Vector2(3.3062592, 177.82288)
-rest = Transform2D(1, 0, 0, 1, 3.3062592, 177.82288)
+position = Vector2(-21.999989, 145)
+rest = Transform2D(1, 0, 0, 1, -21.999989, 145)
 auto_calculate_length_and_angle = false
 length = 48.505512
-bone_angle = 1.5522054
+bone_angle = 1.5522053
 
 [node name="UdoP" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=1903672363]
-position = Vector2(52.51422, 18.859985)
+position = Vector2(48, 6)
 scale = Vector2(0.99999994, 0.99999994)
-rest = Transform2D(0.99999994, 0, 0, 0.99999994, 52.51422, 18.859985)
+rest = Transform2D(1, 0, 0, 1, 48, 6)
 
 [node name="LydkaP" type="Bone2D" parent="Skeleton2D/Biodra/UdoP" unique_id=858085285]
-position = Vector2(-3.3062744, 172.10284)
-rest = Transform2D(1, 0, 0, 1, -3.3062744, 172.10284)
+position = Vector2(26.000004, 119.99999)
+rest = Transform2D(1, 0, 0, 1, 26.000004, 119.99999)
 
 [node name="StopaP" type="Bone2D" parent="Skeleton2D/Biodra/UdoP/LydkaP" unique_id=1102681188]
-position = Vector2(-3.306244, 172.1029)
-rest = Transform2D(1, 0, 0, 1, -3.306244, 172.1029)
+position = Vector2(34.000004, 129)
+rest = Transform2D(1, 0, 0, 1, 34.000004, 129)
 auto_calculate_length_and_angle = false
 length = 46.945793
-bone_angle = 1.5900047
+bone_angle = 1.5900046
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1046952407 node_paths=PackedStringArray("sync_rest_bone")]
 texture = ExtResource("1_oa5vj")

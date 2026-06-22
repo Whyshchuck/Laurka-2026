@@ -33,6 +33,7 @@ func _ready():
 
 	for pupil in get_pupils():
 		total_pupils += 1
+		pupil.setup_rig()  # uczeń z rigiem -> pokaż rig w pozie "stand"
 
 	_report_missing_quiz()
 

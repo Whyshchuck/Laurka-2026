@@ -17,9 +17,19 @@ const QuizOverlayScene := preload("res://scenes/ui/overlays/QuizOverlay.tscn")
 const AlphabetOverlayScene := preload("res://minigames/alphabet_overlay.tscn")
 var quiz_overlay: CanvasLayer = null
 var alphabet_overlay: CanvasLayer = null
+var alphabet_sfx: AudioStreamPlayer = null  # jingiel przy otwarciu minigry alfabetu
 
 func _ready():
 	update_quiz_score_label()
+
+	# Dźwięk "tadadadam" przy otwarciu minigry alfabetu (klik w panią Kamilę).
+	# load() z zabezpieczeniem: jeśli Godot jeszcze nie zaimportował ogg, gra
+	# ruszy bez crasha, a dźwięk włączy się po imporcie.
+	alphabet_sfx = AudioStreamPlayer.new()
+	var sfx_stream: Resource = load("res://audio/tadadadam.ogg")
+	if sfx_stream:
+		alphabet_sfx.stream = sfx_stream
+	add_child(alphabet_sfx)
 
 	# Tryb "ganianie" (dawny HARD) wycofany — klasa startuje spokojnie w obu trybach.
 	# TODO (Faza 1): usunąć resztę kodu chase (countdown, respawn, timer, licznik).
@@ -155,6 +165,8 @@ func open_alphabet() -> void:
 	# Otwórz minigrę alfabetu (klik w panią Kamilę, tylko jedna nakładka naraz).
 	if alphabet_overlay and is_instance_valid(alphabet_overlay):
 		return
+	if alphabet_sfx and alphabet_sfx.stream:
+		alphabet_sfx.play()
 	alphabet_overlay = AlphabetOverlayScene.instantiate()
 	add_child(alphabet_overlay)
 	alphabet_overlay.open_from($PKamila/TextureRect3)

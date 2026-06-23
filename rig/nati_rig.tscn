@@ -5,7 +5,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://bnbb65shec7km" path="res://rig/pupil_anims.tres" id="3_5ygkv"]
 [ext_resource type="AnimationLibrary" uid="uid://b078jnwb24mwb" path="res://rig/lucja_anims.tres" id="4_as40x"]
 
-[node name="KrzysiekRig" type="Node2D" unique_id=1282551274]
+[node name="NatiRig" type="Node2D" unique_id=1282551274]
 
 [node name="Skeleton2D" type="Skeleton2D" parent="." unique_id=152294897]
 position = Vector2(88, 113)

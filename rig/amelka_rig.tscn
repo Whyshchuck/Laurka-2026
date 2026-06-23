@@ -5,7 +5,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://bnbb65shec7km" path="res://rig/pupil_anims.tres" id="3_qxbtd"]
 [ext_resource type="AnimationLibrary" uid="uid://c4gccow5h3233" path="res://rig/amelka_anims.tres" id="4_03fvc"]
 
-[node name="WiktorRig" type="Node2D" unique_id=1282551274]
+[node name="AmelkaRig" type="Node2D" unique_id=1282551274]
 
 [node name="Skeleton2D" type="Skeleton2D" parent="." unique_id=152294897]
 position = Vector2(7, 155)
@@ -41,7 +41,7 @@ position = Vector2(-44.000023, 62.00002)
 rest = Transform2D(1, 0, 0, 1, -44.000023, 62.00002)
 auto_calculate_length_and_angle = false
 length = 43.688423
-bone_angle = 2.160075
+bone_angle = 2.1600747
 
 [node name="RamieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=662576914]
 position = Vector2(32.99999, -8.000002)
@@ -57,7 +57,7 @@ position = Vector2(43.000015, 79.00002)
 rest = Transform2D(1, 0, 0, 1, 43.000015, 79.00002)
 auto_calculate_length_and_angle = false
 length = 33.409977
-bone_angle = -0.5270587
+bone_angle = -0.52705866
 
 [node name="UdoL" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=454119200]
 position = Vector2(-53.252426, 19.040009)
@@ -89,7 +89,7 @@ position = Vector2(16.000004, 96.00004)
 rest = Transform2D(1, 0, 0, 1, 16.000004, 96.00004)
 auto_calculate_length_and_angle = false
 length = 49.56662
-bone_angle = 1.5871447
+bone_angle = 1.5871446
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1046952407]
 texture = ExtResource("1_2ajpg")

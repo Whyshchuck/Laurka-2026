@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://c0ls0f3vh2jwg" path="res://sprites/michal_k_2026.png" id="1_l5d2u"]
 [ext_resource type="Script" uid="uid://bbka3u0sn1ebi" path="res://rig/auto_outline.gd" id="2_odtnb"]
 [ext_resource type="AnimationLibrary" uid="uid://bnbb65shec7km" path="res://rig/pupil_anims.tres" id="3_vaarq"]
-[ext_resource type="AnimationLibrary" uid="uid://dpetmw8cqo42y" path="res://rig/michal_k_anims.tres" id="4_kanim"]
+[ext_resource type="AnimationLibrary" uid="uid://7mh5ehxt7j6" path="res://rig/michal_k_anims.tres" id="4_kanim"]
 [ext_resource type="Texture2D" uid="uid://50p8q1opo4ni" path="res://sprites/michal_k_pilka.png" id="5_pilka"]
 
-[node name="MichalRig" type="Node2D" unique_id=1282551274]
+[node name="MichalKRig" type="Node2D" unique_id=1282551274]
 
 [node name="Skeleton2D" type="Skeleton2D" parent="." unique_id=152294897]
 position = Vector2(23, 0)

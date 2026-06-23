@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://be0nmvioamqjj" path="res://sprites/kuba_2026.png" id="1_hfdrw"]
 [ext_resource type="Script" uid="uid://bbka3u0sn1ebi" path="res://rig/auto_outline.gd" id="2_2xrut"]
 [ext_resource type="AnimationLibrary" uid="uid://bnbb65shec7km" path="res://rig/pupil_anims.tres" id="3_bphw6"]
-[ext_resource type="AnimationLibrary" uid="uid://bkubaanims0001" path="res://rig/kuba_anims.tres" id="4_kanim"]
+[ext_resource type="AnimationLibrary" uid="uid://ccsor1eulseom" path="res://rig/kuba_anims.tres" id="4_kanim"]
 
-[node name="KrzysiekRig" type="Node2D" unique_id=1282551274]
+[node name="KubaRig" type="Node2D" unique_id=1282551274]
 
 [node name="Skeleton2D" type="Skeleton2D" parent="." unique_id=152294897]
 position = Vector2(23, 0)

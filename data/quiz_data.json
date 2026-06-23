@@ -169,6 +169,20 @@
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
 	],
 	"Jasiek": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{ 
+			"question": "Jakie są ulubione komiksy Janka?", 
+			"answers": ["Wojownicy i Dogman", "Dinoodyseja i Moby", "Dogman i Moby"], 
+			"correct": 2 
+		},
+		{
+			"question": "Jaka jest ulubiona rodzina pająków Janka?",
+			"answers": ["pogońcowate", "skakunowate", "ptaszniki"],
+			"correct": 1
+		},
+		{
+			"question": "Jaki jest ulubiony kolor Janka?",
+			"answers": ["zielony", "niebieski", "fioletowy"],
+			"correct": 2
+		}
 	]
 }

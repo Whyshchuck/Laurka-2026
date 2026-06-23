@@ -419,6 +419,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Amelka" unique_id=1346497617]
+visible = false
 z_as_relative = false
 offset_left = -70.0
 offset_top = -228.0
@@ -637,13 +638,11 @@ hframes = 4
 vframes = 3
 
 [node name="Anabiya" parent="Pupils" unique_id=945626928 instance=ExtResource("6_6e7js")]
-visible = false
-position = Vector2(463, 876)
+position = Vector2(128, 888)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Anabiya" unique_id=1195176300]
-visible = false
 z_as_relative = false
 offset_left = -62.0
 offset_top = -212.0

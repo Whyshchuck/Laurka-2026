@@ -66,7 +66,9 @@ func _unhandled_input(event):
 	var clicked_characters := []
 
 	var arrow_node = $ReturnArrow
-	if Geometry2D.is_point_in_polygon(mouse_pos, arrow_node.polygon):
+	# polygon jest w LOKALNYCH współrzędnych węzła (a węzeł ma offset position),
+	# więc mysz przeliczamy do tej samej przestrzeni — inaczej klik jest przesunięty.
+	if Geometry2D.is_point_in_polygon(arrow_node.to_local(mouse_pos), arrow_node.polygon):
 		GameFlow.go_to_mode_selection()
 		return
 
@@ -78,8 +80,12 @@ func _unhandled_input(event):
 		# Pani Kamila nie jest w $Pupils — klik w nią otwiera minigrę alfabetu.
 		# Rect liczony ręcznie, bo get_global_rect() nie uwzględnia scale.
 		var kamila: TextureRect = $PKamila/TextureRect3
-		var kamila_rect := Rect2(
-			kamila.get_global_transform_with_canvas().origin, kamila.size * kamila.scale)
+		# Rect w przestrzeni ŚWIATA (jak mouse_pos i uczniowie), ze skalą.
+		# NIE _with_canvas — to dawało piksele EKRANU (po transformacie canvas),
+		# więc w HTML5/przy skalowaniu okna klik się rozjeżdżał i Kamila była
+		# nieklikalna. get_global_transform() = świat + skala.
+		var kt := kamila.get_global_transform()
+		var kamila_rect := Rect2(kt.origin, kamila.size * kt.get_scale())
 		if kamila_rect.has_point(mouse_pos):
 			open_alphabet()
 		return

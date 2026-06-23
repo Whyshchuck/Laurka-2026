@@ -98,7 +98,6 @@ bones = ["Biodra", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 internal_vertex_count = 231
 script = ExtResource("2_imjbq")
 sync_rest_bone = NodePath("../Skeleton2D/Biodra/Tulow")
-edytuj_szkielet_bez_deformacji = true
 metadata/stoi_calib = {
 "Biodra": 0.0,
 "Biodra/Tulow": 0.0,

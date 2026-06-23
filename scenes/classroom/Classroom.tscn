@@ -71,6 +71,7 @@
 [ext_resource type="Texture2D" uid="uid://0ovyqduspdrb" path="res://sprites/jasiek-Sheet.png" id="61_vtuje"]
 [ext_resource type="Texture2D" uid="uid://bmdkonb4u2sop" path="res://sprites/p_kamila.png" id="65_y7ma7"]
 [ext_resource type="Texture2D" uid="uid://0gu82qf4auj" path="res://sprites/p_kamila-Sheet.png" id="69_eqqr6"]
+[ext_resource type="Script" uid="uid://bf3cc6d6j5yro" path="res://scripts/classroom/Teacher.gd" id="70_hd05m"]
 [ext_resource type="PackedScene" uid="uid://dvwy6gapmhtov" path="res://rig/p_kamila_rig.tscn" id="70_kamrig"]
 [ext_resource type="Texture2D" uid="uid://crhcsm03c307q" path="res://sprites/igloo.png" id="73_facdn"]
 [ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="76_enr04"]
@@ -234,6 +235,11 @@ position = Vector2(-7, -90)
 scale = Vector2(0.397045, 0.397045)
 texture = ExtResource("7_lucnorm")
 
+[node name="Area2D" type="Area2D" parent="Pupils/Łucja" unique_id=1535630839]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pupils/Łucja/Area2D" unique_id=818621531]
+polygon = PackedVector2Array(-23, -209, 27, -210, 44, -196, 53, -172, 50, -153, 52, -117, 25, -120, 36, -74, -20, -73, -39, -72, -35, -110, -15, -138, -11, -156, -32, -174)
+
 [node name="Hania" parent="Pupils" unique_id=1593792820 instance=ExtResource("6_6e7js")]
 position = Vector2(453.99997, 381.99994)
 scale = Vector2(0.88416, 0.798544)
@@ -267,6 +273,13 @@ texture = ExtResource("10_vtuje")
 hframes = 4
 vframes = 3
 
+[node name="Area2D" type="Area2D" parent="Pupils/Hania" unique_id=659384466]
+position = Vector2(10.179187, -206.62599)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pupils/Hania/Area2D" unique_id=994210181]
+position = Vector2(-11.310169, -68.87535)
+polygon = PackedVector2Array(2.262024, -2.504547, 28.27539, -2.504547, 38.45453, 21.288757, 33.93048, 40.072937, 28.27539, 62.613968, 45.24066, 145.26439, 46.371704, 154.03035, -26.013397, 155.28264, -22.620361, 105.19145, -38.45459, 103.93916, -12.441193, 62.613968, -5.6550903, 26.297867)
+
 [node name="Wojtek" parent="Pupils" unique_id=1588107542 instance=ExtResource("6_6e7js")]
 position = Vector2(368, 535)
 collision_layer = 1
@@ -286,6 +299,14 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pupils/Wojtek" unique_id=1870162590]
 stream = ExtResource("9_2u30p")
+
+[node name="Area2D" type="Area2D" parent="Pupils/Wojtek" unique_id=354038905]
+position = Vector2(7.000006, -152)
+scale = Vector2(0.88416, 0.798544)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pupils/Wojtek/Area2D" unique_id=2145657834]
+position = Vector2(-18.096272, -7.5136747)
+polygon = PackedVector2Array(-2.262024, -6.2614136, 14.703217, -13.775085, 4.5240784, -26.297882, 6.7861023, -57.60486, 21.489319, -63.86624, 36.192535, -56.35257, 36.192535, -33.811554, 32.7995, -13.775085, 44.10965, 0, 41.847626, 43.829773, 46.371704, 113.9574, -13.572205, 115.209656, 2.262024, 73.88446, 2.262024, 26.297852)
 
 [node name="Oliwka" parent="Pupils" unique_id=615776245 instance=ExtResource("6_6e7js")]
 position = Vector2(347, 687)
@@ -386,6 +407,7 @@ stream = ExtResource("12_r71ne")
 libraries/ = SubResource("AnimationLibrary_r3myd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pupils/Nati" unique_id=2102833435]
+visible = false
 z_as_relative = false
 position = Vector2(14, -94)
 scale = Vector2(0.216293, 0.315571)
@@ -419,6 +441,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Amelka" unique_id=1346497617]
+visible = false
 z_as_relative = false
 offset_left = -70.0
 offset_top = -228.0
@@ -792,6 +815,12 @@ texture = ExtResource("61_vtuje")
 hframes = 4
 vframes = 3
 
+[node name="Area2D" type="Area2D" parent="Pupils/Jasiek" unique_id=1651840917]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pupils/Jasiek/Area2D" unique_id=1759644456]
+position = Vector2(-45, -161)
+polygon = PackedVector2Array(-4, 0, 22, -48, 42, -47, 61, -10, 53, 47, 51, 74, 59, 94, 59, 112, -1, 114, 9, 78, 8, 57, -4, 13)
+
 [node name="DeskCenter3" parent="Pupils" unique_id=182975833 instance=ExtResource("3_dju2y")]
 z_as_relative = false
 position = Vector2(332, 734)
@@ -896,6 +925,7 @@ theme_override_font_sizes/font_size = 30
 stream = ExtResource("60_5qgbj")
 
 [node name="PKamila" type="CharacterBody2D" parent="." unique_id=462450015]
+script = ExtResource("70_hd05m")
 
 [node name="TextureRect3" type="TextureRect" parent="PKamila" unique_id=2098838230]
 visible = false
@@ -926,6 +956,11 @@ z_index = 10
 z_as_relative = false
 position = Vector2(787.2, 828.4)
 scale = Vector2(0.4088, 0.4088)
+
+[node name="Area2D" type="Area2D" parent="PKamila" unique_id=186761293]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PKamila/Area2D" unique_id=1030887351]
+polygon = PackedVector2Array(881, 836, 972, 848, 967, 912, 943, 932, 983, 993, 1019, 1015, 1002, 1043, 973, 1054, 993, 1178, 877, 1177, 879, 1153, 902, 1147, 891, 1125, 899, 955, 857, 1030, 806, 1030, 813, 1012, 842, 1008, 896, 939, 859, 890)
 
 [node name="TimeLabel" type="Label" parent="." unique_id=734892391]
 anchors_preset = 1

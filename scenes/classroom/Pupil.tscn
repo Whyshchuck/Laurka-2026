@@ -10,8 +10,6 @@ script = ExtResource("1_sa8sb")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1903042410]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=601061575]
-
 [node name="RespawnTimer" type="Timer" parent="." unique_id=1299944569]
 wait_time = 5.0
 

@@ -43,9 +43,11 @@ func _ready():
 
 	for pupil in get_pupils():
 		total_pupils += 1
+		pupil.pupil_clicked.connect(open_quiz)
 		pupil.setup_rig()  # uczeń z rigiem -> pokaż rig w pozie "stand"
 
 	_report_missing_quiz()
+
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
@@ -58,41 +60,16 @@ func _unhandled_input(event):
 	if game_started and sitting_count == 24:
 		GameFlow.go_to_final_scene()
 	
-
 	if not (event is InputEventMouseButton and event.pressed):
 		return
 
 	var mouse_pos = get_global_mouse_position()
-	var clicked_characters := []
 
 	var arrow_node = $ReturnArrow
 	if Geometry2D.is_point_in_polygon(mouse_pos, arrow_node.polygon):
 		GameFlow.go_to_mode_selection()
 		return
 
-	for node in get_pupils():
-		if node.texture_rect.get_global_rect().has_point(mouse_pos):
-			clicked_characters.append(node)
-
-	if clicked_characters.is_empty():
-		# Pani Kamila nie jest w $Pupils — klik w nią otwiera minigrę alfabetu.
-		# Rect liczony ręcznie, bo get_global_rect() nie uwzględnia scale.
-		var kamila: TextureRect = $PKamila/TextureRect3
-		var kamila_rect := Rect2(
-			kamila.get_global_transform_with_canvas().origin, kamila.size * kamila.scale)
-		if kamila_rect.has_point(mouse_pos):
-			open_alphabet()
-		return
-
-	# Sortuj po z_index malejąco (czyli najwyższy na początku)
-	clicked_characters.sort_custom(func(a, b): return a.position.y > b.position.y)
-	var top_character = clicked_characters[0]
-	
-	if GameState.current_type == GameState.GameType.QUIZ:
-		open_quiz(top_character)
-	else:
-		top_character.on_click()
-	
 func get_pupils() -> Array[Pupil]:
 	var result: Array[Pupil] = []
 	pupils_node = get_node("Pupils")

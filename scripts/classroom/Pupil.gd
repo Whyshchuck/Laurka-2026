@@ -48,6 +48,7 @@ var _transform_base_w := 0.0   # szerokość stadium wyjściowego na ekranie
 @onready var respawn_timer: Timer = $RespawnTimer
 @onready var texture_rect: TextureRect = $TextureRect
 @onready var sprite: Sprite2D = get_node_or_null("Sprite2D")  # nie każdy uczeń ma Sprite2D
+@onready var area: Area2D = $Area2D
 
 var _rig: Node2D = null  # rig ucznia (jeśli go ma) — zastępuje płaską grafikę
 
@@ -100,6 +101,8 @@ func _display_rect() -> Rect2:
 
 
 func _ready():
+	if area:
+		area.input_event.connect(_on_area_input_event)
 	if Engine.is_editor_hint():
 		setup_rig()  # tylko podgląd rigu w edytorze
 		return
@@ -108,20 +111,21 @@ func _ready():
 	nav_map_rid = nav_region.get_navigation_map()
 	respawn_timer.timeout.connect(_on_respawn_timer_timeout)
 
+func _on_area_input_event(_viewport: Viewport,event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton \
+	and event.button_index == MOUSE_BUTTON_LEFT \
+	and event.pressed:
+		if GameState.current_type == GameState.GameType.QUIZ:
+			get_node("/root/Classroom").open_quiz(self)
+		else:
+			on_click()
+			
+
 func _unhandled_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint():
 		return
 	if character_state in [CharacterState.LOCKED, CharacterState.RETURNING]:
 		return
-
-	if not (event is InputEventMouseButton and event.pressed):
-		return
-
-	var mouse_pos: Vector2 = get_global_mouse_position()
-	if texture_rect.get_global_rect().has_point(mouse_pos):
-		# Dawna mechanika "ganianie" (odprowadzanie uciekinierów) wycofana.
-		# Klik obsługuje classroom.gd -> on_click(). TODO Faza 1/2: usunąć resztę chase.
-		pass
 				
 func on_click():
 	match GameState.current_type:

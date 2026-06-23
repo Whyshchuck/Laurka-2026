@@ -102,7 +102,21 @@
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
 	],
 	"Wojtek": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Wojtek samodzielnie wszedł na Giewont w wieku",
+			"answers": ["5 lat", "10 lat", "Nie doszedł na szczyt"],
+			"correct": 0
+		},
+		{
+			"question": "Ulubiona płyta Wojtka to:",
+			"answers": ["Yellow Submarine, The Beatles", "1-800-Oświecenie, Taco Hemingway", "Mamma Mia!"],
+			"correct": 1
+		},
+		{
+			"question": "Ulubiony film Wojtka to:",
+			"answers": ["Forrest Gump", "Gwiezdne wojny: Nowa nadzieja", "Pożegnanie z Afryką"],
+			"correct": 1
+		}
 	],
 	"Antek": [
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
@@ -111,7 +125,15 @@
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
 	],
 	"Nati": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{"question": "O czym marzy Natalka?",
+		"answers": ["O karaluchu", "O psie", "O papudze"],
+		"correct": 1},
+		{"question": "Jaki sport ćwiczy Natalia?",
+		"answers": ["Taniec", "Krav Maga", "Karate"],
+		"correct": 2},
+		{"question": "Jaką postać z anime ma Natalka na koszulce?",
+		"answers": ["Dragon Ball", "Świnka Peppa", "Szop"],
+		"correct": 0}
 	],
 	"Krystian": [
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }

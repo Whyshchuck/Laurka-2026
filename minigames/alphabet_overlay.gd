@@ -68,6 +68,10 @@ var _foot_l_base := 0.0           # rotacja stopy w pozie stoi (baza tupania)
 var _tap_time := 0.0
 
 var _drag_idx := -1
+# Na dotyku kafelek znika pod palcem — podnosimy go NAD palec. Tylko gdy jest
+# touchscreen (na myszy offset 0). Detekcja komórki używa pozycji KAFELKA, nie palca.
+const TOUCH_LIFT := Vector2(0, -160)
+var _drag_lift := Vector2.ZERO
 var _intro_done := false
 var _won := false
 var _closing := false
@@ -348,9 +352,9 @@ func _on_dim_input(event: InputEvent) -> void:
 		if event.pressed:
 			_start_drag(event.position)
 		else:
-			_end_drag(event.position)
+			_end_drag(event.position + _drag_lift)  # komórka pod KAFELKIEM, nie palcem
 	elif event is InputEventMouseMotion and _drag_idx != -1:
-		_tiles[_drag_idx].sprite.position = event.position
+		_tiles[_drag_idx].sprite.position = event.position + _drag_lift
 
 
 func _start_drag(pos: Vector2) -> void:
@@ -360,9 +364,11 @@ func _start_drag(pos: Vector2) -> void:
 	if idx == -1 or _tiles[idx] == null:
 		return
 	_drag_idx = idx
+	# Na dotyku podnieś kafelek nad palec; na myszy zostaw pod kursorem.
+	_drag_lift = TOUCH_LIFT if DisplayServer.is_touchscreen_available() else Vector2.ZERO
 	var tile: Dictionary = _tiles[idx]
 	tile.sprite.z_index = 100
-	tile.sprite.position = pos
+	tile.sprite.position = pos + _drag_lift
 	_kill_tween(tile)
 	tile.tween = create_tween()
 	tile.tween.tween_property(tile.sprite, "scale", tile.base_scale * DRAG_SCALE, 0.12)

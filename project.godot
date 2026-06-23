@@ -33,7 +33,7 @@ window/size/viewport_height=1200
 window/size/initial_position_type=0
 window/size/borderless=true
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/stretch/aspect="keep"
 
 [rendering]
 

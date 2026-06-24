@@ -96,7 +96,8 @@
 	],
 
 	"Lucja": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{ "question": "Kim chce zostać Łucja w przyszłości", "answers": ["zoologiem", "kryptozoologiem", "paleontologiem"], "correct": 1 },
+		{ "question": "Jaki jest mój ulubiony kolor", "answers": ["różowy", "zielony", "fioletowy"], "correct": 2 }
 	],
 	"Hania": [
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }

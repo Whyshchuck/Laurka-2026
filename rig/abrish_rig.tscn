@@ -45,7 +45,7 @@ bone_angle = -2.9520528
 
 [node name="RamieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=662576914]
 position = Vector2(95.000046, 0)
-scale = Vector2(0.99999964, 0.99999964)
+scale = Vector2(0.9999996, 0.9999996)
 rest = Transform2D(1, 0, 0, 1, 95.000046, 0)
 
 [node name="PrzedramieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieP" unique_id=95210401]

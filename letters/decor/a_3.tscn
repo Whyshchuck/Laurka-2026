@@ -25,6 +25,7 @@ orient = 1
 hop_height = 120.0
 jump_straight = true
 flip_to_direction = true
+sync_pose_to_hop = true
 
 [node name="Element" type="Sprite2D" parent="Ozdoba" unique_id=450794215]
 scale = Vector2(0.7, 0.7)

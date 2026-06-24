@@ -435,7 +435,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("11_lqrni")
 
 [node name="Michał" parent="Pupils" unique_id=1952351644 instance=ExtResource("6_6e7js")]
-position = Vector2(660, 354)
+position = Vector2(215, 526)
 collision_layer = 1
 collision_mask = 2
 
@@ -460,6 +460,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/MichałA" unique_id=564168240]
+visible = false
 z_as_relative = false
 offset_left = -68.0
 offset_top = -210.0
@@ -497,6 +498,7 @@ stream = ExtResource("26_j8bve")
 libraries/ = SubResource("AnimationLibrary_r3myd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pupils/Maja" unique_id=2031577019]
+visible = false
 z_as_relative = false
 position = Vector2(8, -82)
 scale = Vector2(0.452913, 0.405629)
@@ -537,11 +539,12 @@ hframes = 4
 vframes = 3
 
 [node name="Piotrek" parent="Pupils" unique_id=2009672695 instance=ExtResource("6_6e7js")]
-position = Vector2(652, 535)
+position = Vector2(646, 538)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Piotrek" unique_id=1650838949]
+visible = false
 z_as_relative = false
 offset_left = -68.0
 offset_top = -210.0
@@ -608,7 +611,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("34_mh7vt")
 
 [node name="KazikL" parent="Pupils" unique_id=1001703883 instance=ExtResource("6_6e7js")]
-position = Vector2(360, 369)
+position = Vector2(368, 987)
 collision_layer = 1
 collision_mask = 2
 
@@ -631,6 +634,7 @@ stream = ExtResource("36_5qgbj")
 libraries/ = SubResource("AnimationLibrary_r3myd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pupils/KazikL" unique_id=2042301548]
+visible = false
 z_as_relative = false
 position = Vector2(5, -98)
 scale = Vector2(0.538657, 0.338766)
@@ -639,11 +643,12 @@ hframes = 4
 vframes = 3
 
 [node name="Anabiya" parent="Pupils" unique_id=945626928 instance=ExtResource("6_6e7js")]
-position = Vector2(128, 888)
+position = Vector2(543, 371)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Anabiya" unique_id=1195176300]
+visible = false
 z_as_relative = false
 offset_left = -62.0
 offset_top = -212.0
@@ -661,6 +666,7 @@ stream = ExtResource("38_shilq")
 libraries/ = SubResource("AnimationLibrary_r3myd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pupils/Anabiya" unique_id=2109296537]
+visible = false
 z_as_relative = false
 position = Vector2(14, -86)
 scale = Vector2(0.41505, 0.37873)
@@ -669,7 +675,7 @@ hframes = 4
 vframes = 3
 
 [node name="Kuba" parent="Pupils" unique_id=17679816 instance=ExtResource("6_6e7js")]
-position = Vector2(360, 821)
+position = Vector2(360, 812)
 collision_layer = 1
 collision_mask = 2
 
@@ -701,11 +707,12 @@ hframes = 4
 vframes = 3
 
 [node name="Abrish" parent="Pupils" unique_id=745045710 instance=ExtResource("6_6e7js")]
-position = Vector2(128, 705)
+position = Vector2(373, 371)
 collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Abrish" unique_id=661607927]
+visible = false
 z_as_relative = false
 offset_left = -55.0
 offset_top = -215.0
@@ -725,6 +732,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="TextureRect" type="TextureRect" parent="Pupils/Szymon" unique_id=611368118]
+visible = false
 z_as_relative = false
 offset_left = -67.0
 offset_top = -226.0
@@ -760,7 +768,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("23_1j5ya")
 
 [node name="Jasiek" parent="Pupils" unique_id=1293226741 instance=ExtResource("6_6e7js")]
-position = Vector2(576, 335)
+position = Vector2(675, 341)
 collision_layer = 1
 collision_mask = 2
 

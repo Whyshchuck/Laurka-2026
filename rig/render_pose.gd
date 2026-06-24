@@ -55,9 +55,12 @@ func _init() -> void:
 	for bone in bones:
 		_dot(img, bone.global_position + body_off, Color(0, 0.6, 1), 4)
 
-	var dl: Vector2 = skel.get_node("Biodra/Tulow/RamieL/PrzedramieL/DlonL").global_position + body_drop
-	var dp: Vector2 = skel.get_node("Biodra/Tulow/RamieP/PrzedramieP/DlonP").global_position + body_drop
-	print("dlonL @ ", dl.round(), "  dlonP @ ", dp.round())
+	# Druk pozycji dłoni — tylko jeśli rig humanoidalny ma te kości (kot/zwierz nie ma).
+	var dln_l := skel.get_node_or_null("Biodra/Tulow/RamieL/PrzedramieL/DlonL") as Bone2D
+	var dln_p := skel.get_node_or_null("Biodra/Tulow/RamieP/PrzedramieP/DlonP") as Bone2D
+	if dln_l and dln_p:
+		print("dlonL @ ", (dln_l.global_position + body_drop).round(),
+			"  dlonP @ ", (dln_p.global_position + body_drop).round())
 
 	# Piłka: wrysuj jej teksturę w aktualnej pozycji (i kółko konturu).
 	var ball := root.get_node_or_null("Pilka") as Sprite2D

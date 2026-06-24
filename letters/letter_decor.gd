@@ -45,6 +45,9 @@ enum Orient {
 @export var jump_straight := false
 # Odbij grafikę w poziomie w stronę ruchu (zakłada, że domyślnie patrzy w prawo).
 @export var flip_to_direction := false
+# Steruj KLATKĄ dziecka (Sprite2D-arkusz) wg fazy skoku: klatka 0 = "na dole"
+# (nogi razem, tuż przed wybiciem), ostatnia = w apogeum (rozprostowany w locie).
+@export var sync_pose_to_hop := false
 
 @export_group("Przypięcie do literki")
 # Ozdoba trzyma się środka KONKRETNEJ literki w LetterLabel — także gdy
@@ -179,3 +182,11 @@ func _place(node: CanvasItem, from_i: int, to_i: int, p: float, wrap: bool) -> v
 
 	if flip_to_direction and absf(vel.x) > 0.001:
 		node.scale.x = absf(node.scale.x) * signf(vel.x)
+
+	# Poza wg fazy skoku: lift = 0 na dole (nogi razem), 1 w apogeum (rozprostowany).
+	if sync_pose_to_hop and node is Sprite2D:
+		var spr := node as Sprite2D
+		var total := spr.hframes * spr.vframes
+		if total > 1:
+			var lift := sin(clampf(p, 0.0, 1.0) * PI)
+			spr.frame = int(round((total - 1) * lift))

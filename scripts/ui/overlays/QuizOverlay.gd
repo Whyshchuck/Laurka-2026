@@ -26,7 +26,15 @@ const LETTERS := ["A", "B", "C"]
 const CORRECT_ANSWER_COLOR: Color = Color.GREEN
 const WRONG_ANSWER_COLOR: Color = Color.RED
 
+const CHEER_SFX := "res://audio/dragon-studio-crowd-cheer-and-applause-406644.mp3"
+const SHOCK_SFX := "res://audio/universfield-crowd-shocked-reaction-352766.mp3"
+const HURA_TIME := 4.0  # ile trwa cieszenie się (długość animacji "hura")
+
+var _cheer_player: AudioStreamPlayer = null
+var _shock_player: AudioStreamPlayer = null
+
 var _closing := false
+var _busy := false  # blokuje kolejne kliknięcia w trakcie błysku/owacji
 var _pupil_name := ""
 var _question_index: int = 0
 var _questions_count: int = 0
@@ -45,6 +53,15 @@ func _ready() -> void:
 	close_button.pressed.connect(close)
 	for button in answer_buttons:
 		button.pressed.connect(_on_answer_pressed.bind(button))
+	_cheer_player = _make_sfx(CHEER_SFX)  # owacja przy dobrej odpowiedzi
+	_shock_player = _make_sfx(SHOCK_SFX)  # szok tłumu przy złej
+
+func _make_sfx(path: String) -> AudioStreamPlayer:
+	var p := AudioStreamPlayer.new()
+	if ResourceLoader.exists(path):
+		p.stream = load(path)
+	add_child(p)
+	return p
 
 func _input(event: InputEvent) -> void:
 	# ESC zamyka quiz (i nie wyrzuca do wyboru trybu).
@@ -139,25 +156,36 @@ func _on_dim_input(event: InputEvent) -> void:
 		close()
 
 func _on_answer_pressed(clicked_button: Button) -> void:
+	if _busy:
+		return
+	_busy = true
 	var is_correct: bool = clicked_button.get_meta("is_correct")
 	# Każde kliknięcie to udzielona odpowiedź (y); prawidłowe zwiększa też x.
 	GameState.register_answer(is_correct)
 
 	if is_correct:
+		if _cheer_player and _cheer_player.stream:
+			_cheer_player.play()  # owacja tłumu
 		if _rig:
 			RigHelper.play(_rig, "hura")  # uczeń się cieszy (k/hura albo hura)
+		# Zielony błysk + pełne 4 s cieszenia się (tyle trwa "hura" i owacja).
 		await flash_button(clicked_button, CORRECT_ANSWER_COLOR)
+		await get_tree().create_timer(HURA_TIME - ANIM_TIME).timeout
 		if _question_index + 1 < _questions_count:
 			_question_index += 1
 			_show_current_question()
 			if _rig:
 				RigHelper.play_stand(_rig)  # wróć do stania na kolejne pytanie
+			_busy = false
 		else:
 			# Mark this pupil as answered so they cannot be quizzed again
 			GameState.mark_pupil_answered(_pupil_name)
 			await close()
 	else:
+		if _shock_player and _shock_player.stream:
+			_shock_player.play()  # zszokowany tłum
 		await flash_button(clicked_button, WRONG_ANSWER_COLOR)
+		_busy = false  # zła odpowiedź — pozwól spróbować ponownie
 
 func _reset_button_styles(button: Button) -> void:
 	button.remove_theme_stylebox_override("normal")

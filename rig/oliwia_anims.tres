@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" format=3 uid="uid://dwtnvl7ddbfli"]
+[gd_resource type="AnimationLibrary" format=3]
 
 [sub_resource type="Animation" id="Animation_itrbe"]
 resource_name = "RESET"
@@ -185,7 +185,7 @@ tracks/14/keys = {
 
 [sub_resource type="Animation" id="Animation_207q7"]
 resource_name = "hura"
-length = 1.6
+length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -193,10 +193,10 @@ tracks/0/path = NodePath("Skeleton2D/Biodra/Tulow/RamieP:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.35, 0.6, 0.85, 1.1, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.55, 0.8, 1.05, 1.3, 1.55, 1.8, 2.05, 2.3, 2.55, 2.8, 3.05, 3.3, 3.55, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [-0.820788961648941, -2.820788961648941, -2.620788961648941, -2.820788961648941, -2.620788961648941, -0.820788961648941]
+"values": [-0.820788961648941, -2.820788961648941, -2.620788961648941, -2.820788961648941, -2.620788961648941, -2.820788961648941, -2.620788961648941, -2.820788961648941, -2.620788961648941, -2.820788961648941, -2.620788961648941, -2.820788961648941, -2.620788961648941, -2.820788961648941, -2.620788961648941, -0.820788961648941]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -205,10 +205,10 @@ tracks/1/path = NodePath("Skeleton2D/Biodra/Tulow/RamieL:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.35, 0.6, 0.85, 1.1, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.55, 0.8, 1.05, 1.3, 1.55, 1.8, 2.05, 2.3, 2.55, 2.8, 3.05, 3.3, 3.55, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.8912859380245208, 2.891285938024521, 2.691285938024521, 2.891285938024521, 2.691285938024521, 0.8912859380245208]
+"values": [0.8912859380245208, 2.891285938024521, 2.691285938024521, 2.891285938024521, 2.691285938024521, 2.891285938024521, 2.691285938024521, 2.891285938024521, 2.691285938024521, 2.891285938024521, 2.691285938024521, 2.891285938024521, 2.691285938024521, 2.891285938024521, 2.691285938024521, 0.8912859380245208]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -217,10 +217,10 @@ tracks/2/path = NodePath("Skeleton2D/Biodra/Tulow/RamieP/PrzedramieP/DlonP:rotat
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.35, 0.6, 0.85, 1.1, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.55, 0.8, 1.05, 1.3, 1.55, 1.8, 2.05, 2.3, 2.55, 2.8, 3.05, 3.3, 3.55, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.4, 0.3, -0.4, 0.3, 0.0]
+"values": [0.0, -0.4, 0.3, -0.4, 0.3, -0.4, 0.3, -0.4, 0.3, -0.4, 0.3, -0.4, 0.3, -0.4, 0.3, 0.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -229,10 +229,10 @@ tracks/3/path = NodePath("Skeleton2D/Biodra/Tulow/RamieL/PrzedramieL/DlonL:rotat
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.35, 0.6, 0.85, 1.1, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.55, 0.8, 1.05, 1.3, 1.55, 1.8, 2.05, 2.3, 2.55, 2.8, 3.05, 3.3, 3.55, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.28975004, 0.6897500395774842, -0.01024996042251585, 0.6897500395774842, -0.01024996042251585, 0.28975004]
+"values": [0.28975004, 0.6897500395774842, -0.01024996042251585, 0.6897500395774842, -0.01024996042251585, 0.6897500395774842, -0.01024996042251585, 0.6897500395774842, -0.01024996042251585, 0.6897500395774842, -0.01024996042251585, 0.6897500395774842, -0.01024996042251585, 0.6897500395774842, -0.01024996042251585, 0.28975004]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -241,10 +241,10 @@ tracks/4/path = NodePath("Skeleton2D/Biodra/Tulow/Glowa:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.35, 0.6, 0.85, 1.1, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.55, 0.8, 1.05, 1.3, 1.55, 1.8, 2.05, 2.3, 2.55, 2.8, 3.05, 3.3, 3.55, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.12, 0.1, -0.12, 0.1, 0.0]
+"values": [0.0, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_k4suy"]

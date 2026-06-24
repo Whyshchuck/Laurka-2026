@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" format=3]
+[gd_resource type="AnimationLibrary" format=3 uid="uid://c3xthen6rchrn"]
 
 [sub_resource type="Animation" id="Animation_heene"]
 length = 0.001

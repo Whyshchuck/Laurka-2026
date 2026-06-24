@@ -14,7 +14,9 @@ const _PL := {
 const _OVERRIDE := {
 	"oliwka": "oliwia",
 	"kazikr": "kazik_r",
-	"michal": "michal_k",   # uwaga: który Michał — jeśli zły, popraw tu
+	"kazikl": "kazik_l",
+	"michal": "michal_k",   # Michał (koszykarz) -> michal_k
+	"michala": "michal_a",  # drugi Michał (MichałA) -> michal_a
 }
 
 

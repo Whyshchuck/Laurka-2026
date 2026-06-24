@@ -386,6 +386,7 @@ stream = ExtResource("12_r71ne")
 libraries/ = SubResource("AnimationLibrary_r3myd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pupils/Nati" unique_id=2102833435]
+visible = false
 z_as_relative = false
 position = Vector2(14, -94)
 scale = Vector2(0.216293, 0.315571)

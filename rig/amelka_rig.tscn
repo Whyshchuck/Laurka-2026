@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cwmibksxapc2y"]
 
 [ext_resource type="Texture2D" uid="uid://c25rn4qv3by3p" path="res://sprites/amelka_2026.png" id="1_2ajpg"]
+[ext_resource type="Texture2D" uid="uid://cv4aqfc6c6pyi" path="res://sprites/amelka_wlosy.png" id="1_qxbtd"]
 [ext_resource type="Script" uid="uid://bbka3u0sn1ebi" path="res://rig/auto_outline.gd" id="2_03fvc"]
-[ext_resource type="AnimationLibrary" uid="uid://bnbb65shec7km" path="res://rig/pupil_anims.tres" id="3_qxbtd"]
-[ext_resource type="AnimationLibrary" uid="uid://c4gccow5h3233" path="res://rig/amelka_anims.tres" id="4_03fvc"]
+[ext_resource type="AnimationLibrary" path="res://rig/pupil_anims.tres" id="3_qxbtd"]
+[ext_resource type="AnimationLibrary" path="res://rig/amelka_anims.tres" id="4_03fvc"]
 
 [node name="AmelkaRig" type="Node2D" unique_id=1282551274]
 
@@ -17,7 +18,7 @@ rest = Transform2D(1, 0, 0, 1, 258.5, 508.96)
 
 [node name="Tulow" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=80937432]
 position = Vector2(0.5000019, -175.95998)
-scale = Vector2(0.9999999, 0.9999999)
+scale = Vector2(0.9999998, 0.9999998)
 rest = Transform2D(1, 0, 0, 1, 0.5000019, -175.95998)
 
 [node name="Glowa" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=2038798227]
@@ -27,8 +28,13 @@ auto_calculate_length_and_angle = false
 length = 184.56679
 bone_angle = -1.623839
 
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton2D/Biodra/Tulow/Glowa" unique_id=1246335508]
+position = Vector2(-15.000004, 81.00002)
+texture = ExtResource("1_qxbtd")
+
 [node name="RamieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=535061684]
 position = Vector2(-40.000008, 0)
+scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, -40.000008, 0)
 
 [node name="PrzedramieL" type="Bone2D" parent="Skeleton2D/Biodra/Tulow/RamieL" unique_id=1831878168]
@@ -41,7 +47,7 @@ position = Vector2(-44.000023, 62.00002)
 rest = Transform2D(1, 0, 0, 1, -44.000023, 62.00002)
 auto_calculate_length_and_angle = false
 length = 43.688423
-bone_angle = 2.1600747
+bone_angle = 2.1600745
 
 [node name="RamieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=662576914]
 position = Vector2(32.99999, -8.000002)
@@ -57,7 +63,7 @@ position = Vector2(43.000015, 79.00002)
 rest = Transform2D(1, 0, 0, 1, 43.000015, 79.00002)
 auto_calculate_length_and_angle = false
 length = 33.409977
-bone_angle = -0.52705866
+bone_angle = -0.5270586
 
 [node name="UdoL" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=454119200]
 position = Vector2(-53.252426, 19.040009)
@@ -89,7 +95,7 @@ position = Vector2(16.000004, 96.00004)
 rest = Transform2D(1, 0, 0, 1, 16.000004, 96.00004)
 auto_calculate_length_and_angle = false
 length = 49.56662
-bone_angle = 1.5871446
+bone_angle = 1.5871445
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1046952407]
 texture = ExtResource("1_2ajpg")

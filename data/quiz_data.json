@@ -146,7 +146,21 @@
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
 	],
 	"Maja": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Jakie zwierzę lubi Maja?",
+			"answers": ["koty", "psy", "konie"],
+			"correct": 0
+		},
+		{
+			"question": "Co lubi najbardziej robić Maja?",
+			"answers": ["rysować", "skakać", "śpiewać"],
+			"correct": 0
+		},
+		{
+			"question": "Jaki jest ulubiony kolor Mai?",
+			"answers": ["brązowy", "fioletowy", "różowy"],
+			"correct": 1
+		}
 	],
 	"Piotrek": [
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
@@ -164,7 +178,16 @@
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
 	],
 	"Szymon": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Czy Szymon ma rodzeństwo?",
+			"answers": ["nie", "tak, siostrę", "tak, brata"],
+			"correct": 1
+		},
+		{
+			"question": "Jaka dyscyplinę sportu Szymon lubi najbardziej?",
+			"answers": ["siatkówka", "koszykówka", "piłka nożna"],
+			"correct": 1
+		}
 	],
 	"Milosz": [
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }

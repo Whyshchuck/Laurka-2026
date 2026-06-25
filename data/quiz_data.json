@@ -242,7 +242,21 @@
 		}
 	],
 	"KazikL": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Ile lat ma mój brat?",
+			"answers": ["4 lata", "3 lata", "5 lat"],
+			"correct": 0
+		},
+		{
+			"question": "Jaki mam plecak?",
+			"answers": ["w Minecraft", "Wojana", "w pokemony"],
+			"correct": 1
+		},
+		{
+			"question": "Jaki kolor ma mój pies?",
+			"answers": ["brązowy", "czarny", "biały"],
+			"correct": 1
+		}
 	],
 	"Anabiya": [
 		{

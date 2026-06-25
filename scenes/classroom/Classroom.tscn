@@ -235,7 +235,7 @@ scale = Vector2(0.397045, 0.397045)
 texture = ExtResource("7_lucnorm")
 
 [node name="Hania" parent="Pupils" unique_id=1593792820 instance=ExtResource("6_6e7js")]
-position = Vector2(453.99997, 381.99994)
+position = Vector2(455.00003, 363)
 scale = Vector2(0.88416, 0.798544)
 collision_layer = 1
 collision_mask = 2
@@ -268,7 +268,7 @@ hframes = 4
 vframes = 3
 
 [node name="Wojtek" parent="Pupils" unique_id=1588107542 instance=ExtResource("6_6e7js")]
-position = Vector2(373, 962)
+position = Vector2(373, 985)
 collision_layer = 1
 collision_mask = 2
 
@@ -362,7 +362,7 @@ hframes = 4
 vframes = 3
 
 [node name="Nati" parent="Pupils" unique_id=1277592532 instance=ExtResource("6_6e7js")]
-position = Vector2(555, 1002)
+position = Vector2(555, 1025)
 collision_layer = 1
 collision_mask = 2
 
@@ -435,7 +435,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("11_lqrni")
 
 [node name="Michał" parent="Pupils" unique_id=1952351644 instance=ExtResource("6_6e7js")]
-position = Vector2(215, 526)
+position = Vector2(220, 504)
 collision_layer = 1
 collision_mask = 2
 
@@ -455,7 +455,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("24_j8bve")
 
 [node name="MichałA" parent="Pupils" unique_id=26034157 instance=ExtResource("6_6e7js")]
-position = Vector2(653, 972)
+position = Vector2(653, 995)
 collision_layer = 1
 collision_mask = 2
 
@@ -475,7 +475,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("24_jbgm4")
 
 [node name="Maja" parent="Pupils" unique_id=2122220698 instance=ExtResource("6_6e7js")]
-position = Vector2(459, 942)
+position = Vector2(459, 965)
 collision_layer = 1
 collision_mask = 2
 
@@ -507,7 +507,7 @@ hframes = 4
 vframes = 3
 
 [node name="Julek" parent="Pupils" unique_id=2063939969 instance=ExtResource("6_6e7js")]
-position = Vector2(128, 543)
+position = Vector2(134, 533)
 collision_layer = 1
 collision_mask = 2
 
@@ -539,7 +539,7 @@ hframes = 4
 vframes = 3
 
 [node name="Piotrek" parent="Pupils" unique_id=2009672695 instance=ExtResource("6_6e7js")]
-position = Vector2(646, 538)
+position = Vector2(645, 505)
 collision_layer = 1
 collision_mask = 2
 
@@ -611,7 +611,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("34_mh7vt")
 
 [node name="KazikL" parent="Pupils" unique_id=1001703883 instance=ExtResource("6_6e7js")]
-position = Vector2(109, 706)
+position = Vector2(124, 706)
 collision_layer = 1
 collision_mask = 2
 
@@ -707,7 +707,7 @@ hframes = 4
 vframes = 3
 
 [node name="Abrish" parent="Pupils" unique_id=745045710 instance=ExtResource("6_6e7js")]
-position = Vector2(371, 350)
+position = Vector2(394, 350)
 collision_layer = 1
 collision_mask = 2
 
@@ -727,7 +727,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("41_dtuxj")
 
 [node name="Szymon" parent="Pupils" unique_id=1437319454 instance=ExtResource("6_6e7js")]
-position = Vector2(584, 538)
+position = Vector2(382, 516)
 collision_layer = 1
 collision_mask = 2
 
@@ -768,7 +768,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("23_1j5ya")
 
 [node name="Jasiek" parent="Pupils" unique_id=1293226741 instance=ExtResource("6_6e7js")]
-position = Vector2(675, 341)
+position = Vector2(672, 315)
 collision_layer = 1
 collision_mask = 2
 
@@ -806,7 +806,7 @@ position = Vector2(332, 734)
 
 [node name="DeskCenter2" parent="Pupils" unique_id=969128046 instance=ExtResource("3_dju2y")]
 z_as_relative = false
-position = Vector2(329, 584)
+position = Vector2(330, 565)
 
 [node name="DeskCenter1" parent="Pupils" unique_id=750423161 instance=ExtResource("3_dju2y")]
 z_as_relative = false
@@ -818,7 +818,7 @@ position = Vector2(325, 879)
 
 [node name="DeskCenter5" parent="Pupils" unique_id=1846139893 instance=ExtResource("3_dju2y")]
 z_as_relative = false
-position = Vector2(328, 1013)
+position = Vector2(328, 1036)
 
 [node name="DeskLeft" parent="Pupils" unique_id=409555453 instance=ExtResource("2_pq1j3")]
 z_as_relative = false
@@ -850,7 +850,7 @@ position = Vector2(76, 455)
 position = Vector2(80, 267)
 
 [node name="ChairCenter1" parent="Pupils" unique_id=395053487 instance=ExtResource("42_t5pko")]
-position = Vector2(316, 919)
+position = Vector2(316, 942)
 
 [node name="ChairCenter2" parent="Pupils" unique_id=2056961830 instance=ExtResource("42_t5pko")]
 position = Vector2(307, 780)
@@ -859,13 +859,13 @@ position = Vector2(307, 780)
 position = Vector2(500, 786)
 
 [node name="ChairCenter4" parent="Pupils" unique_id=1685563416 instance=ExtResource("42_t5pko")]
-position = Vector2(506, 919)
+position = Vector2(506, 942)
 
 [node name="ChairCenter5" parent="Pupils" unique_id=546999631 instance=ExtResource("42_t5pko")]
-position = Vector2(496, 486)
+position = Vector2(497, 467)
 
 [node name="ChairCenter6" parent="Pupils" unique_id=41253540 instance=ExtResource("42_t5pko")]
-position = Vector2(313, 486)
+position = Vector2(314, 467)
 
 [node name="ChairCenter11" parent="Pupils" unique_id=2143782180 instance=ExtResource("42_t5pko")]
 position = Vector2(307, 636)

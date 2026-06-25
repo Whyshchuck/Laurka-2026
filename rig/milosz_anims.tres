@@ -192,7 +192,7 @@ tracks/15/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 
 [sub_resource type="Animation" id="Animation_yxtln"]
@@ -208,7 +208,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.55, 0.8, 1.05, 1.3, 1.55, 1.8, 2.05, 2.3, 2.55, 2.8, 3.05, 3.3, 3.55, 4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -2.0, -1.8, -2.0, -1.8, -2.0, -1.8, -2.0, -1.8, -2.0, -1.8, -2.0, -1.8, -2.0, -1.8, 0.0]
+"values": [-0.7276257097721099, -2.72762570977211, -2.52762570977211, -2.72762570977211, -2.52762570977211, -2.72762570977211, -2.52762570977211, -2.72762570977211, -2.52762570977211, -2.72762570977211, -2.52762570977211, -2.72762570977211, -2.52762570977211, -2.72762570977211, -2.52762570977211, -0.7276257097721099]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -220,7 +220,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.55, 0.8, 1.05, 1.3, 1.55, 1.8, 2.05, 2.3, 2.55, 2.8, 3.05, 3.3, 3.55, 4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, 2.0, 1.8, 2.0, 1.8, 2.0, 1.8, 2.0, 1.8, 2.0, 1.8, 2.0, 1.8, 2.0, 1.8, 0.0]
+"values": [0.7934504866600036, 2.793450486660004, 2.5934504866600037, 2.793450486660004, 2.5934504866600037, 2.793450486660004, 2.5934504866600037, 2.793450486660004, 2.5934504866600037, 2.793450486660004, 2.5934504866600037, 2.793450486660004, 2.5934504866600037, 2.793450486660004, 2.5934504866600037, 0.7934504866600036]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -268,19 +268,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Skeleton2D/Biodra:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(403.5, 1107.4)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 
 [sub_resource type="Animation" id="Animation_pvf2v"]
@@ -308,19 +296,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Skeleton2D/Biodra:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(403.5, 1107.4)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 
 [sub_resource type="Animation" id="Animation_kozlowanie"]
@@ -486,7 +462,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.5, 0.7, 0.9, 1.1, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -1.4, -1.0, -1.4, -1.0, -1.4, 0.0]
+"values": [-0.7276257097721099, -2.1276257097721096, -1.72762570977211, -2.1276257097721096, -1.72762570977211, -2.1276257097721096, -0.7276257097721099]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -498,7 +474,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.5, 0.7, 0.9, 1.1, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.35, 0.25, -0.35, 0.25, -0.35, 0.0]
+"values": [0.28157448172569277, -0.0684255182743072, 0.5315744817256928, -0.0684255182743072, 0.5315744817256928, -0.0684255182743072, 0.28157448172569277]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -510,19 +486,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 1.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Skeleton2D/Biodra:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(403.5, 1107.4)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 
 [sub_resource type="Animation" id="Animation_wudel"]
@@ -538,7 +502,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.5, 0.7, 0.9, 1.1, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -1.4, -1.0, -1.4, -1.0, -1.4, 0.0]
+"values": [-0.7276257097721099, -2.1276257097721096, -1.72762570977211, -2.1276257097721096, -1.72762570977211, -2.1276257097721096, -0.7276257097721099]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -550,7 +514,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.5, 0.7, 0.9, 1.1, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.35, 0.25, -0.35, 0.25, -0.35, 0.0]
+"values": [0.28157448172569277, -0.0684255182743072, 0.5315744817256928, -0.0684255182743072, 0.5315744817256928, -0.0684255182743072, 0.28157448172569277]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -562,7 +526,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.5, 0.7, 0.9, 1.1, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, 1.4, 1.0, 1.4, 1.0, 1.4, 0.0]
+"values": [0.7934504866600036, 2.1934504866600033, 1.7934504866600036, 2.1934504866600033, 1.7934504866600036, 2.1934504866600033, 0.7934504866600036]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -574,7 +538,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.5, 0.7, 0.9, 1.1, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, 0.35, -0.25, 0.35, -0.25, 0.35, 0.0]
+"values": [-0.003506363928318018, 0.34649363607168193, -0.25350636392831805, 0.34649363607168193, -0.25350636392831805, 0.34649363607168193, -0.003506363928318018]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -586,19 +550,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 1.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Skeleton2D/Biodra:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(403.5, 1107.4)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 
 [sub_resource type="Animation" id="Animation_podnosi"]
@@ -786,7 +738,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-0.6, -0.6]
+"values": [-0.4065495, -0.20654951333999638]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -798,7 +750,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-0.5, -0.5]
+"values": [-0.103506364, -0.153506363928318]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -810,7 +762,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.8, 0.8]
+"values": [0.4723743, 0.27237429022789006]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -822,7 +774,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.5, 0.5]
+"values": [0.38157448, 0.4315744817256928]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -882,7 +834,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -894,7 +846,7 @@ tracks/9/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(403.5, 1107.4), Vector2(403.5, 1487.4)]
+"values": [Vector2(403.5, 1107.4), Vector2(403.5, 1476.4)]
 }
 
 [sub_resource type="Animation" id="Animation_41g4m"]
@@ -911,7 +863,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-0.6]
+"values": [-0.20654951333999638]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -923,7 +875,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-0.5]
+"values": [-0.153506363928318]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -935,7 +887,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.8]
+"values": [0.27237429022789006]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -947,7 +899,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.5]
+"values": [0.4315744817256928]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -959,7 +911,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.05]
+"values": [0.0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -971,7 +923,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-0.05]
+"values": [0.0]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -1031,7 +983,7 @@ tracks/10/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
@@ -1043,7 +995,7 @@ tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(403.5, 1487.4), Vector2(403.5, 1487.4)]
+"values": [Vector2(403.5, 1476.4), Vector2(403.5, 1476.4)]
 }
 
 [sub_resource type="Animation" id="Animation_0ig55"]
@@ -1060,7 +1012,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-0.6]
+"values": [-0.4065495]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1072,7 +1024,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-0.5]
+"values": [-0.103506364]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -1084,7 +1036,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.8]
+"values": [0.4723743]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -1096,7 +1048,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.5]
+"values": [0.38157448]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -1108,7 +1060,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.05]
+"values": [0.0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -1120,7 +1072,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-0.05]
+"values": [0.0]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -1180,19 +1132,7 @@ tracks/10/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Skeleton2D/Biodra:position")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(403.5, 1107.4)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 
 [sub_resource type="Animation" id="Animation_xyyex"]
@@ -1221,7 +1161,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.08, 0.0, 0.08, 0.0, -0.08, 0.0, 0.08, 0.0]
+"values": [-0.05, -0.13, -0.05, 0.03, -0.05, -0.13, -0.05, 0.03, -0.05]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -1233,7 +1173,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.08, 0.0, 0.08, 0.0, -0.08, 0.0, 0.08, 0.0]
+"values": [0.05, -0.03, 0.05, 0.13, 0.05, -0.03, 0.05, 0.13, 0.05]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -1269,7 +1209,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.7, -0.2, -0.7, -0.2, -0.7, -0.2, -0.7, 0.0]
+"values": [-0.7276257097721099, -1.42762570977211, -0.9276257097721099, -1.42762570977211, -0.9276257097721099, -1.42762570977211, -0.9276257097721099, -1.42762570977211, -0.7276257097721099]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -1281,7 +1221,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, 0.2, 0.7, 0.2, 0.7, 0.2, 0.7, 0.2, 0.0]
+"values": [0.7934504866600036, 0.9934504866600036, 1.4934504866600036, 0.9934504866600036, 1.4934504866600036, 0.9934504866600036, 1.4934504866600036, 0.9934504866600036, 0.7934504866600036]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -1293,7 +1233,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.3, 0.0, -0.3, 0.0, -0.3, 0.0, -0.3, 0.0]
+"values": [0.28157448172569277, -0.018425518274307218, 0.28157448172569277, -0.018425518274307218, 0.28157448172569277, -0.018425518274307218, 0.28157448172569277, -0.018425518274307218, 0.28157448172569277]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -1305,7 +1245,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, 0.0, 0.3, 0.0, 0.3, 0.0, 0.3, 0.0, 0.0]
+"values": [-0.003506363928318018, -0.003506363928318018, 0.296493636071682, -0.003506363928318018, 0.296493636071682, -0.003506363928318018, 0.296493636071682, -0.003506363928318018, -0.003506363928318018]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -1317,19 +1257,7 @@ tracks/9/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Skeleton2D/Biodra:position")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(403.5, 1107.4)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 
 [sub_resource type="Animation" id="Animation_trzyma"]
@@ -1434,7 +1362,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5, 1.3, 1.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.45, -0.45, 0.0]
+"values": [-0.05, -0.5, -0.5, -0.05]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -1446,7 +1374,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5, 1.3, 1.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.45, -0.45, 0.0]
+"values": [0.05, -0.4, -0.4, 0.05]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -1470,7 +1398,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.5, 1.3, 1.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.5, -0.5, 0.0]
+"values": [-0.7276257097721099, -1.22762570977211, -1.22762570977211, -0.7276257097721099]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -1482,19 +1410,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 1.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Skeleton2D/Biodra:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(403.5, 1107.4)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 
 [sub_resource type="Animation" id="Animation_wsad"]
@@ -1682,7 +1598,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-0.6, -0.6]
+"values": [-0.20654951333999638, -0.4065495]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1694,7 +1610,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-0.5, -0.5]
+"values": [-0.153506363928318, -0.103506364]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -1706,7 +1622,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.8, 0.8]
+"values": [0.27237429022789006, 0.4723743]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -1718,7 +1634,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.5, 0.5]
+"values": [0.4315744817256928, 0.38157448]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -1778,7 +1694,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(700, 1685), Vector2(700, 1685)]
+"values": [Vector2(493.5, 1685), Vector2(493.5, 1685)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -1790,7 +1706,7 @@ tracks/9/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(403.5, 1487.4), Vector2(403.5, 1107.4)]
+"values": [Vector2(403.5, 1476.4), Vector2(403.5, 1107.4)]
 }
 
 [resource]

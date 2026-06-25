@@ -101,7 +101,36 @@
 		{ "question": "Jaki jest mój ulubiony kolor", "answers": ["różowy", "zielony", "fioletowy"], "correct": 2 }
 	],
 	"Hania": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "O jakim zwierzątku marzę?",
+			"answers": ["smok", "piesek", "papuga"],
+			"correct": 0
+		},
+		{
+			"question": "Czy byłam na Sycylii?",
+			"answers": ["Tak", "nie", "marzę o tym"],
+			"correct": 0
+		},
+		{
+			"question": "Jak mam na drugie imię?",
+			"answers": ["Agata", "Pola", "Róża"],
+			"correct": 2
+		},
+		{
+			"question": "W tym roku zdałam na kartę:",
+			"answers": ["wędkarską", "pływacką", "rowerową"],
+			"correct": 1
+		},
+		{
+			"question": "Jak często odwiedzam bibliotekę?",
+			"answers": ["1x w tygodniu", "2x w tygodniu", "3x w tygodniu"],
+			"correct": 2
+		},
+		{
+			"question": "Jaki jest mój ulubiony sport?",
+			"answers": ["Narty", "pływanie", "koszykówka"],
+			"correct": 1
+		}
 	],
 	"Wojtek": [
 		{
@@ -155,10 +184,33 @@
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
 	],
 	"Michal": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Kto jest według mnie najlepszym piłkarzem na świecie?",
+			"answers": ["Cristiano Ronaldo", "Robert Lewandowski", "Lionel Messi"],
+			"correct": 2
+		},
+		{
+			"question": "Jak ma na imię moja siostra?",
+			"answers": ["Zosia", "Lilia", "Ola"],
+			"correct": 1
+		},
+		{
+			"question": "Gdyby decyzja należała tylko do mnie, kto zamieszkałby w moim pokoju?",
+			"answers": ["Trzy kapibary", "Pająk ptasznik", "Dinozaur wegetarianin"],
+			"correct": 1
+		},
+		{
+			"question": "Jakie hobby sprawia, że nie tylko świetnie się bawię, ale też należę do federacji szachowej?",
+			"answers": ["Zbieranie znaczków", "Gra w szachy", "Łowienie ryb"],
+			"correct": 1
+		}
 	],
 	"MichalA": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Jaka jest moja ulubiona książka?",
+			"answers": ["„Karolcia” (szkolna lektura)", "„Mapy” Mizielińskich", "„Koszmarny Karolek”"],
+			"correct": 2
+		}
 	],
 	"Maja": [
 		{
@@ -178,7 +230,16 @@
 		}
 	],
 	"Piotrek": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Jakie zwierzę mam?",
+			"answers": ["Kot", "Ryby", "Chomik"],
+			"correct": 1
+		},
+		{
+			"question": "W jakim miesiącu mam urodziny?",
+			"answers": ["Listopad", "Maj", "Marzec"],
+			"correct": 2
+		}
 	],
 	"KazikL": [
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
@@ -204,6 +265,21 @@
 		{
 			"question": "Jakie mam zwierzątko?",
 			"answers": ["papuga", "świnka morska", "kot"],
+			"correct": 1
+		},
+		{
+			"question": "Jaki jest mój ulubiony kolor?",
+			"answers": ["niebieski", "zielony", "czarny"],
+			"correct": 2
+		},
+		{
+			"question": "Jakie jest moje ulubione jedzenie?",
+			"answers": ["nuggetsy", "pizza", "frytki"],
+			"correct": 0
+		},
+		{
+			"question": "Jaki jest mój ulubiony superbohater?",
+			"answers": ["Batman", "Spiderman", "Iron Man"],
 			"correct": 1
 		}
 	],
@@ -237,7 +313,21 @@
 		}
 	],
 	"Milosz": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Co trenuję?",
+			"answers": ["Piłkę nożną", "Gimnastykę", "Szachy"],
+			"correct": 0
+		},
+		{
+			"question": "Jaki pas karate mam?",
+			"answers": ["Brązowy", "Zielony", "Niebieski"],
+			"correct": 2
+		},
+		{
+			"question": "Jaki jest mój ulubiony zespół koszykarski?",
+			"answers": ["Chicago Bulls", "Boston Celtics", "Milwaukee Bucks"],
+			"correct": 0
+		}
 	],
 	"Jasiek": [
 		{ 

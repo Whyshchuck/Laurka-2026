@@ -42,7 +42,7 @@ position = Vector2(-210, 1.1444092e-05)
 rest = Transform2D(1, 0, 0, 1, -210, 1.1444092e-05)
 auto_calculate_length_and_angle = false
 length = 71.81933
-bone_angle = -2.9520526
+bone_angle = -2.9520524
 
 [node name="Microphone" type="Sprite2D" parent="Skeleton2D/Biodra/Tulow/RamieL/PrzedramieL/DlonL" unique_id=958577981]
 visible = false
@@ -95,7 +95,7 @@ position = Vector2(78.500244, 330.46008)
 rest = Transform2D(1, 0, 0, 1, 78.500244, 330.46008)
 auto_calculate_length_and_angle = false
 length = 82.60585
-bone_angle = 1.3150963
+bone_angle = 1.3150961
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1046952407]
 texture = ExtResource("1_5o8hd")

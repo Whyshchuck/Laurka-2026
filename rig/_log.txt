@@ -1,0 +1,171 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 595.79 - Compatibility - Using Device: NVIDIA - NVIDIA RTX PRO 5000 Blackwell Generation Laptop GPU
+
+WARNING: res://rig/p_kamila_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://rig/shot.gd:4)
+WARNING: res://rig/p_kamila_rig.tscn:6 - ext_resource, invalid UID: uid://cut6fr6rhoeod - using text path instead: res://rig/p_kamila_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://rig/shot.gd:4)
+WARNING: res://rig/lucja_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/lucja_rig.tscn:6 - ext_resource, invalid UID: uid://b078jnwb24mwb - using text path instead: res://rig/lucja_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/hania_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/hania_rig.tscn:6 - ext_resource, invalid UID: uid://c5cgkewe3a54a - using text path instead: res://rig/hania_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/wojtek_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/wojtek_rig.tscn:6 - ext_resource, invalid UID: uid://dand4eslc55x8 - using text path instead: res://rig/wojtek_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/oliwia_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/oliwia_rig.tscn:6 - ext_resource, invalid UID: uid://dwtnvl7ddbfli - using text path instead: res://rig/oliwia_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/antek_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/antek_rig.tscn:6 - ext_resource, invalid UID: uid://bbjnxhk021gc6 - using text path instead: res://rig/antek_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/krzysiek_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/krzysiek_rig.tscn:6 - ext_resource, invalid UID: uid://dckcoiv0vcjsr - using text path instead: res://rig/krzysiek_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/michal_k_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/michal_k_rig.tscn:6 - ext_resource, invalid UID: uid://7mh5ehxt7j6 - using text path instead: res://rig/michal_k_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/michal_a_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/michal_a_rig.tscn:6 - ext_resource, invalid UID: uid://c0budifw2ajl7 - using text path instead: res://rig/michal_a_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/julek_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/julek_rig.tscn:6 - ext_resource, invalid UID: uid://bq0av81rdn3r6 - using text path instead: res://rig/julek_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/piotrek_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/piotrek_rig.tscn:6 - ext_resource, invalid UID: uid://bjt2sgg2wgfuo - using text path instead: res://rig/piotrek_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/kazik_l_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/kazik_l_rig.tscn:6 - ext_resource, invalid UID: uid://c2lx26xm8rx4e - using text path instead: res://rig/kazik_l_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/kuba_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/kuba_rig.tscn:6 - ext_resource, invalid UID: uid://ccsor1eulseom - using text path instead: res://rig/kuba_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/jasiek_rig.tscn:5 - ext_resource, invalid UID: uid://bnbb65shec7km - using text path instead: res://rig/pupil_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+WARNING: res://rig/jasiek_rig.tscn:6 - ext_resource, invalid UID: uid://bpf7sxc1qjnlg - using text path instead: res://rig/jasiek_anims.tres
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scene_for (res://scripts/rig_helper.gd:35)
+       [1] setup_rig (res://scripts/classroom/Pupil.gd:92)
+       [2] _ready (res://scripts/classroom/Classroom.gd:63)
+[Quiz] Brak pytań dla 3/23: Krzysiek, Krystian, KazikL
+OK
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2663)

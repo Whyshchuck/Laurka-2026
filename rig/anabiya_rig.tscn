@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dg8r64ilwn314" path="res://sprites/anabiya_paint_part_3.png" id="4_s8e4f"]
 [ext_resource type="Texture2D" uid="uid://dcj5cwvugvwhn" path="res://sprites/anabiya_paint_part_0.png" id="5_b4nlu"]
 [ext_resource type="Texture2D" uid="uid://p0w653kkd37m" path="res://sprites/anabiya_brush.png" id="6_xrp7r"]
-[ext_resource type="AnimationLibrary" uid="uid://3j2d3146dn2k" path="res://rig/anabiya_anims.tres" id="10_78538"]
+[ext_resource type="AnimationLibrary" uid="uid://ddjt3u6ayab60" path="res://rig/anabiya_anims.tres" id="10_78538"]
 
 [node name="WiktorRig" type="Node2D" unique_id=1282551274]
 

@@ -123,6 +123,19 @@ func _display_rect() -> Rect2:
 		texture_rect.size * texture_rect.scale)
 
 
+func clickable_rect() -> Rect2:
+	# Faktyczny obszar postaci (klik/hover): bbox rigu (mesh) jeśli uczeń ma rig —
+	# wąsko, dopasowane do grafiki, nie nachodzi na sąsiadów. Bez rigu: przeskalowany
+	# obszar grafiki (_display_rect). Spójne dla WSZYSTKICH uczniów.
+	if _rig:
+		var b := _rig_bbox(_rig)
+		if b.size.x > 0.0 and b.size.y > 0.0:
+			var p0 := _rig.to_global(b.position)
+			var p1 := _rig.to_global(b.end)
+			return Rect2(p0, p1 - p0).abs()
+	return _display_rect()
+
+
 func _ready():
 	if Engine.is_editor_hint():
 		setup_rig()  # tylko podgląd rigu w edytorze
@@ -206,6 +219,12 @@ func react() -> void:
 		"Krystian":
 			_interaction_krystian()
 			return
+		"Antek":
+			_interaction_antek()
+			return
+		"Abrish":
+			_interaction_abrish()
+			return
 	# Domyślnie: uczeń z rigiem reaguje machnięciem; bez rigu — dawna przemiana tekstur.
 	if _rig:
 		_interaction_default()
@@ -258,11 +277,220 @@ func _interaction_krystian() -> void:
 	_interaction_default()  # macha w trakcie mówienia (jeśli ma pełny własny zestaw)
 
 
+# --- interakcja Antka: figurki maszerują po biurku, wchodzą na ramiona/głowę, ----
+# skaczą tam kilka sekund (doczepione do kości -> jadą z nim gdy wstaje/siada),
+# potem zeskakują, przechodzą po ławce i skaczą pod nią (znikają).
+const ANTEK_FIGURES := [
+	"res://sprites/antek_figurka_1.png",
+	"res://sprites/antek_figurka_2.png",
+	"res://sprites/antek_figurka_3.png",
+]
+const ANTEK_MARCH := "res://audio/freesound_community-fx-comedy-marching-78276.mp3"
+# Cele: dwie figurki na ramionach, jedna na głowie (kości rigu Antka).
+const ANTEK_TARGETS := [
+	"Skeleton2D/Biodra/Tulow/RamieL",   # figurka 0 -> lewe ramię
+	"Skeleton2D/Biodra/Tulow/Glowa",    # figurka 1 -> głowa
+	"Skeleton2D/Biodra/Tulow/RamieP",   # figurka 2 -> prawe ramię
+]
+const ANTEK_SIT_LIFT := [0.05, 0.18, 0.05]  # podniesienie stóp nad kość (ułamek wys. Antka)
+const ANTEK_FIG_HEIGHT := 0.28    # wysokość figurki wzgl. Antka (do strojenia)
+const ANTEK_FIG_HOP_H := 35.0     # wysokość podskoku figurki
+const ANTEK_FIG_SEG_T := 0.32     # czas jednego skoku między punktami
+const ANTEK_FIG_INTERVAL := 0.5   # odstęp startu kolejnych figurek
+const ANTEK_SIT_TIME := 3.0       # ile sekund skaczą na ramionach/głowie
+const ANTEK_LANE_FRAC := 0.05     # odstęp „pasów" figurek przy marszu (ułamek wys. Antka)
+var _antek_pending := 0           # licznik trwających figurek (do zwolnienia hover)
+var _antek_figs: Array = []       # bieżące figurki (guard + zeskok)
+var _antek_music: AudioStreamPlayer = null  # marsz (zapętlony) — gaszony po ostatnim skoku
+
+func _interaction_antek() -> void:
+	if _rig == null or _busy or not _antek_figs.is_empty():
+		return  # brak rigu, zajęty, albo figurki już są
+	_busy = true            # pauza hover — Antek nie rusza się w trakcie marszu w górę
+	_intro_done = false
+	_antek_figs.clear()
+	# Marsz gra w PĘTLI przez całą scenkę — zgasimy go dopiero po ostatnim skoku.
+	_antek_music = AudioStreamPlayer.new()
+	var ms := load(ANTEK_MARCH) as AudioStream
+	var mp3 := ms as AudioStreamMP3
+	if mp3:
+		mp3 = mp3.duplicate() as AudioStreamMP3   # nie modyfikuj współdzielonego zasobu
+		mp3.loop = true
+		ms = mp3
+	_antek_music.stream = ms
+	add_child(_antek_music)
+	_antek_music.play()
+	var rect := _display_rect()
+	_antek_pending = ANTEK_FIGURES.size()
+	for i in ANTEK_FIGURES.size():
+		_antek_walk_up(i, rect)
+		await get_tree().create_timer(ANTEK_FIG_INTERVAL).timeout
+		if not is_inside_tree():
+			return
+	# Czekaj, aż wszystkie wejdą na ramiona/głowę.
+	while _antek_pending > 0 and is_inside_tree():
+		await get_tree().create_timer(0.1).timeout
+	if not is_inside_tree():
+		return
+	# Kilka sekund podskakują — hover dozwolony, bo są doczepione do kości
+	# (jadą z ramieniem/głową, gdy Antek wstaje lub siada).
+	_busy = false
+	_intro_done = true
+	await get_tree().create_timer(ANTEK_SIT_TIME).timeout
+	if not is_inside_tree():
+		return
+	# Zeskok, przejście po ławce i skok pod nią (znikają).
+	_busy = true
+	_intro_done = false
+	var rect2 := _display_rect()
+	_antek_pending = _antek_figs.size()
+	# Stagger startu — idą jedna za drugą (każda na własnym „pasie"), bez nachodzenia.
+	for idx in _antek_figs.size():
+		_antek_walk_down(_antek_figs[idx], rect2, idx)
+		await get_tree().create_timer(ANTEK_FIG_INTERVAL).timeout
+		if not is_inside_tree():
+			return
+	while _antek_pending > 0 and is_inside_tree():
+		await get_tree().create_timer(0.1).timeout
+	_antek_figs.clear()
+	# Po ostatnim skoku — gaśnie muzyka.
+	if _antek_music and is_instance_valid(_antek_music):
+		var mt := create_tween()
+		mt.tween_property(_antek_music, "volume_db", -40.0, 0.6)
+		mt.tween_callback(_antek_music.queue_free)
+		_antek_music = null
+	_busy = false
+	_intro_done = true
+
+
+func _antek_desk_points(rect: Rect2) -> Array:
+	# Trzy punkty STÓP na biurku (lewa, środek, prawa) przed Antkiem.
+	var desk_y := rect.position.y + rect.size.y
+	return [
+		Vector2(rect.position.x - rect.size.x * 0.25, desk_y),
+		Vector2(rect.get_center().x, desk_y),
+		Vector2(rect.position.x + rect.size.x * 1.05, desk_y),
+	]
+
+
+func _antek_walk_up(idx: int, rect: Rect2) -> void:
+	var tex := load(ANTEK_FIGURES[idx % ANTEK_FIGURES.size()]) as Texture2D
+	if tex == null:
+		_antek_pending -= 1
+		return
+	var fig := Sprite2D.new()
+	fig.texture = tex
+	fig.top_level = true
+	fig.z_index = 600          # nad Antkiem
+	fig.z_as_relative = false
+	fig.offset = Vector2(0.0, -tex.get_height() * 0.5)   # position = STOPY figurki
+	var base_scale := (rect.size.y * ANTEK_FIG_HEIGHT) / float(maxi(tex.get_height(), 1))
+	fig.scale = Vector2(base_scale, base_scale)
+	var desk := _antek_desk_points(rect)
+	fig.global_position = desk[0]
+	add_child(fig)
+	_antek_figs.append(fig)
+	# Cel: kość (ramię/głowa); stopy lekko nad kością.
+	var bone := _rig.get_node_or_null(ANTEK_TARGETS[idx]) as Node2D
+	var climb: Vector2 = desk[desk.size() - 1]
+	if bone:
+		climb = bone.global_position - Vector2(0.0, float(ANTEK_SIT_LIFT[idx]) * rect.size.y)
+	var path := [desk[0], desk[1], desk[2], climb]
+	for i in range(1, path.size()):
+		await _antek_hop(fig, path[i - 1], path[i])
+		if not is_instance_valid(fig):
+			_antek_pending -= 1
+			return
+	_antek_attach_to_bone(fig, tex, ANTEK_TARGETS[idx])
+	_antek_pending -= 1
+
+
+func _antek_attach_to_bone(fig: Sprite2D, tex: Texture2D, bone_path: String) -> void:
+	# Doczep do kości (ramię/głowa) zachowując pozycję świata, potem bounce w miejscu.
+	var bone := _rig.get_node_or_null(bone_path) as Bone2D
+	if bone == null:
+		return
+	var gt := fig.global_transform
+	fig.reparent(bone, false)
+	fig.top_level = false
+	fig.global_transform = gt   # przelicz lokalny transform względem kości
+	var amp := tex.get_height() * fig.scale.y * 0.3
+	var rest_y := fig.position.y
+	var bt := fig.create_tween().set_loops()
+	bt.tween_property(fig, "position:y", rest_y - amp, 0.22) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	bt.tween_property(fig, "position:y", rest_y, 0.22) \
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	fig.set_meta("bounce", bt)
+
+
+func _antek_walk_down(fig: Sprite2D, rect: Rect2, lane: int = 0) -> void:
+	if not is_instance_valid(fig):
+		_antek_pending -= 1
+		return
+	# Zatrzymaj bounce, odczep do świata (zachowaj pozycję).
+	if fig.has_meta("bounce"):
+		var bt = fig.get_meta("bounce")
+		if bt and bt.is_valid():
+			bt.kill()
+	var gt := fig.global_transform
+	fig.reparent(self, false)
+	fig.top_level = true
+	fig.global_transform = gt
+	# Zeskok na biurko, MARSZ tam i z powrotem po ławce (lewa->prawa->lewa->prawa),
+	# a na końcu skok POD ławkę. Każda figurka na własnym „pasie" (offset y wg lane),
+	# żeby przy zawracaniu nie nachodziły na siebie.
+	var off := Vector2(0.0, -lane * rect.size.y * ANTEK_LANE_FRAC)
+	var desk := _antek_desk_points(rect)
+	var under := Vector2(desk[2].x, rect.position.y + rect.size.y * 1.5) + off
+	var path := [
+		desk[0] + off,            # zeskok na lewą krawędź biurka
+		desk[1] + off, desk[2] + off,   # lewa -> prawa
+		desk[1] + off, desk[0] + off,   # prawa -> lewa
+		desk[1] + off, desk[2] + off,   # lewa -> prawa (drugi raz, dłuższy marsz)
+		under,                    # skok pod ławkę (po prawej)
+	]
+	var prev := fig.global_position
+	for p in path:
+		await _antek_hop(fig, prev, p)
+		if not is_instance_valid(fig):
+			_antek_pending -= 1
+			return
+		prev = p
+	# Pod ławką — znika.
+	var ft := fig.create_tween()
+	ft.tween_property(fig, "modulate:a", 0.0, 0.3)
+	await ft.finished
+	if is_instance_valid(fig):
+		fig.queue_free()
+	_antek_pending -= 1
+
+
+func _antek_hop(fig: Sprite2D, from_pt: Vector2, to_pt: Vector2) -> void:
+	# Skok paraboliczny między punktami.
+	var hop := func(p: float) -> void:
+		if not is_instance_valid(fig):
+			return
+		var pos := from_pt.lerp(to_pt, p)
+		pos.y -= sin(clampf(p, 0.0, 1.0) * PI) * ANTEK_FIG_HOP_H
+		fig.global_position = pos
+	var t := create_tween()
+	t.tween_method(hop, 0.0, 1.0, ANTEK_FIG_SEG_T)
+	await t.finished
+
+
 # --- interakcja Kazika_L: wskok na ławkę -> break -> mikrofon -> „pyk" i powrót ---
 
 const KAZIK_BENCH_POINT := Vector2(109, 640)  # STOPY Kazika_L na ławce (do strojenia)
 const KAZIK_MIC_HOLD := 3.0       # ile jest mikrofonem (kręci się), zanim „pyk" i wraca
 const KAZIK_MIC_SPRITE := "res://sprites/kazik_mic.png"
+const KAZIK_FREESTYLE := "res://audio/kazik_l_freestyle.mp3"  # podkład do przemiany
+var _kazik_music: AudioStreamPlayer = null  # freestyle — gaszony przy „pyk"
+# Stroboskop żółtego podświetlenia mikrofonu tuż przed powrotem (coraz szybszy).
+const KAZIK_STROBE_FLASHES := 16   # liczba mignięć
+const KAZIK_STROBE_START := 0.18   # czas pierwszego mignięcia
+const KAZIK_STROBE_ACCEL := 0.80   # mnożnik czasu (mniejszy = szybsze przyspieszanie)
+const KAZIK_STROBE_MIN := 0.03     # najkrótszy czas mignięcia (szczyt prędkości)
 const KAZIK_HANDSTAND_ARM := 2.3  # obrót ramion na głowie (ręce wystawione w dół) — do strojenia
 var _kazik_home_origin := Vector2.ZERO
 
@@ -292,6 +520,13 @@ func _interaction_kazik_l() -> void:
 		return
 	_busy = true
 	_intro_done = false
+
+	# Podkład: freestyle gra przez całą scenkę, gaśnie przy „pyk".
+	_kazik_music = AudioStreamPlayer.new()
+	_kazik_music.stream = load(KAZIK_FREESTYLE)
+	add_child(_kazik_music)
+	_kazik_music.play()
+	_kazik_music.finished.connect(_kazik_music.queue_free)  # gdyby scenka się urwała
 
 	# 1. Wstaje i wskakuje na ławkę (z-index nad ławką).
 	if _seated:
@@ -345,7 +580,6 @@ func _interaction_kazik_l() -> void:
 	var mic_tex := load(KAZIK_MIC_SPRITE) as Texture2D
 	if mic_tex:
 		_set_floor_sprite(mic, mic_tex, base_h, KAZIK_BENCH_POINT)
-	_play_sfx(LUCJA_MAGIC_SFX)  # czar przemiany
 	for j in FLASH_SWAPS:
 		var show_mic := (j % 2 == 1)
 		mic.visible = show_mic
@@ -368,9 +602,28 @@ func _interaction_kazik_l() -> void:
 	await spin.finished
 	if not is_inside_tree():
 		return
+
+	# Tuż przed powrotem: stroboskop — żółte podświetlenie mikrofonu CORAZ SZYBSZE.
+	var dt := KAZIK_STROBE_START
+	for k in KAZIK_STROBE_FLASHES:
+		if is_instance_valid(mic):
+			mic.modulate = FLASH_COLOUR if (k % 2 == 0) else COLOUR_NORMAL
+		await get_tree().create_timer(dt).timeout
+		if not is_inside_tree():
+			return
+		dt = maxf(dt * KAZIK_STROBE_ACCEL, KAZIK_STROBE_MIN)
+	if is_instance_valid(mic):
+		mic.modulate = COLOUR_NORMAL
+
 	if is_instance_valid(mic):
 		mic.queue_free()
 	_play_sound(KORK_SFX)
+	# „Pyk" — gaśnie podkład freestyle.
+	if _kazik_music and is_instance_valid(_kazik_music):
+		var mt := create_tween()
+		mt.tween_property(_kazik_music, "volume_db", -40.0, 0.6)
+		mt.tween_callback(_kazik_music.queue_free)
+		_kazik_music = null
 	if _rig:
 		_rig.global_position = _kazik_home_origin
 		_rig.z_index = 0
@@ -382,6 +635,165 @@ func _interaction_kazik_l() -> void:
 		_seated = true
 	_busy = false
 	_intro_done = true
+
+
+# --- interakcja Abrish: wskok na ławkę, śpiewa do mikrofonu i tańczy (k-pop) ---
+# Mikrofon jest już w lewej dłoni rigu (węzeł „Microphone", visible=false) —
+# pokazujemy go na występ i chowamy na końcu. Klik startuje występ, kolejny kończy.
+const ABRISH_MIC_PATH := "Skeleton2D/Biodra/Tulow/RamieL/PrzedramieL/DlonL/Microphone"
+const ABRISH_KPOP := "res://audio/abrish_k_pop.mp3"
+const ABRISH_BENCH_POINT := Vector2(371, 520)  # STOPY Abrish na ławce (do strojenia)
+# Poza śpiewania (wszystko do strojenia):
+const ABRISH_ARM_L := 0.1309    # lewe ramię (7.5°)
+const ABRISH_FORE_L := -2.8972  # przedramię zgięte — dłoń przy ustach (-166°)
+const ABRISH_HAND_L := 2.0944   # dłoń obrócona — mikrofon w górę (120°)
+const ABRISH_ARM_R := 0.7854    # prawe ramię 45° w dół (PI/4)
+const ABRISH_KNEE := 0.55      # amplituda unoszenia uda (kolano w górę)
+const ABRISH_SHIN := 0.7       # zgięcie łydki przy unoszeniu
+const ABRISH_BOUNCE := 14.0    # odbicie bioder (px lokalne)
+const ABRISH_CYCLE_TIME := 0.6 # czas jednego cyklu tańca (dwa kroki)
+var _abrish_music: AudioStreamPlayer = null
+var _abrish_home_origin := Vector2.ZERO
+var _abrish_dance: Tween = null
+var _ab_biodra: Bone2D = null
+var _ab_udo_l: Bone2D = null
+var _ab_lydka_l: Bone2D = null
+var _ab_udo_p: Bone2D = null
+var _ab_lydka_p: Bone2D = null
+var _ab_biodra_y := 0.0
+
+func _interaction_abrish() -> void:
+	if _rig == null:
+		return
+	var mic := _rig.get_node_or_null(ABRISH_MIC_PATH) as Sprite2D
+	if mic and mic.visible:
+		_abrish_stop(mic)   # trwa występ -> zakończ
+		return
+	if _busy:
+		return
+	_busy = true
+	_intro_done = false
+
+	# Wstaje (jeśli siedzi).
+	if _seated:
+		_play_own("wstawanie")
+		await get_tree().create_timer(_anim_len("wstawanie")).timeout
+		if not is_inside_tree() or _rig == null:
+			return
+		_seated = false
+
+	# Mikrofon w ręce się pokazuje.
+	if mic:
+		mic.visible = true
+
+	# Wskok na ławkę (z-index nad ławką).
+	_abrish_home_origin = _rig.global_position
+	var feet0 := _display_rect()
+	var home_feet := Vector2(feet0.get_center().x, feet0.end.y)
+	var bench_origin := _abrish_home_origin + (ABRISH_BENCH_POINT - home_feet)
+	_rig.z_index = BBALL_BENCH_Z
+	_play_own("stoi")
+	await _hop_rig(bench_origin, BBALL_HOP_HEIGHT, BBALL_HOP_TIME)
+	if not is_inside_tree() or _rig == null:
+		return
+
+	# Podkład k-pop + taniec (śpiewa i tańczy aż do ponownego kliknięcia).
+	_abrish_music = AudioStreamPlayer.new()
+	_abrish_music.stream = load(ABRISH_KPOP)
+	add_child(_abrish_music)
+	_abrish_music.play()
+	_abrish_music.finished.connect(_abrish_music.queue_free)
+	_abrish_start_dance()           # mikrofon przy twarzy + praca nóg
+	_busy = false   # kolejny klik kończy występ
+
+
+func _abrish_stop(mic: Sprite2D) -> void:
+	if _busy:
+		return
+	_busy = true
+	# Wygaś podkład.
+	if _abrish_music and is_instance_valid(_abrish_music):
+		var mt := create_tween()
+		mt.tween_property(_abrish_music, "volume_db", -40.0, 0.6)
+		mt.tween_callback(_abrish_music.queue_free)
+		_abrish_music = null
+	# Zatrzymaj taniec nóg i przywróć biodra (stoi nadpisze ręce/nogi).
+	if _abrish_dance and _abrish_dance.is_valid():
+		_abrish_dance.kill()
+	if is_instance_valid(_ab_biodra):
+		_ab_biodra.position.y = _ab_biodra_y
+	# Zeskok na swoje miejsce.
+	if _rig:
+		_play_own("stoi")
+		await _hop_rig(_abrish_home_origin, BBALL_HOP_HEIGHT, BBALL_HOP_TIME)
+		if not is_inside_tree() or _rig == null:
+			return
+		_rig.z_index = 0
+	# Mikrofon znika.
+	if is_instance_valid(mic):
+		mic.visible = false
+	# Siada.
+	if _rig:
+		_play_own("siadanie")
+		await get_tree().create_timer(_anim_len("siadanie")).timeout
+		if is_inside_tree() and _rig:
+			_play_own("siedzi")
+		_seated = true
+	_busy = false
+	_intro_done = true
+
+
+func _abrish_start_dance() -> void:
+	# Zamraża pozę na „stoi", ustawia ręce (lewa: mikrofon do twarzy; prawa: 45° w dół)
+	# i zapętla taniec NOGAMI (naprzemienne unoszenie kolan + odbicia bioder).
+	if _rig == null:
+		return
+	if _rig_ap:
+		_rig_ap.play("k/stoi")
+		_rig_ap.seek(0.0, true)
+		_rig_ap.pause()   # pauza -> nasze ustawienia kości nie są nadpisywane co klatkę
+	var t := "Skeleton2D/Biodra/Tulow/"
+	var ramie_l := _rig.get_node_or_null(t + "RamieL") as Bone2D
+	var fore_l := _rig.get_node_or_null(t + "RamieL/PrzedramieL") as Bone2D
+	var hand_l := _rig.get_node_or_null(t + "RamieL/PrzedramieL/DlonL") as Bone2D
+	var ramie_p := _rig.get_node_or_null(t + "RamieP") as Bone2D
+	if ramie_l:
+		ramie_l.rotation = ABRISH_ARM_L
+	if fore_l:
+		fore_l.rotation = ABRISH_FORE_L
+	if hand_l:
+		hand_l.rotation = ABRISH_HAND_L   # ustawia mikrofon „w górę"
+	if ramie_p:
+		ramie_p.rotation = ABRISH_ARM_R
+	_ab_biodra = _rig.get_node_or_null("Skeleton2D/Biodra") as Bone2D
+	_ab_udo_l = _rig.get_node_or_null("Skeleton2D/Biodra/UdoL") as Bone2D
+	_ab_lydka_l = _rig.get_node_or_null("Skeleton2D/Biodra/UdoL/LydkaL") as Bone2D
+	_ab_udo_p = _rig.get_node_or_null("Skeleton2D/Biodra/UdoP") as Bone2D
+	_ab_lydka_p = _rig.get_node_or_null("Skeleton2D/Biodra/UdoP/LydkaP") as Bone2D
+	if _ab_biodra:
+		_ab_biodra_y = _ab_biodra.position.y
+	if _abrish_dance and _abrish_dance.is_valid():
+		_abrish_dance.kill()
+	_abrish_dance = _rig.create_tween().set_loops()
+	_abrish_dance.tween_method(_abrish_dance_step, 0.0, TAU, ABRISH_CYCLE_TIME)
+
+
+func _abrish_dance_step(a: float) -> void:
+	# Naprzemienne unoszenie kolan (lewe na sin(a), prawe na sin(a+PI)) + podwójne
+	# odbicie bioder na cykl. Łydka zgina się przy unoszonej nodze.
+	if not is_instance_valid(_ab_biodra):
+		return
+	var lift_l := maxf(sin(a), 0.0)
+	var lift_r := maxf(sin(a + PI), 0.0)
+	if is_instance_valid(_ab_udo_l):
+		_ab_udo_l.rotation = lift_l * ABRISH_KNEE
+	if is_instance_valid(_ab_lydka_l):
+		_ab_lydka_l.rotation = -lift_l * ABRISH_SHIN
+	if is_instance_valid(_ab_udo_p):
+		_ab_udo_p.rotation = lift_r * ABRISH_KNEE
+	if is_instance_valid(_ab_lydka_p):
+		_ab_lydka_p.rotation = -lift_r * ABRISH_SHIN
+	_ab_biodra.position.y = _ab_biodra_y - absf(sin(a * 2.0)) * ABRISH_BOUNCE
 
 
 # --- pokaz koszykówki (Michał_K i Miłosz) na ławce ----------------------------
@@ -1435,7 +1847,7 @@ func _anim_len(base: String) -> float:
 	return _rig_ap.get_animation(a).length if a != "" else FALLBACK_ANIM_LEN
 
 func _hover_rect() -> Rect2:
-	return _display_rect().grow(HOVER_MARGIN)
+	return clickable_rect().grow(HOVER_MARGIN)
 
 func _has_full_own_set() -> bool:
 	# Pełen własny zestaw potrzebny do macha->siada oraz hover wstaje/siada.

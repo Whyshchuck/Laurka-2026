@@ -90,6 +90,7 @@ var _drag_lift := Vector2.ZERO
 var _intro_done := false
 var _won := false
 var _closing := false
+var _bubble: Node2D = null   # dymek z poleceniem (chowany po „brawo!")
 
 
 func _ready() -> void:
@@ -228,6 +229,7 @@ func _add_speech_bubble(bbox: Rect2) -> void:
 		bbox.size.x * bubble_offset_x_frac,
 		-bbox.size.y * 0.5 - tex_size.y * s * bubble_lift_frac)
 	portrait.add_child(bubble)
+	_bubble = bubble
 
 	var spr := Sprite2D.new()    # centrowany — środek grafiki w (0,0) dymka
 	spr.texture = DymekTex
@@ -485,6 +487,12 @@ func _check_win() -> void:
 func _celebrate() -> void:
 	win_label.visible = true
 	win_audio.play()
+	# „Brawo!" — chowamy dymek z poleceniem (zadanie skończone).
+	if _bubble and is_instance_valid(_bubble):
+		var tb := create_tween()
+		tb.tween_property(_bubble, "modulate:a", 0.0, 0.3)
+		tb.tween_callback(_bubble.queue_free)
+		_bubble = null
 	# Fala radości: literki kolejno podskakują.
 	for i in _tiles.size():
 		var tile = _tiles[i]

@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" format=3 uid="uid://cs88x0ucfr8uh"]
+[gd_resource type="AnimationLibrary" format=3 uid="uid://cyg5qtmy1v0jc"]
 
 [sub_resource type="Animation" id="Animation_17rid"]
 resource_name = "RESET"
@@ -246,6 +246,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.0, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, 0.0]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Biodra:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(388, 1168)]
+}
 
 [sub_resource type="Animation" id="Animation_sco82"]
 resource_name = "kiwanie"
@@ -261,6 +273,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, -0.3, 0.25, -0.3, 0.25, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Biodra:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(388, 1168)]
 }
 
 [sub_resource type="Animation" id="Animation_3q07h"]
@@ -290,6 +314,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.07199859023094177, -0.2780014097690582, 0.3219985902309418, -0.2780014097690582, 0.3219985902309418, -0.2780014097690582, 0.07199859023094177]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Biodra:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(388, 1168)]
 }
 
 [sub_resource type="Animation" id="Animation_soppi"]
@@ -342,6 +378,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [-0.20271312594413757, 0.1472868740558624, -0.4527131259441376, 0.1472868740558624, -0.4527131259441376, 0.1472868740558624, -0.20271312594413757]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton2D/Biodra:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(388, 1168)]
 }
 
 [sub_resource type="Animation" id="Animation_kapvd"]
@@ -717,6 +765,18 @@ tracks/9/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Skeleton2D/Biodra:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(388, 1168)]
+}
 
 [sub_resource type="Animation" id="Animation_cp8ur"]
 resource_name = "taniec"
@@ -830,6 +890,18 @@ tracks/8/keys = {
 "update": 0,
 "values": [-0.20271312594413757, -0.20271312594413757, 0.09728687405586242, -0.20271312594413757, 0.09728687405586242, -0.20271312594413757, 0.09728687405586242, -0.20271312594413757, -0.20271312594413757]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Skeleton2D/Biodra:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(388, 1168)]
+}
 
 [sub_resource type="Animation" id="Animation_mmw2s"]
 resource_name = "uklon"
@@ -893,6 +965,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [-0.7354515314102172, -1.2354515314102172, -1.2354515314102172, -0.7354515314102172]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Biodra:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(388, 1168)]
 }
 
 [sub_resource type="Animation" id="Animation_msf36"]

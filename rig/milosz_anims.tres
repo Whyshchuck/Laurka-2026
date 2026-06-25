@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" format=3 uid="uid://bt4d3hfxbnoxs"]
+[gd_resource type="AnimationLibrary" format=3 uid="uid://csxhkuig118ok"]
 
 [sub_resource type="Animation" id="Animation_jlcg0"]
 resource_name = "RESET"
@@ -270,6 +270,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(700, 1685), Vector2(700, 1685)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Skeleton2D/Biodra:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
+}
 
 [sub_resource type="Animation" id="Animation_pvf2v"]
 resource_name = "kiwanie"
@@ -297,6 +309,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(700, 1685), Vector2(700, 1685)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Biodra:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
 }
 
 [sub_resource type="Animation" id="Animation_kozlowanie"]
@@ -435,6 +459,18 @@ tracks/10/keys = {
 "update": 0,
 "values": [0.035, -0.01, 0.035]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Skeleton2D/Biodra:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
+}
 
 [sub_resource type="Animation" id="Animation_7lxh8"]
 resource_name = "machanie"
@@ -475,6 +511,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(700, 1685), Vector2(700, 1685)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton2D/Biodra:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
 }
 
 [sub_resource type="Animation" id="Animation_wudel"]
@@ -539,6 +587,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(700, 1685), Vector2(700, 1685)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Biodra:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
 }
 
 [sub_resource type="Animation" id="Animation_podnosi"]
@@ -699,6 +759,18 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, -0.12, -0.2, -0.15, -0.06, 0.0, 0.0]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Skeleton2D/Biodra:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
 }
 
 [sub_resource type="Animation" id="Animation_gib1j"]
@@ -1110,6 +1182,18 @@ tracks/10/keys = {
 "update": 0,
 "values": [Vector2(700, 1685), Vector2(700, 1685)]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Skeleton2D/Biodra:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
+}
 
 [sub_resource type="Animation" id="Animation_xyyex"]
 resource_name = "taniec"
@@ -1235,6 +1319,18 @@ tracks/9/keys = {
 "update": 0,
 "values": [Vector2(700, 1685), Vector2(700, 1685)]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Skeleton2D/Biodra:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
+}
 
 [sub_resource type="Animation" id="Animation_trzyma"]
 resource_name = "trzyma"
@@ -1299,6 +1395,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(530, 900), Vector2(530, 892), Vector2(530, 900)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Biodra:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
 }
 
 [sub_resource type="Animation" id="Animation_s65ys"]
@@ -1375,6 +1483,18 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(700, 1685), Vector2(700, 1685)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Skeleton2D/Biodra:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
 }
 
 [sub_resource type="Animation" id="Animation_wsad"]
@@ -1535,6 +1655,18 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(23, 0), Vector2(23, 35), Vector2(23, -160), Vector2(23, -360), Vector2(23, -350), Vector2(23, -230), Vector2(23, -100), Vector2(23, 30), Vector2(23, 0), Vector2(23, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Skeleton2D/Biodra:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(403.5, 1107.4)]
 }
 
 [sub_resource type="Animation" id="Animation_okqge"]

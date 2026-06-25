@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" format=3 uid="uid://cil3t2fvohbx7"]
+[gd_resource type="AnimationLibrary" format=3 uid="uid://bmdtimiovrxl7"]
 
 [sub_resource type="Animation" id="Animation_dypv3"]
 resource_name = "RESET"
@@ -246,6 +246,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.0, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, -0.12, 0.1, 0.0]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Biodra:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(334.23163, 458.0492)]
+}
 
 [sub_resource type="Animation" id="Animation_siirs"]
 resource_name = "kiwanie"
@@ -261,6 +273,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, -0.3, 0.25, -0.3, 0.25, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Biodra:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(334.23163, 458.0492)]
 }
 
 [sub_resource type="Animation" id="Animation_c8hyp"]
@@ -290,6 +314,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.1617993950843811, -0.18820060491561888, 0.4117993950843811, -0.18820060491561888, 0.4117993950843811, -0.18820060491561888, 0.1617993950843811]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Biodra:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(334.23163, 458.0492)]
 }
 
 [sub_resource type="Animation" id="Animation_qktli"]
@@ -342,6 +378,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [-0.1617993950843811, 0.18820060491561888, -0.4117993950843811, 0.18820060491561888, -0.4117993950843811, 0.18820060491561888, -0.1617993950843811]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton2D/Biodra:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(334.23163, 458.0492)]
 }
 
 [sub_resource type="Animation" id="Animation_euyy0"]
@@ -717,6 +765,18 @@ tracks/9/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Skeleton2D/Biodra:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(334.23163, 458.0492)]
+}
 
 [sub_resource type="Animation" id="Animation_572cl"]
 resource_name = "taniec"
@@ -830,6 +890,18 @@ tracks/8/keys = {
 "update": 0,
 "values": [-0.1617993950843811, -0.1617993950843811, 0.1382006049156189, -0.1617993950843811, 0.1382006049156189, -0.1617993950843811, 0.1382006049156189, -0.1617993950843811, -0.1617993950843811]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Skeleton2D/Biodra:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(334.23163, 458.0492)]
+}
 
 [sub_resource type="Animation" id="Animation_wb4b6"]
 resource_name = "uklon"
@@ -893,6 +965,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [-1.2, -1.7, -1.7, -1.2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Biodra:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(334.23163, 458.0492)]
 }
 
 [sub_resource type="Animation" id="Animation_d3uxv"]

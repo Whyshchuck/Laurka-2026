@@ -203,6 +203,9 @@ func react() -> void:
 		"Wojtek":
 			_interaction_wojtek()
 			return
+		"Krystian":
+			_interaction_krystian()
+			return
 	# Domyślnie: uczeń z rigiem reaguje machnięciem; bez rigu — dawna przemiana tekstur.
 	if _rig:
 		_interaction_default()
@@ -240,12 +243,48 @@ func _interaction_default() -> void:
 	_intro_done = true
 
 
+# --- interakcja Krystiana: klik -> mówi (nagranie) i macha -------------------
+const KRYSTIAN_VOICE := "res://audio/krystian.mp3"
+var _krystian_voice: AudioStreamPlayer = null
+
+func _interaction_krystian() -> void:
+	if _krystian_voice and is_instance_valid(_krystian_voice) and _krystian_voice.playing:
+		return  # już mówi — nie zaczynaj od nowa
+	_krystian_voice = AudioStreamPlayer.new()
+	_krystian_voice.stream = load(KRYSTIAN_VOICE)
+	add_child(_krystian_voice)
+	_krystian_voice.play()
+	_krystian_voice.finished.connect(_krystian_voice.queue_free)
+	_interaction_default()  # macha w trakcie mówienia (jeśli ma pełny własny zestaw)
+
+
 # --- interakcja Kazika_L: wskok na ławkę -> break -> mikrofon -> „pyk" i powrót ---
 
 const KAZIK_BENCH_POINT := Vector2(109, 640)  # STOPY Kazika_L na ławce (do strojenia)
 const KAZIK_MIC_HOLD := 3.0       # ile jest mikrofonem (kręci się), zanim „pyk" i wraca
 const KAZIK_MIC_SPRITE := "res://sprites/kazik_mic.png"
+const KAZIK_HANDSTAND_ARM := 2.3  # obrót ramion na głowie (ręce wystawione w dół) — do strojenia
 var _kazik_home_origin := Vector2.ZERO
+
+
+func _kazik_handstand_arms() -> void:
+	# Na głowie (rig do góry nogami): zatrzymaj taniec i wyciągnij oba ramiona prosto,
+	# tak że w świecie sięgają w dół (do podłogi). Przedramiona wyprostowane.
+	if _rig_ap:
+		_rig_ap.pause()
+	var base := "Skeleton2D/Biodra/Tulow/"
+	var rl := _rig.get_node_or_null(base + "RamieL") as Bone2D
+	var rp := _rig.get_node_or_null(base + "RamieP") as Bone2D
+	var fl := _rig.get_node_or_null(base + "RamieL/PrzedramieL") as Bone2D
+	var fp := _rig.get_node_or_null(base + "RamieP/PrzedramieP") as Bone2D
+	if rl:
+		rl.rotation = KAZIK_HANDSTAND_ARM
+	if rp:
+		rp.rotation = -KAZIK_HANDSTAND_ARM
+	if fl:
+		fl.rotation = 0.0
+	if fp:
+		fp.rotation = 0.0
 
 
 func _interaction_kazik_l() -> void:
@@ -272,22 +311,24 @@ func _interaction_kazik_l() -> void:
 	if not is_inside_tree() or _rig == null:
 		return
 
-	# 2. Tańczy breaka: ruch kończyn (taniec) + wirowanie i stanie na rękach (obrót 180°).
+	# 2. Tańczy breaka: 2 fikołki + stanie na głowie z rękami wystawionymi w dół.
 	var pivot := Vector2(KAZIK_BENCH_POINT.x, KAZIK_BENCH_POINT.y - base_h * 0.5)
 	_play_own("taniec")
-	await _spin_node(_rig, pivot, TAU * 2.0, 1.0)   # wiruje (2 obroty)
+	await _spin_node(_rig, pivot, TAU, 0.7)         # 1. fikołek
 	if not is_inside_tree() or _rig == null:
 		return
-	await _spin_node(_rig, pivot, PI, 0.45)         # przewrót do góry nogami — staje na rękach
+	await _spin_node(_rig, pivot, PI, 0.4)          # przewrót — staje na głowie (do góry nogami)
 	if not is_inside_tree() or _rig == null:
 		return
-	await get_tree().create_timer(0.8).timeout      # chwila na rękach
+	_kazik_handstand_arms()                         # ręce wystawione w dół (do podłogi)
+	await get_tree().create_timer(0.9).timeout      # chwila na głowie
 	if not is_inside_tree() or _rig == null:
 		return
-	await _spin_node(_rig, pivot, PI, 0.45)          # z powrotem na nogi
+	await _spin_node(_rig, pivot, PI, 0.4)          # z powrotem na nogi (ręce wciąż wyciągnięte)
 	if not is_inside_tree() or _rig == null:
 		return
-	await _spin_node(_rig, pivot, TAU * 2.0, 1.0)    # jeszcze wiruje
+	_play_own("taniec")                             # wznów taniec (znosi ręczną pozę rąk)
+	await _spin_node(_rig, pivot, TAU, 0.7)         # 2. fikołek
 	if not is_inside_tree() or _rig == null:
 		return
 	_rig.rotation = 0.0
@@ -570,6 +611,12 @@ func _auto_magic_revert(creature: Node) -> void:
 		_lucja_revert()
 	elif get_node_or_null("Fortepian") == creature:
 		_wojtek_revert()
+	elif get_node_or_null("MajaPoke") == creature:
+		_maja_revert()
+	elif get_node_or_null("HaniaPoke") == creature:
+		_hania_revert()
+	elif get_node_or_null("AmelkaPoke") == creature:
+		_amelka_revert()
 
 
 # --- interakcja Mai: przemiana w maja_poke z deszczem gwiazdek --------------
@@ -618,21 +665,20 @@ func _interaction_maja() -> void:
 
 
 func _maja_revert() -> void:
+	# Koniec: „kork", konfetti z blinka Mai sypie dookoła i znika, Maja wraca.
 	if _busy:
 		return
-	var poke := get_node_or_null("MajaPoke")
+	var poke := get_node_or_null("MajaPoke") as Node2D
 	if poke == null:
 		return
 	_busy = true
-	var rect := _display_rect()
-	_star_shower(rect, MAJA_SHOWER_TIME * 0.8)
-	await get_tree().create_timer(MAJA_SHOWER_TIME * 0.35).timeout
-	if is_instance_valid(poke):
-		poke.queue_free()
+	var at := poke.global_position
+	poke.queue_free()
+	_play_sound(KORK_SFX)
+	_confetti_burst(at, _display_rect().size.y, [], 1.0)
 	if _rig:
 		_rig.visible = true
 		RigHelper.play_stand(_rig)
-	await get_tree().create_timer(MAJA_SHOWER_TIME * 0.3).timeout
 	_busy = false
 	_intro_done = true
 
@@ -653,6 +699,7 @@ func _spawn_maja_poke(rect: Rect2) -> void:
 	var foot := Vector2(rect.get_center().x, rect.position.y + rect.size.y)
 	poke.global_position = foot - Vector2(0.0, tex.get_height() * s * 0.5)
 	add_child(poke)
+	_schedule_magic_revert(poke)  # po 8 s sam „kork" + konfetti i Maja wraca
 	# Niespodziewane „pyk": stworek wyskakuje skalą 0 -> pełna (z odbiciem), potem tańczy.
 	poke.scale = Vector2.ZERO
 	var pop := create_tween()
@@ -672,6 +719,7 @@ const HANIA_POKES := [
 ]
 const HANIA_POKE_HEIGHT := 0.6   # MAJA_POKE_HEIGHT / 2 — pokemony Hani 2x mniejsze
 const HANIA_CRY := "res://audio/freesound_community-eevee-voice-clips_128k-26100.mp3"  # głos Eevee
+var _hania_cry: AudioStreamPlayer = null  # śledzony, by „kork" przy cofnięciu uciął głos
 
 func _interaction_hania() -> void:
 	if _rig == null or _busy:
@@ -698,29 +746,41 @@ func _interaction_hania() -> void:
 	if not is_inside_tree() or _rig == null:
 		return
 	_rig.visible = false
-	_play_sound(HANIA_CRY)
+	# Głos Eevee śledzimy, żeby „kork" przy zakończeniu mógł go uciąć.
+	if _hania_cry and is_instance_valid(_hania_cry):
+		_hania_cry.stop()
+		_hania_cry.queue_free()
+	_hania_cry = AudioStreamPlayer.new()
+	_hania_cry.stream = load(HANIA_CRY)
+	add_child(_hania_cry)
+	_hania_cry.play()
+	_hania_cry.finished.connect(_hania_cry.queue_free)
 	_spawn_hania_poke(rect)
 	await get_tree().create_timer(MAJA_SHOWER_TIME * 0.6).timeout
 	_busy = false
 
 
 func _hania_revert() -> void:
+	# Koniec: „kork", konfetti z mieszanki blinków (Maja + losowy Amelki), Hania wraca.
 	if _busy:
 		return
-	var poke := get_node_or_null("HaniaPoke")
+	var poke := get_node_or_null("HaniaPoke") as Node2D
 	if poke == null:
 		return
 	_busy = true
-	var rect := _display_rect()
+	var at := poke.global_position
+	poke.queue_free()
+	# „Kork" UCINA głos Eevee (gdyby jeszcze trwał, np. przy szybkiej ponownej transformacji).
+	if _hania_cry and is_instance_valid(_hania_cry):
+		_hania_cry.stop()
+		_hania_cry.queue_free()
+		_hania_cry = null
+	_play_sound(KORK_SFX)
 	var blinks := [MAJA_STAR, AMELKA_BLINKS[randi() % AMELKA_BLINKS.size()]]
-	_star_shower(rect, MAJA_SHOWER_TIME * 0.8, blinks, 0.5)
-	await get_tree().create_timer(MAJA_SHOWER_TIME * 0.35).timeout
-	if is_instance_valid(poke):
-		poke.queue_free()
+	_confetti_burst(at, _display_rect().size.y, blinks, 0.5)
 	if _rig:
 		_rig.visible = true
 		RigHelper.play_stand(_rig)
-	await get_tree().create_timer(MAJA_SHOWER_TIME * 0.3).timeout
 	_busy = false
 	_intro_done = true
 
@@ -743,6 +803,7 @@ func _spawn_hania_poke(rect: Rect2) -> void:
 	var foot := Vector2(rect.get_center().x, rect.position.y + rect.size.y - 40.0)
 	poke.global_position = foot - Vector2(0.0, tex.get_height() * s * 0.5)
 	add_child(poke)
+	_schedule_magic_revert(poke)  # po 8 s sam „kork" + konfetti i dziecko wraca
 	# Niespodziewane „pyk" + taniec (jak u Mai).
 	poke.scale = Vector2.ZERO
 	var pop := create_tween()
@@ -793,21 +854,20 @@ func _interaction_amelka() -> void:
 
 
 func _amelka_revert() -> void:
+	# Koniec: „kork", konfetti z 3 blinków Amelki sypie dookoła i znika, Amelka wraca.
 	if _busy:
 		return
-	var poke := get_node_or_null("AmelkaPoke")
+	var poke := get_node_or_null("AmelkaPoke") as Node2D
 	if poke == null:
 		return
 	_busy = true
-	var rect := _display_rect()
-	_star_shower(rect, MAJA_SHOWER_TIME * 0.8, AMELKA_BLINKS, 0.5)
-	await get_tree().create_timer(MAJA_SHOWER_TIME * 0.35).timeout
-	if is_instance_valid(poke):
-		poke.queue_free()
+	var at := poke.global_position
+	poke.queue_free()
+	_play_sound(KORK_SFX)
+	_confetti_burst(at, _display_rect().size.y, AMELKA_BLINKS, 0.5)
 	if _rig:
 		_rig.visible = true
 		RigHelper.play_stand(_rig)
-	await get_tree().create_timer(MAJA_SHOWER_TIME * 0.3).timeout
 	_busy = false
 	_intro_done = true
 
@@ -827,6 +887,7 @@ func _spawn_amelka_poke(rect: Rect2) -> void:
 	var foot := Vector2(rect.get_center().x, rect.position.y + rect.size.y)
 	poke.global_position = foot - Vector2(0.0, tex.get_height() * s * 0.5)
 	add_child(poke)
+	_schedule_magic_revert(poke)  # po 8 s sam „kork" + konfetti i dziecko wraca
 	# Niespodziewane „pyk" + taniec (jak u Mai).
 	poke.scale = Vector2.ZERO
 	var pop := create_tween()
@@ -836,6 +897,43 @@ func _spawn_amelka_poke(rect: Rect2) -> void:
 	if not is_instance_valid(poke):
 		return
 	_start_piano_bounce(poke)
+
+
+const CONFETTI_COUNT := 60   # ile cząstek konfetti przy zakończeniu przemiany
+
+func _confetti_burst(center: Vector2, spread: float, blinks: Array, size_mult: float) -> void:
+	# Wystrzał konfetti: CONFETTI_COUNT blinków sypie DOOKOŁA z `center`, obraca się,
+	# leci na zewnątrz (z lekką grawitacją) i znika. `blinks`/`size_mult` jak u gwiazdek.
+	for i in CONFETTI_COUNT:
+		_spawn_confetti(center, spread, blinks, size_mult)
+
+
+func _spawn_confetti(center: Vector2, spread: float, blinks: Array, size_mult: float) -> void:
+	var pool: Array = blinks if not blinks.is_empty() else [MAJA_STAR]
+	var tex := load(pool[randi() % pool.size()]) as Texture2D
+	if tex == null:
+		return
+	var c := Sprite2D.new()
+	c.texture = tex
+	c.top_level = true
+	c.z_index = 1200
+	c.z_as_relative = false
+	c.global_position = center
+	var sz := (spread * randf_range(MAJA_STAR_MIN, MAJA_STAR_MAX) * size_mult) / float(maxi(tex.get_height(), 1))
+	c.scale = Vector2(sz, sz)
+	c.rotation = randf() * TAU
+	add_child(c)
+	# wystrzał na zewnątrz w losowym kierunku + grawitacja w dół, obrót, zanik
+	var ang := randf() * TAU
+	var dist := spread * randf_range(0.5, 1.6)
+	var target := center + Vector2.from_angle(ang) * dist + Vector2(0.0, spread * 0.35)
+	var life := randf_range(0.6, 1.1)
+	var t := create_tween().set_parallel(true)
+	t.tween_property(c, "global_position", target, life) \
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	t.tween_property(c, "rotation", c.rotation + randf_range(-TAU, TAU), life)
+	t.tween_property(c, "modulate:a", 0.0, life * 0.5).set_delay(life * 0.5)
+	t.chain().tween_callback(c.queue_free)
 
 
 func _star_shower(rect: Rect2, duration: float, stars: Array = [], size_mult: float = 1.0) -> void:
@@ -1158,6 +1256,7 @@ const LUCJA_BRONTO_RIG := "res://rig/lucja_bronto_rig.tscn"
 const BRONTO_HEIGHT_MULT := 1.15   # brontozaur trochę wyższy niż Łucja
 const LUCJA_BENCH_POINT := Vector2(644, 654)  # STOPY Łucji po wskoku (do strojenia)
 const LUCJA_MAGIC_SFX := "res://audio/rescopicsound-elemental-magic-spell-cast-d-228349.mp3"
+const LUCJA_BLINK := "res://sprites/lucja_blink.png"  # konfetti przy znikaniu brontozaura
 const JASIEK_MAGIC_SFX := "res://audio/freesound_community-magic-6976.mp3"
 const KORK_SFX := "res://audio/kork.mp3"  # „kork" — magiczna postać znika, dziecko wraca
 const MAGIC_REVERT_DELAY := 8.0  # po tylu sekundach magiczna postać sama znika (pyk)
@@ -1213,12 +1312,16 @@ func _interaction_lucja() -> void:
 func _lucja_revert() -> void:
 	if _busy:
 		return
-	# „Kork": brontozaur znika, a Łucja NAGLE pojawia się z powrotem na swoim miejscu.
+	# „Kork": brontozaur znika (z wystrzałem konfetti), a Łucja NAGLE wraca na miejsce.
 	var bronto := get_node_or_null("Bronto")
 	if bronto == null:
 		return  # już cofnięte (np. klik tuż przed auto-pyk)
 	bronto.queue_free()
 	_play_sound(KORK_SFX)
+	# Konfetti z lucja_blink — sypie dookoła miejsca, gdzie stał brontozaur, i znika.
+	var spread := _display_rect().size.y * BRONTO_HEIGHT_MULT
+	var burst_at := Vector2(LUCJA_BENCH_POINT.x, LUCJA_BENCH_POINT.y - spread * 0.5)
+	_confetti_burst(burst_at, spread, [LUCJA_BLINK], 1.0 / 3.0)  # blinki 3x mniejsze
 	if _rig:
 		_rig.global_position = _lucja_home_origin
 		_rig.z_index = 0

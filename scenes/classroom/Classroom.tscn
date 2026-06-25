@@ -268,7 +268,7 @@ hframes = 4
 vframes = 3
 
 [node name="Wojtek" parent="Pupils" unique_id=1588107542 instance=ExtResource("6_6e7js")]
-position = Vector2(376, 981)
+position = Vector2(373, 962)
 collision_layer = 1
 collision_mask = 2
 
@@ -362,7 +362,7 @@ hframes = 4
 vframes = 3
 
 [node name="Nati" parent="Pupils" unique_id=1277592532 instance=ExtResource("6_6e7js")]
-position = Vector2(560, 962)
+position = Vector2(555, 1002)
 collision_layer = 1
 collision_mask = 2
 
@@ -475,7 +475,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("24_jbgm4")
 
 [node name="Maja" parent="Pupils" unique_id=2122220698 instance=ExtResource("6_6e7js")]
-position = Vector2(458, 964)
+position = Vector2(459, 942)
 collision_layer = 1
 collision_mask = 2
 

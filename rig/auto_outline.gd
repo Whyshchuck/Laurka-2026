@@ -152,8 +152,14 @@ func _save_stoi() -> void:
 		if ap.has_animation_library("k"):
 			ap.remove_animation_library("k")
 		ap.add_animation_library("k", saved)
-	print("auto_outline: stoi (%d kości z obrotem) → animacje zretargetowane do %s, wpięte jako 'k'. Graj k/stoi, k/machanie… Teraz Ctrl+S."
-		% [nonzero, lib_path])
+	# 5) ZAPISZ scenę rigu automatycznie — inaczej libraries/k ginie i intro/hover
+	#    nie działają (rig w grze ładuje się z dysku). Fallback: ręczny Ctrl+S.
+	var auto_saved := false
+	if Engine.is_editor_hint() and Engine.has_singleton("EditorInterface"):
+		Engine.get_singleton("EditorInterface").call("save_scene")
+		auto_saved = true
+	print("auto_outline: stoi (%d kości) → %s, wpięte jako 'k'%s. Graj k/stoi, k/machanie…"
+		% [nonzero, lib_path, " (scena zapisana)" if auto_saved else " — teraz Ctrl+S sceny rigu!"])
 
 
 func _retarget_into(lib: AnimationLibrary, calib: Dictionary, skel: Skeleton2D) -> void:

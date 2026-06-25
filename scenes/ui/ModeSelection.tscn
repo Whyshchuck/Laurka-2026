@@ -1,17 +1,6 @@
 [gd_scene format=3 uid="uid://o2ecxyvfexx"]
 
 [ext_resource type="Script" uid="uid://bbhmvlntrs6sj" path="res://scripts/ModeSelection.gd" id="1_m3iu2"]
-[ext_resource type="Texture2D" uid="uid://co8kqr3pmavd0" path="res://sprites/dzi.png" id="2_n84b3"]
-[ext_resource type="Texture2D" uid="uid://28viyq08ubo0" path="res://sprites/klasa.png" id="3_620xu"]
-[ext_resource type="Texture2D" uid="uid://bxsc2slxcbhph" path="res://sprites/1a.png" id="4_xhsoy"]
-[ext_resource type="Texture2D" uid="uid://dmiv7m4uyuswc" path="res://sprites/ee.png" id="5_8ycin"]
-[ext_resource type="Texture2D" uid="uid://bmb576kjh6jx4" path="res://sprites/k.png" id="6_ts480"]
-[ext_resource type="Texture2D" uid="uid://d38sqfcl7o0r0" path="res://sprites/u.png" id="7_k2cje"]
-[ext_resource type="Texture2D" uid="uid://ju7bfkuhfsd2" path="res://sprites/j.png" id="8_kkys1"]
-[ext_resource type="Texture2D" uid="uid://yikfmhg4yogh" path="res://sprites/e.png" id="9_3jmjf"]
-[ext_resource type="Texture2D" uid="uid://hqgx4d1b1nwo" path="res://sprites/m.png" id="10_lwfvt"]
-[ext_resource type="Texture2D" uid="uid://cffhde1e5d488" path="res://sprites/y.png" id="11_1orth"]
-[ext_resource type="FontFile" uid="uid://bxwlocm06ul5h" path="res://BAUHS93.TTF" id="12_kfv44"]
 [ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="13_6lsr5"]
 [ext_resource type="Script" uid="uid://dldjrur18ck03" path="res://scripts/components/IntroAnimator.gd" id="14_mlw1u"]
 
@@ -34,98 +23,24 @@ position = Vector2(558, 452)
 
 [node name="Node" type="Node" parent="." unique_id=855777625]
 
-[node name="Dzi" type="TextureRect" parent="Node" unique_id=576724144]
-offset_left = 23.0
-offset_top = -87.0
-offset_right = 819.0
-offset_bottom = 418.0
-scale = Vector2(0.240164, 0.332484)
-texture = ExtResource("2_n84b3")
+[node name="LetterLabel2" type="Node2D" parent="Node" unique_id=657475846]
+position = Vector2(509, 0)
+script = ExtResource("13_6lsr5")
+text = "Dziękujemy"
+variant_mode = 1
+cycle_interval = 0.30000000000000004
+metadata/_custom_type_script = "uid://xjpugwcq0p3l"
 
-[node name="Klasa" type="TextureRect" parent="Node" unique_id=929505809]
-offset_left = 256.0
-offset_top = 729.0
-offset_right = 1923.0
-offset_bottom = 1444.0
-scale = Vector2(0.257676, 0.348752)
-texture = ExtResource("3_620xu")
-
-[node name="1a" type="TextureRect" parent="Node" unique_id=801642]
-offset_left = 651.0
-offset_top = 729.0
-offset_right = 1815.0
-offset_bottom = 1436.0
-scale = Vector2(0.257676, 0.348752)
-texture = ExtResource("4_xhsoy")
-
-[node name="Ee" type="TextureRect" parent="Node" unique_id=1286020737]
-offset_left = 205.0
-offset_top = -86.0
-offset_right = 657.0
-offset_bottom = 395.0
-scale = Vector2(0.358447, 0.369341)
-texture = ExtResource("5_8ycin")
-
-[node name="K" type="TextureRect" parent="Node" unique_id=1932866359]
-offset_left = 364.0
-offset_top = -77.0
-offset_right = 675.0
-offset_bottom = 373.0
-scale = Vector2(0.466395, 0.35806)
-texture = ExtResource("6_ts480")
-
-[node name="U" type="TextureRect" parent="Node" unique_id=80340218]
-offset_left = 493.0
-offset_top = -77.0
-offset_right = 828.0
-offset_bottom = 352.0
-scale = Vector2(0.462943, 0.380991)
-texture = ExtResource("7_k2cje")
-
-[node name="J" type="TextureRect" parent="Node" unique_id=981898186]
-offset_left = 636.0
-offset_top = -101.0
-offset_right = 877.0
-offset_bottom = 336.0
-scale = Vector2(0.5635, 0.3907)
-texture = ExtResource("8_kkys1")
-
-[node name="E" type="TextureRect" parent="Node" unique_id=2044946542]
-offset_left = 770.0
-offset_top = -88.0
-offset_right = 1033.0
-offset_bottom = 353.0
-scale = Vector2(0.376079, 0.320262)
-texture = ExtResource("9_3jmjf")
-
-[node name="M" type="TextureRect" parent="Node" unique_id=1311514143]
-offset_left = 867.0
-offset_top = -83.0
-offset_right = 1327.0
-offset_bottom = 329.0
-scale = Vector2(0.241786, 0.342308)
-texture = ExtResource("10_lwfvt")
-
-[node name="Y" type="TextureRect" parent="Node" unique_id=67673093]
-offset_left = 963.0
-offset_top = -78.0
-offset_right = 1363.0
-offset_bottom = 445.0
-scale = Vector2(0.316441, 0.33199)
-texture = ExtResource("11_1orth")
+[node name="LetterLabel3" type="Node2D" parent="Node" unique_id=1363235013]
+position = Vector2(572, 857)
+scale = Vector2(1.0383275, 1.4413973)
+script = ExtResource("13_6lsr5")
+text = "klasa   2a"
+variant_mode = 1
+cycle_interval = 0.30000000000000004
+metadata/_custom_type_script = "uid://xjpugwcq0p3l"
 
 [node name="Buttons" type="Node" parent="." unique_id=408162991]
-
-[node name="Label" type="Label" parent="Buttons" unique_id=818816861]
-visible = false
-modulate = Color(0.321569, 0.129412, 1, 1)
-offset_left = 109.0
-offset_top = 103.0
-offset_right = 408.0
-offset_bottom = 160.0
-theme_override_fonts/font = ExtResource("12_kfv44")
-theme_override_font_sizes/font_size = 50
-text = "Wybierz tryb:"
 
 [node name="ToMyButton" type="Button" parent="Buttons" unique_id=678272061]
 visible = false
@@ -144,7 +59,7 @@ position = Vector2(418, 89)
 script = ExtResource("13_6lsr5")
 text = "to my!"
 variant_mode = 1
-cycle_interval = 0.30000000000000004
+cycle_interval = 15.0
 metadata/_custom_type_script = "uid://xjpugwcq0p3l"
 
 [node name="QuizButton" type="Button" parent="Buttons" unique_id=1864931870]
@@ -164,6 +79,18 @@ position = Vector2(383, 78)
 scale = Vector2(0.41097447, 0.76850367)
 script = ExtResource("13_6lsr5")
 text = "jak dobrze nas znasz?"
+variant_mode = 1
+cycle_interval = 8.0
+metadata/_custom_type_script = "uid://xjpugwcq0p3l"
+
+[node name="LetterLabel2" type="Node2D" parent="Buttons" unique_id=187189630]
+visible = false
+position = Vector2(287.00003, 135.00002)
+scale = Vector2(0.3828683, 0.3669074)
+script = ExtResource("13_6lsr5")
+text = "wybierz tryb:"
+variant_mode = 1
+cycle_interval = 0.30000000000000004
 metadata/_custom_type_script = "uid://xjpugwcq0p3l"
 
 [node name="IntroAnimator" type="Node" parent="." unique_id=1354161528]

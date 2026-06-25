@@ -204,7 +204,7 @@ z_as_relative = false
 y_sort_enabled = true
 
 [node name="Łucja" parent="Pupils" unique_id=1321633523 instance=ExtResource("6_6e7js")]
-position = Vector2(644, 696)
+position = Vector2(653, 663)
 collision_layer = 1
 collision_mask = 2
 transform_textures = Array[Texture2D]([ExtResource("7_lucnorm"), ExtResource("7_luctr1"), ExtResource("7_luctr2"), ExtResource("7_lucbro")])
@@ -268,7 +268,7 @@ hframes = 4
 vframes = 3
 
 [node name="Wojtek" parent="Pupils" unique_id=1588107542 instance=ExtResource("6_6e7js")]
-position = Vector2(368, 535)
+position = Vector2(376, 981)
 collision_layer = 1
 collision_mask = 2
 
@@ -308,7 +308,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("11_dtuxj")
 
 [node name="Antek" parent="Pupils" unique_id=2074091120 instance=ExtResource("6_6e7js")]
-position = Vector2(206, 359)
+position = Vector2(555, 534)
 collision_layer = 1
 collision_mask = 2
 
@@ -362,7 +362,7 @@ hframes = 4
 vframes = 3
 
 [node name="Nati" parent="Pupils" unique_id=1277592532 instance=ExtResource("6_6e7js")]
-position = Vector2(544, 825)
+position = Vector2(560, 962)
 collision_layer = 1
 collision_mask = 2
 
@@ -415,7 +415,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("19_l8q0k")
 
 [node name="Amelka" parent="Pupils" unique_id=863685177 instance=ExtResource("6_6e7js")]
-position = Vector2(544, 526)
+position = Vector2(220, 685)
 collision_layer = 1
 collision_mask = 2
 
@@ -475,7 +475,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("24_jbgm4")
 
 [node name="Maja" parent="Pupils" unique_id=2122220698 instance=ExtResource("6_6e7js")]
-position = Vector2(201, 687)
+position = Vector2(458, 964)
 collision_layer = 1
 collision_mask = 2
 
@@ -591,7 +591,7 @@ hframes = 4
 vframes = 3
 
 [node name="KazikR" parent="Pupils" unique_id=828244482 instance=ExtResource("6_6e7js")]
-position = Vector2(108, 360)
+position = Vector2(108, 321)
 collision_layer = 1
 collision_mask = 2
 
@@ -611,7 +611,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("34_mh7vt")
 
 [node name="KazikL" parent="Pupils" unique_id=1001703883 instance=ExtResource("6_6e7js")]
-position = Vector2(368, 987)
+position = Vector2(109, 706)
 collision_layer = 1
 collision_mask = 2
 
@@ -643,7 +643,7 @@ hframes = 4
 vframes = 3
 
 [node name="Anabiya" parent="Pupils" unique_id=945626928 instance=ExtResource("6_6e7js")]
-position = Vector2(543, 371)
+position = Vector2(541, 328)
 collision_layer = 1
 collision_mask = 2
 
@@ -707,7 +707,7 @@ hframes = 4
 vframes = 3
 
 [node name="Abrish" parent="Pupils" unique_id=745045710 instance=ExtResource("6_6e7js")]
-position = Vector2(373, 371)
+position = Vector2(371, 350)
 collision_layer = 1
 collision_mask = 2
 
@@ -949,7 +949,7 @@ theme_override_font_sizes/font_size = 30
 
 [node name="ScoreBackdrop" type="Sprite2D" parent="." unique_id=1018322079]
 position = Vector2(839.00006, 32)
-scale = Vector2(1.7, 0.62)
+scale = Vector2(2.05, 0.62)
 texture = SubResource("GradientTexture2D_scorebg")
 
 [node name="ScoreLetterLabel" type="Node2D" parent="." unique_id=1018322080]

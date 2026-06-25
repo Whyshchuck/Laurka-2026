@@ -1,28 +1,34 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://bf2oxva28ugjm"]
 
-[ext_resource type="Script" path="res://minigames/alphabet_overlay.gd" id="1_alpha"]
-[ext_resource type="Script" path="res://letters/letter_label.gd" id="2_letters"]
+[ext_resource type="Script" uid="uid://hsg0lo52q5ws" path="res://minigames/alphabet_overlay.gd" id="1_alpha"]
+[ext_resource type="Script" uid="uid://xjpugwcq0p3l" path="res://letters/letter_label.gd" id="2_letters"]
 [ext_resource type="AudioStream" uid="uid://bxhvxu4wkd0wh" path="res://audio/win311.mp3" id="3_win"]
 
-[node name="AlphabetOverlay" type="CanvasLayer"]
+[node name="AlphabetOverlay" type="CanvasLayer" unique_id=1327339151]
 layer = 10
 script = ExtResource("1_alpha")
+bubble_height_frac = 0.95
+bubble_offset_x_frac = 0.28
+bubble_font_size = 24
+bubble_text_center = Vector2(-8, -15)
 
-[node name="Dim" type="ColorRect" parent="."]
+[node name="Dim" type="ColorRect" parent="." unique_id=539728605]
 offset_right = 1080.0
 offset_bottom = 1200.0
 color = Color(0, 0, 0, 1)
 
-[node name="Portrait" type="Node2D" parent="."]
+[node name="Portrait" type="Node2D" parent="." unique_id=1460153652]
 
-[node name="Cells" type="Control" parent="."]
-mouse_filter = 2
+[node name="Cells" type="Control" parent="." unique_id=495495553]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 1080.0
 offset_bottom = 1200.0
+mouse_filter = 2
 
-[node name="Letters" type="Node2D" parent="."]
+[node name="Letters" type="Node2D" parent="." unique_id=549128842]
 
-[node name="WinLabel" type="Node2D" parent="."]
+[node name="WinLabel" type="Node2D" parent="." unique_id=1651528199]
 visible = false
 position = Vector2(290, 150)
 script = ExtResource("2_letters")
@@ -31,10 +37,10 @@ letter_height = 110.0
 variant_mode = 1
 cycle_interval = 0.3
 
-[node name="WinAudio" type="AudioStreamPlayer" parent="."]
+[node name="WinAudio" type="AudioStreamPlayer" parent="." unique_id=46920658]
 stream = ExtResource("3_win")
 
-[node name="CloseButton" type="Button" parent="."]
+[node name="CloseButton" type="Button" parent="." unique_id=363846699]
 offset_left = 980.0
 offset_top = 40.0
 offset_right = 1050.0

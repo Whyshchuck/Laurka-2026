@@ -38,7 +38,7 @@ script = ExtResource("2_letters")
 letter_height = 64.0
 
 [node name="NameBackdrop" type="Sprite2D" parent="NameLabel" unique_id=771019284]
-scale = Vector2(2.4, 0.55)
+scale = Vector2(2.85, 0.55)
 texture = SubResource("GradientTexture2D_namebg")
 
 [node name="Panel" type="Panel" parent="." unique_id=582838667]

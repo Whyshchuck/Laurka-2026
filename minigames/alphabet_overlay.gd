@@ -25,6 +25,21 @@ const ANIM_TIME := 0.45
 # — więc żeby zmienić wielkość Kamili, wystarczy zmienić rozmiar tego prostokąta.
 const PORTRAIT_RECT := Rect2(50.0, 330.0, 340.0, 520.0)
 const KamilaRig := preload("res://rig/p_kamila_rig.tscn")
+const DymekTex := preload("res://sprites/dymek.png")
+const BUBBLE_TEXT := "Ułóż alfabet w odpowiedniej kolejności"
+
+# --- Dymek (strojenie z Inspectora węzła AlphabetOverlay) --------------------
+# Wysokość dymka jako ułamek wysokości Kamili.
+@export_group("Dymek")
+@export_range(0.1, 2.0, 0.01) var bubble_height_frac := 0.62
+# Przesunięcie dymka: x = w prawo (ułamek szerokości Kamili),
+# y = dodatkowe uniesienie nad głowę (ułamek wysokości dymka).
+@export var bubble_offset_x_frac := 0.18
+@export_range(0.0, 1.0, 0.01) var bubble_lift_frac := 0.30
+@export_range(8, 80, 1) var bubble_font_size := 26
+# Środek ramki tekstu względem środka grafiki dymka (px w grafice 360x360).
+@export var bubble_text_center := Vector2(-8.0, -25.0)
+@export var bubble_text_box := Vector2(196.0, 118.0)
 
 # Lewa ręka "pod bokiem": dłoń sięga IK-iem do biodra, łokieć wychodzi w bok (<).
 # Cel = biodro przesunięte w BOK (ku barkowi) i lekko w GÓRĘ, żeby dłoń siadła na
@@ -78,6 +93,8 @@ var _closing := false
 
 
 func _ready() -> void:
+	# Dopóki nakładka żyje, uczniowie w klasie wstrzymują hover (wstawanie/siadanie).
+	add_to_group("blocks_pupil_hover")
 	# Stan początkowy przed animacją wejścia.
 	dim.color.a = 0.0
 	cells_root.modulate.a = 0.0
@@ -155,6 +172,7 @@ func open_from(src: TextureRect) -> void:
 	# Wycentruj rig w uchwycie: jego środek (bbox) trafia w (0,0) uchwytu.
 	rig.position = -bbox.get_center()
 	portrait.add_child(rig)
+	_add_speech_bubble(bbox)
 
 	# Ciało w pozie "stoi" (zamrożonej), a ramiona pozujemy ręcznie w _process
 	# (lewe pod bokiem, prawe wskazuje kursor) — dlatego seek+pause, żeby animacja
@@ -192,6 +210,41 @@ func open_from(src: TextureRect) -> void:
 
 	_spawn_letters(rect.get_center())
 	_animate_in()
+
+
+func _add_speech_bubble(bbox: Rect2) -> void:
+	# Komiksowy dymek nad głową pani Kamili. Jest dzieckiem uchwytu (portrait),
+	# więc wjeżdża w lewo i skaluje się razem z nią. Tekst siedzi w białym wnętrzu.
+	if bbox.size.y <= 0.0:
+		return
+	var bubble := Node2D.new()
+	var tex_size := DymekTex.get_size()
+	# Dymek = ułamek wysokości Kamili (skala uchwytu domłaca resztę na ekranie).
+	var s := bbox.size.y * bubble_height_frac / tex_size.y
+	bubble.scale = Vector2(s, s)
+	# Nad głową (bbox wycentrowany w (0,0) uchwytu), lekko w prawo — w stronę liter.
+	# Ogonek dymka (dół grafiki) wypada tuż nad czubkiem głowy.
+	bubble.position = Vector2(
+		bbox.size.x * bubble_offset_x_frac,
+		-bbox.size.y * 0.5 - tex_size.y * s * bubble_lift_frac)
+	portrait.add_child(bubble)
+
+	var spr := Sprite2D.new()    # centrowany — środek grafiki w (0,0) dymka
+	spr.texture = DymekTex
+	bubble.add_child(spr)
+
+	# Tekst w białym wnętrzu dymka (środek wnętrza ~lekko nad i na lewo od środka
+	# grafiki — przez perspektywę prostokąta).
+	var lbl := Label.new()
+	lbl.text = BUBBLE_TEXT
+	lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	lbl.add_theme_color_override("font_color", Color(0.09, 0.11, 0.32))
+	lbl.add_theme_font_size_override("font_size", bubble_font_size)
+	lbl.size = bubble_text_box
+	lbl.position = bubble_text_center - bubble_text_box * 0.5
+	bubble.add_child(lbl)
 
 
 static func _rig_bbox(rig: Node2D) -> Rect2:

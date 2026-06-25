@@ -7,8 +7,24 @@ extends Node2D
 @onready var score_label: LetterLabel = $ScoreLetterLabel
 @onready var score_backdrop: Sprite2D = $ScoreBackdrop
 @onready var kamila_rig: Node2D = $PKamila/Rig
+@onready var camera: Camera2D = $Camera2D
 
 var game_started := false
+
+const INTRO_WAVE_TIME := 2.2  # ile sekund uczniowie machają, zanim usiądą
+const SCORE_LETTERS_RELOAD := 15.0  # co ile sekund licznik (quiz) cyklicznie losuje literki
+
+# --- Pinch-zoom (mobile) ---
+const ZOOM_MIN := 1.0          # 1.0 = pełny kadr klasy
+const ZOOM_MAX := 3.0          # maks. przybliżenie
+const TAP_MOVE_MAX := 24.0     # ruch palca > to = przeciąg, nie tap
+var _use_touch := false        # po 1. dotyku przechodzimy na obsługę dotykową
+var _touches := {}             # index palca -> pozycja (ekran)
+var _pinch_prev_dist := 0.0
+var _pinch_prev_mid := Vector2.ZERO
+var _tap_candidate := false
+var _tap_start := Vector2.ZERO
+var _cam_home := Vector2.ZERO  # bazowa pozycja kamery (kadr przy zoomie 1)
 
 var total_pupils := 0
 var sitting_count := 0
@@ -20,6 +36,7 @@ var alphabet_overlay: CanvasLayer = null
 var alphabet_sfx: AudioStreamPlayer = null  # jingiel przy otwarciu minigry alfabetu
 
 func _ready():
+	_cam_home = camera.position
 	update_quiz_score_label()
 
 	# Dźwięk "tadadadam" przy otwarciu minigry alfabetu (klik w panią Kamilę).
@@ -44,10 +61,21 @@ func _ready():
 	for pupil in get_pupils():
 		total_pupils += 1
 		pupil.setup_rig()  # uczeń z rigiem -> pokaż rig w pozie "stand"
+		# Start klasy: macha własną animacją, potem siada (i potem wstaje on hover).
+		pupil.intro_wave_then_sit(INTRO_WAVE_TIME)
 
 	_report_missing_quiz()
 
 func _unhandled_input(event):
+	# Dotyk (mobile): dwa palce = pinch-zoom, jeden palec = tap (=klik).
+	if event is InputEventScreenTouch:
+		_use_touch = true
+		_handle_touch(event)
+		return
+	if event is InputEventScreenDrag:
+		_handle_drag(event)
+		return
+
 	if event is InputEventKey and event.pressed:
 		match event.keycode:
 			KEY_ESCAPE:
@@ -61,8 +89,71 @@ func _unhandled_input(event):
 
 	if not (event is InputEventMouseButton and event.pressed):
 		return
+	if _use_touch:
+		return  # na dotyku klik obsługuje tap (_handle_touch), nie emulowana mysz
 
-	var mouse_pos = get_global_mouse_position()
+	_do_click(get_global_mouse_position())
+
+
+# --- Dotyk: pinch-zoom + tap -------------------------------------------------
+
+func _handle_touch(event: InputEventScreenTouch) -> void:
+	if event.pressed:
+		_touches[event.index] = event.position
+		if _touches.size() == 1:
+			_tap_candidate = true
+			_tap_start = event.position
+		elif _touches.size() >= 2:
+			_tap_candidate = false      # dwa palce -> to nie klik, tylko pinch
+			_pinch_prev_dist = 0.0
+			_update_pinch()             # zapamiętaj startowy rozstaw/środek
+	else:
+		_touches.erase(event.index)
+		if _touches.is_empty():
+			if _tap_candidate:
+				# tap = klik; pozycję ekranu przeliczamy na świat (uwzględnia zoom)
+				var world := get_viewport().get_canvas_transform().affine_inverse() * event.position
+				_do_click(world)
+			_tap_candidate = false
+		_pinch_prev_dist = 0.0          # przelicz pinch od nowa po zmianie liczby palców
+
+
+func _handle_drag(event: InputEventScreenDrag) -> void:
+	if not _touches.has(event.index):
+		return
+	_touches[event.index] = event.position
+	if _touches.size() >= 2:
+		_update_pinch()
+	elif _tap_candidate and event.position.distance_to(_tap_start) > TAP_MOVE_MAX:
+		_tap_candidate = false          # palec się przesunął -> nie tap
+
+
+func _update_pinch() -> void:
+	var keys := _touches.keys()
+	if keys.size() < 2:
+		return
+	var p0: Vector2 = _touches[keys[0]]
+	var p1: Vector2 = _touches[keys[1]]
+	var dist := p0.distance_to(p1)
+	var mid := (p0 + p1) * 0.5
+	if _pinch_prev_dist > 0.0 and dist > 0.0:
+		var z_old := camera.zoom.x
+		var z_new := clampf(z_old * dist / _pinch_prev_dist, ZOOM_MIN, ZOOM_MAX)
+		var half := get_viewport_rect().size * 0.5
+		# Punkt świata pod poprzednim środkiem zostaje, potem dosuwamy do bieżącego.
+		var world_anchor := (_pinch_prev_mid - half) / z_old + camera.position
+		var pos_new := world_anchor - (mid - half) / z_new
+		# Pan tylko w obrębie pierwotnego kadru (przy zoomie 1 kamera stoi w domu).
+		var max_pan := half * (1.0 - 1.0 / z_new)
+		pos_new.x = clampf(pos_new.x, _cam_home.x - max_pan.x, _cam_home.x + max_pan.x)
+		pos_new.y = clampf(pos_new.y, _cam_home.y - max_pan.y, _cam_home.y + max_pan.y)
+		camera.zoom = Vector2(z_new, z_new)
+		camera.position = pos_new
+	_pinch_prev_dist = dist
+	_pinch_prev_mid = mid
+
+
+func _do_click(mouse_pos: Vector2) -> void:
 	var clicked_characters := []
 
 	var arrow_node = $ReturnArrow
@@ -71,6 +162,20 @@ func _unhandled_input(event):
 	if Geometry2D.is_point_in_polygon(arrow_node.to_local(mouse_pos), arrow_node.polygon):
 		GameFlow.go_to_mode_selection()
 		return
+
+	# Klik w kota Oliwki (siedzi na biurku Kamili) — odsyła go z powrotem.
+	# Sprawdzamy przed Kamilą, bo kot siedzi w obrębie jej klikalnego prostokąta.
+	var oliwka := get_node_or_null("Pupils/Oliwka")
+	if oliwka and oliwka.has_method("try_click_cat") and oliwka.try_click_cat(mouse_pos):
+		return
+
+	# Klik w iglo -> parada pingwinów (wychodzą drzwiami, obchodzą salę, kryją się za iglo).
+	var igloo := get_node_or_null("Igloo") as Sprite2D
+	if igloo and igloo.texture:
+		var ig_size := igloo.texture.get_size() * igloo.scale.abs()
+		if Rect2(igloo.global_position - ig_size * 0.5, ig_size).has_point(mouse_pos):
+			_penguin_parade()
+			return
 
 	for node in get_pupils():
 		if node.texture_rect.get_global_rect().has_point(mouse_pos):
@@ -210,6 +315,114 @@ func update_quiz_score_label() -> void:
 		return
 	var is_quiz := GameState.current_type == GameState.GameType.QUIZ
 	score_label.visible = is_quiz
+	# W quizie literki licznika cyklicznie losują się co 15 s (CYCLE zamiast RANDOM).
+	score_label.cycle_interval = SCORE_LETTERS_RELOAD
+	score_label.variant_mode = LetterLabel.VariantMode.CYCLE if is_quiz else LetterLabel.VariantMode.RANDOM
 	score_label.text = GameState.get_quiz_score_text()
 	if score_backdrop:
 		score_backdrop.visible = is_quiz
+
+
+# --- parada pingwinów (klik w iglo) ------------------------------------------
+# Trzy pingwiny wychodzą drzwiami w 3-sekundowych odstępach, obchodzą salę po
+# zadanych punktach i na końcu chowają się ZA iglo (z-index pod iglo) i znikają.
+
+const PENGUIN_TEX := [
+	"res://sprites/pingwin_1.png",
+	"res://sprites/pingwin_2.png",
+	"res://sprites/pingwin_3.png",
+]
+const PENGUIN_PATH := [
+	Vector2(818, 488),   # drzwi — pojawienie się
+	Vector2(729, 1063),
+	Vector2(300, 1101),
+	Vector2(304, 239),
+	Vector2(806, 246),
+	Vector2(818, 391),   # za iglo — zniknięcie
+]
+const PENGUIN_SFX := "res://audio/sondangsirait419-pinguin-220042.mp3"
+const PENGUIN_INTERVAL := 3.0   # odstęp między kolejnymi pingwinami
+const PENGUIN_SPEED := 220.0    # prędkość marszu (px/s)
+const PENGUIN_HEIGHT := 150.0   # wysokość pingwina na ekranie
+const PENGUIN_WADDLE_DEG := 10.0  # kąt kołysania na boki (jak pingwin)
+const PENGUIN_WADDLE_T := 0.18    # czas jednego przechyłu (mniejszy = szybsze dreptanie)
+
+var _penguins_marching := false
+
+
+func _penguin_parade() -> void:
+	if _penguins_marching:
+		return  # parada już trwa — nie dubluj
+	_penguins_marching = true
+	for i in PENGUIN_TEX.size():
+		_spawn_penguin(i)
+		await get_tree().create_timer(PENGUIN_INTERVAL).timeout
+		if not is_inside_tree():
+			return
+	_penguins_marching = false  # wszystkie wystartowały (idą własnymi korutynami)
+
+
+func _spawn_penguin(idx: int) -> void:
+	var tex: Texture2D = load(PENGUIN_TEX[idx % PENGUIN_TEX.size()])
+	if tex == null:
+		return
+	var p := Sprite2D.new()
+	p.texture = tex
+	# offset w górę o pół wysokości: node.position = STOPY (dół sprajta), nie środek.
+	# Dzięki temu punkty trasy to pozycje stóp, y-sort liczy się po stopach, a
+	# kołysanie obraca się wokół stóp.
+	p.offset = Vector2(0.0, -tex.get_height() * 0.5)
+	var base_scale := PENGUIN_HEIGHT / float(maxi(tex.get_height(), 1))
+	p.scale = Vector2(base_scale, base_scale)
+	p.position = PENGUIN_PATH[0]
+	p.modulate.a = 0.0
+	# Do węzła Pupils (y_sort_enabled) — pingwiny sortują się głębią z uczniami:
+	# wyżej (mniejszy y) = za uczniami, niżej = przed. Iglo (z=1) jest nad całym
+	# Pupils (z=0), więc na końcu wchodzą „za iglo" same z siebie.
+	$Pupils.add_child(p)
+	_play_penguin_sfx()
+	_walk_penguin(p, base_scale)
+
+
+func _walk_penguin(p: Sprite2D, base_scale: float) -> void:
+	# Pojawienie się w drzwiach.
+	var fin := create_tween()
+	fin.tween_property(p, "modulate:a", 1.0, 0.4)
+	await fin.finished
+	if not is_instance_valid(p):
+		return
+	# Kołysanie na boki jak pingwin — rotacja drepcze w lewo-prawo przez cały marsz.
+	var waddle := create_tween().set_loops()
+	waddle.tween_property(p, "rotation", deg_to_rad(PENGUIN_WADDLE_DEG), PENGUIN_WADDLE_T) \
+		.set_trans(Tween.TRANS_SINE)
+	waddle.tween_property(p, "rotation", deg_to_rad(-PENGUIN_WADDLE_DEG), PENGUIN_WADDLE_T) \
+		.set_trans(Tween.TRANS_SINE)
+	# Marsz po kolejnych punktach; pingwin domyślnie patrzy w prawo.
+	for i in range(1, PENGUIN_PATH.size()):
+		var from: Vector2 = PENGUIN_PATH[i - 1]
+		var to: Vector2 = PENGUIN_PATH[i]
+		if absf(to.x - from.x) > 1.0:
+			p.scale.x = base_scale * signf(to.x - from.x)
+		# Głębią steruje y_sort węzła Pupils (po bieżącym y) — sam ruch pozycji wystarcza.
+		var seg := create_tween()
+		seg.tween_property(p, "position", to, from.distance_to(to) / PENGUIN_SPEED)
+		await seg.finished
+		if not is_instance_valid(p):
+			return
+	# Za iglo — znika (kołysanie stop, rotacja do pionu).
+	if waddle.is_valid():
+		waddle.kill()
+	p.rotation = 0.0
+	var out := create_tween()
+	out.tween_property(p, "modulate:a", 0.0, 0.4)
+	await out.finished
+	if is_instance_valid(p):
+		p.queue_free()
+
+
+func _play_penguin_sfx() -> void:
+	var pl := AudioStreamPlayer.new()
+	pl.stream = load(PENGUIN_SFX)
+	add_child(pl)
+	pl.play()
+	pl.finished.connect(pl.queue_free)

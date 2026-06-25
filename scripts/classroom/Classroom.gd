@@ -178,7 +178,9 @@ func _do_click(mouse_pos: Vector2) -> void:
 			return
 
 	for node in get_pupils():
-		if node.texture_rect.get_global_rect().has_point(mouse_pos):
+		# Klikalne pole = faktyczny obszar postaci (bbox rigu / przeskalowana grafika),
+		# a nie get_global_rect() TextureRecta (ignorował scale -> za szerokie, nachodzące).
+		if node.clickable_rect().has_point(mouse_pos):
 			clicked_characters.append(node)
 
 	if clicked_characters.is_empty():
@@ -195,10 +197,16 @@ func _do_click(mouse_pos: Vector2) -> void:
 			open_alphabet()
 		return
 
-	# Sortuj po z_index malejąco (czyli najwyższy na początku)
-	clicked_characters.sort_custom(func(a, b): return a.position.y > b.position.y)
+	# Jedno na raz: gdy kliknięcie trafia w kilku uczniów (nachodzące pola), wygrywa
+	# TEN, którego ŚRODEK grafiki jest najbliżej punktu kliknięcia.
 	var top_character = clicked_characters[0]
-	
+	var best_dist := INF
+	for node in clicked_characters:
+		var d: float = node.clickable_rect().get_center().distance_squared_to(mouse_pos)
+		if d < best_dist:
+			best_dist = d
+			top_character = node
+
 	if GameState.current_type == GameState.GameType.QUIZ:
 		open_quiz(top_character)
 	else:

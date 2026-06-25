@@ -6,13 +6,13 @@
 			"correct": 2
 		},
 		{
-			"question": "Jakie jest moje ulubione zwierzę?",
+			"question": "Jakie mam zwierzę?",
 			"answers": ["Pies", "Kot", "Rybki"],
 			"correct": 1
 		},
 		{
 			"question": "Jaki jest mój ulubiony piłkarz?",
-			"answers": ["Lionel Messi", "Cristiano Ronaldo", "Neymar Jr"],
+			"answers": ["Lionel Messi", "Cristiano Ronaldo (CR7)", "Neymar Jr"],
 			"correct": 1
 		}
 	],
@@ -96,7 +96,7 @@
 	],
 
 	"Lucja": [
-		{ "question": "Co najczęściej robie w wolnych chwilach", "answers": ["czytam", "oglądam bajki", "gram na komputerze"], "correct": 0 },
+		{ "question": "Co najczęściej robie w wolnych chwilach?", "answers": ["czytam", "oglądam bajki", "gram na komputerze"], "correct": 0 },
 		{ "question": "Kim chcę zostać w przyszłości", "answers": ["zoologiem", "kryptozoologiem", "paleontologiem"], "correct": 1 },
 		{ "question": "Jaki jest mój ulubiony kolor", "answers": ["różowy", "zielony", "fioletowy"], "correct": 2 }
 	],
@@ -105,7 +105,7 @@
 	],
 	"Wojtek": [
 		{
-			"question": "W jakim wieku samodzielnie wszedłem na Giewont",
+			"question": "W jakim wieku samodzielnie wszedłem na Giewont?",
 			"answers": ["5 lat", "10 lat", "Nie doszedł na szczyt"],
 			"correct": 0
 		},
@@ -122,17 +122,17 @@
 	],
 	"Antek": [
 		{
-			"question": "Jaki napój lubię najbardziej",
+			"question": "Jaki napój lubię najbardziej?",
 			"answers": ["Coca-Cola", "Woda", "Sok z grapefruita"],
 			"correct": 1
 		},
 		{
-			"question": "Gdzie najbardziej lubię jeździć na wczasy",
+			"question": "Gdzie najbardziej lubię jeździć na wczasy?",
 			"answers": ["W góry", "Nad morze", "Na Podlasie"],
 			"correct": 0
 		},
 		{
-			"question": "Jakie znam języki obce",
+			"question": "Jakie znam języki?",
 			"answers": ["Polski, rosyjski i czeski", "Polski, angielski", "Polski, angielski, niemiecki"],
 			"correct": 1
 		}
@@ -184,13 +184,45 @@
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
 	],
 	"Anabiya": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Jakie jest moje ulubione jedzenie?",
+			"answers": ["Pizza", "Burger", "Sushi"],
+			"correct": 0
+		},
+		{
+			"question": "Jaki jest mój ulubiony sport?",
+			"answers": ["Koszykówka", "Piłka nożna", "Pływanie"],
+			"correct": 2
+		},
+		{
+			"question": "Jaki jest mój ulubiony serial?",
+			"answers": ["Lilo i Stich", "Unicorn Academy", "Swapped"],
+			"correct": 1
+		}
 	],
 	"Kuba": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Jakie mam zwierzątko?",
+			"answers": ["papuga", "świnka morska", "kot"],
+			"correct": 1
+		}
 	],
 	"Abrish": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Jaki jest mój ulubiony sport?",
+			"answers": ["Hokej na lodzie", "Tenis stołowy", "Koszykówka"],
+			"correct": 2
+		},
+		{
+			"question": "Jakie jest moje ulubione jedzenie?",
+			"answers": ["Burger", "Sushi", "Makaron"],
+			"correct": 0
+		},
+		{
+			"question": "Jakie jest moje ulubione hobby?",
+			"answers": ["Podróżowanie", "Czytanie książek", "Śpiewanie"],
+			"correct": 2
+		}
 	],
 	"Szymon": [
 		{

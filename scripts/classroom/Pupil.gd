@@ -642,7 +642,7 @@ func _interaction_kazik_l() -> void:
 # pokazujemy go na występ i chowamy na końcu. Klik startuje występ, kolejny kończy.
 const ABRISH_MIC_PATH := "Skeleton2D/Biodra/Tulow/RamieL/PrzedramieL/DlonL/Microphone"
 const ABRISH_KPOP := "res://audio/abrish_k_pop.mp3"
-const ABRISH_BENCH_POINT := Vector2(371, 520)  # STOPY Abrish na ławce (do strojenia)
+const ABRISH_BENCH_POINT := Vector2(400, 333)  # STOPY Abrish na ławce (do strojenia)
 # Poza śpiewania (wszystko do strojenia):
 const ABRISH_ARM_L := 0.1309    # lewe ramię (7.5°)
 const ABRISH_FORE_L := -2.8972  # przedramię zgięte — dłoń przy ustach (-166°)
@@ -687,6 +687,9 @@ func _interaction_abrish() -> void:
 		mic.visible = true
 
 	# Wskok na ławkę (z-index nad ławką).
+	# Re-fit tuż przed skokiem: gwarantuje, że rig stoi dokładnie tam, gdzie wynika
+	# z jego obszaru (jak w edytorze) — skok startuje i wraca z właściwego miejsca.
+	RigHelper.fit(_rig, _display_rect())
 	_abrish_home_origin = _rig.global_position
 	var feet0 := _display_rect()
 	var home_feet := Vector2(feet0.get_center().x, feet0.end.y)

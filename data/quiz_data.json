@@ -1,44 +1,44 @@
 {
 	"Wiktor": [
 		{
-			"question": "Jakie karty zbiera Wiktor?",
+			"question": "Jakie karty zbieram?",
 			"answers": ["Pokemon", "Dragon Ball", "piłkarskie"],
 			"correct": 2
 		},
 		{
-			"question": "Jakie jest ulubione zwierzę Wiktora?",
+			"question": "Jakie jest moje ulubione zwierzę?",
 			"answers": ["Pies", "Kot", "Rybki"],
 			"correct": 1
 		},
 		{
-			"question": "Jaki jest ulubiony piłkarz Wiktora?",
+			"question": "Jaki jest mój ulubiony piłkarz?",
 			"answers": ["Lionel Messi", "Cristiano Ronaldo", "Neymar Jr"],
 			"correct": 0
 		}
 	],
 	"Amelka": [
 		{
-			"question": "Jak nazywa się kotka Amelki?",
+			"question": "Jak nazywa się moja kotka?",
 			"answers": ["Momo", "Mia", "Misia"],
 			"correct": 0
 		},
 		{
-			"question": "Co Amelka lubi oglądać w wolnym czasie?",
+			"question": "Co lubię oglądać w wolnym czasie?",
 			"answers": ["K-pop demon Hunters", "Koci domek Gabii", "My little pony"],
 			"correct": 0
 		},
 		{
-			"question": "Jakie jest ulubione zwierzę Amelii?",
+			"question": "Jakie jest moje ulubione zwierzę?",
 			"answers": ["Kot", "Tygrys", "panda ruda"],
 			"correct": 2
 		},
 		{
-			"question": "Jaki jest ulubiony kolor Amelki?",
+			"question": "Jaki jest mój ulubiony kolor?",
 			"answers": ["Różowy", "Fioletowy", "Niebieski"],
 			"correct": 1
 		},
 		{
-			"question": "Jakie jest ulubione powiedzenie Amelii?",
+			"question": "Jakie jest moje ulubione powiedzenie?",
 			"answers": ["No przecież!", "Oczywistość oczywista", "Tak, tak wiedziałam!"],
 			"correct": 1
 		}
@@ -50,12 +50,12 @@
 			"correct": 1
 		},
 		{
-			"question": "Jaki jest ulubiony kolor Julka?",
+			"question": "Jaki jest mój ulubiony kolor?",
 			"answers": ["zielony", "brązowy", "niebieski"],
 			"correct": 2
 		},
 		{
-			"question": "Jak ma na imię pies Julka?",
+			"question": "Jak ma na imię mój pies?",
 			"answers": ["Mia", "Luna", "Suzi"],
 			"correct": 0
 		}
@@ -67,36 +67,37 @@
 			"correct": 1
 		},
 		{
-			"question": "Jaka lekcję najbardziej lubię?",
+			"question": "Jaką lekcję najbardziej lubię?",
 			"answers": ["w-f", "informatyka", "etyka"],
 			"correct": 0
 		},
 		{
-			"question": "W zimę najbardziej lubie jeździć na?",
+			"question": "W zimie najbardziej lubię jeździć na?",
 			"answers": ["sankach", "nartach", "snowboardzie"],
 			"correct": 2
 		}
 	],
 	"Oliwka": [
 		{
-			"question": "Jakie jest ulubione zwierzę Oliwii?",
+			"question": "Jakie jest moje ulubione zwierzę?",
 			"answers": ["kapibara", "meduza", "kot"],
 			"correct": 2
 		},
 		{
-			"question": "Jakie jest ulubione jedzenie Oliwii?",
+			"question": "Jakie jest moje ulubione jedzenie?",
 			"answers": ["Kawior", "Naleśniki", "Nóżki w galarecie"],
 			"correct": 1
 		},
 		{
-			"question": "Jaka jest ulubiona gra planszowa Oliwii?",
+			"question": "Jaka jest moja ulubiona gra planszowa?",
 			"answers": ["Monopol", "Twister", "Memory"],
 			"correct": 0
 		}
 	],
 
 	"Lucja": [
-		{ "question": "Kim chce zostać Łucja w przyszłości", "answers": ["zoologiem", "kryptozoologiem", "paleontologiem"], "correct": 1 },
+		{ "question": "Co najczęściej robie w wolnych chwilach", "answers": ["czytam", "oglądam bajki", "gram na komputerze"], "correct": 0 },
+		{ "question": "Kim chcę zostać w przyszłości", "answers": ["zoologiem", "kryptozoologiem", "paleontologiem"], "correct": 1 },
 		{ "question": "Jaki jest mój ulubiony kolor", "answers": ["różowy", "zielony", "fioletowy"], "correct": 2 }
 	],
 	"Hania": [
@@ -104,35 +105,49 @@
 	],
 	"Wojtek": [
 		{
-			"question": "Wojtek samodzielnie wszedł na Giewont w wieku",
+			"question": "W jakim wieku samodzielnie wszedłem na Giewont",
 			"answers": ["5 lat", "10 lat", "Nie doszedł na szczyt"],
 			"correct": 0
 		},
 		{
-			"question": "Ulubiona płyta Wojtka to:",
+			"question": "Moja ulubiona płyta to:",
 			"answers": ["Yellow Submarine, The Beatles", "1-800-Oświecenie, Taco Hemingway", "Mamma Mia!"],
 			"correct": 1
 		},
 		{
-			"question": "Ulubiony film Wojtka to:",
+			"question": "Mój ulubiony film to:",
 			"answers": ["Forrest Gump", "Gwiezdne wojny: Nowa nadzieja", "Pożegnanie z Afryką"],
 			"correct": 1
 		}
 	],
 	"Antek": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Jaki napój lubię najbardziej",
+			"answers": ["Coca-Cola", "Woda", "Sok z grapefruita"],
+			"correct": 1
+		},
+		{
+			"question": "Gdzie najbardziej lubię jeździć na wczasy",
+			"answers": ["W góry", "Nad morze", "Na Podlasie"],
+			"correct": 0
+		},
+		{
+			"question": "Jakie znam języki obce",
+			"answers": ["Polski, rosyjski i czeski", "Polski, angielski", "Polski, angielski, niemiecki"],
+			"correct": 1
+		}
 	],
 	"Krzysiek": [
 		{ "question": "", "answers": ["", "", ""], "correct": 0 }
 	],
 	"Nati": [
-		{"question": "O czym marzy Natalka?",
+		{"question": "O czym marzę?",
 		"answers": ["O karaluchu", "O psie", "O papudze"],
 		"correct": 1},
-		{"question": "Jaki sport ćwiczy Natalia?",
+		{"question": "Jaki sport ćwiczę?",
 		"answers": ["Taniec", "Krav Maga", "Karate"],
 		"correct": 2},
-		{"question": "Jaką postać z anime ma Natalka na koszulce?",
+		{"question": "Jaką postać z anime mam na koszulce?",
 		"answers": ["Dragon Ball", "Świnka Peppa", "Szop"],
 		"correct": 0}
 	],
@@ -147,17 +162,17 @@
 	],
 	"Maja": [
 		{
-			"question": "Jakie zwierzę lubi Maja?",
+			"question": "Jakie zwierzę lubię?",
 			"answers": ["koty", "psy", "konie"],
 			"correct": 0
 		},
 		{
-			"question": "Co lubi najbardziej robić Maja?",
+			"question": "Co najbardziej lubię robić?",
 			"answers": ["rysować", "skakać", "śpiewać"],
 			"correct": 0
 		},
 		{
-			"question": "Jaki jest ulubiony kolor Mai?",
+			"question": "Jaki jest mój ulubiony kolor?",
 			"answers": ["brązowy", "fioletowy", "różowy"],
 			"correct": 1
 		}
@@ -179,14 +194,14 @@
 	],
 	"Szymon": [
 		{
-			"question": "Czy Szymon ma rodzeństwo?",
+			"question": "Czy mam rodzeństwo?",
 			"answers": ["nie", "tak, siostrę", "tak, brata"],
 			"correct": 1
 		},
 		{
-			"question": "Jaka dyscyplinę sportu Szymon lubi najbardziej?",
+			"question": "Jaką dyscyplinę sportu lubię najbardziej?",
 			"answers": ["siatkówka", "koszykówka", "piłka nożna"],
-			"correct": 1
+			"correct": 2
 		}
 	],
 	"Milosz": [
@@ -194,17 +209,17 @@
 	],
 	"Jasiek": [
 		{ 
-			"question": "Jakie są ulubione komiksy Janka?", 
+			"question": "Jakie są moje ulubione komiksy?", 
 			"answers": ["Wojownicy i Dogman", "Dinoodyseja i Moby", "Dogman i Moby"], 
 			"correct": 2 
 		},
 		{
-			"question": "Jaka jest ulubiona rodzina pająków Janka?",
+			"question": "Jaka jest moja ulubiona rodzina pająków?",
 			"answers": ["pogońcowate", "skakunowate", "ptaszniki"],
 			"correct": 1
 		},
 		{
-			"question": "Jaki jest ulubiony kolor Janka?",
+			"question": "Jaki jestm mój ulubiony kolor?",
 			"answers": ["zielony", "niebieski", "fioletowy"],
 			"correct": 2
 		}

@@ -308,7 +308,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("11_dtuxj")
 
 [node name="Antek" parent="Pupils" unique_id=2074091120 instance=ExtResource("6_6e7js")]
-position = Vector2(555, 534)
+position = Vector2(558, 663)
 collision_layer = 1
 collision_mask = 2
 
@@ -395,7 +395,7 @@ hframes = 4
 vframes = 3
 
 [node name="Krystian" parent="Pupils" unique_id=1682544423 instance=ExtResource("6_6e7js")]
-position = Vector2(99, 516)
+position = Vector2(553, 840)
 collision_layer = 1
 collision_mask = 2
 
@@ -455,7 +455,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("24_j8bve")
 
 [node name="MichałA" parent="Pupils" unique_id=26034157 instance=ExtResource("6_6e7js")]
-position = Vector2(454, 833)
+position = Vector2(653, 972)
 collision_layer = 1
 collision_mask = 2
 
@@ -507,7 +507,7 @@ hframes = 4
 vframes = 3
 
 [node name="Julek" parent="Pupils" unique_id=2063939969 instance=ExtResource("6_6e7js")]
-position = Vector2(566, 706)
+position = Vector2(128, 543)
 collision_layer = 1
 collision_mask = 2
 
@@ -591,7 +591,7 @@ hframes = 4
 vframes = 3
 
 [node name="KazikR" parent="Pupils" unique_id=828244482 instance=ExtResource("6_6e7js")]
-position = Vector2(108, 321)
+position = Vector2(215, 321)
 collision_layer = 1
 collision_mask = 2
 
@@ -727,7 +727,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("41_dtuxj")
 
 [node name="Szymon" parent="Pupils" unique_id=1437319454 instance=ExtResource("6_6e7js")]
-position = Vector2(462, 546)
+position = Vector2(584, 538)
 collision_layer = 1
 collision_mask = 2
 

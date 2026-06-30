@@ -216,17 +216,20 @@ func react() -> void:
 		"Wojtek":
 			_interaction_wojtek()
 			return
+		"KazikR", "Szymon":
+			_football_sequence()
+			return
 		"Krystian":
 			_interaction_krystian()
+			return
+		"Wiktor":
+			_interaction_wiktor()
 			return
 		"Antek":
 			_interaction_antek()
 			return
 		"Abrish":
 			_interaction_abrish()
-			return
-		"Wiktor":
-			_interaction_wiktor()
 			return
 	# Domyślnie: uczeń z rigiem reaguje machnięciem; bez rigu — dawna przemiana tekstur.
 	if _rig:
@@ -270,14 +273,34 @@ const KRYSTIAN_VOICE := "res://audio/krystian.mp3"
 var _krystian_voice: AudioStreamPlayer = null
 
 func _interaction_krystian() -> void:
-	if _krystian_voice and is_instance_valid(_krystian_voice) and _krystian_voice.playing:
-		return  # już mówi — nie zaczynaj od nowa
-	_krystian_voice = AudioStreamPlayer.new()
-	_krystian_voice.stream = load(KRYSTIAN_VOICE)
-	add_child(_krystian_voice)
-	_krystian_voice.play()
-	_krystian_voice.finished.connect(_krystian_voice.queue_free)
-	_interaction_default()  # macha w trakcie mówienia (jeśli ma pełny własny zestaw)
+	# Klik: najpierw GŁOS (i machanie), a DOPIERO POTEM pokaz piłkarski.
+	if _rig == null or _busy or get_node_or_null("Pilka"):
+		return
+	# Głos (jeśli już nie mówi).
+	if not (_krystian_voice and is_instance_valid(_krystian_voice) and _krystian_voice.playing):
+		_krystian_voice = AudioStreamPlayer.new()
+		_krystian_voice.stream = load(KRYSTIAN_VOICE)
+		add_child(_krystian_voice)
+		_krystian_voice.play()
+		_krystian_voice.finished.connect(_krystian_voice.queue_free)
+	# Machanie w trakcie głosu — zostaje STAĆ (bez ponownego siadania).
+	if _has_full_own_set():
+		_busy = true
+		_intro_done = false
+		if _seated:
+			_play_own("wstawanie")
+			await get_tree().create_timer(_anim_len("wstawanie")).timeout
+			if not is_inside_tree() or _rig == null:
+				return
+			_seated = false
+		_play_own("machanie")
+		await get_tree().create_timer(_anim_len("machanie")).timeout
+		if not is_inside_tree() or _rig == null:
+			return
+		_play_own("stoi")
+		_busy = false
+	# Potem pokaz piłkarski (football_jump_up obsłuży stojącego).
+	await _football_sequence()
 
 
 # --- interakcja Antka: figurki maszerują po biurku, wchodzą na ramiona/głowę, ----
@@ -834,6 +857,7 @@ const FOOTBALL_KNEE_TUCK := 1.3      # podkulenie łydki przy żonglerce (kolano
 const FOOTBALL_KNEE_TAP := 0.25      # małe tapnięcie kolanem w piłkę przy kontakcie
 var _fb_home := Vector2.ZERO
 var _fb_up := false
+const FB_ORDER := ["Wiktor", "Krystian", "KazikR", "Szymon"]  # cykl podań piłkarzy
 
 func _interaction_wiktor() -> void:
 	if _rig == null or _busy or get_node_or_null("Pilka"):
@@ -929,6 +953,95 @@ func _interaction_wiktor() -> void:
 		_knee_tap(true, BALL_JUGGLE_TIME)
 		await _ball_arc(ball, my, rp, base_h * 0.45, BALL_JUGGLE_TIME)
 		await _lower_knee()
+	if is_instance_valid(ball):
+		ball.queue_free()
+
+	# 5. Wszyscy lądują i siadają.
+	await _football_all_land(mates)
+
+
+func _football_sequence() -> void:
+	# Generyczny pokaz piłkarski (Krystian/KazikR/Szymon). Kliknięty jest inicjatorem:
+	# wszyscy wskakują na ławki, inicjator żongluje kolanem, a piłka idzie CYKLEM
+	# (FB_ORDER, zaczynając od inicjatora) — każdy przyjmuje ją na kolano i kopie do
+	# następnego, aż wróci do inicjatora i znika. (Wiktor ma swój własny pokaz.)
+	if _rig == null or _busy or get_node_or_null("Pilka"):
+		return
+	var nn := FB_ORDER.size()
+	var start := FB_ORDER.find(String(name))
+	if start < 0:
+		return
+	var chain: Array[Pupil] = []
+	for k in nn:
+		var nm: String = FB_ORDER[(start + k) % nn]
+		var p: Pupil = self if nm == String(name) else get_node_or_null("/root/Classroom/Pupils/" + nm) as Pupil
+		if p != null:
+			chain.append(p)
+	if chain.size() < 2:
+		return
+	var mates: Array[Pupil] = []
+	for k in range(1, chain.size()):
+		mates.append(chain[k])
+
+	# 1. Wszyscy wskakują na ławki.
+	for m in mates:
+		m.football_jump_up()
+	await football_jump_up()
+	while is_inside_tree() and not _fb_mates_up(mates):
+		await get_tree().create_timer(0.1).timeout
+	if not is_inside_tree():
+		return
+
+	# 2. Piłka u inicjatora — żonglerka LEWYM kolanem.
+	var tex := load(WIKTOR_BALL) as Texture2D
+	if tex == null:
+		await _football_all_land(mates)
+		return
+	var ball := Sprite2D.new()
+	ball.name = "Pilka"
+	ball.texture = tex
+	ball.top_level = true
+	ball.z_index = 800
+	ball.z_as_relative = false
+	var base_h := _display_rect().size.y
+	var s := (base_h * BALL_HEIGHT_FRAC) / float(maxi(tex.get_height(), 1))
+	ball.scale = Vector2(s, s)
+	add_child(ball)
+
+	var my := fb_knee_raise()
+	ball.global_position = my
+	for i in 5:
+		fb_knee_tap()
+		await _ball_arc(ball, my, my, base_h * 0.5, BALL_JUGGLE_TIME)
+		if not is_instance_valid(ball):
+			await fb_knee_lower()
+			await _football_all_land(mates)
+			return
+
+	# 3. Podania CYKLEM: paser zrzuca piłkę z kolana na stopę i kopie do następnego,
+	#    a następny przyjmuje ją na kolano (poodbijają kolanem).
+	var kick_contact := FOOTBALL_KICK_TIME * FOOTBALL_KICK_CONTACT
+	for i in chain.size():
+		if not is_instance_valid(ball) or not is_inside_tree():
+			break
+		var passer: Pupil = chain[i]
+		var receiver: Pupil = chain[(i + 1) % chain.size()]
+		var p_foot: Vector2 = await passer.fb_drop_to_foot(ball)   # kolano w dół, piłka spada na stopę
+		if not is_instance_valid(ball) or not is_inside_tree():
+			break
+		var r_pt: Vector2 = receiver.fb_knee_raise()              # następny unosi kolano (swoją nogą)
+		passer.football_kick(1 if r_pt.x >= p_foot.x else -1)
+		await get_tree().create_timer(kick_contact).timeout
+		if not is_instance_valid(ball):
+			break
+		await _ball_arc(ball, p_foot, r_pt, base_h * 0.7, BALL_PASS_TIME)
+		if not is_instance_valid(ball):
+			break
+		receiver.fb_knee_tap()
+		await _ball_arc(ball, r_pt, r_pt, base_h * 0.4, BALL_JUGGLE_TIME)   # przyjęcie na kolano
+
+	# 4. Piłka wróciła do inicjatora — prostuje kolano, piłka znika.
+	await fb_knee_lower()
 	if is_instance_valid(ball):
 		ball.queue_free()
 
@@ -1097,13 +1210,14 @@ func _raise_knee(left_leg := true) -> Vector2:
 		_rig_ap.play("k/stoi")
 		_rig_ap.seek(0.0, true)
 		_rig_ap.pause()
+	var side := 1.0 if left_leg else -1.0   # prawa noga lustrzana -> obrót w drugą stronę (w lewo)
 	_knee_udo = udo
 	_knee_shin = shin
 	_knee_udo_r0 = udo.rotation       # zapamiętaj spoczynek PRZED uniesieniem
-	udo.rotation -= FOOTBALL_KNEE_UP
+	udo.rotation -= FOOTBALL_KNEE_UP * side
 	if shin:
 		_knee_shin_r0 = shin.rotation
-		shin.rotation += FOOTBALL_KNEE_TUCK
+		shin.rotation += FOOTBALL_KNEE_TUCK * side
 		return shin.global_position   # staw kolanowy po uniesieniu
 	return udo.global_position
 
@@ -1130,14 +1244,54 @@ func _knee_tap(left_leg: bool, time: float) -> void:
 	# Krótkie „tapnięcie" kolanem w piłkę przy kontakcie (dodatkowe podbicie udem
 	# i powrót do trzymanej, uniesionej pozy).
 	_play_sound(SOCCER_KICK_SFX)   # odbicie piłki od kolana
+	var side := 1.0 if left_leg else -1.0   # prawa noga lustrzana
 	var udo := _rig.get_node_or_null("Skeleton2D/Biodra/" + ("UdoL" if left_leg else "UdoP")) as Bone2D
 	if udo == null:
 		return
 	var r := udo.rotation
 	var t := udo.create_tween()
-	t.tween_property(udo, "rotation", r - FOOTBALL_KNEE_TAP, time * 0.32) \
+	t.tween_property(udo, "rotation", r - FOOTBALL_KNEE_TAP * side, time * 0.32) \
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	t.tween_property(udo, "rotation", r, time * 0.5).set_trans(Tween.TRANS_SINE)
+
+
+# --- publiczne wrappery żonglerki kolanem (wołane między uczniami w _football_sequence) ---
+
+func fb_left_leg() -> bool:
+	# Którą nogą dany piłkarz kozłuje (true = lewa, false = prawa).
+	match String(name):
+		"Krystian", "Szymon":
+			return false   # prawa
+		_:
+			return true    # lewa (Wiktor, KazikR)
+
+
+func fb_knee_raise() -> Vector2:
+	# Unosi i trzyma zgięte kolano (nogą tego zawodnika); zwraca punkt NAD kolanem.
+	var knee := _raise_knee(fb_left_leg())
+	return knee - Vector2(0.0, _display_rect().size.y * JUGGLE_ABOVE_KNEE)
+
+
+func fb_knee_tap() -> void:
+	_knee_tap(fb_left_leg(), BALL_JUGGLE_TIME)
+
+
+func fb_knee_lower() -> void:
+	await _lower_knee()
+
+
+func fb_drop_to_foot(ball: Sprite2D) -> Vector2:
+	# Prostuje trzymane kolano i RÓWNOCZEŚNIE piłka spada pionowo na stopę (pod kolano);
+	# zwraca punkt stopy, z którego ten zawodnik kopie.
+	var fr := clickable_rect()
+	var foot := Vector2(ball.global_position.x, fr.position.y + fr.size.y * FOOT_FRAC)
+	_lower_knee()
+	if is_instance_valid(ball):
+		var fall := ball.create_tween()
+		fall.tween_property(ball, "global_position", foot, BALL_JUGGLE_TIME * 0.8) \
+			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		await fall.finished
+	return foot
 
 
 func _ball_point(p: Node) -> Vector2:

@@ -167,7 +167,26 @@
 		}
 	],
 	"Krzysiek": [
-		{ "question": "", "answers": ["", "", ""], "correct": 0 }
+		{
+			"question": "Kto jest moim ulubionym piłkarzem?",
+			"answers": ["Robert Lewandowski", "Lionel Messi", "Lamine Yamal"],
+			"correct": 2
+		},
+		{
+			"question": "Jaki sport trenuję?",
+			"answers": ["Piłka nożna", "Karate", "Koszykówka"],
+			"correct": 0
+		},
+		{
+			"question": "Jak nazywa się mój pies?",
+			"answers": ["Luna", "Perełka", "Lola"],
+			"correct": 1
+		},
+		{
+			"question": "W jakim klubie gram?",
+			"answers": ["Varsovia", "Ryś Laski", "Legia Warszawa"],
+			"correct": 1
+		}
 	],
 	"Nati": [
 		{"question": "O czym marzę?",

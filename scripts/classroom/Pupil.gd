@@ -225,6 +225,9 @@ func react() -> void:
 		"Abrish":
 			_interaction_abrish()
 			return
+		"Wiktor":
+			_interaction_wiktor()
+			return
 	# Domyślnie: uczeń z rigiem reaguje machnięciem; bez rigu — dawna przemiana tekstur.
 	if _rig:
 		_interaction_default()
@@ -799,6 +802,404 @@ func _abrish_dance_step(a: float) -> void:
 	_ab_biodra.position.y = _ab_biodra_y - absf(sin(a * 2.0)) * ABRISH_BOUNCE
 
 
+# --- interakcja Wiktora: piłka nożna — wszyscy na ławki, żonglerka i podania -----
+# Klik w Wiktora: Wiktor + Krystian + Kazik_R + Szymon wskakują na ławki. Wiktor
+# żongluje (kolano/główka — podskakuje), kopie do Krystiana, ten WYSKAKUJE do główki
+# do Kazika_R, Kazik KOPIE do Szymona, Szymon kopie do Wiktora. Potem wszyscy siadają.
+const WIKTOR_BALL := "res://sprites/wiktor_pilka.png"  # placeholder (do podmiany)
+const SOCCER_KICK_SFX := "res://audio/kick.mp3"  # dźwięk kopnięcia/odbicia piłki
+const BALL_HEIGHT_FRAC := 0.22   # wielkość piłki wzgl. zawodnika
+const BALL_PASS_TIME := 0.6      # czas jednego podania
+const BALL_JUGGLE_TIME := 0.42   # czas jednego odbicia w żonglerce
+const JUGGLE_ABOVE_KNEE := 0.12  # ile NAD kolanem (uniesionym = wys. biodra) odbija się piłka
+const HEADER_HEAD_FRAC := 0.15   # wysokość punktu głowy (do główki) w sylwetce
+const FOOT_FRAC := 0.92          # wysokość punktu stóp (skąd startuje kopana piłka)
+const FOOTBALL_JUMP_UP := 120.0      # wysokość wskoku na ławkę
+const FOOTBALL_HEADER_JUMP := 110.0  # wyskok do główki
+const FOOTBALL_KICK_TIME := 0.6      # czas kopnięcia (dłuższy = lepiej widać fazy)
+const FOOTBALL_KICK_CONTACT := 0.55  # ułamek czasu kopnięcia, w którym noga UDERZA piłkę (lot startuje wtedy)
+const FOOTBALL_KICK_CROUCH := 12.0   # przysiad bioder w zamachu (load, px w dół)
+const FOOTBALL_KICK_RISE := 18.0     # odbicie bioder przy strzale (push, px w górę)
+const FOOTBALL_KICK_BACK := 0.7      # zamach uda do tyłu (do strojenia)
+const FOOTBALL_KICK_FWD := 1.5       # wymach uda do przodu — kop (do strojenia)
+const FOOTBALL_KNEE_FLEX := 1.7      # ZGIĘCIE kolana w zamachu (pięta do pośladka) — kluczowe
+const FOOTBALL_KNEE_EXTEND := 1.1    # EKSPLOZYWNY wyprost kolana przy strzale (whip)
+const FOOTBALL_KICK_ARM := 0.9       # kontr-wymach ramion (balans przy kopie)
+const FOOTBALL_TORSO_BACK := 0.4     # tułów odchyla się W TYŁ w zamachu (coil)
+const FOOTBALL_TORSO_FWD := 0.5      # tułów wystrzeliwuje W PRZÓD przy strzale (uncoil)
+const FOOTBALL_HEAD_TILT := 0.25     # głowa pracuje (przeciwwaga)
+const FOOTBALL_HEAD_DUCK := 0.3      # pochylenie głowy w lewo przy uderzeniu główką
+const FOOTBALL_KNEE_UP := 1.3        # uniesienie uda przy żonglerce kolanem
+const FOOTBALL_KNEE_TUCK := 1.3      # podkulenie łydki przy żonglerce (kolano mocno zgięte)
+const FOOTBALL_KNEE_TAP := 0.25      # małe tapnięcie kolanem w piłkę przy kontakcie
+var _fb_home := Vector2.ZERO
+var _fb_up := false
+
+func _interaction_wiktor() -> void:
+	if _rig == null or _busy or get_node_or_null("Pilka"):
+		return
+	var krystian := get_node_or_null("/root/Classroom/Pupils/Krystian") as Pupil
+	var kazikr := get_node_or_null("/root/Classroom/Pupils/KazikR") as Pupil
+	var szymon := get_node_or_null("/root/Classroom/Pupils/Szymon") as Pupil
+	var mates: Array[Pupil] = []
+	if krystian: mates.append(krystian)
+	if kazikr: mates.append(kazikr)
+	if szymon: mates.append(szymon)
+
+	# 1. Wszyscy wskakują na ławki.
+	for m in mates:
+		m.football_jump_up()
+	await football_jump_up()
+	while is_inside_tree() and not _fb_mates_up(mates):
+		await get_tree().create_timer(0.1).timeout
+	if not is_inside_tree():
+		return
+
+	# Piłka u Wiktora.
+	var tex := load(WIKTOR_BALL) as Texture2D
+	if tex == null:
+		await _football_all_land(mates)
+		return
+	var ball := Sprite2D.new()
+	ball.name = "Pilka"
+	ball.texture = tex
+	ball.top_level = true
+	ball.z_index = 800
+	ball.z_as_relative = false
+	var base_h := _display_rect().size.y
+	var s := (base_h * BALL_HEIGHT_FRAC) / float(maxi(tex.get_height(), 1))
+	ball.scale = Vector2(s, s)
+	add_child(ball)
+
+	# 2. Żonglerka LEWĄ nogą: unosi i TRZYMA zgięte kolano, piłka odbija się tuż
+	#    NAD czubkiem zgiętego kolana (realna pozycja stawu), z tapnięciem kolanem.
+	var knee := _raise_knee(true)
+	var my := knee - Vector2(0.0, base_h * JUGGLE_ABOVE_KNEE)
+	ball.global_position = my
+	for i in 5:
+		_knee_tap(true, BALL_JUGGLE_TIME)
+		await _ball_arc(ball, my, my, base_h * 0.5, BALL_JUGGLE_TIME)
+		if not is_instance_valid(ball):
+			await _lower_knee()
+			await _football_all_land(mates)
+			return
+	# Punkty kolegów — kopana piłka startuje/ląduje przy STOPACH (nisko).
+	var kr := _ball_point(krystian) if krystian else my
+	var kz := _foot_point(kazikr) if kazikr else my
+	var sz := _foot_point(szymon) if szymon else my
+	var fr := clickable_rect()
+	var w_foot := Vector2(my.x, fr.position.y + fr.size.y * FOOT_FRAC)   # prosto POD kolanem
+	# Punkt główki Krystiana: jego głowa uniesiona o wysokość wyskoku (apogeum).
+	var kr_head := (_head_point(krystian) - Vector2(0.0, FOOTBALL_HEADER_JUMP)) if krystian else my
+
+	# Płynne przejście: noga prostuje się, a piłka RÓWNOCZEŚNIE spada PIONOWO z kolana
+	# na stopę (przyspieszający spadek, grawitacja) — bez zatrzymania i bez skosu.
+	_lower_knee()
+	if is_instance_valid(ball):
+		var fall := ball.create_tween()
+		fall.tween_property(ball, "global_position", w_foot, BALL_JUGGLE_TIME * 0.8) \
+			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		await fall.finished
+
+	# 3. Podania — kopie zawsze noga DALSZA od celu (dir = znak kierunku piłki).
+	#    Piłka rusza dopiero w momencie KONTAKTU (po wymachu), nie z początkiem ruchu.
+	var kick_contact := FOOTBALL_KICK_TIME * FOOTBALL_KICK_CONTACT
+	if is_instance_valid(ball) and krystian:
+		football_kick(1 if kr.x >= w_foot.x else -1)   # Wiktor: cel po prawej -> LEWA noga
+		await get_tree().create_timer(kick_contact).timeout
+		# Krystian wyskakuje w połowie lotu, by trafić piłkę GŁOWĄ w apogeum.
+		_delayed_header(krystian, BALL_PASS_TIME * 0.5)
+		await _ball_arc(ball, w_foot, kr_head, base_h * 0.8, BALL_PASS_TIME)
+	if is_instance_valid(ball) and krystian and kazikr:
+		# Odbicie głową dalej do Kazika (piłka rusza z głowy, w apogeum wyskoku).
+		await _ball_arc(ball, kr_head, kz, base_h * 1.2, BALL_PASS_TIME)
+	if is_instance_valid(ball) and kazikr and szymon:
+		kazikr.football_kick(1 if sz.x >= kz.x else -1)  # Kazik: cel po prawej -> LEWA noga
+		await get_tree().create_timer(kick_contact).timeout
+		await _ball_arc(ball, kz, sz, base_h * 0.55, BALL_PASS_TIME)
+	if is_instance_valid(ball) and szymon:
+		szymon.football_kick(1 if my.x >= sz.x else -1)  # Szymon: cel po lewej -> PRAWA noga
+		await get_tree().create_timer(kick_contact).timeout
+		await _ball_arc(ball, sz, my, base_h * 0.75, BALL_PASS_TIME)
+
+	# 4. Wiktor przyjmuje na LEWE kolano — piłka znika.
+	if is_instance_valid(ball):
+		var knee2 := _raise_knee(true)
+		var rp := knee2 - Vector2(0.0, base_h * JUGGLE_ABOVE_KNEE)
+		_knee_tap(true, BALL_JUGGLE_TIME)
+		await _ball_arc(ball, my, rp, base_h * 0.45, BALL_JUGGLE_TIME)
+		await _lower_knee()
+	if is_instance_valid(ball):
+		ball.queue_free()
+
+	# 5. Wszyscy lądują i siadają.
+	await _football_all_land(mates)
+
+
+func _fb_mates_up(mates: Array) -> bool:
+	for m in mates:
+		if is_instance_valid(m) and not m.is_fb_up():
+			return false
+	return true
+
+
+func _football_all_land(mates: Array) -> void:
+	for m in mates:
+		if is_instance_valid(m):
+			m.football_land()
+	await football_land()
+
+
+func is_fb_up() -> bool:
+	return _fb_up
+
+
+func football_jump_up() -> void:
+	# Wstaje (jeśli siedzi) i wskakuje na ławkę (z-index nad ławką).
+	if _rig == null:
+		return
+	_busy = true
+	_intro_done = false
+	_fb_up = false
+	if _seated:
+		_play_own("wstawanie")
+		await get_tree().create_timer(_anim_len("wstawanie")).timeout
+		if not is_inside_tree() or _rig == null:
+			return
+		_seated = false
+	_play_own("stoi")
+	_fb_home = _rig.global_position
+	_rig.z_index = BBALL_BENCH_Z
+	await _hop_rig(_fb_home + Vector2(0.0, -FOOTBALL_JUMP_UP), BBALL_HOP_HEIGHT, BBALL_HOP_TIME)
+	_fb_up = true
+
+
+func football_land() -> void:
+	# Zeskok na miejsce i siada.
+	if _rig:
+		_play_own("stoi")
+		await _hop_rig(_fb_home, BBALL_HOP_HEIGHT, BBALL_HOP_TIME)
+		if not is_inside_tree() or _rig == null:
+			return
+		_rig.z_index = 0
+		_play_own("siadanie")
+		await get_tree().create_timer(_anim_len("siadanie")).timeout
+		if is_inside_tree() and _rig:
+			_play_own("siedzi")
+		_seated = true
+	_fb_up = false
+	_busy = false
+	_intro_done = true
+
+
+func football_jump(height: float, time: float) -> void:
+	# Pionowy wyskok rigu (i powrót) — żonglerka / przyjęcie.
+	if _rig == null:
+		return
+	await _hop_rig(_rig.global_position, height, time)
+
+
+func football_header() -> void:
+	# Wyskok do główki + lekkie pochylenie głowy w LEWO przy uderzeniu (w apogeum).
+	var glowa: Bone2D = null
+	if _rig:
+		glowa = _rig.get_node_or_null("Skeleton2D/Biodra/Tulow/Glowa") as Bone2D
+	if glowa:
+		var r := glowa.rotation
+		var t := glowa.create_tween()
+		t.tween_property(glowa, "rotation", r - FOOTBALL_HEAD_DUCK, BALL_PASS_TIME * 0.5).set_trans(Tween.TRANS_SINE)
+		t.tween_property(glowa, "rotation", r, BALL_PASS_TIME * 0.5).set_trans(Tween.TRANS_SINE)
+	_play_sound_after(SOCCER_KICK_SFX, BALL_PASS_TIME * 0.5)   # odbicie głową w apogeum
+	await football_jump(FOOTBALL_HEADER_JUMP, BALL_PASS_TIME)
+
+
+func football_kick(dir: int = -1) -> void:
+	# Kopnięcie CAŁYM CIAŁEM (coil -> uncoil, jak u Tsubasy) z antycypacją.
+	# dir = znak kierunku piłki: +1 = w PRAWO -> kopie LEWĄ nogą (dalszą od celu);
+	#                           -1 = w LEWO  -> kopie PRAWĄ nogą.
+	if _rig == null or _rig_ap == null:
+		return
+	var left_leg := dir >= 0
+	var side := 1.0 if left_leg else -1.0   # lustro lewa/prawa noga
+	var b := "Skeleton2D/Biodra/"
+	var kick_udo := _rig.get_node_or_null(b + ("UdoL" if left_leg else "UdoP")) as Bone2D
+	if kick_udo == null:
+		return
+	var kick_shin := _rig.get_node_or_null(b + ("UdoL/LydkaL" if left_leg else "UdoP/LydkaP")) as Bone2D
+	_rig_ap.play("k/stoi")
+	_rig_ap.seek(0.0, true)
+	_rig_ap.pause()   # zamrażamy pozę, sterujemy kośćmi ręcznie
+	_play_sound_after(SOCCER_KICK_SFX, FOOTBALL_KICK_TIME * FOOTBALL_KICK_CONTACT)   # dźwięk w momencie kontaktu
+	# Noga kopiąca (DALSZA od celu) — kierunki jak w działającej żonglerce
+	# (udo MALEJĄCE = noga w przód): zamach w tył (+BACK) -> whip w przód (-FWD),
+	# kolano: zgięcie (+FLEX, jak TUCK) -> eksplozywny wyprost (-EXTEND).
+	_kick_coil(kick_udo, FOOTBALL_KICK_BACK * side, -FOOTBALL_KICK_FWD * side)
+	_kick_coil(kick_shin, FOOTBALL_KNEE_FLEX * side, -FOOTBALL_KNEE_EXTEND * side)
+	# Tułów: pochyla się/odchyla w zamachu i wystrzeliwuje (symetryczne).
+	_kick_coil(_rig.get_node_or_null(b + "Tulow") as Bone2D, FOOTBALL_TORSO_BACK, -FOOTBALL_TORSO_FWD)
+	# Głowa — przeciwwaga.
+	_kick_coil(_rig.get_node_or_null(b + "Tulow/Glowa") as Bone2D, -FOOTBALL_HEAD_TILT * side, FOOTBALL_HEAD_TILT * side)
+	# Ramiona — kontr-wymach w pełnym łuku (jak całe ciało): w zamachu odwrotnie,
+	# przy strzale mocny wymach przez (przeciwna ręka do nogi kopiącej idzie w przód).
+	_kick_coil(_rig.get_node_or_null(b + "Tulow/RamieL") as Bone2D, FOOTBALL_KICK_ARM * side, -FOOTBALL_KICK_ARM * 1.2 * side)
+	_kick_coil(_rig.get_node_or_null(b + "Tulow/RamieP") as Bone2D, -FOOTBALL_KICK_ARM * side, FOOTBALL_KICK_ARM * 1.2 * side)
+	# Przeniesienie ciężaru: PRZYSIAD bioder (load) w zamachu -> ODBICIE (push) przy strzale.
+	var biodra := _rig.get_node_or_null("Skeleton2D/Biodra") as Bone2D
+	if biodra:
+		var by := biodra.position.y
+		var tb := biodra.create_tween()
+		tb.tween_property(biodra, "position:y", by + FOOTBALL_KICK_CROUCH, FOOTBALL_KICK_TIME * 0.32) \
+			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tb.tween_interval(FOOTBALL_KICK_TIME * 0.13)
+		tb.tween_property(biodra, "position:y", by - FOOTBALL_KICK_RISE, FOOTBALL_KICK_TIME * 0.15) \
+			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tb.tween_interval(FOOTBALL_KICK_TIME * 0.12)
+		tb.tween_property(biodra, "position:y", by, FOOTBALL_KICK_TIME * 0.28).set_trans(Tween.TRANS_SINE)
+	await get_tree().create_timer(FOOTBALL_KICK_TIME).timeout
+	if _rig_ap:
+		_rig_ap.play("k/stoi")   # wznów normalną pozę
+
+
+func _kick_coil(bone: Bone2D, windup: float, strike: float) -> void:
+	# Pełny łuk z zasadami Disneya: ZAMACH (wolniej, EASE_OUT) -> PRZYTRZYMANIE
+	# naładowania -> EKSPLOZJA (szybki strzał) -> FOLLOW-THROUGH (przytrzymanie
+	# wybicia) -> powrót.
+	if bone == null:
+		return
+	var r := bone.rotation
+	var tw := bone.create_tween()
+	tw.tween_property(bone, "rotation", r + windup, FOOTBALL_KICK_TIME * 0.32) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tw.tween_interval(FOOTBALL_KICK_TIME * 0.13)   # przytrzymanie naładowania (antycypacja)
+	tw.tween_property(bone, "rotation", r + strike, FOOTBALL_KICK_TIME * 0.15) \
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw.tween_interval(FOOTBALL_KICK_TIME * 0.12)   # follow-through (noga/ciało zostaje wybite)
+	tw.tween_property(bone, "rotation", r, FOOTBALL_KICK_TIME * 0.28).set_trans(Tween.TRANS_SINE)
+
+
+var _knee_udo: Bone2D = null     # kość uda trzymana podczas żonglerki
+var _knee_shin: Bone2D = null    # kość łydki trzymana podczas żonglerki
+var _knee_udo_r0 := 0.0          # spoczynkowa rotacja uda (do wyprostowania)
+var _knee_shin_r0 := 0.0         # spoczynkowa rotacja łydki
+
+
+func _raise_knee(left_leg := true) -> Vector2:
+	# Unosi udo i podkula łydkę (kolano ZGIĘTE) i TRZYMA pozę (pauza AP). Zwraca
+	# pozycję stawu kolanowego (góra łydki) PO uniesieniu — czubek zgiętego kolana,
+	# którym zawodnik bije piłkę. Zapamiętuje pozy spoczynkowe do wyprostowania.
+	if _rig == null:
+		return _juggle_point(left_leg)
+	var udo := _rig.get_node_or_null("Skeleton2D/Biodra/" + ("UdoL" if left_leg else "UdoP")) as Bone2D
+	var shin := _rig.get_node_or_null("Skeleton2D/Biodra/" + ("UdoL/LydkaL" if left_leg else "UdoP/LydkaP")) as Bone2D
+	if udo == null:
+		return _juggle_point(left_leg)
+	if _rig_ap:
+		_rig_ap.play("k/stoi")
+		_rig_ap.seek(0.0, true)
+		_rig_ap.pause()
+	_knee_udo = udo
+	_knee_shin = shin
+	_knee_udo_r0 = udo.rotation       # zapamiętaj spoczynek PRZED uniesieniem
+	udo.rotation -= FOOTBALL_KNEE_UP
+	if shin:
+		_knee_shin_r0 = shin.rotation
+		shin.rotation += FOOTBALL_KNEE_TUCK
+		return shin.global_position   # staw kolanowy po uniesieniu
+	return udo.global_position
+
+
+func _lower_knee() -> void:
+	# Wyprostuj kolano z powrotem do pozy spoczynkowej — RĘCZNIE, bo „stoi" może nie
+	# mieć tracków dla tych kości (inaczej noga zostaje wygięta). Potem wznów AP.
+	var t: Tween = null
+	if is_instance_valid(_knee_shin):
+		var ts := _knee_shin.create_tween()
+		ts.tween_property(_knee_shin, "rotation", _knee_shin_r0, 0.22).set_trans(Tween.TRANS_SINE)
+	if is_instance_valid(_knee_udo):
+		t = _knee_udo.create_tween()
+		t.tween_property(_knee_udo, "rotation", _knee_udo_r0, 0.22).set_trans(Tween.TRANS_SINE)
+	if t:
+		await t.finished
+	_knee_udo = null
+	_knee_shin = null
+	if _rig_ap:
+		_rig_ap.play("k/stoi")
+
+
+func _knee_tap(left_leg: bool, time: float) -> void:
+	# Krótkie „tapnięcie" kolanem w piłkę przy kontakcie (dodatkowe podbicie udem
+	# i powrót do trzymanej, uniesionej pozy).
+	_play_sound(SOCCER_KICK_SFX)   # odbicie piłki od kolana
+	var udo := _rig.get_node_or_null("Skeleton2D/Biodra/" + ("UdoL" if left_leg else "UdoP")) as Bone2D
+	if udo == null:
+		return
+	var r := udo.rotation
+	var t := udo.create_tween()
+	t.tween_property(udo, "rotation", r - FOOTBALL_KNEE_TAP, time * 0.32) \
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	t.tween_property(udo, "rotation", r, time * 0.5).set_trans(Tween.TRANS_SINE)
+
+
+func _ball_point(p: Node) -> Vector2:
+	# Punkt, do/od którego leci piłka u danego zawodnika — dolna część ciała (przy nogach).
+	if p and p.has_method("clickable_rect"):
+		var r: Rect2 = p.clickable_rect()
+		return Vector2(r.get_center().x, r.position.y + r.size.y * 0.7)
+	return global_position
+
+
+func _head_point(p: Node) -> Vector2:
+	# Punkt głowy zawodnika (do główki) — górna część sylwetki.
+	if p and p.has_method("clickable_rect"):
+		var r: Rect2 = p.clickable_rect()
+		return Vector2(r.get_center().x, r.position.y + r.size.y * HEADER_HEAD_FRAC)
+	return global_position
+
+
+func _foot_point(p: Node) -> Vector2:
+	# Punkt stóp zawodnika — skąd startuje kopana piłka (nisko).
+	if p and p.has_method("clickable_rect"):
+		var r: Rect2 = p.clickable_rect()
+		return Vector2(r.get_center().x, r.position.y + r.size.y * FOOT_FRAC)
+	return global_position
+
+
+func _delayed_header(who: Pupil, delay: float) -> void:
+	# Odpala wyskok do główki po opóźnieniu (fire-and-forget) — by trafić piłkę w apogeum.
+	await get_tree().create_timer(delay).timeout
+	if is_instance_valid(who) and who.is_inside_tree():
+		who.football_header()
+
+
+func _juggle_point(left_leg := false) -> Vector2:
+	# Punkt żonglerki = NAD kolanem nogi, którą kozłuje. Uniesione udo jest niemal
+	# poziomo, więc kolano wypada ~na wysokości biodra (kość UdoL/UdoP); piłkę
+	# stawiamy trochę WYŻEJ (nad kolanem). X = x stopy tej nogi.
+	var r := clickable_rect()
+	var hp := "Skeleton2D/Biodra/UdoL" if left_leg else "Skeleton2D/Biodra/UdoP"
+	var fp := "Skeleton2D/Biodra/UdoL/LydkaL/StopaL" if left_leg else "Skeleton2D/Biodra/UdoP/LydkaP/StopaP"
+	var hip := _rig.get_node_or_null(hp) as Bone2D
+	var foot := _rig.get_node_or_null(fp) as Bone2D
+	var x := foot.global_position.x if foot else r.get_center().x
+	var y := (hip.global_position.y - r.size.y * JUGGLE_ABOVE_KNEE) if hip else (r.position.y + r.size.y * 0.4)
+	return Vector2(x, y)
+
+
+func _ball_arc(ball: Sprite2D, from_pt: Vector2, to_pt: Vector2, height: float, time: float) -> void:
+	# Lot piłki po paraboli z obrotem.
+	var spin0 := ball.rotation
+	var arc := func(p: float) -> void:
+		if not is_instance_valid(ball):
+			return
+		var pos := from_pt.lerp(to_pt, p)
+		pos.y -= sin(clampf(p, 0.0, 1.0) * PI) * height
+		ball.global_position = pos
+		ball.rotation = spin0 + p * TAU
+	var t := create_tween()
+	t.tween_method(arc, 0.0, 1.0, time)
+	await t.finished
+
+
 # --- pokaz koszykówki (Michał_K i Miłosz) na ławce ----------------------------
 # Klik -> wstaje, podnosi piłkę, WSKAKUJE NA SWOJĄ ŁAWKĘ, pokazuje piłkę,
 # kozłuje, wsad do kosza, znów kozłuje, zeskakuje i siada.
@@ -811,6 +1212,10 @@ const BBALL_HOP_TIME := 0.5      # czas wskoku/zeskoku
 const BBALL_HOP_HEIGHT := 110.0  # wysokość łuku wskoku
 const MICHAL_BENCH_POINT := Vector2(215, 455)  # STOPY Michała na ławce (do strojenia)
 const MILOSZ_BENCH_POINT := Vector2(661, 780)  # STOPY Miłosza na ławce (do strojenia)
+const BBALL_BOUNCE_SFX := "res://audio/bounce.mp3"  # odbicie piłki od podłogi
+const BBALL_BOUNCE_PERIOD := 0.7   # zapas: okres odbicia, gdy anim „kozlowanie" nie ma długości
+const BBALL_BOUNCE_PHASE := 0.5    # w której części cyklu „kozlowanie" wypada kontakt z podłogą (do strojenia)
+const BBALL_DUNK_CONTACT := 0.46   # część anim „wsad", gdy piłka uderza o podłogę (t≈0.78/1.7 z keyframe Pilka)
 
 
 func _interaction_michal() -> void:
@@ -860,21 +1265,21 @@ func _basketball_show(bench_point: Vector2) -> void:
 	if not is_inside_tree() or _rig == null:
 		return
 
-	# 5. Kozłuje kilka sekund.
-	_play_own("kozlowanie")
-	await get_tree().create_timer(BBALL_DRIBBLE_1).timeout
+	# 5. Kozłuje kilka sekund (dźwięk odbicia od podłogi co cykl).
+	await _dribble_with_bounce(BBALL_DRIBBLE_1)
 	if not is_inside_tree() or _rig == null:
 		return
 
-	# 6. Pakuje piłkę do kosza (wsad).
+	# 6. Pakuje piłkę do kosza (wsad); pod koniec animacji piłka uderza o podłogę.
 	_play_own("wsad")
-	await get_tree().create_timer(_anim_len("wsad")).timeout
+	var wsad_len := _anim_len("wsad")
+	_play_sound_after(BBALL_BOUNCE_SFX, wsad_len * BBALL_DUNK_CONTACT)   # uderzenie o podłogę
+	await get_tree().create_timer(wsad_len).timeout
 	if not is_inside_tree() or _rig == null:
 		return
 
 	# 7. Znów kozłuje.
-	_play_own("kozlowanie")
-	await get_tree().create_timer(BBALL_DRIBBLE_2).timeout
+	await _dribble_with_bounce(BBALL_DRIBBLE_2)
 	if not is_inside_tree() or _rig == null:
 		return
 
@@ -893,6 +1298,31 @@ func _basketball_show(bench_point: Vector2) -> void:
 	_seated = true
 	_busy = false
 	_intro_done = true  # hover wraca
+
+
+func _dribble_with_bounce(duration: float) -> void:
+	# Kozłuje (zapętlona anim „kozlowanie") przez `duration` i gra dźwięk odbicia
+	# DOKŁADNIE gdy pozycja animacji mija fazę kontaktu z podłogą (BBALL_BOUNCE_PHASE)
+	# — czyli zsynchronizowane z klatką, raz na cykl, nie „na ślepo".
+	if not _play_own("kozlowanie") or _rig_ap == null:
+		await get_tree().create_timer(duration).timeout
+		return
+	var period := _anim_len("kozlowanie")
+	if period <= 0.05:
+		period = BBALL_BOUNCE_PERIOD
+	var contact := period * BBALL_BOUNCE_PHASE
+	var elapsed := 0.0
+	var prev := _rig_ap.current_animation_position
+	while elapsed < duration:
+		await get_tree().process_frame
+		if not is_inside_tree() or _rig == null or _rig_ap == null:
+			return
+		var pos := _rig_ap.current_animation_position
+		if pos < prev:
+			elapsed += period   # cykl się zawinął — minął pełny okres
+		if prev < contact and pos >= contact:
+			_play_sound(BBALL_BOUNCE_SFX)   # piłka uderza o podłogę (w fazie kontaktu)
+		prev = pos
 
 
 # --- interakcja Anabii: maluje obrazek -----------------------------------------
@@ -1006,6 +1436,13 @@ func _play_sound(path: String) -> void:
 	add_child(p)
 	p.play()
 	p.finished.connect(p.queue_free)
+
+
+func _play_sound_after(path: String, delay: float) -> void:
+	# Odtwarza dźwięk po opóźnieniu (np. w momencie kontaktu nogi z piłką).
+	await get_tree().create_timer(delay).timeout
+	if is_inside_tree():
+		_play_sound(path)
 
 
 func _schedule_magic_revert(creature: Node) -> void:

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cmauwijs3sy12" path="res://sprites/kazik_r_2026.png" id="1_xx667"]
 [ext_resource type="Script" uid="uid://bbka3u0sn1ebi" path="res://rig/auto_outline.gd" id="2_a86yw"]
 [ext_resource type="AnimationLibrary" uid="uid://dwdne70lr41wd" path="res://rig/pupil_anims.tres" id="3_y1pxa"]
-[ext_resource type="AnimationLibrary" uid="uid://dpw1n4dq4osvv" path="res://rig/kazik_r_anims.tres" id="4_a86yw"]
+[ext_resource type="AnimationLibrary" uid="uid://ckpo03vypyftn" path="res://rig/kazik_r_anims.tres" id="4_a86yw"]
 
 [node name="KrzysiekRig" type="Node2D" unique_id=1282551274]
 
@@ -40,7 +40,7 @@ position = Vector2(-100.000015, 45)
 rest = Transform2D(1, 0, 0, 1, -100.000015, 45)
 auto_calculate_length_and_angle = false
 length = 43.19755
-bone_angle = 2.8701417
+bone_angle = 2.8701415
 
 [node name="RamieP" type="Bone2D" parent="Skeleton2D/Biodra/Tulow" unique_id=662576914]
 position = Vector2(147, 1.9999697)
@@ -73,7 +73,7 @@ position = Vector2(-29, 200)
 rest = Transform2D(1, 0, 0, 1, -29, 200)
 auto_calculate_length_and_angle = false
 length = 60.445396
-bone_angle = 1.6714996
+bone_angle = 1.6714995
 
 [node name="UdoP" type="Bone2D" parent="Skeleton2D/Biodra" unique_id=1903672363]
 position = Vector2(96, -1)
